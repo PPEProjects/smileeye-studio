@@ -1,6 +1,6 @@
 <template>
   <div
-      :id="$route.name"
+      :id="String($route.name) || '' "
       class="bg-primary-50 text-slate-900"
   >
     <div class="flex">

@@ -16,7 +16,7 @@
         :disabled="disabled"
         @focus='onFocus()'
         @focusout='outFocus()'
-        @input="$emit('update:value', $event.target.value)"
+        @input="onChangeTextField"
       />
 
       <slot name='suffix'></slot>
@@ -38,7 +38,11 @@
 
 <script lang="ts" setup>
 import {inject, nextTick, ref} from "vue";
-import {AnimeInstance} from "../../types/anime";
+import {AnimeInstance} from "#types/anime"
+
+const emit = defineEmits<{
+  (e: 'update:value', value: string): void
+}>()
 
  const { validate, value, placeholder, disabled, type } = defineProps({
   placeholder: {
@@ -67,6 +71,10 @@ const isFocus = ref<boolean>(false)
 const errorMessage = ref<string>('')
 
 const inputKID = ref(String(`input-${Math.random()}`))
+
+const onChangeTextField = (event: any) => {
+  emit('update:value', event.target.value)
+}
 
 const anime = inject<AnimeInstance>('anime')!
 const onFocus = () => {
