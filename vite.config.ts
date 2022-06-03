@@ -12,6 +12,9 @@ export default defineConfig({
       '#types' : path.resolve(__dirname, './src/types')
     },
   },
+  preview: {
+    port: 3111
+  },
   plugins: [vue()],
   css: {
     preprocessorOptions: {
