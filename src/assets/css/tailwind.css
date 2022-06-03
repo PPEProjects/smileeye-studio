@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+svg {
+    vertical-align: baseline;
+    display: inline-block;
+}
+
+.btn-effect {
+    @apply flex items-center justify-center text-white shadow-md transition duration-300 ease-in-out hover:shadow bg-gradient-to-r from-primary-500 to-primary-700 rounded-full shadow-primary-300
+}
+.btn-text-size {
+    @apply text-mini sm:text-semi-mini
+}
+
+.animate {
+    @apply transition duration-300 ease-in-out
+}
+.ant-btn>.ant-btn-loading-icon {
+    position: relative;
+    top: -4px;
+}
+
+button.ant-btn-sm > svg {
+    position: relative;
+    top: 3px;
+}
+
+.sub-nav {
+    box-shadow: 0 8px 24px 0 rgb(0 0 0 / 16%);
+}
+
+.menuX-enter-active, .menuX-leave-active {
+    transition: all ease-in-out 200ms;
+}
+.menuX-enter, .menuX-leave-to {
+    transform: translateX(20px);
+    opacity: 0;
+}
+
+#sidebarInput:checked+div .horizontal-menu > div {
+    flex-direction: column;
+}
+
+#sidebarInput:checked+div .horizontal-menu > div > button:nth-child(2) {
+    margin: 25px 0;
+}
+
+
+@-webkit-keyframes hide-text {
+    0%,
+    to {
+        color: transparent
+    }
+}
+
+@keyframes hide-text {
+    0%,
+    to {
+        color: transparent
+    }
+}
+
+@-webkit-keyframes ball-pulse {
+    0%,
+    60%,
+    to {
+        opacity: 1;
+        transform: scale(1)
+    }
+    30% {
+        opacity: .1;
+        transform: scale(.01)
+    }
+}
+
+@keyframes ball-pulse {
+    0%,
+    60%,
+    to {
+        opacity: 1;
+        transform: scale(1)
+    }
+    30% {
+        opacity: .1;
+        transform: scale(.01)
+    }
+}
+.bt._loading {
+    overflow: hidden;
+    pointer-events: none;
+    position: relative;
+    opacity: .5;
+    -webkit-animation: hide-text 1s ease infinite;
+    animation: hide-text 1s ease infinite;
+}
+.bt._loading:before, .bt._loading:after {
+    height: 0;
+    width: 0;
+    border: 5px solid;
+    background: #fff;
+    border-radius: 100%;
+    position: absolute;
+    content: "";
+    top: 50%;
+    margin-top: -6px;
+    -webkit-animation: ball-pulse 1s ease infinite;
+    animation: ball-pulse 1s ease infinite;
+}
+.bt._loading:after {
+    left: 50%;
+    margin-left: 4px;
+}
+.bt._loading:before {
+    right: 50%;
+    margin-right: 4px;
+    -webkit-animation-delay: -.1s;
+    animation-delay: -.1s;
+}
