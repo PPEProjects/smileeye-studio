@@ -28,13 +28,13 @@
       <menu-item :active="/^dashboard/.test($route.name)" icon="#i-dashboard" label="Tổng Quan" to="/dashboard" />
       <menu-item :active="/^(stories|story|chapter|publish)/.test($route.name)" icon="#i-workspace" label="Tác Phẩm" to="/stories" />
 
-      <menu-item :active="/^(crawl)/.test($route.name)" icon="#i-rocket" label="Thu Thập" to="/crawl" />
+      <menu-item :active="/^(crawl)/.test($route.name)" icon="#i-trail" label="Draggable" to="/draggable" />
 
-      <menu-item :active="/^(users|banners|categories)/.test($route.name)" label="Cài Đặt" icon="#i-hammer">
+      <menu-item :active="/^(users|banners|categories)/.test($route.name)" label="Tools" icon="#i-hammer">
         <template #default>
           <ul class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded">
-            <menu-item :active="/^(users)/.test($route.name)" icon="#i-user" label="Thành Viên" to="/users" />
-            <menu-item :active="/^(banners)/.test($route.name)" icon="#i-shirt" label="Ảnh Bìa" to="/banners" />
+            <menu-item :active="/^(users)/.test($route.name)" icon="#i-crop" label="Crop Image" to="/croper" />
+            <menu-item :active="/^(banners)/.test($route.name)" icon="#i-chart" label="Analytics" to="/banners" />
             <menu-item :active="/^(categories)/.test($route.name)" icon="#i-extentions" label="Thể Loại" to="/categories" />
           </ul>
         </template>

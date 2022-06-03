@@ -1,13 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/less/ant.less'
 import './assets/css/tailwind.css'
+import './assets/less/ant.less'
 
 import Antd from 'ant-design-vue';
 
 // Cookie
 import VueCookies from 'vue-cookies'
-
 
 // Apollo
 import apolloClient from "./plugins/apollo"
@@ -21,14 +20,17 @@ import router from "./routes"
 // Animation
 import animejs from './plugins/animejs'
 import VueLottie from '@nguyenshort/vue-lottie'
-import {createPinia} from "pinia";
 
 // Pinna store
+import {createPinia} from "pinia"
 const pinia = createPinia()
 
+// Dayjs
+import dayjs from "./plugins/dayjs"
 
 // Mounted Teleport
-import teleport from "./plugins/teleport";
+import teleport from "./plugins/teleport"
+// import draggable from "./plugins/draggable"
 
 const app = createApp(App)
 app.use(Antd)
@@ -36,6 +38,8 @@ app.use(animejs)
 app.use(VueLottie)
 app.use(VueCookies)
 app.use(teleport)
+app.use(dayjs)
+// app.use(draggable)
 
 app.provide('apollo', { DefaultApolloClient, apolloClient })
 app.use(http)

@@ -1,5 +1,5 @@
 import {inject, ref} from "vue";
-import {AnimeInstance} from "../../types/anime";
+import {AnimeInstance} from "#types/anime";
 
 export const useModal = () => {
     // @ts-ignore
