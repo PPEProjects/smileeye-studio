@@ -65,8 +65,4 @@
   </svg>
 </template>
 
-<script>
-export default {
-  name: "IconView"
-}
-</script>
+<script lang="ts" setup></script>
