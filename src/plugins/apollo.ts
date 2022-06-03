@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import {setContext} from "@apollo/client/link/context";
 import {onError} from "@apollo/client/link/error";
-import {useUserStore} from "../store/user";
+import {useUserStore} from "@store/user";
 
 // HTTP connection to the API
 const httpLink = createHttpLink({

@@ -30,7 +30,10 @@ import dayjs from "./plugins/dayjs"
 
 // Mounted Teleport
 import teleport from "./plugins/teleport"
+import cropper from "./plugins/cropper";
 // import draggable from "./plugins/draggable"
+
+// Cropper
 
 const app = createApp(App)
 app.use(Antd)
@@ -39,6 +42,7 @@ app.use(VueLottie)
 app.use(VueCookies)
 app.use(teleport)
 app.use(dayjs)
+app.use(cropper)
 // app.use(draggable)
 
 app.provide('apollo', { DefaultApolloClient, apolloClient })

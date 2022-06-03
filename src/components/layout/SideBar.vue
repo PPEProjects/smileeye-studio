@@ -30,10 +30,10 @@
 
       <menu-item :active="/^(crawl)/.test($route.name)" icon="#i-trail" label="Draggable" to="/draggable" />
 
-      <menu-item :active="/^(users|banners|categories)/.test($route.name)" label="Tools" icon="#i-hammer">
+      <menu-item :active="/^(cropper|banners|categories)/.test($route.name)" label="Tools" icon="#i-hammer">
         <template #default>
           <ul class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded">
-            <menu-item :active="/^(users)/.test($route.name)" icon="#i-crop" label="Crop Image" to="/croper" />
+            <menu-item :active="/^(croper)/.test($route.name)" icon="#i-crop" label="Crop Image" to="/cropper" />
             <menu-item :active="/^(banners)/.test($route.name)" icon="#i-chart" label="Analytics" to="/banners" />
             <menu-item :active="/^(categories)/.test($route.name)" icon="#i-extentions" label="Thể Loại" to="/categories" />
           </ul>

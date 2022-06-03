@@ -19,6 +19,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import('./pages/draggable/index.vue')
     },
     {
+        path: '/cropper',
+        component: () => import('./pages/cropper/index.vue')
+    },
+    {
         path: "/:pathMatch(.*)*",
         component: () => import('./pages/error/index.vue')
     }
