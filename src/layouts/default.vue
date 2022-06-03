@@ -6,7 +6,7 @@
     <div class="flex">
       <input id="sidebarInput" v-model="isOpen" type="checkbox" class="hidden">
 
-      <side-bar class="w-[280px] sidebar animate" />
+      <side-bar v-memo class="w-[280px] sidebar animate" />
 
       <div class="w-full h-screen animate">
         <div class="h-[70px] w-full bg-white relative top-0 left-0 right-0 z-10 px-[32px] flex items-center">

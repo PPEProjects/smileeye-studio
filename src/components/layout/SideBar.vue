@@ -25,7 +25,7 @@
 
     <ul class="mt-20 nav-primary">
 
-      <menu-item :active="/^dashboard/.test($route.name)" icon="#i-dashboard" label="Tổng Quan" to="/" />
+      <menu-item :active="/^dashboard/.test($route.name)" icon="#i-dashboard" label="Tổng Quan" to="/dashboard" />
       <menu-item :active="/^(stories|story|chapter|publish)/.test($route.name)" icon="#i-workspace" label="Tác Phẩm" to="/stories" />
 
       <menu-item :active="/^(crawl)/.test($route.name)" icon="#i-rocket" label="Thu Thập" to="/crawl" />
