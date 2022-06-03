@@ -1,12 +1,9 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 
-import Home from './pages/index.vue'
-import Dashboard from './pages/dashboard/index.vue'
-
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        component: Home,
+        component: () => import('./pages/index.vue'),
         meta: {
             layout: 'blank',
             public: true
@@ -14,7 +11,7 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/dashboard',
-        component: Dashboard,
+        component: () => import('./pages/dashboard/index.vue'),
         meta: {}
     },
     {
