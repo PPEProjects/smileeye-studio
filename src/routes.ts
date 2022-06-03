@@ -6,7 +6,6 @@ import Dashboard from './pages/dashboard/index.vue'
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'auth',
         component: Home,
         meta: {
             layout: 'blank',
