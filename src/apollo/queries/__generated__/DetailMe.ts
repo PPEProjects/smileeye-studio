@@ -11,6 +11,7 @@ export interface DetailMe_detail_me {
   __typename: "User";
   id: string | null;
   name: string | null;
+  phone_number: string | null;
   email: string | null;
   avatar: string | null;
   roles: any | null;

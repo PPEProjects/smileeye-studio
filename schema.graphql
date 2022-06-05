@@ -1,1232 +1,1332 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
+"""
+Direct the client to resolve this field locally, either from the cache or local resolvers.
+"""
+directive @client(
+  """
+  When true, the client will never use the cache for this value. See
+  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  """
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
 
-schema {
-    query: Query
-    mutation: Mutation
-}
+"""
+Export this locally resolved field as a variable to be used in the remainder of this query. See
+https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+"""
+directive @export(
+  """The variable name to export this field as."""
+  as: String!
+) on FIELD
 
-type Attachment {
-    file: String
-    id: ID
-    thumb: String
-}
+"""
+Specify a custom store key for this result. See
+https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+"""
+directive @connection(
+  """Specify the store key."""
+  key: String!
 
-type AuthPayload {
-    access_token: String
-    expires_in: Int
-    refresh_token: String
-    token_type: String
-    user: User
-}
-
-type CoachMember {
-    created_at: DateTime
-    goal_ids: JSON
-    goals: [GoalRoot]
-    id: ID
-    updated_at: DateTime
-    user: User
-}
-
-"A paginated list of CoachMember items."
-type CoachMemberPaginator {
-    "A list of CoachMember items."
-    data: [CoachMember!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type ForgotPasswordResponse {
-    message: String
-    status: String!
-}
-
-type Friend {
-    created_at: DateTime!
-    friend: User
-    id: ID
-    status: String
-    updated_at: DateTime!
-    user: User
-    user_id: ID
-    user_id_friend: ID
-}
-
-type FriendGroup {
-    avatar: String
-    count_members: Int
-    created_at: DateTime
-    description: String
-    id: ID
-    member_ids: JSON
-    members: [User]
-    name: String
-    updated_at: DateTime
-    user: User
-}
-
-type Goal {
-    created_at: DateTime!
-    goal_root: GoalRoot
-    id: String
-    name: String
-    parent: Goal
-    parent_id: ID
-    report_type: String
-    root_id: ID
-    updated_at: DateTime!
-    user: User
-    user_id: ID
-}
-
-type GoalBlock {
-    goal_id: ID
-    id: ID
-    is_paid: Boolean
-    name: String
-    type: String
-}
-
-type GoalMember {
-    add_user: User
-    add_user_id: ID
-    created_at: DateTime
-    goal: Goal
-    goal_id: ID
-    id: ID
-    number_member: Int
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of GoalMember items."
-type GoalMemberPaginator {
-    "A list of GoalMember items."
-    data: [GoalMember!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type GoalRank {
-    created_at: DateTime
-    goal: Goal
-    goal_id: ID
-    id: ID
-    pin_index: Int
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-type GoalRoot {
-    created_at: DateTime!
-    description: String
-    detailed_income: JSON
-    end_day: DateTime
-    goal_score: GoalScore
-    id: ID
-    image: JSON
-    is_trial: Boolean
-    name: String
-    owner_percent: String
-    price: String
-    sellRequest: GoalTemplate
-    start_day: DateTime
-    status: String
-    total_score: String
-    trial_blocks: JSON
-    type: String
-    updated_at: DateTime!
-    user: User
-    user_id: ID
-    video: JSON
-}
-
-type GoalScore {
-    created_at: DateTime
-    goal: Goal
-    goal_id: ID
-    id: ID
-    scores: JSON
-    sum: String
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of GoalScore items."
-type GoalScorePaginator {
-    "A list of GoalScore items."
-    data: [GoalScore!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type GoalTemplate {
-    checked_time: Int
-    created_at: DateTime!
-    goal: GoalRoot
-    goal_id: ID
-    id: ID
-    message: String
-    request: String
-    sell_goal: String
-    status: String
-    updated_at: DateTime!
-    user_id: ID
-}
-
-type JapaneseGoal {
-    each_score: Float
-    goal: Goal
-    goal_id: ID
-    goal_root: Goal
-    id: ID
-    is_paid: Boolean
-    list_users: [User]
-    more: JSON
-    root_id: ID
-    score: Float
-    total_score: Float
-    type: String
-    user: User
-}
-
-"A paginated list of JapaneseGoal items."
-type JapaneseGoalPaginator {
-    "A list of JapaneseGoal items."
-    data: [JapaneseGoal!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type JapaneseKanji {
-    created_at: DateTime
-    id: ID
-    more: JSON
-    name: String
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of JapaneseKanji items."
-type JapaneseKanjiPaginator {
-    "A list of JapaneseKanji items."
-    data: [JapaneseKanji!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type JapaneseLearn {
-    created_at: DateTime
-    goal: Goal
-    goal_id: ID
-    goal_no_childs: [Goal]
-    id: ID
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of JapaneseLearn items."
-type JapaneseLearnPaginator {
-    "A list of JapaneseLearn items."
-    data: [JapaneseLearn!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type JapanesePost {
-    created_at: DateTime
-    description: String
-    goal: Goal
-    goal_id: ID
-    id: ID
-    likes: JSON
-    media: JSON
-    more: JSON
-    title: String
-    type: String
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of JapanesePost items."
-type JapanesePostPaginator {
-    "A list of JapanesePost items."
-    data: [JapanesePost!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type LogoutResponse {
-    message: String
-    status: String!
-}
-
-type Mutation {
-    add_friend(input: AddFriendInput!): Friend
-    add_member_friend_groups(input: AddMemberFriendGroupInput!): FriendGroup
-    create_friend_groups(input: CreateFriendGroupInput!): FriendGroup
-    create_goal(input: CreateGoalInput!): Goal
-    create_goal_root(input: CreateGoalRootInput!): GoalRoot
-    create_goal_template(input: CreateGoalTemplateInput!): GoalTemplate
-    create_japanese_goals(input: CreateJapaneseGoalInput!): JapaneseGoal
-    create_japanese_kanji(input: CreateJapaneseKanjiInput!): JapaneseKanji
-    create_japanese_post(input: CreateJapanesePostInput!): JapanesePost
-    create_note(input: CreateNoteInput!): Note
-    create_story_share(input: CreateStoryShareInput!): StoryShare
-    create_task(input: CreateTaskInput!): Task
-    delete_coach_from_goal(input: DeleteCoachFromGoal!): Boolean
-    delete_coach_member(input: DeleteCoachMemberInput!): Boolean
-    delete_friend_groups(input: DeleteFriendGroupInput!): Boolean
-    delete_friends(input: DeleteFriendInput!): Boolean
-    delete_goal(input: DeleteGoalInput!): Boolean
-    delete_goal_member(input: DeleteGoalMemberInput!): Boolean
-    delete_goal_root(input: DeleteGoalRootInput!): Boolean
-    delete_goal_score(input: DeleteGoalScoreInput!): Boolean
-    delete_japanese_goals(id: ID!): Boolean
-    delete_japanese_kanji(input: DeleteJapaneseKanjiInput!): Boolean
-    delete_japanese_learn(input: DeleteJapaneseLearnInput!): Boolean
-    delete_japanese_posts(input: DeleteJapanesePostInput!): Boolean
-    delete_member_friend_groups(input: DeleteMemberFriendGroupInput!): Boolean
-    delete_member_from_goal(input: DeleteGoalMemberInput!): Boolean
-    delete_note(input: DeleteNoteInput!): Boolean
-    delete_payment(input: DeletePaymentInput!): Boolean
-    delete_task(input: deleteTaskInput!): Boolean
-    duplicate_goals(id: ID!, new_id: ID!): JSON
-    edit_goal_root(input: EditGoalRootInput!): GoalRoot
-    forgotPassword(input: ForgotPasswordInput!): ForgotPasswordResponse!
-    login(input: LoginInput): AuthPayload!
-    logout: LogoutResponse!
-    refreshToken(input: RefreshTokenInput): RefreshTokenPayload!
-    register(input: RegisterInput): RegisterResponse!
-    socialLogin(input: SocialLoginInput!): AuthPayload!
-    task_toggle(id: ID!): Task
-    updateForgottenPassword(input: NewPasswordWithCodeInput): ForgotPasswordResponse!
-    updateMeetUrl_sing_with_friend(input: UpdateMeetUrlInput!): Boolean
-    updatePassword(input: UpdatePassword!): UpdatePasswordResponse!
-    update_friend_groups(input: UpdateFriendGroupInput!): FriendGroup
-    update_goal_move(input: UpdateGoalMoveInput!): JSON
-    update_goal_score(input: UpdateGoalScoreInput!): GoalScore
-    update_japanese_goals(input: UpdateJapaneseGoalInput!): JapaneseGoal
-    update_japanese_kanji(input: UpdateJapaneseKanjiInput!): JapaneseKanji
-    update_japanese_learn(input: UpdateJapaneseLearnInput!): JapaneseLearn
-    update_japanese_posts(input: UpdateJapanesePostInput!): JapanesePost
-    update_note(input: UpdateNoteInput!): Note
-    update_story_share(input: UpdateStoryShareInput!): StoryShare
-    update_task(input: EditTaskInput!): Task
-    update_user(input: UpdateUserInput!): User
-    upsert_coach_member(input: UpsertCoachMemberInput!): CoachMember
-    upsert_friend(input: UpsertFriendInput!): Friend
-    upsert_goal(input: UpsertGoalInput!): Goal
-    upsert_goal_member(input: UpsertGoalMemberInput!): [GoalMember]
-    upsert_goal_rank(input: UpsertGoalRankInput!): Boolean
-    upsert_goal_root(input: EditGoalRootInput!): GoalRoot
-    upsert_goal_score(input: UpsertGoalScoreInput!): GoalScore
-    upsert_goal_template(input: UpsertGoalTemplateInput!): GoalTemplate
-    upsert_japanese_goals(input: UpsertJapaneseGoalInput!): JapaneseGoal
-    upsert_japanese_kanji(input: UpsertJapaneseKanjiInput!): JapaneseKanji
-    upsert_japanese_learn(input: UpsertJapaneseLearnInput!): JapaneseLearn
-    upsert_japanese_post(input: UpsertJapanesePostInput!): JapanesePost
-    upsert_payment(input: UpsertPaymentInput!): [Payment]
-    verifyEmail(input: VerifyEmailInput!): AuthPayload!
-}
-
-type NextAndPrevGoal {
-    current: GoalBlock
-    next: GoalBlock
-    prev: GoalBlock
-}
-
-type Note {
-    checked_at: String
-    content: String
-    created_at: DateTime
-    id: ID
-    text_color: String
-    type: String
-    type_id: ID
-    updated_at: DateTime
-    user: User
-    user_id: ID
-}
-
-"A paginated list of Note items."
-type NotePaginator {
-    "A list of Note items."
-    data: [Note!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-"Information about pagination using a Relay style cursor connection."
-type PageInfo {
-    "Number of nodes in the current page."
-    count: Int!
-    "Index of the current page."
-    currentPage: Int!
-    "The cursor to continue paginating forwards."
-    endCursor: String
-    "When paginating forwards, are there more items?"
-    hasNextPage: Boolean!
-    "When paginating backwards, are there more items?"
-    hasPreviousPage: Boolean!
-    "Index of the last available page."
-    lastPage: Int!
-    "The cursor to continue paginating backwards."
-    startCursor: String
-    "Total number of nodes in the paginated connection."
-    total: Int!
-}
-
-"Information about pagination using a fully featured paginator."
-type PaginatorInfo {
-    "Number of items in the current page."
-    count: Int!
-    "Index of the current page."
-    currentPage: Int!
-    "Index of the first item in the current page."
-    firstItem: Int
-    "Are there more pages after this one?"
-    hasMorePages: Boolean!
-    "Index of the last item in the current page."
-    lastItem: Int
-    "Index of the last available page."
-    lastPage: Int!
-    "Number of items per page."
-    perPage: Int!
-    "Number of total available items."
-    total: Int!
-}
-
-type Payment {
-    add_user: User
-    add_user_id: ID
-    attachments: JSON
-    created_at: DateTime
-    goal: Goal
-    goal_id: ID
-    id: ID
-    money: String
-    note: String
-    number_member: Int
-    status: String
-    type: String
-    updated_at: DateTime
-    user: User
-    user_id: ID
-    user_info: JSON
-}
-
-"A paginated list of Payment items."
-type PaymentPaginator {
-    "A list of Payment items."
-    data: [Payment!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-type Query {
-    all_goal: [Goal]
-    auto_play_japanese_goal(root_id: ID): JapaneseGoal
-    coach_member(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): CoachMemberPaginator
-    detail_coach_member(user_id: ID!): CoachMember
-    detail_goal(id: ID!): Goal
-    detail_goal_member(id: ID!): GoalMember
-    detail_goal_root(id: ID): GoalRoot
-    detail_goal_score(goal_id: ID, id: ID): GoalScore
-    detail_japanese_goal(goal_id: ID, id: ID): JapaneseGoal
-    detail_japanese_kanji(id: ID): JapaneseKanji
-    detail_japanese_learn(id: ID): JapaneseLearn
-    detail_japanese_posts(goal_id: ID, id: ID): JapanesePost
-    detail_me: User
-    detail_my_payment(goal_id: ID!): Payment
-    detail_notes(id: ID): Note
-    detail_payment(id: ID!): Payment
-    detail_task(id: ID): Task
-    detail_user(id: ID!): User
-    dollar_my_own_goal_root: [GoalRoot]
-    goal_by_parent_ids(parent_ids: [ID]): [Goal]
-    goal_members(name_add_user: String, name_goal: String): [GoalMember]
-    goal_root_by_user(user_id: ID!): [GoalRoot]
-    goal_score(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): GoalScorePaginator
-    japanese_goals(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseGoalPaginator
-    japanese_kanji(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseKanjiPaginator
-    japanese_learn(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseLearnPaginator
-    japanese_posts(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): JapanesePostPaginator
-    list_coach_members(goal_root_id: ID): [User]
-    list_goal_by_parent_id(parent_id: ID): [Goal]
-    list_goal_root: [GoalRoot]
-    list_goal_score(goal_root_id: ID, user_id: ID): JSON
-    list_goal_template(status: String): [GoalTemplate]
-    list_invite_friends: [User]
-    list_japanese_kanji(ids: [ID]): [JapaneseKanji]
-    list_japanese_post(goal_id: ID): [JapanesePost]
-    list_japanese_posts_by_goal_root(goal_root_id: ID, user_id: ID): [JapanesePost]
-    list_student(goal_root_id: ID): [User]
-    list_user(
-        email: String,
-        "Limits number of fetched items."
-        first: Int!,
-        name: String,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int,
-        phone_number: String
-    ): UserPaginator
-    list_userid_japanese_learn(goal_id: ID!): UserID
-    my_friend_groups: [FriendGroup]
-    my_friends: [User]
-    my_goal(root_id: ID): [Goal]
-    my_goal_members: [GoalMember]
-    my_goal_root: [GoalRoot]
-    my_goal_score: [GoalScore]
-    my_japanese_kanji: [JapaneseKanji]
-    my_japanese_learn: [JapaneseLearn]
-    my_japanese_posts: [JapanesePost]
-    my_notes(day: String, type: String): [Note]
-    my_payments: [Payment]
-    my_progress: [GoalRoot]
-    my_story_share(goal_id: ID): [StoryShare]
-    my_total_payment: JSON
-    my_tree_goal(goal_id: ID): JSON
-    my_tree_goal_v2(goal_id: ID): JSON
-    note(
-        "Limits number of fetched items."
-        first: Int!,
-        "The offset from which items are returned."
-        page: Int
-    ): NotePaginator
-    other_japanese_posts(goal_id: ID): [JapanesePost]
-    payments: [Payment]
-    prev_next_goal(goal_id: ID): NextAndPrevGoal
-    progress_user_japanese_learn(name: String): JSON
-    reviewer_story_share(goal_id: ID): [StoryShare]
-    search_by_type_japanese_goal(type: String): [JapaneseGoal]
-    sort_goal_members(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): GoalMemberPaginator
-    sort_goal_score(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): GoalScorePaginator
-    sort_japanese_goals(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseGoalPaginator
-    sort_japanese_kanji(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseKanjiPaginator
-    sort_japanese_learn(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): JapaneseLearnPaginator
-    sort_japanese_posts(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): JapanesePostPaginator
-    sort_notes(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): NotePaginator
-    sort_payments(
-        "Limits number of fetched items."
-        first: Int!,
-        orderBy: [OrderByClause!],
-        "The offset from which items are returned."
-        page: Int
-    ): PaymentPaginator
-    summary_goal_members: [GoalMember]
-    tasks_by_month(month: String): [Task]
-    tasks_sort_by_day(month: String): [TaskByMonth]
-    user(id: ID): User
-    users(
-        "Limits number of fetched items."
-        first: Int = 10,
-        "The offset from which items are returned."
-        page: Int
-    ): UserPaginator
-    vocabulary_japanese_kanji: [JapaneseKanji]
-}
-
-type RefreshTokenPayload {
-    access_token: String!
-    expires_in: Int!
-    refresh_token: String!
-    token_type: String!
-}
-
-type RegisterResponse {
-    status: RegisterStatuses!
-    tokens: AuthPayload
-}
-
-"Information about pagination using a simple paginator."
-type SimplePaginatorInfo {
-    "Number of items in the current page."
-    count: Int!
-    "Index of the current page."
-    currentPage: Int!
-    "Index of the first item in the current page."
-    firstItem: Int
-    "Are there more pages after this one?"
-    hasMorePages: Boolean!
-    "Index of the last item in the current page."
-    lastItem: Int
-    "Number of items per page."
-    perPage: Int!
-}
-
-type StoryShare {
-    content: String
-    created_at: DateTime!
-    goal: Goal
-    goal_id: ID
-    id: ID
-    image: String
-    reviewers: JSON
-    updated_at: DateTime!
-    user: User
-    user_id: ID
-}
-
-type Task {
-    at_time: String
-    created_at: DateTime!
-    id: ID
-    name: String
-    reminder: String
-    repeat: String
-    status: String
-    text_color: String
-    updated_at: DateTime!
-    user_id: ID
-}
-
-type TaskByMonth {
-    day: String
-    tasks: [Task]
-}
-
-type UpdatePasswordResponse {
-    message: String
-    status: String!
-}
-
-type User {
-    address: String
-    attachment: Attachment
-    avatar: String
-    banner: String
-    country: String
-    created_at: DateTime!
-    current_address: JSON
-    date_of_birth: String
-    email: String
-    first_name: String
-    gender: String
-    id: ID
-    is_flag: Boolean
-    name: String
-    phone_number: String
-    quotes: String
-    role_label: String
-    roles: JSON
-    score: Int
-    sum_day_learn: Int
-    total_friend: Int
-    total_goal: Int
-    updated_at: DateTime!
-    username: String
-}
-
-type UserID {
-    user_ids: [ID]
-}
-
-"A paginated list of User items."
-type UserPaginator {
-    "A list of User items."
-    data: [User!]!
-    "Pagination information about the list of items."
-    paginatorInfo: PaginatorInfo!
-}
-
-"Aggregate functions when ordering by a relation without specifying a column."
-enum OrderByRelationAggregateFunction {
-    "Amount of items."
-    COUNT
-}
-
-"Aggregate functions when ordering by a relation that may specify a column."
-enum OrderByRelationWithColumnAggregateFunction {
-    "Average."
-    AVG
-    "Amount of items."
-    COUNT
-    "Maximum."
-    MAX
-    "Minimum."
-    MIN
-    "Sum."
-    SUM
-}
-
-enum RegisterStatuses {
-    MUST_VERIFY_EMAIL
-    SUCCESS
-}
-
-enum STATUS {
-    ON_BUY
-    PAID_CONFIRMED
-    SENT_RECEIPT
-    TRIAL
-}
-
-"Directions for ordering a list of records."
-enum SortOrder {
-    "Sort records in ascending order."
-    ASC
-    "Sort records in descending order."
-    DESC
-}
-
-"Specify if you want to include or exclude trashed results from a query."
-enum Trashed {
-    "Only return trashed results."
-    ONLY
-    "Return both trashed and non-trashed results."
-    WITH
-    "Only return non-trashed results."
-    WITHOUT
-}
-
-"A date string with format `Y-m-d`, e.g. `2011-05-23`."
-scalar Date
-
-"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime
-
-"A JSON with format `{}, []`"
-scalar JSON
+  """
+  An array of query argument names to include in the generated custom store key.
+  """
+  filter: [String!]
+) on FIELD
 
 input AddFriendInput {
-    user_id_friend: ID
+  user_id_friend: ID
 }
 
 input AddMemberFriendGroupInput {
-    id: ID!
-    member_ids: [ID!]!
+  id: ID!
+  member_ids: [ID!]!
+}
+
+type Attachment {
+  id: ID
+  file: String
+  thumb: String
+}
+
+type AuthPayload {
+  access_token: String
+  refresh_token: String
+  expires_in: Int
+  token_type: String
+  user: User
+}
+
+type CoachMember {
+  id: ID
+  user: User
+  goal_ids: JSON
+  goals: [GoalRoot]
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of CoachMember items."""
+type CoachMemberPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of CoachMember items."""
+  data: [CoachMember!]!
 }
 
 input CreateFriendGroupInput {
-    avatar: String
-    description: String
-    member_ids: [ID]
-    name: String
+  name: String
+  member_ids: [ID]
+  description: String
+  avatar: String
 }
 
 input CreateGoalInput {
-    id: String
-    name: String
-    parent_id: ID
-    report_type: String
-    root_id: ID
+  id: String
+  name: String
+  parent_id: ID
+  root_id: ID
+  report_type: String
 }
 
 input CreateGoalMemberInput {
-    add_user_id: ID
-    goal_id: ID
+  add_user_id: ID
+  goal_id: ID
 }
 
 input CreateGoalRootInput {
-    description: String
-    end_day: DateTime
-    image: JSON
-    is_trial: Boolean
-    name: String
-    owner_percent: String
-    price: String
-    start_day: DateTime
-    status: String
-    trial_blocks: JSON
-    video: JSON
+  name: String
+  description: String
+  price: String
+  status: String
+  video: JSON
+  image: JSON
+  owner_percent: String
+  start_day: DateTime
+  end_day: DateTime
+  trial_blocks: JSON
+  is_trial: Boolean
 }
 
 input CreateGoalTemplateInput {
-    goal_id: ID
-    message: String
-    request: String
-    sell_goal: String
-    status: String
+  goal_id: ID
+  status: String
+  request: String
+  sell_goal: String
+  message: String
 }
 
 input CreateJapaneseGoalInput {
-    each_score: Float
-    goal_id: ID
-    more: JSON
-    name_goal: String
-    parent_id: ID
-    root_id: ID
-    score: Float
-    total_score: Float
-    type: String
+  name_goal: String
+  goal_id: ID
+  parent_id: ID
+  type: String
+  more: JSON
+  total_score: Float
+  score: Float
+  each_score: Float
+  root_id: ID
 }
 
 input CreateJapaneseKanjiInput {
-    more: JSON
-    name: String
+  name: String
+  more: JSON
 }
 
 input CreateJapanesePostInput {
-    description: String
-    goal_id: ID
-    likes: JSON
-    media: JSON
-    more: JSON
-    title: String
-    type: String
+  goal_id: ID
+  title: String
+  type: String
+  description: String
+  media: JSON
+  likes: JSON
+  more: JSON
 }
 
 input CreateNoteInput {
-    checked_at: String
-    content: String
-    text_color: String
-    type: String
-    type_id: ID
+  type_id: ID
+  type: String
+  content: String
+  text_color: String
+  checked_at: String
 }
 
 input CreatePaymentInput {
-    add_user_id: ID
-    attachments: JSON
-    goal_id: ID
-    money: String
-    note: String
-    status: STATUS
-    type: String
-    user_info: JSON
+  add_user_id: ID
+  goal_id: ID
+  status: STATUS
+  type: String
+  user_info: JSON
+  money: String
+  note: String
+  attachments: JSON
 }
 
 input CreateStoryShareInput {
-    content: String
-    goal_id: ID
-    image: String
-    reviewers: [ID]
+  goal_id: ID
+  image: String
+  content: String
+  reviewers: [ID]
 }
 
 input CreateTaskInput {
-    at_time: String
-    created_at: String
-    name: String
-    reminder: String
-    repeat: String
-    status: String
-    text_color: String
+  name: String
+  status: String
+  repeat: String
+  at_time: String
+  reminder: String
+  text_color: String
+  created_at: String
 }
 
+"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+scalar Date
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
+
 input DeleteCoachFromGoal {
-    goal_root_id: ID
-    user_id: ID
+  user_id: ID
+  goal_root_id: ID
 }
 
 input DeleteCoachMemberInput {
-    id: ID
+  id: ID
 }
 
 input DeleteFriendGroupInput {
-    id: ID!
+  id: ID!
 }
 
 input DeleteFriendInput {
-    user_id_friends: [ID!]!
+  user_id_friends: [ID!]!
 }
 
 input DeleteGoalInput {
-    id: String
+  id: String
 }
 
 input DeleteGoalMemberInput {
-    goal_root_id: ID
-    user_id: ID
+  user_id: ID
+  goal_root_id: ID
 }
 
 input DeleteGoalRootInput {
-    id: ID
+  id: ID
 }
 
 input DeleteGoalScoreInput {
-    id: ID!
+  id: ID!
 }
 
 input DeleteJapaneseKanjiInput {
-    id: ID!
+  id: ID!
 }
 
 input DeleteJapaneseLearnInput {
-    id: ID!
+  id: ID!
 }
 
 input DeleteJapanesePostInput {
-    id: ID!
+  id: ID!
 }
 
 input DeleteMemberFriendGroupInput {
-    id: ID!
-    member_ids: [ID!]!
+  id: ID!
+  member_ids: [ID!]!
 }
 
 input DeleteNoteInput {
-    id: ID!
+  id: ID!
 }
 
 input DeletePaymentInput {
-    id: ID!
-}
-
-input EditGoalRootInput {
-    description: String
-    end_day: DateTime
-    id: ID
-    image: JSON
-    is_trial: Boolean
-    name: String
-    owner_percent: String
-    price: String
-    start_day: DateTime
-    status: String
-    trial_blocks: JSON
-    video: JSON
-}
-
-input EditTaskInput {
-    at_time: String
-    id: ID
-    name: String
-    reminder: String
-    repeat: String
-    status: String
-    text_color: String
-}
-
-input ForgotPasswordInput {
-    email: String!
-}
-
-input LoginInput {
-    password: String!
-    username: String!
-}
-
-input NewPasswordWithCodeInput {
-    email: String!
-    password: String!
-    password_confirmation: String!
-    token: String!
-}
-
-"Allows ordering a list of records."
-input OrderByClause {
-    "The column that is used for ordering."
-    column: String!
-    "The direction that is used for ordering."
-    order: SortOrder!
-}
-
-input RefreshTokenInput {
-    refresh_token: String
-}
-
-input RegisterInput {
-    email: String!
-    name: String!
-    password: String!
-    password_confirmation: String!
-}
-
-input SocialLoginInput {
-    provider: String!
-    token: String!
-}
-
-input UpdateFriendGroupInput {
-    avatar: String
-    description: String
-    id: ID
-    member_ids: [ID]
-    name: String
-}
-
-input UpdateGoalMemberInput {
-    add_user_id: ID
-    goal_id: ID
-    id: ID!
-}
-
-input UpdateGoalMoveInput {
-    goal_move: JSON
-}
-
-input UpdateGoalRankInput {
-    goal_id: ID
-    id: ID!
-    pin_index: Int
-}
-
-input UpdateGoalScoreInput {
-    goal_id: ID
-    id: ID!
-    scores: JSON
-}
-
-input UpdateJapaneseGoalInput {
-    each_score: Float
-    goal_id: ID
-    id: ID
-    more: JSON
-    root_id: ID
-    score: Float
-    total_score: Float
-    type: String
-}
-
-input UpdateJapaneseKanjiInput {
-    id: ID!
-    more: JSON
-    name: String
-}
-
-input UpdateJapaneseLearnInput {
-    goal_id: ID
-    id: ID!
-}
-
-input UpdateJapanesePostInput {
-    description: String
-    id: ID!
-    likes: JSON
-    media: JSON
-    more: JSON
-    title: String
-    type: String
-}
-
-input UpdateMeetUrlInput {
-    goal_id: ID!
-    meet: JSON
-}
-
-input UpdateNoteInput {
-    checked_at: String
-    content: String
-    id: ID
-    text_color: String
-    type: String
-    type_id: ID
-}
-
-input UpdatePassword {
-    old_password: String!
-    password: String!
-    password_confirmation: String!
-}
-
-input UpdatePaymentInput {
-    add_user_id: ID
-    attachments: JSON
-    goal_id: ID
-    id: ID!
-    money: String
-    note: String
-    status: STATUS
-    type: String
-    user_info: JSON
-}
-
-input UpdateStoryShareInput {
-    content: String
-    goal_id: ID
-    id: ID
-    image: String
-    reviewers: [ID]
-}
-
-input UpdateUserInput {
-    address: String
-    avatar: String
-    banner: String
-    country: String
-    current_address: JSON
-    date_of_birth: String
-    first_name: String
-    gender: String
-    id: ID
-    is_flag: Boolean
-    name: String
-    phone_number: String
-    quotes: String
-    role_label: String
-    roles: JSON
-    username: String
-}
-
-input UpsertCoachMemberInput {
-    goal_ids: [ID]
-    user_id: ID
-}
-
-input UpsertFriendInput {
-    status: String
-    user_id_friend: ID!
-}
-
-input UpsertGoalInput {
-    id: String
-    name: String
-    parent_id: ID
-    report_type: String
-    root_id: ID
-}
-
-input UpsertGoalMemberInput {
-    add_user_id: ID
-    goal_id: ID
-    goal_ids: [ID]
-    id: ID
-}
-
-input UpsertGoalRankInput {
-    goal_ids: [ID]
-}
-
-input UpsertGoalScoreInput {
-    goal_id: ID
-    id: ID
-    scores: JSON
-}
-
-input UpsertGoalTemplateInput {
-    goal_id: ID
-    message: String
-    request: String
-    sell_goal: String
-    status: String
-}
-
-input UpsertJapaneseGoalInput {
-    each_score: Float
-    id: ID
-    more: JSON
-    name_goal: String
-    parent_id: ID
-    root_id: ID
-    total_score: Float
-    type: String
-}
-
-input UpsertJapaneseKanjiInput {
-    id: ID
-    more: JSON
-    name: String
-}
-
-input UpsertJapaneseLearnInput {
-    goal_id: ID
-    id: ID
-}
-
-input UpsertJapanesePostInput {
-    description: String
-    goal_id: ID
-    id: ID
-    likes: JSON
-    media: JSON
-    more: JSON
-    title: String
-    type: String
-}
-
-input UpsertPaymentInput {
-    add_user_id: ID
-    attachments: JSON
-    goal_id: [ID]
-    id: ID
-    money: String
-    note: String
-    status: STATUS
-    type: String
-    user_info: JSON
-}
-
-input VerifyEmailInput {
-    token: String!
+  id: ID!
 }
 
 input deleteTaskInput {
-    ids: [ID]
+  ids: [ID]
+}
+
+input EditGoalRootInput {
+  id: ID
+  name: String
+  description: String
+  price: String
+  status: String
+  video: JSON
+  image: JSON
+  owner_percent: String
+  start_day: DateTime
+  end_day: DateTime
+  trial_blocks: JSON
+  is_trial: Boolean
+}
+
+input EditTaskInput {
+  id: ID
+  name: String
+  status: String
+  repeat: String
+  at_time: String
+  reminder: String
+  text_color: String
+  date: String
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+type ForgotPasswordResponse {
+  status: String!
+  message: String
+}
+
+type Friend {
+  id: ID
+  user: User
+  friend: User
+  status: String
+  user_id: ID
+  user_id_friend: ID
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type FriendGroup {
+  id: ID
+  user: User
+  name: String
+  member_ids: JSON
+  members: [User]
+  description: String
+  avatar: String
+  count_members: Int
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type Goal {
+  id: String
+  name: String
+  parent: Goal
+  user: User
+  goal_root: GoalRoot
+  parent_id: ID
+  user_id: ID
+  root_id: ID
+  report_type: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type GoalBlock {
+  id: ID
+  goal_id: ID
+  is_paid: Boolean
+  name: String
+  type: String
+}
+
+type GoalMember {
+  id: ID
+  add_user: User
+  user: User
+  user_id: ID
+  add_user_id: ID
+  goal_id: ID
+  goal: Goal
+  number_member: Int
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of GoalMember items."""
+type GoalMemberPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of GoalMember items."""
+  data: [GoalMember!]!
+}
+
+type GoalRank {
+  id: ID
+  user_id: ID
+  user: User
+  goal_id: ID
+  goal: Goal
+  pin_index: Int
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type GoalRoot {
+  id: ID
+  name: String
+  user_id: ID
+  user: User
+  sellRequest: GoalTemplate
+  description: String
+  goal_score: GoalScore
+  total_score: String
+  price: String
+  status: String
+  video: JSON
+  image: JSON
+  type: String
+  owner_percent: String
+  detailed_income: JSON
+  trial_blocks: JSON
+  is_trial: Boolean
+  start_day: DateTime
+  end_day: DateTime
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type GoalScore {
+  id: ID
+  user_id: ID
+  user: User
+  goal_id: ID
+  goal: Goal
+  scores: JSON
+  sum: String
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of GoalScore items."""
+type GoalScorePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of GoalScore items."""
+  data: [GoalScore!]!
+}
+
+type GoalTemplate {
+  id: ID
+  user_id: ID
+  goal_id: ID
+  goal: GoalRoot
+  status: String
+  request: String
+  sell_goal: String
+  message: String
+  checked_time: Int
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type JapaneseGoal {
+  id: ID
+  user: User
+  list_users: [User]
+  goal: Goal
+  goal_root: Goal
+  root_id: ID
+  goal_id: ID
+  type: String
+  more: JSON
+  total_score: Float
+  each_score: Float
+  score: Float
+  is_paid: Boolean
+}
+
+"""A paginated list of JapaneseGoal items."""
+type JapaneseGoalPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of JapaneseGoal items."""
+  data: [JapaneseGoal!]!
+}
+
+type JapaneseKanji {
+  id: ID
+  user_id: ID
+  user: User
+  name: String
+  more: JSON
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of JapaneseKanji items."""
+type JapaneseKanjiPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of JapaneseKanji items."""
+  data: [JapaneseKanji!]!
+}
+
+type JapaneseLearn {
+  id: ID
+  user_id: ID
+  user: User
+  goal_id: ID
+  goal: Goal
+  goal_no_childs: [Goal]
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of JapaneseLearn items."""
+type JapaneseLearnPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of JapaneseLearn items."""
+  data: [JapaneseLearn!]!
+}
+
+type JapanesePost {
+  id: ID
+  user_id: ID
+  user: User
+  goal_id: ID
+  type: String
+  goal: Goal
+  title: String
+  description: String
+  media: JSON
+  likes: JSON
+  more: JSON
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of JapanesePost items."""
+type JapanesePostPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of JapanesePost items."""
+  data: [JapanesePost!]!
+}
+
+"""A JSON with format `{}, []`"""
+scalar JSON
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type LogoutResponse {
+  status: String!
+  message: String
+}
+
+type Mutation {
+  login(input: LoginInput): AuthPayload!
+  refreshToken(input: RefreshTokenInput): RefreshTokenPayload!
+  logout: LogoutResponse!
+  forgotPassword(input: ForgotPasswordInput!): ForgotPasswordResponse!
+  updateForgottenPassword(input: NewPasswordWithCodeInput): ForgotPasswordResponse!
+  register(input: RegisterInput): RegisterResponse!
+  socialLogin(input: SocialLoginInput!): AuthPayload!
+  verifyEmail(input: VerifyEmailInput!): AuthPayload!
+  updatePassword(input: UpdatePassword!): UpdatePasswordResponse!
+  upsert_coach_member(input: UpsertCoachMemberInput!): CoachMember
+  delete_coach_member(input: DeleteCoachMemberInput!): Boolean
+  delete_coach_from_goal(input: DeleteCoachFromGoal!): Boolean
+  upsert_friend(input: UpsertFriendInput!): Friend
+  add_friend(input: AddFriendInput!): Friend
+  delete_friends(input: DeleteFriendInput!): Boolean
+  create_friend_groups(input: CreateFriendGroupInput!): FriendGroup
+  update_friend_groups(input: UpdateFriendGroupInput!): FriendGroup
+  delete_friend_groups(input: DeleteFriendGroupInput!): Boolean
+  delete_member_friend_groups(input: DeleteMemberFriendGroupInput!): Boolean
+  add_member_friend_groups(input: AddMemberFriendGroupInput!): FriendGroup
+  create_goal(input: CreateGoalInput!): Goal
+  upsert_goal(input: UpsertGoalInput!): Goal
+  delete_goal(input: DeleteGoalInput!): Boolean
+  update_goal_move(input: UpdateGoalMoveInput!): JSON
+  duplicate_goals(id: ID!, new_id: ID!): JSON
+  upsert_goal_member(input: UpsertGoalMemberInput!): [GoalMember]
+  delete_goal_member(input: DeleteGoalMemberInput!): Boolean
+  delete_member_from_goal(input: DeleteGoalMemberInput!): Boolean
+  upsert_goal_rank(input: UpsertGoalRankInput!): Boolean
+  create_goal_root(input: CreateGoalRootInput!): GoalRoot
+  edit_goal_root(input: EditGoalRootInput!): GoalRoot
+  upsert_goal_root(input: EditGoalRootInput!): GoalRoot
+  delete_goal_root(input: DeleteGoalRootInput!): Boolean
+  delete_goal_score(input: DeleteGoalScoreInput!): Boolean
+  upsert_goal_score(input: UpsertGoalScoreInput!): GoalScore
+  update_goal_score(input: UpdateGoalScoreInput!): GoalScore
+  create_goal_template(input: CreateGoalTemplateInput!): GoalTemplate
+  upsert_goal_template(input: UpsertGoalTemplateInput!): GoalTemplate
+  delete_japanese_goals(id: ID!): Boolean
+  create_japanese_goals(input: CreateJapaneseGoalInput!): JapaneseGoal
+  update_japanese_goals(input: UpdateJapaneseGoalInput!): JapaneseGoal
+  upsert_japanese_goals(input: UpsertJapaneseGoalInput!): JapaneseGoal
+  updateMeetUrl_sing_with_friend(input: UpdateMeetUrlInput!): Boolean
+  delete_japanese_kanji(input: DeleteJapaneseKanjiInput!): Boolean
+  create_japanese_kanji(input: CreateJapaneseKanjiInput!): JapaneseKanji
+  upsert_japanese_kanji(input: UpsertJapaneseKanjiInput!): JapaneseKanji
+  update_japanese_kanji(input: UpdateJapaneseKanjiInput!): JapaneseKanji
+  delete_japanese_learn(input: DeleteJapaneseLearnInput!): Boolean
+  upsert_japanese_learn(input: UpsertJapaneseLearnInput!): JapaneseLearn
+  update_japanese_learn(input: UpdateJapaneseLearnInput!): JapaneseLearn
+  upsert_japanese_post(input: UpsertJapanesePostInput!): JapanesePost
+  create_japanese_post(input: CreateJapanesePostInput!): JapanesePost
+  update_japanese_posts(input: UpdateJapanesePostInput!): JapanesePost
+  delete_japanese_posts(input: DeleteJapanesePostInput!): Boolean
+  create_note(input: CreateNoteInput!): Note
+  update_note(input: UpdateNoteInput!): Note
+  delete_note(input: DeleteNoteInput!): Boolean
+  upsert_payment(input: UpsertPaymentInput!): [Payment]
+  delete_payment(input: DeletePaymentInput!): Boolean
+  create_story_share(input: CreateStoryShareInput!): StoryShare
+  update_story_share(input: UpdateStoryShareInput!): StoryShare
+  create_task(input: CreateTaskInput!): Task
+  update_task(input: EditTaskInput!): Task
+  delete_task(input: deleteTaskInput!): Boolean
+  task_toggle(id: ID!, date: String!): Task
+  update_user(input: UpdateUserInput!): User
+}
+
+input NewPasswordWithCodeInput {
+  email: String!
+  token: String!
+  password: String!
+  password_confirmation: String!
+}
+
+type NextAndPrevGoal {
+  current: GoalBlock
+  next: GoalBlock
+  prev: GoalBlock
+}
+
+type Note {
+  id: ID
+  user_id: ID
+  type_id: ID
+  type: String
+  content: String
+  text_color: String
+  checked_at: String
+  user: User
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+"""A paginated list of Note items."""
+type NotePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Note items."""
+  data: [Note!]!
+}
+
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""
+Aggregate functions when ordering by a relation without specifying a column.
+"""
+enum OrderByRelationAggregateFunction {
+  """Amount of items."""
+  COUNT
+}
+
+"""
+Aggregate functions when ordering by a relation that may specify a column.
+"""
+enum OrderByRelationWithColumnAggregateFunction {
+  """Average."""
+  AVG
+
+  """Minimum."""
+  MIN
+
+  """Maximum."""
+  MAX
+
+  """Sum."""
+  SUM
+
+  """Amount of items."""
+  COUNT
+}
+
+"""Information about pagination using a Relay style cursor connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """The cursor to continue paginating backwards."""
+  startCursor: String
+
+  """The cursor to continue paginating forwards."""
+  endCursor: String
+
+  """Total number of nodes in the paginated connection."""
+  total: Int!
+
+  """Number of nodes in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the last available page."""
+  lastPage: Int!
+}
+
+"""Information about pagination using a fully featured paginator."""
+type PaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Index of the last available page."""
+  lastPage: Int!
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Number of total available items."""
+  total: Int!
+}
+
+type Payment {
+  id: ID
+  user: User
+  user_id: ID
+  add_user_id: ID
+  add_user: User
+  goal_id: ID
+  user_info: JSON
+  goal: Goal
+  type: String
+  status: String
+  money: String
+  note: String
+  attachments: JSON
+  created_at: DateTime
+  updated_at: DateTime
+  number_member: Int
+}
+
+"""A paginated list of Payment items."""
+type PaymentPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Payment items."""
+  data: [Payment!]!
+}
+
+type Query {
+  user(id: ID): User
+  detail_coach_member(user_id: ID!): CoachMember
+  list_coach_members(goal_root_id: ID): [User]
+  my_friends: [User]
+  list_invite_friends: [User]
+  my_friend_groups: [FriendGroup]
+  all_goal: [Goal]
+  detail_goal(id: ID!): Goal
+  list_goal_by_parent_id(parent_id: ID): [Goal]
+  goal_by_parent_ids(parent_ids: [ID]): [Goal]
+  my_tree_goal(goal_id: ID): JSON
+  my_tree_goal_v2(goal_id: ID): JSON
+  my_goal(root_id: ID): [Goal]
+  goal_members(name_add_user: String, name_goal: String): [GoalMember]
+  my_goal_members: [GoalMember]
+  detail_goal_member(id: ID!): GoalMember
+  summary_goal_members: [GoalMember]
+  list_goal_root: [GoalRoot]
+  my_goal_root: [GoalRoot]
+  goal_root_by_user(user_id: ID!): [GoalRoot]
+  dollar_my_own_goal_root: [GoalRoot]
+  detail_goal_root(id: ID): GoalRoot
+  my_progress: [GoalRoot]
+  my_goal_score: [GoalScore]
+  detail_goal_score(id: ID, goal_id: ID): GoalScore
+  list_goal_score(user_id: ID, goal_root_id: ID): JSON
+  list_goal_template(status: String): [GoalTemplate]
+  detail_japanese_goal(id: ID, goal_id: ID): JapaneseGoal
+  search_by_type_japanese_goal(type: String): [JapaneseGoal]
+  auto_play_japanese_goal(root_id: ID): JapaneseGoal
+  prev_next_goal(goal_id: ID): NextAndPrevGoal
+  my_japanese_kanji: [JapaneseKanji]
+  detail_japanese_kanji(id: ID): JapaneseKanji
+  list_japanese_kanji(ids: [ID]): [JapaneseKanji]
+  vocabulary_japanese_kanji: [JapaneseKanji]
+  my_japanese_learn: [JapaneseLearn]
+  detail_japanese_learn(id: ID): JapaneseLearn
+  list_userid_japanese_learn(goal_id: ID!): UserID
+  progress_user_japanese_learn(name: String): JSON
+  detail_japanese_posts(id: ID, goal_id: ID): JapanesePost
+  my_japanese_posts: [JapanesePost]
+  other_japanese_posts(goal_id: ID): [JapanesePost]
+  list_japanese_post(goal_id: ID): [JapanesePost]
+  list_japanese_posts_by_goal_root(user_id: ID, goal_root_id: ID): [JapanesePost]
+  detail_notes(id: ID): Note
+  my_notes(day: String, type: String): [Note]
+  payments: [Payment]
+  my_payments: [Payment]
+  detail_payment(id: ID!): Payment
+  my_total_payment: JSON
+  detail_my_payment(goal_id: ID!): Payment
+  my_story_share(goal_id: ID): [StoryShare]
+  reviewer_story_share(goal_id: ID): [StoryShare]
+  tasks_by_month(month: String): [Task]
+  tasks_sort_by_day(month: String): [TaskByMonth]
+  detail_task(id: ID): Task
+  my_tasks(date: String!): [Task]
+  detail_me: User
+  list_student(goal_root_id: ID): [User]
+  detail_user(id: ID!): User
+  users(
+    """Limits number of fetched items."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
+  coach_member(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CoachMemberPaginator
+  sort_goal_members(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): GoalMemberPaginator
+  goal_score(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): GoalScorePaginator
+  sort_goal_score(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): GoalScorePaginator
+  japanese_goals(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseGoalPaginator
+  sort_japanese_goals(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseGoalPaginator
+  japanese_kanji(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseKanjiPaginator
+  sort_japanese_kanji(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseKanjiPaginator
+  japanese_learn(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseLearnPaginator
+  sort_japanese_learn(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapaneseLearnPaginator
+  japanese_posts(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapanesePostPaginator
+  sort_japanese_posts(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): JapanesePostPaginator
+  note(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): NotePaginator
+  sort_notes(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): NotePaginator
+  sort_payments(
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PaymentPaginator
+  list_user(
+    phone_number: String
+    email: String
+    name: String
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
+}
+
+input RefreshTokenInput {
+  refresh_token: String
+}
+
+type RefreshTokenPayload {
+  access_token: String!
+  refresh_token: String!
+  expires_in: Int!
+  token_type: String!
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  password: String!
+  password_confirmation: String!
+}
+
+type RegisterResponse {
+  tokens: AuthPayload
+  status: RegisterStatuses!
+}
+
+enum RegisterStatuses {
+  MUST_VERIFY_EMAIL
+  SUCCESS
 }
 
 input resetUserPasswordInput {
-    code: String
-    email: String!
-    password: String!
-    password_confirmation: String!
-    token: String
+  email: String!
+  token: String
+  code: String
+  password: String!
+  password_confirmation: String!
+}
+
+"""Information about pagination using a simple paginator."""
+type SimplePaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+}
+
+input SocialLoginInput {
+  provider: String!
+  token: String!
+}
+
+"""Directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
+enum STATUS {
+  ON_BUY
+  TRIAL
+  SENT_RECEIPT
+  PAID_CONFIRMED
+}
+
+type StoryShare {
+  id: ID
+  user_id: ID
+  user: User
+  goal_id: ID
+  goal: Goal
+  image: String
+  content: String
+  reviewers: JSON
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Task {
+  id: ID
+  name: String
+  user_id: ID
+  status: String
+  repeat: String
+  at_time: String
+  reminder: String
+  text_color: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type TaskByMonth {
+  day: String
+  tasks: [Task]
+}
+
+"""
+Specify if you want to include or exclude trashed results from a query.
+"""
+enum Trashed {
+  """Only return trashed results."""
+  ONLY
+
+  """Return both trashed and non-trashed results."""
+  WITH
+
+  """Only return non-trashed results."""
+  WITHOUT
+}
+
+input UpdateFriendGroupInput {
+  id: ID
+  name: String
+  member_ids: [ID]
+  description: String
+  avatar: String
+}
+
+input UpdateGoalMemberInput {
+  id: ID!
+  add_user_id: ID
+  goal_id: ID
+}
+
+input UpdateGoalMoveInput {
+  goal_move: JSON
+}
+
+input UpdateGoalRankInput {
+  id: ID!
+  goal_id: ID
+  pin_index: Int
+}
+
+input UpdateGoalScoreInput {
+  id: ID!
+  goal_id: ID
+  scores: JSON
+}
+
+input UpdateJapaneseGoalInput {
+  id: ID
+  goal_id: ID
+  type: String
+  more: JSON
+  total_score: Float
+  each_score: Float
+  score: Float
+  root_id: ID
+}
+
+input UpdateJapaneseKanjiInput {
+  id: ID!
+  name: String
+  more: JSON
+}
+
+input UpdateJapaneseLearnInput {
+  id: ID!
+  goal_id: ID
+}
+
+input UpdateJapanesePostInput {
+  id: ID!
+  title: String
+  type: String
+  description: String
+  media: JSON
+  likes: JSON
+  more: JSON
+}
+
+input UpdateMeetUrlInput {
+  goal_id: ID!
+  meet: JSON
+}
+
+input UpdateNoteInput {
+  id: ID
+  type_id: ID
+  type: String
+  content: String
+  text_color: String
+  checked_at: String
+}
+
+input UpdatePassword {
+  old_password: String!
+  password: String!
+  password_confirmation: String!
+}
+
+type UpdatePasswordResponse {
+  status: String!
+  message: String
+}
+
+input UpdatePaymentInput {
+  id: ID!
+  add_user_id: ID
+  goal_id: ID
+  status: STATUS
+  type: String
+  user_info: JSON
+  money: String
+  note: String
+  attachments: JSON
+}
+
+input UpdateStoryShareInput {
+  id: ID
+  goal_id: ID
+  image: String
+  content: String
+  reviewers: [ID]
+}
+
+input UpdateUserInput {
+  id: ID
+  role_label: String
+  username: String
+  phone_number: String
+  first_name: String
+  name: String
+  address: String
+  current_address: JSON
+  country: String
+  gender: String
+  date_of_birth: String
+  roles: JSON
+  is_flag: Boolean
+  quotes: String
+  avatar: String
+  banner: String
+}
+
+input UpsertCoachMemberInput {
+  user_id: ID
+  goal_ids: [ID]
+}
+
+input UpsertFriendInput {
+  user_id_friend: ID!
+  status: String
+}
+
+input UpsertGoalInput {
+  id: String
+  name: String
+  parent_id: ID
+  root_id: ID
+  report_type: String
+}
+
+input UpsertGoalMemberInput {
+  id: ID
+  add_user_id: ID
+  goal_id: ID
+  goal_ids: [ID]
+}
+
+input UpsertGoalRankInput {
+  goal_ids: [ID]
+}
+
+input UpsertGoalScoreInput {
+  id: ID
+  goal_id: ID
+  scores: JSON
+}
+
+input UpsertGoalTemplateInput {
+  goal_id: ID
+  status: String
+  request: String
+  sell_goal: String
+  message: String
+}
+
+input UpsertJapaneseGoalInput {
+  id: ID
+  parent_id: ID
+  root_id: ID
+  name_goal: String
+  type: String
+  more: JSON
+  total_score: Float
+  each_score: Float
+}
+
+input UpsertJapaneseKanjiInput {
+  id: ID
+  name: String
+  more: JSON
+}
+
+input UpsertJapaneseLearnInput {
+  id: ID
+  goal_id: ID
+}
+
+input UpsertJapanesePostInput {
+  id: ID
+  goal_id: ID
+  title: String
+  type: String
+  description: String
+  media: JSON
+  likes: JSON
+  more: JSON
+}
+
+input UpsertPaymentInput {
+  id: ID
+  add_user_id: ID
+  goal_id: [ID]
+  status: STATUS
+  user_info: JSON
+  type: String
+  money: String
+  note: String
+  attachments: JSON
+}
+
+type User {
+  id: ID
+  first_name: String
+  name: String
+  address: String
+  current_address: JSON
+  country: String
+  gender: String
+  date_of_birth: String
+  roles: JSON
+  is_flag: Boolean
+  quotes: String
+  avatar: String
+  banner: String
+  score: Int
+  email: String
+  username: String
+  total_goal: Int
+  total_friend: Int
+  sum_day_learn: Int
+  role_label: String
+  phone_number: String
+  attachment: Attachment
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type UserID {
+  user_ids: [ID]
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
+}
+
+input VerifyEmailInput {
+  token: String!
 }

@@ -1,13 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag'
 
 export const GET_ME = gql`
-    query DetailMe {
-        detail_me {
-            id
-            name
-            email
-            avatar
-            roles
-        }
+  query DetailMe {
+    detail_me {
+      id
+      name
+      phone_number
+      email
+      avatar
+      roles
     }
+  }
 `

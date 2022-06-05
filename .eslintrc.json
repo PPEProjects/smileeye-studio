@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true,
@@ -18,12 +19,17 @@
   },
   "plugins": [
     "vue",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
     "no-console": "off",
     "vue/no-v-model-argument": "off",
-    "camelcase": "off"
+    "camelcase": "off",
+    "vue/no-multiple-template-root": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "vue/multi-word-component-names": "off"
   }
 }

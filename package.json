@@ -7,6 +7,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "apollo:codegen": "npx apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --tagName=gql --includes=./src/apollo/**/*.ts --watch",
+    "apollo:download": "npx apollo client:download-schema --endpoint=https://v2-be.smileeye.edu.vn/graphql schema.graphql",
     "stop": "pm2 stop smileeye-studio"
   },
   "dependencies": {
@@ -25,6 +26,8 @@
     "graphql-tag": "^2.12.6",
     "lottie-web": "^5.9.4",
     "pinia": "^2.0.14",
+    "readdir": "^1.0.2",
+    "shelljs": "^0.8.5",
     "vite-tsconfig-paths": "^3.5.0",
     "vue": "^3.2.25",
     "vue-animejs": "^2.1.1",
@@ -36,6 +39,7 @@
   },
   "devDependencies": {
     "@types/animejs": "^3.1.4",
+    "@types/shelljs": "^0.8.11",
     "@types/vue-cropperjs": "^4.1.2",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
