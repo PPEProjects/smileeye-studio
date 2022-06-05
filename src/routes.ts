@@ -42,9 +42,4 @@ const router = createRouter({
     routes: routes
 })
 
-// Global middleware
-/*router.beforeEach(async (to, from, next) => {
-    next()
-})*/
-
 export default router
