@@ -5,7 +5,6 @@ export const GET_ME = gql`
     detail_me {
       id
       name
-      phone_number
       email
       avatar
       roles
