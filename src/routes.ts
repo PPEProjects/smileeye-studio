@@ -4,10 +4,7 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/',
         component: () => import('./pages/index.vue'),
-        meta: {
-            layout: 'blank',
-            public: true
-        }
+        meta: { layout: 'blank', public: true }
     },
     {
         path: '/dashboard',
