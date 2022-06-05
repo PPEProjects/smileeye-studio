@@ -28,7 +28,7 @@
       <menu-item :active="/^dashboard/.test($route.name)" icon="#i-dashboard" label="Tổng Quan" to="/dashboard" />
       <menu-item :active="/^(stories|story|chapter|publish)/.test($route.name)" icon="#i-workspace" label="Tác Phẩm" to="/stories" />
 
-      <menu-item :active="/^(crawl)/.test($route.name)" icon="#i-trail" label="Draggable" to="/draggable" />
+      <menu-item :active="/^(draggable)/.test($route.name)" icon="#i-trail" label="Draggable" to="/draggable" />
 
       <menu-item :active="/^(cropper|banners|categories)/.test($route.name)" label="Tools" icon="#i-hammer">
         <template #default>

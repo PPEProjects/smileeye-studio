@@ -22,6 +22,9 @@
       "@store/*": [
         "./src/store/*"
       ],
+      "#apollo/*": [
+        "./src/apollo/*"
+      ],
       "#types/*": [
         "./src/types/*"
       ]

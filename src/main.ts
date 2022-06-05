@@ -3,7 +3,7 @@ import App from './App.vue'
 import './assets/css/tailwind.css'
 import './assets/less/ant.less'
 
-import Antd from 'ant-design-vue';
+import Antd from 'ant-design-vue'
 
 // Cookie
 import VueCookies from 'vue-cookies'
@@ -33,7 +33,9 @@ import teleport from "./plugins/teleport"
 import cropper from "./plugins/cropper";
 // import draggable from "./plugins/draggable"
 
-// Cropper
+// Meta SEO
+import {createHead} from "@vueuse/head"
+const head = createHead()
 
 const app = createApp(App)
 app.use(Antd)
@@ -50,6 +52,8 @@ app.use(http)
 app.use(pinia)
 
 app.use(router)
+
+app.use(head)
 
 app.mount('#app')
 

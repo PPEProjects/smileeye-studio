@@ -9,7 +9,8 @@ export default defineConfig({
       '@components' : path.resolve(__dirname, './src/components'),
       '@layouts' : path.resolve(__dirname, './src/layouts'),
       '@store' : path.resolve(__dirname, './src/store'),
-      '#types' : path.resolve(__dirname, './src/types')
+      '#types' : path.resolve(__dirname, './src/types'),
+      '#apollo' : path.resolve(__dirname, './src/apollo')
     },
   },
   preview: {

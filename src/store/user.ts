@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia'
-import {inject} from "vue";
-import {GET_ME} from "../apollo/queries/user.query";
-import {ApolloInstance} from "#types/apollo";
-import {DetailMe, DetailMe_detail_me} from "../apollo/queries/__generated__/DetailMe";
+import {GET_ME} from "#apollo/queries/user.query";
+import {DetailMe, DetailMe_detail_me} from "#apollo/queries/__generated__/DetailMe";
+import {useSmileeye} from "#apollo/client/smileeye";
 
 type IUser = DetailMe_detail_me | null;
 
@@ -33,9 +32,9 @@ export const useUserStore = defineStore({
         },
 
         async getMe () {
-            const apollo = inject<ApolloInstance>('apollo')
+            const smileeye = useSmileeye()
             try {
-                const data = await apollo?.apolloClient?.query<DetailMe>({
+                const data = await smileeye.query<DetailMe>({
                     query: GET_ME
                 })
                 // @ts-ignore

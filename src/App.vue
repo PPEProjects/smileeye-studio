@@ -12,7 +12,7 @@ import IconView from "@components/layout/IconView.vue";
 import MasterView from "@components/layout/MasterView.vue";
 
 export default defineComponent({
-  name: 'Application',
+  name: 'MainApplication',
   components: {
     MasterView,
     IconView
