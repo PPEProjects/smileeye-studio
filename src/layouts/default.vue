@@ -58,12 +58,10 @@ import { useSubscription } from '@vue/apollo-composable'
 import { message } from 'ant-design-vue'
 
 import { SUB_TOAST } from '#apollo/notify/subscriptions/toast.subscription'
-import {
-  SubToast,
-  SubToastVariables
-} from '#apollo/notify/subscriptions/__generated__/SubToast'
+
 import { useUserStore } from '@store/user'
 import { ApolloEnum } from '../plugins/apollo'
+import { SubToast, SubToastVariables } from '#notify/types/SubToast'
 const isOpen = ref<boolean>(false)
 
 const anime = inject<AnimeInstance>('anime')!
