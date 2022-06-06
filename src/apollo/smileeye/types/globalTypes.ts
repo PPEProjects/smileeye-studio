@@ -7,6 +7,12 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface UpdatePassword {
+  old_password: string;
+  password: string;
+  password_confirmation: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
