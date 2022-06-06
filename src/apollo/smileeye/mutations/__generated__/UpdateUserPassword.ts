@@ -3,22 +3,22 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { UpdatePassword } from "./globalTypes";
+import { UpdatePassword } from "./../../../../../__generated__/smileeyeTypes";
 
 // ====================================================
-// GraphQL mutation operation: UpdatePassword
+// GraphQL mutation operation: UpdateUserPassword
 // ====================================================
 
-export interface UpdatePassword_updatePassword {
+export interface UpdateUserPassword_updatePassword {
   __typename: "UpdatePasswordResponse";
   status: string;
   message: string | null;
 }
 
-export interface UpdatePassword {
-  updatePassword: UpdatePassword_updatePassword;
+export interface UpdateUserPassword {
+  updatePassword: UpdateUserPassword_updatePassword;
 }
 
-export interface UpdatePasswordVariables {
+export interface UpdateUserPasswordVariables {
   input: UpdatePassword;
 }

@@ -61,7 +61,7 @@ import { SUB_TOAST } from '#apollo/notify/subscriptions/toast.subscription'
 
 import { useUserStore } from '@store/user'
 import { ApolloEnum } from '../plugins/apollo'
-import { SubToast, SubToastVariables } from '#notify/types/SubToast'
+import { SubToast, SubToastVariables } from '#notify/subscriptions/__generated__/SubToast'
 const isOpen = ref<boolean>(false)
 
 const anime = inject<AnimeInstance>('anime')!
