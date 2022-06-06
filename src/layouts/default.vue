@@ -119,6 +119,10 @@ watch(
   },
   { deep: true }
 )
+
+// clernup khi logout
+// useSubscription sẽ tự cleanup khi unmound
+
 </script>
 <style>
 #page-body {
