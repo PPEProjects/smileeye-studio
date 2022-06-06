@@ -27,6 +27,13 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: 'Cropper'
     }
+  },
+  {
+    path: '/notifications',
+    component: () => import('./pages/notifications/index.vue'),
+    meta: {
+      title: 'Notifications'
+    }
   }
 ]
 

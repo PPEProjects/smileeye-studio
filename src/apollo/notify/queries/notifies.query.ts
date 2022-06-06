@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import gql from 'graphql-tag'
 
 export const GET_NOTIFIES = gql`
   query GetNotifies($filter: GetNotifiesInput!) {
@@ -22,7 +22,7 @@ export const GET_NOTIFIES = gql`
 `
 
 export const GET_COUNT_UNSREAD = gql`
-  query Query($user: String!) {
+  query CountUnReadNotify($user: String!) {
     countUnReadNotify(user: $user)
   }
 `
