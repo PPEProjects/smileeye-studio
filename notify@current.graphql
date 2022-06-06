@@ -1,0 +1,230 @@
+"""
+Direct the client to resolve this field locally, either from the cache or local resolvers.
+"""
+directive @client(
+  """
+  When true, the client will never use the cache for this value. See
+  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  """
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
+
+"""
+Specify a custom store key for this result. See
+https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+"""
+directive @connection(
+  """Specify the store key."""
+  key: String!
+
+  """
+  An array of query argument names to include in the generated custom store key.
+  """
+  filter: [String!]
+) on FIELD
+
+"""
+Export this locally resolved field as a variable to be used in the remainder of this query. See
+https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+"""
+directive @export(
+  """The variable name to export this field as."""
+  as: String!
+) on FIELD
+
+type CountUnreadNotify {
+  user: User!
+  count: Int!
+}
+
+input CreateLicenseInput {
+  """Mã định danh app"""
+  appID: String!
+
+  """Tên người tạo license"""
+  owner: String!
+
+  """IP Admin. Chỉ có thể tạo Notify từ IP này"""
+  ipAdmin: String!
+}
+
+input CreateNotifyInput {
+  """Nội dung thông báo"""
+  content: String!
+
+  """Phân nhóm thông báo"""
+  type: String!
+
+  """Icon"""
+  icon: String
+
+  """Dữ liệu tuỳ chỉnh của thông báo"""
+  meta: JSON
+}
+
+input CreateToastInput {
+  """Nội dung thông báo"""
+  message: String!
+
+  """Có phải thất bại hay không"""
+  error: Boolean = false
+
+  """Người nhận"""
+  to: String!
+}
+
+input CreateUserInput {
+  """ID user"""
+  specialID: String!
+
+  """Tên user"""
+  name: String!
+
+  """Ảnh đại diện user"""
+  avatar: String!
+}
+
+input GetNotifiesInput {
+  """Sắp xếp của bình luận"""
+  sort: String!
+
+  """Số trang của bình luận"""
+  page: Int!
+
+  """Giới hạn một lần. Không quá 20"""
+  limit: Int!
+
+  """User nhận thông báo"""
+  user: String!
+
+  """True nếu chỉ lấy thông báo chưa đọc"""
+  unRead: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type License {
+  id: ID!
+
+  """Mã định danh app"""
+  appID: String!
+
+  """Tên người tạo license"""
+  owner: String!
+
+  """Mã bí mật chỉ show 1 lần duy nhất. Hãy lưu lại"""
+  privateKey: String!
+
+  """Ngày tạo license"""
+  createdAt: Float!
+
+  """IP tạo license"""
+  ip: String!
+
+  """IP Admin, chỉ có thể tạo Notify từ ip này."""
+  ipAdmin: String!
+}
+
+type Mutation {
+  createLicense(input: CreateLicenseInput!): License!
+  generateToken(key: String!): Token!
+
+  """
+  Hành động này yêu cầu truy cập từ ip admin. Sẽ kích hoạt event update user
+  """
+  createNotify(notify: CreateNotifyInput!, to: CreateUserInput!, sender: CreateUserInput): Notify!
+  readNotifies(input: ReadNotifiesInput!): [Notify!]!
+  fireToast(input: CreateToastInput!): Toast!
+}
+
+type Notify {
+  id: ID!
+
+  """AppID"""
+  appID: String!
+
+  """Người gửi, nếu nil sẽ là system"""
+  sender: User
+
+  """Người nhận"""
+  to: User!
+
+  """Nội dung thông báo. Có thể là HTML"""
+  content: String!
+
+  """Phân nhóm thông báo"""
+  type: String!
+
+  """Icon thông báo"""
+  icon: String
+
+  """Dữ liệu tuỳ chỉnh của thông báo"""
+  meta: JSON
+
+  """Ngày thông báo được gửi"""
+  createdAt: Float!
+
+  """Ngày đọc thông báo"""
+  readAt: Float
+}
+
+type Query {
+  me: User!
+  myLicenses(owner: String!): [License!]!
+  getNotifies(filter: GetNotifiesInput!): [Notify!]!
+
+  """
+  Check có thông báo mới hay không. Trả về thông báo đầu tiên chưa đọc. Lưu ý
+  không cache query này. Set: fetchpolicy: network-only khi query
+  """
+  hasNotify(user: String!): Notify
+
+  """Lấy số lượng thông báo chưa đọc. Đừng cache query này"""
+  countUnReadNotify(user: String!): Int!
+}
+
+input ReadNotifiesInput {
+  """Danh sách id update"""
+  ids: [ID!]!
+  user: String!
+}
+
+type Subscription {
+  """Nhận thông báo"""
+  subNotify(user: String!): Notify!
+
+  """Số Notify chưa đọc"""
+  subCountUnRead(user: String!): CountUnreadNotify!
+
+  """Nhận thông báo nhanh"""
+  subToast(user: String!): Toast!
+}
+
+type Toast {
+  """Nội dung thông báo"""
+  message: String!
+
+  """Có phải thất bại hay không"""
+  error: Boolean!
+
+  """Người nhận"""
+  to: String!
+  appID: String!
+}
+
+type Token {
+  token: String!
+}
+
+type User {
+  id: ID!
+  specialID: String!
+  appID: String!
+
+  """Tên thành viên"""
+  name: String!
+  avatar: String!
+}

@@ -5,13 +5,24 @@ export default () => {
   const content: Plugin = {
     name: 'vite:graphql-generator',
     async handleHotUpdate(ctx) {
-      if (
-        /src\/apollo\/smileeye\/(queries|mutations)\/(?!(__generated__))/.test(
-          ctx.file
-        )
-      ) {
-        // Thay đổi file trong graphql
-        await shell.exec('npm run apollo:codegen')
+      const list = [
+        {
+          regex:
+            /src\/apollo\/smileeye\/(queries|mutations)\/(?!(__generated__))/,
+          command: 'npm run apollo:codegen'
+        },
+        {
+          regex:
+            /src\/apollo\/notify\/(queries|mutations)\/(?!(__generated__))/,
+          command: 'npm run apollo:codegen:notify'
+        }
+      ]
+
+      for (const useCase of list) {
+        if (useCase.regex.test(ctx.file)) {
+          await shell.exec(useCase.command)
+          break
+        }
       }
     }
   }

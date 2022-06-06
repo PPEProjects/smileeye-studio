@@ -7,6 +7,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "apollo:codegen": "npx apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --tagName=gql --includes=./src/apollo/smileeye/**/*.ts",
+    "apollo:codegen:notify": "npx apollo codegen:generate --localSchemaFile=notify@current.graphql --target=typescript --tagName=gql --includes=./src/apollo/notify/**/*.ts",
     "apollo:download": "npx apollo client:download-schema --endpoint=https://v2-be.smileeye.edu.vn/graphql schema.graphql",
     "stop": "pm2 stop smileeye-studio"
   },
