@@ -32,6 +32,12 @@
       "#apollo/*": [
         "./src/apollo/*"
       ],
+      "#smileeye/*": [
+        "./src/apollo/smileeye/*"
+      ],
+      "#notify/*": [
+        "./src/apollo/notify/*"
+      ],
       "#types/*": [
         "./src/types/*"
       ]

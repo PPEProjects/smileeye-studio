@@ -179,12 +179,9 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@store/user'
 import { message } from 'ant-design-vue'
 import { useQuery } from '@vue/apollo-composable'
-import {
-  CountUnReadNotify,
-  CountUnReadNotifyVariables
-} from '#apollo/notify/queries/__generated__/CountUnReadNotify'
 import { GET_COUNT_UNSREAD } from '#apollo/notify/queries/notifies.query'
 import usePick from '@composables/usePick'
+import { CountUnReadNotify, CountUnReadNotifyVariables } from '#notify/types/CountUnReadNotify'
 
 const toHome = () => {
   ///

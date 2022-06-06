@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Query
+// GraphQL query operation: CountUnReadNotify
 // ====================================================
 
-export interface Query {
+export interface CountUnReadNotify {
   /**
    * Lấy số lượng thông báo chưa đọc. Đừng cache query này
    */
   countUnReadNotify: number;
 }
 
-export interface QueryVariables {
+export interface CountUnReadNotifyVariables {
   user: string;
 }

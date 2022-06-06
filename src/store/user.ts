@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
-import { GET_ME } from '#apollo/smileeye/queries/user.query'
-import {
-  DetailMe,
-  DetailMe_detail_me
-} from '#apollo/smileeye/queries/__generated__/DetailMe'
+import { GET_ME } from '#smileeye/queries/user.query'
 import { useSmileeye } from '#apollo/client/smileeye'
+import { DetailMe, DetailMe_detail_me } from '#smileeye/types/DetailMe'
 
 type IUser = DetailMe_detail_me | null
 
