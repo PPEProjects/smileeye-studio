@@ -17,7 +17,7 @@
           <a
             v-if='!$route.meta.disableBack'
             id="back-button"
-            class="text-base hover:text-theme-text text-theme-text flex items-center"
+            class="text-base hover:text-theme-text text-theme-text flex items-center head-item"
             @click="$router.back()"
           >
             <svg class="fill-current" width="1em" height="1em">
@@ -26,17 +26,17 @@
           </a>
 
           <!-- Global Title -->
-          <div v-if='$route.meta.title' class="ml-3 text-lg mr-auto">
+          <div v-if='$route.meta.title' class="ml-3 text-lg mr-auto head-item">
             {{ $route.meta.title }}
           </div>
-          <div v-else id="title" class="ml-3 text-lg mr-auto"></div>
+          <div v-show='!$route.meta.title' id="title" class="ml-3 text-lg mr-auto empty:hidden head-item"></div>
 
           <div id="actions" class="flex items-center empty:hidden"></div>
 
         </div>
 
         <div id="page-body" class="p-[32px] w-full overflow-y-auto">
-          <div class="w-full bg-white p-[32px]">
+          <div id='page-content' class="w-full bg-white p-[32px]">
             <router-view />
           </div>
         </div>
@@ -50,10 +50,10 @@ import { inject, ref, watch } from 'vue'
 
 import SideBar from '@components/layout/SideBar.vue'
 import { AnimeInstance } from '#types/anime'
+import { useRoute } from 'vue-router'
 const isOpen = ref<boolean>(false)
 
 const anime = inject<AnimeInstance>('anime')!
-
 watch(isOpen, () => {
   if (!isOpen.value) {
     anime({
@@ -69,6 +69,17 @@ watch(isOpen, () => {
     })
   }
 })
+
+const route = useRoute()
+watch(route, () => {
+  anime({
+    targets: '#page-content',
+    scale: [0.95, 1],
+    opacity: [0, 1],
+    duration: 1500
+  })
+})
+
 </script>
 <style>
 #page-body {

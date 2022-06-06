@@ -1,6 +1,4 @@
 <template>
-  <teleport-view to="#title"> Crop Image </teleport-view>
-
   <header
     v-cloak
     class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center"

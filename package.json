@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "apollo:codegen": "npx apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --tagName=gql --includes=./src/apollo/**/*.ts",
+    "apollo:codegen": "npx apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --tagName=gql --includes=./src/apollo/smileeye/**/*.ts",
     "apollo:download": "npx apollo client:download-schema --endpoint=https://v2-be.smileeye.edu.vn/graphql schema.graphql",
     "stop": "pm2 stop smileeye-studio"
   },
@@ -24,6 +24,7 @@
     "dayjs": "^1.11.2",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.8.2",
     "lottie-web": "^5.9.4",
     "pinia": "^2.0.14",
     "readdir": "^1.0.2",

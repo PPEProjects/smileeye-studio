@@ -9,32 +9,31 @@ import Antd from 'ant-design-vue'
 import VueCookies from 'vue-cookies'
 
 // Apollo
-import apolloClient from "./plugins/apollo"
-import { DefaultApolloClient } from '@vue/apollo-composable'
+import apollo from './plugins/apollo/index'
 // request axios
 import http from './plugins/axios'
 
 // Router
-import router from "./routes"
+import router from './routes'
 
 // Animation
 import animejs from './plugins/animejs'
 import VueLottie from '@nguyenshort/vue-lottie'
 
 // Pinna store
-import {createPinia} from "pinia"
+import { createPinia } from 'pinia'
 const pinia = createPinia()
 
 // Dayjs
-import dayjs from "./plugins/dayjs"
+import dayjs from './plugins/dayjs'
 
 // Mounted Teleport
-import teleport from "./plugins/teleport"
-import cropper from "./plugins/cropper";
+import teleport from './plugins/teleport'
+import cropper from './plugins/cropper'
 // import draggable from "./plugins/draggable"
 
 // Meta SEO
-import {createHead} from "@vueuse/head"
+import { createHead } from '@vueuse/head'
 const head = createHead()
 
 const app = createApp(App)
@@ -47,7 +46,7 @@ app.use(dayjs)
 app.use(cropper)
 // app.use(draggable)
 
-app.provide('apollo', { DefaultApolloClient, apolloClient })
+app.use(apollo)
 app.use(http)
 app.use(pinia)
 

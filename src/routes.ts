@@ -27,25 +27,26 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: 'Cropper'
     }
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    component: () => import('./pages/error/index.vue')
   }
 ]
 
-routes.forEach((record, index) => {
+routes.forEach((record) => {
   // tạo router name, xoá '/' ở đầu và thay thế còn lại = '-'
-  if (index < routes.length - 1) {
-    record.name = record.path.replace(/\//, '').replaceAll('/', '-')
-  } else {
-    record.name = 'error'
+  record.name = record.path.replace(/\//, '').replaceAll('/', '-')
+})
+
+// 404 Handle
+routes.push({
+  path: '/:pathMatch(.*)*',
+  component: () => import('./pages/error/index.vue'),
+  meta: {
+    title: 'Not Found'
   }
 })
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes
 })
 
 export default router

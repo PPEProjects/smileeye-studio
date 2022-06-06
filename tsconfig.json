@@ -25,6 +25,9 @@
       "@plugin/*": [
         "./src/plugin/*"
       ],
+      "@composables/*": [
+        "./src/composables/*"
+      ],
       "#apollo/*": [
         "./src/apollo/*"
       ],

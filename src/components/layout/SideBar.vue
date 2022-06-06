@@ -121,7 +121,9 @@ import {useUserStore} from "@store/user";
 import {message} from "ant-design-vue";
 
 
-const toHome = () => {}
+const toHome = () => {
+  ///
+}
 
 const router = useRouter()
 const cookies = inject<VueCookies>('$cookies')!
@@ -138,8 +140,9 @@ const logOut = () => {
 const anime = inject<AnimeInstance>('anime')!
 
 const playAnimation = () => {
+
   anime({
-    targets: '.menu-item',
+    targets: ['.logo h1', '.menu-item'],
     opacity: [0, 1],
     translateY: [-70, 0],
     duration: 1200,
@@ -148,7 +151,7 @@ const playAnimation = () => {
     },
   })
   anime({
-    targets: '.menu-bottom',
+    targets: ['.head-item', '#actions', '.menu-bottom'],
     opacity: [0, 1],
     translateX: [-50, 0],
     duration: 1200,
