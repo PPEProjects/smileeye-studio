@@ -1,7 +1,5 @@
 <template>
   <div>
-    <teleport-view to="#title"> Dashboard </teleport-view>
-
     <teleport-view to="#actions">
       <a-button type="primary" size="large" class="uppercase">
         Teleport

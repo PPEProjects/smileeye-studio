@@ -1,8 +1,10 @@
 // typings.d.ts or router.ts
-import 'vue-router';
+import 'vue-router'
 
 declare module 'vue-router' {
-    interface RouteMeta {
-        layout?: string
-    }
+  interface RouteMeta {
+    layout?: string
+    disableBack?: boolean
+    title?: string
+  }
 }
