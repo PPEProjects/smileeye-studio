@@ -15,7 +15,7 @@
           class="h-[70px] w-full bg-white relative top-0 left-0 right-0 z-10 px-[32px] flex items-center"
         >
           <a
-            v-if='!$route.meta.disableBack'
+            v-if="!$route.meta.disableBack"
             id="back-button"
             class="text-base hover:text-theme-text text-theme-text flex items-center head-item"
             @click="$router.back()"
@@ -26,17 +26,20 @@
           </a>
 
           <!-- Global Title -->
-          <div v-if='$route.meta.title' class="ml-3 text-lg mr-auto head-item">
+          <div v-if="$route.meta.title" class="ml-3 text-lg mr-auto head-item">
             {{ $route.meta.title }}
           </div>
-          <div v-show='!$route.meta.title' id="title" class="ml-3 text-lg mr-auto empty:hidden head-item"></div>
+          <div
+            v-show="!$route.meta.title"
+            id="title"
+            class="ml-3 text-lg mr-auto empty:hidden head-item"
+          ></div>
 
           <div id="actions" class="flex items-center empty:hidden"></div>
-
         </div>
 
         <div id="page-body" class="p-[32px] w-full overflow-y-auto">
-          <div id='page-content' class="w-full bg-white p-[32px]">
+          <div id="page-content" class="w-full bg-white p-[32px]">
             <router-view />
           </div>
         </div>
@@ -51,6 +54,16 @@ import { inject, ref, watch } from 'vue'
 import SideBar from '@components/layout/SideBar.vue'
 import { AnimeInstance } from '#types/anime'
 import { useRoute } from 'vue-router'
+import { useSubscription } from '@vue/apollo-composable'
+import { message } from 'ant-design-vue'
+
+import { SUB_TOAST } from '#apollo/notify/subscriptions/toast.subscription'
+import {
+  SubToast,
+  SubToastVariables
+} from '#apollo/notify/subscriptions/__generated__/SubToast'
+import { useUserStore } from '@store/user'
+import { ApolloEnum } from '../plugins/apollo'
 const isOpen = ref<boolean>(false)
 
 const anime = inject<AnimeInstance>('anime')!
@@ -80,6 +93,32 @@ watch(route, () => {
   })
 })
 
+// User store
+const useUser = useUserStore()
+
+// Subnotify
+const { result } = useSubscription<SubToast, SubToastVariables>(
+  SUB_TOAST,
+  {
+    user: String(useUser.user?.id)
+  },
+  {
+    clientId: ApolloEnum.notify
+  }
+)
+watch(
+  result,
+  (data) => {
+    if(data?.subToast) {
+      if(data.subToast.error) {
+        message.error(data.subToast.message)
+      } else {
+        message.success(data.subToast.message)
+      }
+    }
+  },
+  { deep: true }
+)
 </script>
 <style>
 #page-body {
