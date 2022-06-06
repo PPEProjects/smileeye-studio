@@ -13,7 +13,7 @@ export default () => {
         },
         {
           regex:
-            /src\/apollo\/notify\/(queries|mutations)\/(?!(__generated__))/,
+            /src\/apollo\/notify\/(queries|mutations|subscriptions)\/(?!(__generated__))/,
           command: 'npm run apollo:codegen:notify'
         }
       ]

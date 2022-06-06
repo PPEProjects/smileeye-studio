@@ -129,6 +129,7 @@ const login = async () => {
   }
 }
 
+// eslint-disable-next-line no-undef
 defineExpose({
   email,
   password

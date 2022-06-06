@@ -13,12 +13,12 @@
 </template>
 
 <script lang="ts" setup>
-import {useButton} from "../../composables/useButton";
+import {useButton} from '@composables/useButton';
 
 const props = defineProps({
       callback: {
         type: Function,
-        default: () => {}
+        default: () => ({})
       },
       disabled: {
         type: Boolean,

@@ -7,14 +7,6 @@
 // START Enums and Input Objects
 //==============================================================
 
-export interface GetNotifiesInput {
-  sort: string;
-  page: number;
-  limit: number;
-  user: string;
-  unRead?: boolean | null;
-}
-
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
