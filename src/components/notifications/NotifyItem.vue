@@ -15,8 +15,7 @@
           >
             <img
               class="img-full animate hover:scale-110 transform"
-              data-src="https://i.imgur.com/kOBjC4x.jpg"
-              src="https://i.imgur.com/kOBjC4x.jpg"
+              :src="notify.sender?.avatar || 'https://i.imgur.com/kOBjC4x.jpg'"
               alt=""
             />
           </div>
