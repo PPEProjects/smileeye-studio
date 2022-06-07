@@ -1,10 +1,8 @@
-import dayjs from 'dayjs'
-import 'dayjs/locale/vi'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import { inject } from 'vue'
+import type dayjs from 'dayjs'
 
-export const useDayjs = () => {
-  // @ts-ignore
-  dayjs.extend(relativeTime)
-  dayjs.locale('vi')
-  return dayjs
+type DayjsInstance = typeof dayjs
+
+export const useDayjs = (): DayjsInstance => {
+  return inject('dayjs')!
 }

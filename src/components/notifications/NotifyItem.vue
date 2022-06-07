@@ -44,12 +44,9 @@ import {
 import { READ_NOTIFIES } from '#notify/mutations/notifies.mutation'
 import { ApolloEnum } from '@plugins/apollo'
 import { useUserStore } from '@store/user'
+import { useDayjs } from '@composables/useDayjs'
 // Time format
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-
-dayjs.extend(relativeTime)
-dayjs.locale('vi')
+const dayjs = useDayjs()
 
 const useUser = useUserStore()
 

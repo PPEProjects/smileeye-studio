@@ -2,13 +2,13 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/vi'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
+dayjs.extend(relativeTime)
+dayjs.locale('vi')
+
 import { App } from 'vue'
 
 const plugin = {
   install(app: App) {
-    dayjs.extend(relativeTime)
-    // dayjs.locale('vi')
-
     app.provide('dayjs', dayjs)
   }
 }
