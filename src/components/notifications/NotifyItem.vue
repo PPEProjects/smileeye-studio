@@ -11,7 +11,7 @@
       <div class="flex">
         <div class="relative flex-shrink-0 h-[56px]">
           <div
-            class="w-[56px] h-full rounded-full overflow-hidden relative border-2 border-white shadow box-border"
+            class="w-[56px] h-[56px] rounded-full overflow-hidden relative border-2 border-white shadow box-border"
           >
             <img
               class="img-full animate hover:scale-110 transform"

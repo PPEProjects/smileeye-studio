@@ -21,6 +21,12 @@ svg {
 .animate {
     @apply transition duration-300 ease-in-out
 }
+
+.img-full {
+    @apply w-full h-full object-cover
+}
+
+
 .ant-btn>.ant-btn-loading-icon {
     position: relative;
     top: -4px;
