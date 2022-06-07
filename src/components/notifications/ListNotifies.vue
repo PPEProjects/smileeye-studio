@@ -10,7 +10,7 @@
       </li>
     </ul>
 
-    <vue-eternal-loading v-if="(notifies || []).length" :load="infinieLoading">
+    <vue-eternal-loading v-if="[...notifies].length" :load="infinieLoading">
       <template #loading>
         <div class="flex justify-center items-center py-3">
           <a-spin />
@@ -29,7 +29,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { LoadAction } from '@ts-pro/vue-eternal-loading'
 import { GET_NOTIFIES } from '#notify/queries/notifies.query'
 import {
-  GetNotifies, GetNotifies_getNotifies,
+  GetNotifies,
   GetNotifiesVariables
 } from '#notify/queries/__generated__/GetNotifies'
 import { ApolloEnum } from '@plugins/apollo'
