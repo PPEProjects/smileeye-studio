@@ -1,17 +1,16 @@
 <template>
-  <div class='h-full overflow-y-auto'>
+  <div class="h-full overflow-y-auto">
     <ul id="listNotifies">
       <li
         v-for="(notify, index) in notifies"
         :key="notify.id"
         :data-index="index"
       >
-        <NotifyItem :notify='notify' />
+        <NotifyItem :notify="notify" />
       </li>
     </ul>
 
     <!-- Todo: Phân trang -->
-
   </div>
 </template>
 

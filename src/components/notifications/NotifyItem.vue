@@ -1,12 +1,12 @@
 <template>
-  <a-spin :spinning='loading'>
+  <a-spin :spinning="loading">
     <div
       class="py-4 border-b border-gray-50 animate px-3 hover:bg-blue-50 bg-white notify-item cursor-pointer animate"
       :class="{
-      'opacity-50': notify.readAt
-    }"
+        'opacity-50': notify.readAt
+      }"
       :data-notify="notify.id"
-      @click='readNotifiesHandle'
+      @click="readNotifiesHandle"
     >
       <div class="flex">
         <div class="relative flex-shrink-0 h-[56px]">
@@ -27,8 +27,8 @@
             v-html="notify.content"
           />
           <span class="text-xs font-semibold text-gray-600">
-          {{ dayjs(notify.createdAt).fromNow() }}
-        </span>
+            {{ dayjs(notify.createdAt).fromNow() }}
+          </span>
         </div>
       </div>
     </div>
@@ -38,15 +38,6 @@
 <script lang="ts" setup>
 import { useMutation } from '@vue/apollo-composable'
 const useUser = useUserStore()
-
-const props = defineProps({
-  notify: {
-    type: Object,
-    required: true
-  }
-})
-// Time format
-import { useDayjs } from '@composables/useDayjs'
 import {
   ReadNotifies,
   ReadNotifiesVariables
@@ -56,8 +47,20 @@ import { ApolloEnum } from '@plugins/apollo'
 import { useUserStore } from '@store/user'
 const dayjs = useDayjs()
 
+const props = defineProps({
+  notify: {
+    type: Object,
+    required: true
+  }
+})
+// Time format
+import { useDayjs } from '@composables/useDayjs'
+
 // Read notify
-const { mutate: readNotify, loading } = useMutation<ReadNotifies, ReadNotifiesVariables>(READ_NOTIFIES, {
+const { mutate: readNotify, loading } = useMutation<
+  ReadNotifies,
+  ReadNotifiesVariables
+>(READ_NOTIFIES, {
   clientId: ApolloEnum.notify
 })
 
@@ -69,5 +72,4 @@ const readNotifiesHandle = () => {
     }
   })
 }
-
 </script>
