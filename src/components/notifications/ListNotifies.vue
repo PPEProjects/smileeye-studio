@@ -3,7 +3,7 @@
     <ul id="listNotifies">
       <li
         v-for="(notify, index) in notifies"
-        :key="notify.id"
+        :key="notify?.id"
         :data-index="index"
       >
         <NotifyItem :notify="notify" />
