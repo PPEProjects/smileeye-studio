@@ -36,6 +36,9 @@ import cropper from './plugins/cropper'
 import { createHead } from '@vueuse/head'
 const head = createHead()
 
+// Infinitie Loading
+import infinite from '@plugins/eternal-loading'
+
 const app = createApp(App)
 app.use(Antd)
 app.use(animejs)
@@ -44,7 +47,7 @@ app.use(VueCookies)
 app.use(teleport)
 app.use(dayjs)
 app.use(cropper)
-// app.use(draggable)
+app.use(infinite)
 
 app.use(apollo)
 app.use(http)

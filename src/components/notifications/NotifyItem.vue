@@ -1,7 +1,7 @@
 <template>
   <a-spin :spinning="loading">
     <div
-      class="py-4 border-b border-gray-50 animate px-3 hover:bg-blue-50 bg-white notify-item cursor-pointer animate"
+      class="py-4 animate px-3 hover:bg-blue-50 bg-white notify-item cursor-pointer animate"
       :class="{
         'opacity-50': notify.readAt
       }"
@@ -21,7 +21,7 @@
             />
           </div>
         </div>
-        <div class="ml-3 text-left">
+        <div class="ml-4 text-left">
           <div
             class="overflow-hidden text-sm relative line-clamp-2 text-gray-600"
             v-html="notify.content"
@@ -49,7 +49,6 @@ import { useDayjs } from '@composables/useDayjs'
 const dayjs = useDayjs()
 
 const useUser = useUserStore()
-
 const props = defineProps({
   notify: {
     type: Object,
@@ -66,6 +65,9 @@ const { mutate: readNotify, loading } = useMutation<
 })
 
 const readNotifiesHandle = () => {
+  if(props.notify.readAt) {
+    return
+  }
   readNotify({
     input: {
       user: String(useUser.user?.id),

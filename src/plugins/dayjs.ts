@@ -3,7 +3,7 @@ import 'dayjs/locale/vi'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 dayjs.extend(relativeTime)
-dayjs.locale('vi')
+//dayjs.locale('vi')
 
 import { App } from 'vue'
 
