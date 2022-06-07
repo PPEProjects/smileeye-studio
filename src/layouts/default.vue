@@ -127,7 +127,7 @@ watch(
   height: calc(100vh - 70px);
 }
 #page-body > div {
-  min-height: calc(100vh - 70px - 35px - 35px);
+  min-height: var(--height-container);
 }
 #sidebarInput:checked + div > ul .menu-item span {
   display: none;

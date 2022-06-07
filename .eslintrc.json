@@ -5,6 +5,9 @@
     "es2021": true,
     "node": true
   },
+  "globals": {
+    "defineProps": true
+  },
   "extends": [
     "eslint:recommended",
     "plugin:vue/essential",

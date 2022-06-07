@@ -16,7 +16,7 @@ export default defineConfig({
       '#apollo': path.resolve(__dirname, './src/apollo'),
       '#notify': path.resolve(__dirname, './src/apollo/notify'),
       '#smileeye': path.resolve(__dirname, './src/apollo/smileeye'),
-      '@plugin': path.resolve(__dirname, './src/plugin'),
+      '@plugins': path.resolve(__dirname, './src/plugins'),
       '@composables': path.resolve(__dirname, './src/composables')
     }
   },

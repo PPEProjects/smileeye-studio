@@ -23,8 +23,8 @@
       "@store/*": [
         "./src/store/*"
       ],
-      "@plugin/*": [
-        "./src/plugin/*"
+      "@plugins/*": [
+        "./src/plugins/*"
       ],
       "@composables/*": [
         "./src/composables/*"

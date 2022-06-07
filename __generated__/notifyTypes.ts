@@ -15,6 +15,11 @@ export interface GetNotifiesInput {
   unRead?: boolean | null;
 }
 
+export interface ReadNotifiesInput {
+  ids: string[];
+  user: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

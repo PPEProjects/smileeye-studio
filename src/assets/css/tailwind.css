@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --height-container: calc(100vh - 70px - 35px - 35px)
+}
+
 svg {
     vertical-align: baseline;
     display: inline-block;
