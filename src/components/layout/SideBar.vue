@@ -120,7 +120,6 @@
       >
         <template #icon>
           <div class="relative">
-
             <svg
               width="24px"
               height="24px"
@@ -130,17 +129,14 @@
               <use xlink:href="#i-chatbubble" />
             </svg>
 
-            <div v-if='countNotify' class='absolute right-0 top-0'>
+            <div v-if="countNotify" class="absolute right-0 top-0">
               <span class="flex h-2 w-2 relative">
-                <span
-                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
-                ></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span
                   class="relative inline-flex rounded-full h-2 w-2 bg-red-500"
                 ></span>
               </span>
             </div>
-
           </div>
         </template>
       </menu-item>
@@ -172,16 +168,26 @@
 
 <script lang="ts" setup>
 import MenuItem from '@components/layout/MenuItem.vue'
-import { inject, nextTick, onMounted } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 import { AnimeInstance } from '#types/anime'
 import { VueCookies } from 'vue-cookies'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@store/user'
 import { message } from 'ant-design-vue'
-import { useQuery } from '@vue/apollo-composable'
+import { useQuery, useSubscription } from '@vue/apollo-composable'
 import { GET_COUNT_UNSREAD } from '#apollo/notify/queries/notifies.query'
 import usePick from '@composables/usePick'
-import { CountUnReadNotify, CountUnReadNotifyVariables } from '#notify/queries/__generated__/CountUnReadNotify'
+import {
+  CountUnReadNotify,
+  CountUnReadNotifyVariables
+} from '#notify/queries/__generated__/CountUnReadNotify'
+import {
+  SubCountUnRead,
+  SubCountUnReadVariables
+} from '#notify/subscriptions/__generated__/SubCountUnRead'
+import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
+import { ApolloEnum } from '../../plugins/apollo'
+import { useSmileeye } from '#apollo/client/smileeye'
 
 const toHome = () => {
   ///
@@ -196,7 +202,7 @@ const logOut = () => {
   cookies.remove('_token')
   useUser.logout()
   router.replace('/')
-  message.success('Bạn biệt bạn trẻ')
+  message.success('Tạn biệt bạn trẻ')
 }
 
 const anime = inject<AnimeInstance>('anime')!
@@ -225,14 +231,47 @@ const playAnimation = () => {
 onMounted(() => nextTick(() => playAnimation()))
 
 //Notify
-const { result } = useQuery<CountUnReadNotify, CountUnReadNotifyVariables>(
+const countNotify = ref<number>(0)
+const { onResult } = useQuery<CountUnReadNotify, CountUnReadNotifyVariables>(
   GET_COUNT_UNSREAD,
   {
     user: String(useUser.user?.id)
   },
   {
-    clientId: 'notify'
+    clientId: ApolloEnum.notify
   }
 )
-const countNotify = usePick(result, 0, (data) => data.countUnReadNotify)
+
+onResult((value) => {
+  countNotify.value = value.data.countUnReadNotify
+})
+
+// Sub countNotify
+const { result: obs } = useSubscription<SubCountUnRead, SubCountUnReadVariables>(
+  SUB_COUNT_UNREAD,
+  {
+    user: String(useUser.user?.id)
+  },
+  {
+    clientId: ApolloEnum.notify
+  }
+)
+
+// lắng ghe subsription và gi data
+const smileeye = useSmileeye()
+watch(obs, (value) => {
+  if(value?.subCountUnRead) {
+    smileeye.writeQuery<CountUnReadNotify, CountUnReadNotifyVariables>({
+      query: GET_COUNT_UNSREAD,
+      variables: {
+        user: String(useUser.user?.id)
+      },
+      data: {
+        countUnReadNotify: value?.subCountUnRead?.count
+      }
+    })
+    countNotify.value = value?.subCountUnRead?.count
+  }
+}, { deep: true })
+
 </script>
