@@ -22,6 +22,9 @@ import {
 import { ApolloEnum } from '@plugins/apollo'
 import usePick from '@composables/usePick'
 import NotifyItem from '@components/notifications/NotifyItem.vue'
+import { useUserStore } from '@store/user'
+
+const useUser = useUserStore()
 
 const { result } = useQuery<GetNotifies, GetNotifiesVariables>(
   GET_NOTIFIES,
@@ -30,7 +33,7 @@ const { result } = useQuery<GetNotifies, GetNotifiesVariables>(
       sort: 'createdAt',
       limit: 10,
       page: 0,
-      user: '114'
+      user: String(useUser.user?.id)
     }
   },
   {
