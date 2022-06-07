@@ -37,7 +37,6 @@
 
 <script lang="ts" setup>
 import { useMutation } from '@vue/apollo-composable'
-const useUser = useUserStore()
 import {
   ReadNotifies,
   ReadNotifiesVariables
@@ -45,6 +44,11 @@ import {
 import { READ_NOTIFIES } from '#notify/mutations/notifies.mutation'
 import { ApolloEnum } from '@plugins/apollo'
 import { useUserStore } from '@store/user'
+// Time format
+import { useDayjs } from '@composables/useDayjs'
+
+const useUser = useUserStore()
+
 const dayjs = useDayjs()
 
 const props = defineProps({
@@ -53,8 +57,6 @@ const props = defineProps({
     required: true
   }
 })
-// Time format
-import { useDayjs } from '@composables/useDayjs'
 
 // Read notify
 const { mutate: readNotify, loading } = useMutation<
