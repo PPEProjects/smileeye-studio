@@ -1,6 +1,6 @@
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import 'dayjs/locale/vi'
-import * as relativeTime from 'dayjs/plugin/relativeTime'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { App } from 'vue'
 
