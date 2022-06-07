@@ -11,7 +11,7 @@
     </ul>
 
     <!-- Todo: Phân trang -->
-    <vue-eternal-loading v-if="notifies.length" :load="infinieLoading">
+    <vue-eternal-loading v-if="notifies?.length" :load="infinieLoading">
       <template #loading>
         <div class="flex justify-center items-center py-3">
           <a-spin />
@@ -26,24 +26,23 @@
 </template>
 
 <script setup lang="ts">
-import { useQuery, useSubscription } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import { LoadAction } from '@ts-pro/vue-eternal-loading'
 import { GET_NOTIFIES } from '#notify/queries/notifies.query'
 import {
-  GetNotifies, GetNotifies_getNotifies,
+  GetNotifies,
   GetNotifiesVariables
 } from '#notify/queries/__generated__/GetNotifies'
 import { ApolloEnum } from '@plugins/apollo'
 import usePick from '@composables/usePick'
 import NotifyItem from '@components/notifications/NotifyItem.vue'
 import { useUserStore } from '@store/user'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { SUB_NEW_NOTIFY } from '#notify/subscriptions/notify.subscription'
 import {
   SubNotify,
   SubNotifyVariables
 } from '#notify/subscriptions/__generated__/SubNotify'
-import { useNotify } from '#apollo/client/notify'
 
 const useUser = useUserStore()
 const page = ref<number>(0)
