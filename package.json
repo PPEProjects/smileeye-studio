@@ -12,6 +12,7 @@
     "stop": "pm2 stop smileeye-studio"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@apollo/client": "^3.6.6",
     "@nguyenshort/vue-lottie": "^0.0.8",
     "@tailwindcss/aspect-ratio": "^0.4.0",
@@ -42,6 +43,7 @@
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.2.0",
     "@types/animejs": "^3.1.4",
     "@types/shelljs": "^0.8.11",
     "@types/vue-cropperjs": "^4.1.2",

@@ -14,6 +14,27 @@
     "notify": "Notify"
   },
   "payment": {
-    "title": "Payment"
+    "title": "Payment",
+    "table": {
+      "user": {
+        "name": "NAME"
+      },
+      "status": "STATUS",
+      "createdAt": "CREATED",
+      "action": "ACTIONS",
+      "billImage": "RECIPE"
+    },
+    "action": {
+      "delete": {
+        "title": "Are you sure delete this bill ?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "accept": {
+        "title": "Do you want to accept this bill ?",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
   }
 }

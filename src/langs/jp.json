@@ -14,6 +14,27 @@
     "notify": ""
   },
   "payment": {
-    "title": ""
+    "title": "",
+    "table": {
+      "user": {
+        "name": ""
+      },
+      "status": "",
+      "createdAt": "",
+      "action": "",
+      "billImage": ""
+    },
+    "action": {
+      "delete": {
+        "title": "",
+        "yes": "",
+        "no": ""
+      },
+      "accept": {
+        "title": "",
+        "yes": "",
+        "no": ""
+      }
+    }
   }
 }
