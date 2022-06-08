@@ -49,10 +49,10 @@
       />-->
 
       <menu-item
-        :active="/^(income)/.test($route.name)"
+        :active="/^(payment)/.test($route.name)"
         icon="#i-income"
         :label="t('sidebar.payment')"
-        to="/income"
+        to="/payment"
       />
 
       <menu-item

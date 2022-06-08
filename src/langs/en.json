@@ -12,5 +12,8 @@
       "logout": "Log Out"
     },
     "notify": "Notify"
+  },
+  "payment": {
+    "title": "Payment"
   }
 }

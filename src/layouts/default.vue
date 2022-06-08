@@ -27,7 +27,7 @@
 
           <!-- Global Title -->
           <div v-if="$route.meta.title" class="ml-3 text-lg mr-auto head-item">
-            {{ $route.meta.title }}
+            {{ /^\D*\.\D*$/.test($route.meta.title) ? t($route.meta.title) : $route.meta.title }}
           </div>
           <div
             v-show="!$route.meta.title"
@@ -60,10 +60,13 @@ import { message } from 'ant-design-vue'
 import { SUB_TOAST } from '#apollo/notify/subscriptions/toast.subscription'
 
 import { useUserStore } from '@store/user'
-import { ApolloEnum } from '../plugins/apollo'
+import { ApolloEnum } from '@plugins/apollo'
 import { SubToast, SubToastVariables } from '#notify/subscriptions/__generated__/SubToast'
-const isOpen = ref<boolean>(false)
+import { useLangs } from '@composables/useLangs'
 
+const { t } = useLangs()
+
+const isOpen = ref<boolean>(false)
 const anime = inject<AnimeInstance>('anime')!
 watch(isOpen, () => {
   if (!isOpen.value) {

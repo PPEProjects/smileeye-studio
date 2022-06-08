@@ -12,5 +12,8 @@
       "logout": "Đăng Xuất"
     },
     "notify": "Thông Báo"
+  },
+  "payment": {
+    "title": "Thanh Toán"
   }
 }
