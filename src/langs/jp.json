@@ -1,40 +1,44 @@
 {
+  "payment": {
+    "action": {
+      "accept": {
+        "no": "",
+        "title": "",
+        "yes": ""
+      },
+      "delete": {
+        "no": "",
+        "title": "",
+        "yes": ""
+      }
+    },
+    "table": {
+      "action": "",
+      "billImage": "",
+      "createdAt": "",
+      "status": "",
+      "user": {
+        "email": "",
+        "goal": "",
+        "name": "",
+        "phone": ""
+      }
+    },
+    "title": ""
+  },
   "sidebar": {
+    "coupon": "",
     "dashboard": "",
-    "payment": "",
     "members": {
       "members": "",
-      "users": "",
-      "supporters": ""
+      "supporters": "",
+      "users": ""
     },
+    "notify": "",
+    "payment": "",
     "settings": {
-      "settings": "",
-      "logout": ""
-    },
-    "notify": ""
-  },
-  "payment": {
-    "title": "",
-    "table": {
-      "user": {
-        "name": ""
-      },
-      "status": "",
-      "createdAt": "",
-      "action": "",
-      "billImage": ""
-    },
-    "action": {
-      "delete": {
-        "title": "",
-        "yes": "",
-        "no": ""
-      },
-      "accept": {
-        "title": "",
-        "yes": "",
-        "no": ""
-      }
+      "logout": "",
+      "settings": ""
     }
   }
 }

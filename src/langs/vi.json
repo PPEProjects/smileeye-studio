@@ -1,40 +1,44 @@
 {
+  "payment": {
+    "action": {
+      "accept": {
+        "no": "Không",
+        "title": "Chấp nhận hoá đơn ?",
+        "yes": "Đồng Ý"
+      },
+      "delete": {
+        "no": "Không",
+        "title": "Bạn có chắc chắn xóa hóa đơn này không ?",
+        "yes": "Xoá"
+      }
+    },
+    "table": {
+      "action": "HÀNH ĐỘNG",
+      "billImage": "HOÁ ĐƠN",
+      "createdAt": "NGÀY TẠO",
+      "status": "TRẠNG THÁI",
+      "user": {
+        "email": "EMAIL",
+        "goal": "TÊN KHOÁ HỌC",
+        "name": "TÊN",
+        "phone": "SỐ ĐIỆN THOẠI"
+      }
+    },
+    "title": "Thanh Toán"
+  },
   "sidebar": {
+    "coupon": "Mã Giảm Giá",
     "dashboard": "Tổng Quan",
-    "payment": "Thanh Toán",
     "members": {
       "members": "Thành Viên",
-      "users": "Thành Viên",
-      "supporters": "Hỗ Trợ"
+      "supporters": "Hỗ Trợ",
+      "users": "Thành Viên"
     },
+    "notify": "Thông Báo",
+    "payment": "Thanh Toán",
     "settings": {
-      "settings": "Cài Đặt",
-      "logout": "Đăng Xuất"
-    },
-    "notify": "Thông Báo"
-  },
-  "payment": {
-    "title": "Thanh Toán",
-    "table": {
-      "user": {
-        "name": "TÊN"
-      },
-      "status": "TRẠNG THÁI",
-      "createdAt": "NGÀY TẠO",
-      "action": "HÀNH ĐỘNG",
-      "billImage": "HOÁ ĐƠN"
-    },
-    "action": {
-      "delete": {
-        "title": "Bạn có chắc chắn xóa hóa đơn này không ?",
-        "yes": "Xoá",
-        "no": "Không"
-      },
-      "accept": {
-        "title": "Chấp nhận hoá đơn ?",
-        "yes": "Đồng Ý",
-        "no": "Không"
-      }
+      "logout": "Đăng Xuất",
+      "settings": "Cài Đặt"
     }
   }
 }

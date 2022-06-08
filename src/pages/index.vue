@@ -2,7 +2,7 @@
   <div>
     <auth-modal />
     <div
-      class="w-full h-full absolute blur-sm brightness-90"
+      class="w-full h-full absolute blur-sm brightness-90 bg-cover"
       style="background-image: url('/images/slidebg.jpeg')"
     />
   </div>

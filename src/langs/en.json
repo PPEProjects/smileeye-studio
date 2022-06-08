@@ -1,40 +1,44 @@
 {
+  "payment": {
+    "action": {
+      "accept": {
+        "no": "No",
+        "title": "Do you want to accept this bill ?",
+        "yes": "Yes"
+      },
+      "delete": {
+        "no": "No",
+        "title": "Are you sure delete this bill ?",
+        "yes": "Yes"
+      }
+    },
+    "table": {
+      "action": "ACTIONS",
+      "billImage": "RECIPE",
+      "createdAt": "CREATED",
+      "status": "STATUS",
+      "user": {
+        "email": "EMAIL",
+        "goal": "GOAL NAME",
+        "name": "NAME",
+        "phone": "PHONE NUMBER"
+      }
+    },
+    "title": "Payment"
+  },
   "sidebar": {
+    "coupon": "Coupon",
     "dashboard": "Dashboard",
-    "payment": "Payment",
     "members": {
       "members": "Members",
-      "users": "Users",
-      "supporters": "Supporters"
+      "supporters": "Supporters",
+      "users": "Users"
     },
+    "notify": "Notify",
+    "payment": "Payment",
     "settings": {
-      "settings": "Settings",
-      "logout": "Log Out"
-    },
-    "notify": "Notify"
-  },
-  "payment": {
-    "title": "Payment",
-    "table": {
-      "user": {
-        "name": "NAME"
-      },
-      "status": "STATUS",
-      "createdAt": "CREATED",
-      "action": "ACTIONS",
-      "billImage": "RECIPE"
-    },
-    "action": {
-      "delete": {
-        "title": "Are you sure delete this bill ?",
-        "yes": "Yes",
-        "no": "No"
-      },
-      "accept": {
-        "title": "Do you want to accept this bill ?",
-        "yes": "Yes",
-        "no": "No"
-      }
+      "logout": "Log Out",
+      "settings": "Settings"
     }
   }
 }

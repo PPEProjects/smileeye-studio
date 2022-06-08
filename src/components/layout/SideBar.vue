@@ -83,6 +83,14 @@
           </ul>
         </template>
       </menu-item>
+
+      <menu-item
+        :active="/^(coupon)/.test($route.name)"
+        icon="#i-love-card"
+        :label="t('sidebar.coupon')"
+        to="/coupon"
+      />
+
     </ul>
 
     <ul class="mt-auto relative">
@@ -225,7 +233,7 @@ import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
 import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
-const { t } = useLangs()
+const { t, tc } = useLangs()
 
 const toHome = () => {
   ///

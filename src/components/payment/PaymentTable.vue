@@ -4,31 +4,40 @@
     :columns="columns"
     :data-source="bills"
     :pagination="{ total: 10, showLessItems: true, defaultPageSize: 6 }"
+    row-key="name"
     @change="changePage($event.current - 1)"
   >
+    <template #headerCell="{ column }">
+      <payment-setting-header v-if="!column.key" />
+    </template>
+
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
         <span class="font-medium ml-2">{{ record.name }}</span>
       </template>
 
-      <template v-else-if='column.key === "billImage"'>
-        <div class='rounded overflow-hidden'>
-          <a-image :width='150' :height='80' :src='record.billImage' />
+      <template v-else-if="column.key === 'billImage'">
+        <div class="rounded overflow-hidden">
+          <a-image :width="150" :height="80" :src="record.billImage" />
         </div>
       </template>
 
-      <template v-else-if='column.key === "status"'>
-
-        <a-tag v-if='record.status === PaymentStatusEnum.TRIAL' color="#f50">
+      <template v-else-if="column.key === 'status'">
+        <a-tag v-if="record.status === PaymentStatusEnum.TRIAL" color="#f50">
           TRIAL
         </a-tag>
-        <a-tag v-else-if='record.status === PaymentStatusEnum.ON_BUY' color="#2db7f5">
+        <a-tag
+          v-else-if="record.status === PaymentStatusEnum.ON_BUY"
+          color="#2db7f5"
+        >
           ON BUY
         </a-tag>
-        <a-tag v-else-if='record.status === PaymentStatusEnum.CONFIRMED' color="#87d068">
+        <a-tag
+          v-else-if="record.status === PaymentStatusEnum.CONFIRMED"
+          color="#87d068"
+        >
           CONFIRMED
         </a-tag>
-
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
@@ -39,11 +48,8 @@
     </template>
 
     <template #expandedRowRender="{ record }">
-      <p style="margin: 0">
-        {{ record.description }}
-      </p>
+      <PaymentExpanded :payment="record" />
     </template>
-
   </a-table>
 
   <teleport-view to="#actions">
@@ -54,27 +60,49 @@
       add bill
     </a-button>
   </teleport-view>
-
 </template>
 
-<script lang='ts' setup>
-import { reactive } from 'vue'
+<script lang="ts" setup>
+import { computed, nextTick, onMounted, reactive, ref } from 'vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 
 import { useLangs } from '@composables/useLangs'
 import { IPaymentTable, PaymentStatusEnum } from '@components/payment/types'
 import { paymentFactory } from '@utils/factory'
 import PaymentActions from '@components/payment/PaymentActions.vue'
+import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
+import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
+import { usePaymentStore } from '@store/payment'
 
 const { t } = useLangs()
 
-// Setup table
-const columns = reactive([
+// Store
+const paymentStore = usePaymentStore()
+
+const rawColumns = [
   {
     title: t('payment.table.user.name'),
     dataIndex: 'name',
     key: 'name'
   },
+  {
+    title: t('payment.table.user.email'),
+    dataIndex: 'email',
+    key: 'email'
+  },
+  {
+    title: t('payment.table.user.phone'),
+    dataIndex: 'phone',
+    key: 'phone'
+  },
+  {
+    title: t('payment.table.user.goal'),
+    dataIndex: 'goal',
+    key: 'goal'
+  }
+]
+
+const fixColumns = [
   {
     title: t('payment.table.status'),
     dataIndex: 'status',
@@ -99,9 +127,16 @@ const columns = reactive([
   {
     title: t('payment.table.action'),
     key: 'action',
-    align: 'right'
+    align: 'right',
+    fixed: 'right'
   }
-])
+]
+
+// Setup table
+const columns = computed(() => {
+  const _dynamic = paymentStore.columns.map((_index) => rawColumns[_index])
+  return [..._dynamic, ...fixColumns]
+})
 // table source
 const bills = reactive<IPaymentTable[]>([])
 
@@ -113,5 +148,5 @@ const changePage = (page: number) => {
 for (let i = 0; i < 20; i++) {
   bills.push(paymentFactory())
 }
-
+// Todo: Fix action & Scroll
 </script>
