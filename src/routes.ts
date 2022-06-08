@@ -15,6 +15,10 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/payment',
+    component: () => import('./pages/payment/index.vue')
+  },
+  {
     path: '/draggable',
     component: () => import('./pages/draggable/index.vue'),
     meta: {

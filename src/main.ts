@@ -39,6 +39,9 @@ const head = createHead()
 // Infinitie Loading
 import infinite from '@plugins/eternal-loading'
 
+// Đa Ngôn Ngữ
+import i18n from '@plugins/i18n'
+
 const app = createApp(App)
 app.use(Antd)
 app.use(animejs)
@@ -48,6 +51,7 @@ app.use(teleport)
 app.use(dayjs)
 app.use(cropper)
 app.use(infinite)
+app.use(i18n)
 
 app.use(apollo)
 app.use(http)

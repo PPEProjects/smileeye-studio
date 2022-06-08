@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "dashboard": "Tổng Quan",
+    "payment": "Thanh Toán",
+    "members": {
+      "members": "Thành Viên",
+      "users": "Thành Viên",
+      "supporters": "Hỗ Trợ"
+    },
+    "settings": {
+      "settings": "Cài Đặt",
+      "logout": "Đăng Xuất"
+    },
+    "notify": "Thông Báo"
+  }
+}

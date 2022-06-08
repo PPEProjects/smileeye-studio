@@ -1,0 +1,16 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "payment": "Payment",
+    "members": {
+      "members": "Members",
+      "users": "Users",
+      "supporters": "Supporters"
+    },
+    "settings": {
+      "settings": "Settings",
+      "logout": "Log Out"
+    },
+    "notify": "Notify"
+  }
+}

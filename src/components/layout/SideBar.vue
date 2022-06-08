@@ -38,22 +38,78 @@
       <menu-item
         :active="/^dashboard/.test($route.name)"
         icon="#i-dashboard"
-        label="Tổng Quan"
+        :label='t("sidebar.dashboard")'
         to="/dashboard"
       />
-      <menu-item
+<!--      <menu-item
         :active="/^(stories|story|chapter|publish)/.test($route.name)"
         icon="#i-workspace"
         label="Tác Phẩm"
         to="/stories"
+      />-->
+
+      <menu-item
+        :active="/^(income)/.test($route.name)"
+        icon="#i-income"
+        :label="t('sidebar.payment')"
+        to="/income"
       />
 
       <menu-item
-        :active="/^(draggable)/.test($route.name)"
-        icon="#i-trail"
-        label="Draggable"
-        to="/draggable"
-      />
+        :active="/^(users|supporter)/.test($route.name)"
+        icon="#i-group"
+        :label="t('sidebar.members.members')"
+        to="/users/list"
+      >
+        <template #default>
+          <ul
+            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+          >
+
+            <menu-item
+              :active="/^(draggable)/.test($route.name)"
+              icon="#i-user"
+              :label="t('sidebar.members.users')"
+              to="/users/list"
+            />
+
+            <menu-item
+              :active="/^(draggable)/.test($route.name)"
+              icon="#i-help-bouy"
+              :label="t('sidebar.members.supporters')"
+              to="/users/supporters"
+            />
+
+          </ul>
+        </template>
+      </menu-item>
+    </ul>
+
+    <ul class="mt-auto relative">
+      <menu-item :active="/^settings/.test($route.name)" :label="t('sidebar.settings.settings')">
+        <template #icon>
+          <img
+            class="w-[24px] h-[24px] rounded-md"
+            :src="
+              useUser.user?.avatar ||
+              'https://user-pic.webnovel.com/userheadimg/4308112429-10/100.jpg?1591111535475'
+            "
+            alt=""
+          />
+        </template>
+
+        <template #default>
+          <ul
+            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+          >
+            <menu-item
+              icon="#i-logout"
+              :label="t('sidebar.settings.logout')"
+              @click.prevent="logOut()"
+            />
+          </ul>
+        </template>
+      </menu-item>
 
       <menu-item
         :active="/^(cropper|banners|categories)/.test($route.name)"
@@ -64,6 +120,14 @@
           <ul
             class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
           >
+
+            <menu-item
+              :active="/^(draggable)/.test($route.name)"
+              icon="#i-trail"
+              label="Draggable"
+              to="/draggable"
+            />
+
             <menu-item
               :active="/^(croper)/.test($route.name)"
               icon="#i-crop"
@@ -85,37 +149,10 @@
           </ul>
         </template>
       </menu-item>
-    </ul>
-
-    <ul class="mt-auto relative">
-      <menu-item :active="/^settings/.test($route.name)" label="Cài Đặt">
-        <template #icon>
-          <img
-            class="w-[24px] h-[24px] rounded-md"
-            :src="
-              useUser.user?.avatar ||
-              'https://user-pic.webnovel.com/userheadimg/4308112429-10/100.jpg?1591111535475'
-            "
-            alt=""
-          />
-        </template>
-
-        <template #default>
-          <ul
-            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
-          >
-            <menu-item
-              icon="#i-logout"
-              label="Đăng Xuất"
-              @click.prevent="logOut()"
-            />
-          </ul>
-        </template>
-      </menu-item>
 
       <menu-item
         :active="/^(notifications)/.test($route.name)"
-        label="Thông Báo"
+        :label="t('sidebar.notify')"
         to="/notifications"
       >
         <template #icon>
@@ -176,7 +213,6 @@ import { useUserStore } from '@store/user'
 import { message } from 'ant-design-vue'
 import { useQuery, useSubscription } from '@vue/apollo-composable'
 import { GET_COUNT_UNSREAD } from '#apollo/notify/queries/notifies.query'
-import usePick from '@composables/usePick'
 import {
   CountUnReadNotify,
   CountUnReadNotifyVariables
@@ -186,8 +222,10 @@ import {
   SubCountUnReadVariables
 } from '#notify/subscriptions/__generated__/SubCountUnRead'
 import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
-import { ApolloEnum } from '../../plugins/apollo'
+import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
+import { useLangs } from '@composables/useLangs'
+const { t } = useLangs()
 
 const toHome = () => {
   ///
