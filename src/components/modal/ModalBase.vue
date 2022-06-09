@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 
-import {useModal} from "../../composables/useModal";
+import {useModal} from '@composables/useModal';
 
 defineProps({
   event: {

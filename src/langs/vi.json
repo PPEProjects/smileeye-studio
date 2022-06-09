@@ -1,4 +1,27 @@
 {
+  "coupon": {
+    "action": {
+      "add": "Thêm"
+    },
+    "actions": {
+      "delete": {
+        "no": "Thôi",
+        "yes": "Xoá"
+      },
+      "destroy": {
+        "title": "Hành động này sẽ khiển mã hết hạn?"
+      }
+    },
+    "table": {
+      "actions": "HÀNH ĐỘNG",
+      "code": "MÃ GIẢM",
+      "createdAt": "NGÀY TẠO",
+      "expiryDate": "NGÀY HẾT HẠN",
+      "percent": "GIÁ TRỊ",
+      "use": "SỬ DỤNG"
+    },
+    "title": "Hệ Thống Mã Giảm Giá"
+  },
   "payment": {
     "action": {
       "accept": {

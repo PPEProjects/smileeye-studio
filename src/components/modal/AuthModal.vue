@@ -1,6 +1,6 @@
 <template>
   <modal-base ref="modal" event="authModal" :max-width="450" title="Sign in" :can-cancel="false">
-    <template #default="{ show }">
+    <template #default>
 
       <div style='width: 250px; height: 200px' class='mx-auto'>
 

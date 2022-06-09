@@ -59,7 +59,14 @@
         :active="/^(users|supporter)/.test($route.name)"
         icon="#i-group"
         :label="t('sidebar.members.members')"
-        to="/users/list"
+        to="/users"
+      />
+
+
+      <menu-item
+        :active="/^(coupon|banners|categories)/.test($route.name)"
+        label="Tools"
+        icon="#i-hammer"
       >
         <template #default>
           <ul
@@ -67,29 +74,40 @@
           >
 
             <menu-item
+              :active="/^(coupon)/.test($route.name)"
+              icon="#i-love-card"
+              :label="t('sidebar.coupon')"
+              to="/coupon"
+            />
+
+<!--            <menu-item
               :active="/^(draggable)/.test($route.name)"
-              icon="#i-user"
-              :label="t('sidebar.members.users')"
-              to="/users/list"
+              icon="#i-trail"
+              label="Draggable"
+              to="/draggable"
             />
 
             <menu-item
-              :active="/^(draggable)/.test($route.name)"
-              icon="#i-help-bouy"
-              :label="t('sidebar.members.supporters')"
-              to="/users/supporters"
+              :active="/^(croper)/.test($route.name)"
+              icon="#i-crop"
+              label="Crop Image"
+              to="/cropper"
             />
-
+            <menu-item
+              :active="/^(banners)/.test($route.name)"
+              icon="#i-chart"
+              label="Analytics"
+              to="/banners"
+            />
+            <menu-item
+              :active="/^(categories)/.test($route.name)"
+              icon="#i-extentions"
+              label="Thể Loại"
+              to="/categories"
+            />-->
           </ul>
         </template>
       </menu-item>
-
-      <menu-item
-        :active="/^(coupon)/.test($route.name)"
-        icon="#i-love-card"
-        :label="t('sidebar.coupon')"
-        to="/coupon"
-      />
 
     </ul>
 
@@ -114,45 +132,6 @@
               icon="#i-logout"
               :label="t('sidebar.settings.logout')"
               @click.prevent="logOut()"
-            />
-          </ul>
-        </template>
-      </menu-item>
-
-      <menu-item
-        :active="/^(cropper|banners|categories)/.test($route.name)"
-        label="Tools"
-        icon="#i-hammer"
-      >
-        <template #default>
-          <ul
-            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
-          >
-
-            <menu-item
-              :active="/^(draggable)/.test($route.name)"
-              icon="#i-trail"
-              label="Draggable"
-              to="/draggable"
-            />
-
-            <menu-item
-              :active="/^(croper)/.test($route.name)"
-              icon="#i-crop"
-              label="Crop Image"
-              to="/cropper"
-            />
-            <menu-item
-              :active="/^(banners)/.test($route.name)"
-              icon="#i-chart"
-              label="Analytics"
-              to="/banners"
-            />
-            <menu-item
-              :active="/^(categories)/.test($route.name)"
-              icon="#i-extentions"
-              label="Thể Loại"
-              to="/categories"
             />
           </ul>
         </template>

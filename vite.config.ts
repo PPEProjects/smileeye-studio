@@ -13,6 +13,7 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, './src/layouts'),
       '@store': path.resolve(__dirname, './src/store'),
       '#types': path.resolve(__dirname, './src/types'),
+      '#schema': path.resolve(__dirname, './__generated__'),
       '#apollo': path.resolve(__dirname, './src/apollo'),
       '#notify': path.resolve(__dirname, './src/apollo/notify'),
       '#smileeye': path.resolve(__dirname, './src/apollo/smileeye'),

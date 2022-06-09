@@ -1,4 +1,27 @@
 {
+  "coupon": {
+    "action": {
+      "add": "Add"
+    },
+    "actions": {
+      "delete": {
+        "no": "Cancel",
+        "yes": "Cancel"
+      },
+      "destroy": {
+        "title": "Do you want to destroy the current coupon?"
+      }
+    },
+    "table": {
+      "actions": "ACTIONS",
+      "code": "CODE",
+      "createdAt": "CREATED AT",
+      "expiryDate": "EXPIRY DATE",
+      "percent": "VALUE",
+      "use": "USED"
+    },
+    "title": "Coupon System"
+  },
   "payment": {
     "action": {
       "accept": {

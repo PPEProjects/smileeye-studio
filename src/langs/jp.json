@@ -1,4 +1,27 @@
 {
+  "coupon": {
+    "action": {
+      "add": ""
+    },
+    "actions": {
+      "delete": {
+        "no": "",
+        "yes": ""
+      },
+      "destroy": {
+        "title": ""
+      }
+    },
+    "table": {
+      "actions": "",
+      "code": "",
+      "createdAt": "",
+      "expiryDate": "",
+      "percent": "",
+      "use": ""
+    },
+    "title": ""
+  },
   "payment": {
     "action": {
       "accept": {

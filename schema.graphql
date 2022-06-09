@@ -59,6 +59,7 @@ type CoachMember {
   id: ID
   user: User
   goal_ids: JSON
+  goal_root: GoalRoot
   goals: [GoalRoot]
   created_at: DateTime
   updated_at: DateTime
@@ -71,6 +72,18 @@ type CoachMemberPaginator {
 
   """A list of CoachMember items."""
   data: [CoachMember!]!
+}
+
+type Coupon {
+  id: ID
+  user: User
+  code: String
+  limit: Int
+  remaining: Int
+  sale_percent: Int
+  expiry_date: DateTime
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 input CreateFriendGroupInput {
@@ -195,6 +208,10 @@ input DeleteCoachMemberInput {
   id: ID
 }
 
+input DeleteCouponInput {
+  id: ID!
+}
+
 input DeleteFriendGroupInput {
   id: ID!
 }
@@ -247,6 +264,8 @@ input DeletePaymentInput {
 
 input deleteTaskInput {
   ids: [ID]
+  date: String
+  is_all: Boolean
 }
 
 input EditGoalRootInput {
@@ -273,6 +292,12 @@ input EditTaskInput {
   reminder: String
   text_color: String
   date: String
+}
+
+enum FilterExpiry {
+  expired
+  availability
+  all
 }
 
 input ForgotPasswordInput {
@@ -422,6 +447,12 @@ type GoalTemplate {
   updated_at: DateTime!
 }
 
+type InfoCoupon {
+  last_page: Int
+  expired: Int
+  availability: Int
+}
+
 type JapaneseGoal {
   id: ID
   user: User
@@ -537,6 +568,8 @@ type Mutation {
   upsert_coach_member(input: UpsertCoachMemberInput!): CoachMember
   delete_coach_member(input: DeleteCoachMemberInput!): Boolean
   delete_coach_from_goal(input: DeleteCoachFromGoal!): Boolean
+  upsert_coupon(input: UpsertCouponInput!): Coupon
+  delete_coupon(input: DeleteCouponInput!): JSON
   upsert_friend(input: UpsertFriendInput!): Friend
   add_friend(input: AddFriendInput!): Friend
   delete_friends(input: DeleteFriendInput!): Boolean
@@ -584,6 +617,7 @@ type Mutation {
   delete_note(input: DeleteNoteInput!): Boolean
   upsert_payment(input: UpsertPaymentInput!): [Payment]
   delete_payment(input: DeletePaymentInput!): Boolean
+  upsert_review_story_share(input: UpsertReviewStoryShareInput!): ReviewStoryShare
   create_story_share(input: CreateStoryShareInput!): StoryShare
   update_story_share(input: UpdateStoryShareInput!): StoryShare
   create_task(input: CreateTaskInput!): Task
@@ -751,6 +785,8 @@ type Query {
   user(id: ID): User
   detail_coach_member(user_id: ID!): CoachMember
   list_coach_members(goal_root_id: ID): [User]
+  list_coupons: [Coupon]
+  sort_coupons(first: Int, page: Int, expiry: FilterExpiry): SortCoupon
   my_friends: [User]
   list_invite_friends: [User]
   my_friend_groups: [FriendGroup]
@@ -986,6 +1022,16 @@ input resetUserPasswordInput {
   password_confirmation: String!
 }
 
+type ReviewStoryShare {
+  id: ID
+  user: User
+  story_share: StoryShare
+  content: String
+  is_read: Boolean
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 """Information about pagination using a simple paginator."""
 type SimplePaginatorInfo {
   """Number of items in the current page."""
@@ -1010,6 +1056,11 @@ type SimplePaginatorInfo {
 input SocialLoginInput {
   provider: String!
   token: String!
+}
+
+type SortCoupon {
+  data: [Coupon]
+  info: InfoCoupon
 }
 
 """Directions for ordering a list of records."""
@@ -1037,6 +1088,7 @@ type StoryShare {
   image: String
   content: String
   reviewers: JSON
+  reviews: [ReviewStoryShare]
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -1050,6 +1102,7 @@ type Task {
   at_time: String
   reminder: String
   text_color: String
+  check_at: [TodoList]
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -1057,6 +1110,20 @@ type Task {
 type TaskByMonth {
   day: String
   tasks: [Task]
+}
+
+type TodoList {
+  id: ID
+  name: String
+  user: User
+  task_id: ID
+  status: String
+  at_time: String
+  reminder: String
+  text_color: String
+  checked_at: String
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 """
@@ -1204,6 +1271,13 @@ input UpsertCoachMemberInput {
   goal_ids: [ID]
 }
 
+input UpsertCouponInput {
+  code: String!
+  limit: Int
+  sale_percent: Int!
+  expiry_date: DateTime
+}
+
 input UpsertFriendInput {
   user_id_friend: ID!
   status: String
@@ -1285,6 +1359,12 @@ input UpsertPaymentInput {
   money: String
   note: String
   attachments: JSON
+}
+
+input UpsertReviewStoryShareInput {
+  story_share_id: ID
+  content: String
+  is_read: Boolean
 }
 
 type User {

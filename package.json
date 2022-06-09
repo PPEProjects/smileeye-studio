@@ -29,6 +29,7 @@
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.8.2",
     "lottie-web": "^5.9.4",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.14",
     "readdir": "^1.0.2",
     "shelljs": "^0.8.5",

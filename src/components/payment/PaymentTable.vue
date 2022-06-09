@@ -45,26 +45,17 @@
       </template>
 
       <payment-actions v-else-if="column.key === 'action'" />
+
     </template>
 
     <template #expandedRowRender="{ record }">
       <PaymentExpanded :payment="record" />
     </template>
   </a-table>
-
-  <teleport-view to="#actions">
-    <a-button type="primary" size="large" class="uppercase">
-      <template #icon>
-        <plus-outlined />
-      </template>
-      add bill
-    </a-button>
-  </teleport-view>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, reactive, ref } from 'vue'
-import { PlusOutlined } from '@ant-design/icons-vue'
+import { computed, reactive } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
 import { IPaymentTable, PaymentStatusEnum } from '@components/payment/types'
@@ -148,5 +139,4 @@ const changePage = (page: number) => {
 for (let i = 0; i < 20; i++) {
   bills.push(paymentFactory())
 }
-// Todo: Fix action & Scroll
 </script>

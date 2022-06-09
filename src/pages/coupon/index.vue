@@ -1,29 +1,33 @@
 <template>
-  <payment-table />
+
+  <coupon-table />
+
+  <upsert-coupon-modal />
+
   <teleport-view to="#actions">
     <a-button type="primary" size="large" class="uppercase">
       <template #icon>
         <plus-outlined />
       </template>
-      add bill
+      {{ t('coupon.action.add') }}
     </a-button>
   </teleport-view>
+
 </template>
 
 <script lang='ts' setup>
 import { PlusOutlined } from '@ant-design/icons-vue'
-import { usePaymentStore } from '@store/payment'
-
-usePaymentStore()
+import { useLangs } from '@composables/useLangs'
+import CouponTable from '@components/coupon/CouponTable.vue'
+import UpsertCouponModal from '@components/coupon/UpsertCouponModal.vue'
+const { t } = useLangs()
 
 </script>
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import PaymentTable from '@components/payment/PaymentTable.vue'
 
 export default defineComponent({
-  name: 'InComePage',
-  components: { PaymentTable }
+  name: 'CouponPage'
 })
 </script>

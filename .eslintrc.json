@@ -6,7 +6,9 @@
     "node": true
   },
   "globals": {
-    "defineProps": true
+    "defineProps": true,
+    "defineEmits": true,
+    "defineExpose": true
   },
   "extends": [
     "eslint:recommended",

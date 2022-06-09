@@ -7,10 +7,27 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum FilterExpiry {
+  all = "all",
+  availability = "availability",
+  expired = "expired",
+}
+
+export interface DeleteCouponInput {
+  id: string;
+}
+
 export interface UpdatePassword {
   old_password: string;
   password: string;
   password_confirmation: string;
+}
+
+export interface UpsertCouponInput {
+  code: string;
+  limit?: number | null;
+  sale_percent: number;
+  expiry_date?: any | null;
 }
 
 //==============================================================

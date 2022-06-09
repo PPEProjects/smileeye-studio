@@ -43,6 +43,9 @@
       ],
       "#types/*": [
         "./src/types/*"
+      ],
+      "#schema/*": [
+        "./__generated__/*"
       ]
     }
   },
