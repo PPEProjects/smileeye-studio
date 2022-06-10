@@ -6,7 +6,7 @@
     "actions": {
       "delete": {
         "no": "Cancel",
-        "yes": "Cancel"
+        "yes": "Delete"
       },
       "destroy": {
         "title": "Do you want to destroy the current coupon?"

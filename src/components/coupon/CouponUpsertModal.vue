@@ -62,6 +62,7 @@
           v-model:value="formState.expiry_date"
           placeholder="Select Time"
           style="width: 100%"
+          :disabled-date="disabledDate"
           value-format="YYYY-MM-DD HH:mm:ss"
         />
       </a-form-item>
@@ -101,6 +102,8 @@ import { useLangs } from '@composables/useLangs'
 import { SORT_COUPONS } from '#smileeye/queries/coupon.query'
 import { useCouponStore } from '@store/coupon'
 import { FilterExpiry } from '#schema/smileeyeTypes'
+import { Dayjs } from 'dayjs'
+import { useDayjs } from '@composables/useDayjs'
 
 const { t } = useLangs()
 
@@ -109,6 +112,13 @@ const couponStore = useCouponStore()
 
 // Modal
 const modal = ref<any>(null)
+
+// disbale form
+const dayjs = useDayjs()
+const disabledDate = (current: Dayjs) => {
+  // Can not select days before today and today
+  return current && current < dayjs().endOf('day');
+};
 
 // Form data
 const formState = reactive<IFormCouponUpsert>({
