@@ -12,19 +12,28 @@
     @change='changePage'
   >
     <template #bodyCell="{ column, record, index }">
-      <template v-if="column.key === 'expiryDate'">
+
+      <template v-if='column.key === "limit"'>
+        <a-tag color="#f50">
+          {{ record.limit - (record.remaining | record.limit) }}/{{ record.limit }}
+        </a-tag>
+      </template>
+
+      <template v-else-if="column.key === 'expiryDate'">
         <span v-if='record.expiry_date'>{{
           dayjs(record.expiry_date, 'YYYY-MM-DD hh:mm:ss').format('DD-MM-YYYY')
         }}</span>
+
+        <span v-else>--</span>
       </template>
 
-      <template v-if="column.key === 'createdAt'">
-        <span v-if='record.created_at'>{{
+      <template v-else-if="column.key === 'createdAt'">
+        <span>{{
           dayjs(record.created_at, 'YYYY-MM-DD hh:mm:ss').format('DD-MM-YYYY')
         }}</span>
       </template>
 
-      <template v-if="column.key === 'action'">
+      <template v-else-if="column.key === 'action'">
         <a-button
           type="primary"
           size="small"
