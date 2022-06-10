@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout" />
+  <component :is="layout" :key='layout' />
 </template>
 
 <script lang="ts">

@@ -2,25 +2,34 @@
   <a-table
     :loading="loading || isDeleting"
     :columns="columns"
-    :data-source="coupons"
-    :pagination="{ total: 10, showLessItems: true, defaultPageSize: 6 }"
+    :data-source="couponStore.coupons"
+    :pagination="{
+      total: couponStore.counter.availability,
+      showLessItems: true,
+      defaultPageSize: 7
+    }"
     row-key="code"
+    @change='changePage'
   >
     <template #bodyCell="{ column, record, index }">
       <template v-if="column.key === 'expiryDate'">
-        <span>{{
+        <span v-if='record.expiry_date'>{{
           dayjs(record.expiry_date, 'YYYY-MM-DD hh:mm:ss').format('DD-MM-YYYY')
         }}</span>
       </template>
 
       <template v-if="column.key === 'createdAt'">
-        <span>{{
+        <span v-if='record.created_at'>{{
           dayjs(record.created_at, 'YYYY-MM-DD hh:mm:ss').format('DD-MM-YYYY')
         }}</span>
       </template>
 
       <template v-if="column.key === 'action'">
-        <a-button type="primary" size="small" @click="emit('edit', record)">
+        <a-button
+          type="primary"
+          size="small"
+          @click="emitter.emit('upsertCoupon', record)"
+        >
           <template #icon>
             <edit-outlined />
           </template>
@@ -54,7 +63,6 @@ import {
 } from '#smileeye/queries/__generated__/SortCoupons'
 import { SORT_COUPONS } from '#smileeye/queries/coupon.query'
 import { FilterExpiry } from '#schema/smileeyeTypes'
-import usePick from '@composables/usePick'
 import { useLangs } from '@composables/useLangs'
 import { useDayjs } from '@composables/useDayjs'
 import { DELETE_COUPON } from '#smileeye/mutations/coupon.mutation'
@@ -62,9 +70,16 @@ import {
   DeleteCoupon,
   DeleteCouponVariables
 } from '#smileeye/mutations/__generated__/DeleteCoupon'
+import { useEmitter } from '@composables/useEmitter'
+import { IFormCouponUpsert } from '@components/coupon/types'
+import { useCouponStore } from '@store/coupon'
+import { watch } from 'vue'
 
 const { t } = useLangs()
 const dayjs = useDayjs()
+
+// Store
+const couponStore = useCouponStore()
 
 // Table setup
 const columns = [
@@ -106,16 +121,18 @@ const columns = [
   }
 ]
 
-const { result, loading } = useQuery<SortCoupons, SortCouponsVariables>(
+const { result, loading, refetch } = useQuery<SortCoupons, SortCouponsVariables>(
   SORT_COUPONS,
   {
-    first: 10,
-    page: 0,
+    first: 7,
+    page: couponStore.page,
     expiry: FilterExpiry.all
   }
 )
-
-const coupons = usePick(result, [], (data) => data.sort_coupons.data)
+watch(result, (value) => {
+  couponStore.setCoupons((value?.sort_coupons?.data as any) || [])
+  couponStore.setCounter(value?.sort_coupons?.info as any)
+})
 
 const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
   DeleteCoupon,
@@ -135,8 +152,8 @@ const deleteHandle = async (
         proxy.writeQuery<SortCoupons, SortCouponsVariables>({
           query: SORT_COUPONS,
           variables: {
-            first: 10,
-            page: 0,
+            first: 7,
+            page: couponStore.page,
             expiry: FilterExpiry.all
           },
           data: {
@@ -150,8 +167,18 @@ const deleteHandle = async (
   )
 }
 
-// edit
-const emit = defineEmits<{
-  (e: 'edit', record: SortCoupons_sort_coupons_data): void
+// Global event
+const emitter = useEmitter<{
+  upsertCoupon: IFormCouponUpsert | object
 }>()
+
+const changePage = ($event: any) => {
+  couponStore.setPage($event.current)
+  refetch({
+    first: 7,
+    page: couponStore.page,
+    expiry: FilterExpiry.all
+  })
+}
+
 </script>
