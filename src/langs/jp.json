@@ -12,6 +12,27 @@
         "title": ""
       }
     },
+    "form": {
+      "button": {
+        "add": ""
+      },
+      "code": {
+        "label": "",
+        "validate": ""
+      },
+      "expiry": {
+        "label": ""
+      },
+      "limit": {
+        "label": ""
+      },
+      "percent": {
+        "label": ""
+      }
+    },
+    "notify": {
+      "created": ""
+    },
     "table": {
       "actions": "",
       "code": "",
@@ -21,6 +42,12 @@
       "use": ""
     },
     "title": ""
+  },
+  "form": {
+    "validate": {
+      "min": "",
+      "required": ""
+    }
   },
   "payment": {
     "action": {

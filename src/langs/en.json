@@ -12,6 +12,27 @@
         "title": "Do you want to destroy the current coupon?"
       }
     },
+    "form": {
+      "button": {
+        "add": "Add"
+      },
+      "code": {
+        "label": "Code",
+        "validate": "Code is required"
+      },
+      "expiry": {
+        "label": "Expiry Day"
+      },
+      "limit": {
+        "label": "Limit"
+      },
+      "percent": {
+        "label": "% Value"
+      }
+    },
+    "notify": {
+      "created": "Created success"
+    },
     "table": {
       "actions": "ACTIONS",
       "code": "CODE",
@@ -21,6 +42,12 @@
       "use": "USED"
     },
     "title": "Coupon System"
+  },
+  "form": {
+    "validate": {
+      "min": "{ field } must bigger than { min }",
+      "required": "{ field } is required"
+    }
   },
   "payment": {
     "action": {

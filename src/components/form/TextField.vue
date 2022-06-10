@@ -1,9 +1,9 @@
 <template>
-  <div class='pb-2 pt-1 relative'>
+  <div class='pb-2 relative pt-1'>
 
     <div class='flex items-center'>
 
-      <label v-if='$slots["prefix"]' :for='inputKID' class='block mr-4'>
+      <label v-if='$slots["prefix"]' :for='inputKID' class='block pr-4'>
         <slot name="prefix"></slot>
       </label>
 
@@ -44,28 +44,19 @@ const emit = defineEmits<{
   (e: 'update:value', value: string): void
 }>()
 
- const { validate, value, placeholder, disabled, type } = defineProps({
-  placeholder: {
-    type: String,
-    default: ''
-  },
-  value: {
-    type: String,
-    default: ''
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
-  validate: {
-    type: Function,
-    default: () => {}
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-})
+ const props = withDefaults(defineProps<{
+   placeholder?: string,
+   value?: string,
+   type?: string,
+   validate?: () => string,
+   disabled?: boolean
+ }>(), {
+   placeholder: '',
+   value: '',
+   type: 'text',
+   validate: () => '',
+   disabled: false
+ })
 
 const isFocus = ref<boolean>(false)
 const errorMessage = ref<string>('')
@@ -81,9 +72,9 @@ const onFocus = () => {
   isFocus.value = true
 }
 const outFocus = () => {
-  if(validate) {
+  if(props.validate) {
     isFocus.value = false
-    const error = validate?.()
+    const error = props.validate?.()
     if(error) {
       errorMessage.value = error
       nextTick(()=> {

@@ -12,6 +12,27 @@
         "title": "Hành động này sẽ khiển mã hết hạn?"
       }
     },
+    "form": {
+      "button": {
+        "add": "Thêm"
+      },
+      "code": {
+        "label": "Mã Giảm Giá",
+        "validate": "Mã giảm giá là bắt buộc"
+      },
+      "expiry": {
+        "label": "Ngày Hết Hạn"
+      },
+      "limit": {
+        "label": "Số Lượng"
+      },
+      "percent": {
+        "label": "% Giảm"
+      }
+    },
+    "notify": {
+      "created": "Thêm thành công"
+    },
     "table": {
       "actions": "HÀNH ĐỘNG",
       "code": "MÃ GIẢM",
@@ -21,6 +42,12 @@
       "use": "SỬ DỤNG"
     },
     "title": "Hệ Thống Mã Giảm Giá"
+  },
+  "form": {
+    "validate": {
+      "min": "{ field } phải hơn { min }",
+      "required": "{ field } là bắt buộc"
+    }
   },
   "payment": {
     "action": {

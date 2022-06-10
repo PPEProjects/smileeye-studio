@@ -29,7 +29,6 @@ svg {
 
 .ant-btn>.ant-btn-loading-icon {
     position: relative;
-    top: -4px;
 }
 
 button.ant-btn-sm > svg {

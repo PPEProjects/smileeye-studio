@@ -41,12 +41,12 @@
         :label='t("sidebar.dashboard")'
         to="/dashboard"
       />
-<!--      <menu-item
+      <menu-item
         :active="/^(stories|story|chapter|publish)/.test($route.name)"
         icon="#i-workspace"
-        label="Tác Phẩm"
+        label="Workspace"
         to="/stories"
-      />-->
+      />
 
       <menu-item
         :active="/^(payment)/.test($route.name)"

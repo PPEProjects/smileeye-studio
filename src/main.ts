@@ -42,7 +42,12 @@ import infinite from '@plugins/eternal-loading'
 // Đa Ngôn Ngữ
 import i18n from '@plugins/i18n'
 
+// Event bus
+import mitter from '@plugins/emitter'
+
 const app = createApp(App)
+
+app.use(mitter)
 app.use(Antd)
 app.use(animejs)
 app.use(VueLottie)
