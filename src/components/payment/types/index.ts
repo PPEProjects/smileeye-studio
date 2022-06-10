@@ -1,12 +1,6 @@
 export enum PaymentStatusEnum {
-  ON_BUY,
-  TRIAL,
-  CONFIRMED
-}
-
-export interface IPaymentTable {
-  name: string
-  status: PaymentStatusEnum
-  billImage: string
-  createdAt: string
+  ON_BUY = 'ON_BUY',
+  TRIAL = 'TRIAL',
+  SENT_RECEIPT = 'SENT_RECEIPT',
+  PAID_CONFIRMED = 'PAID_CONFIRMED'
 }

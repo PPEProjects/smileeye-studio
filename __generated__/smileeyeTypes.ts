@@ -27,7 +27,7 @@ export interface UpsertCouponInput {
   code: string;
   limit?: number | null;
   sale_percent: number;
-  expiry_date?: any | null;
+  expiry_date?: string | null;
 }
 
 //==============================================================

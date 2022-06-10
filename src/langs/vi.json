@@ -66,6 +66,7 @@
       "action": "HÀNH ĐỘNG",
       "billImage": "HOÁ ĐƠN",
       "createdAt": "NGÀY TẠO",
+      "money": "SỐ TIỀN",
       "status": "TRẠNG THÁI",
       "user": {
         "email": "EMAIL",

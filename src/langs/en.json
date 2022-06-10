@@ -66,6 +66,7 @@
       "action": "ACTIONS",
       "billImage": "RECIPE",
       "createdAt": "CREATED",
+      "money": "MONEY",
       "status": "STATUS",
       "user": {
         "email": "EMAIL",

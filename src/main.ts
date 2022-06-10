@@ -45,8 +45,12 @@ import i18n from '@plugins/i18n'
 // Event bus
 import mitter from '@plugins/emitter'
 
+// CDN Plugin
+import cdn from '@plugins/cdn'
+
 const app = createApp(App)
 
+app.use(cdn)
 app.use(mitter)
 app.use(Antd)
 app.use(animejs)

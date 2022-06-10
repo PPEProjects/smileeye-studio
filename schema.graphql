@@ -766,19 +766,11 @@ type Payment {
   status: String
   money: String
   note: String
+  code_sale: String
   attachments: JSON
   created_at: DateTime
   updated_at: DateTime
   number_member: Int
-}
-
-"""A paginated list of Payment items."""
-type PaymentPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Payment items."""
-  data: [Payment!]!
 }
 
 type Query {
@@ -830,10 +822,9 @@ type Query {
   list_japanese_posts_by_goal_root(user_id: ID, goal_root_id: ID): [JapanesePost]
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
-  payments: [Payment]
+  sort_payments(first: Int, page: Int): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
-  my_total_payment: JSON
   detail_my_payment(goal_id: ID!): Payment
   my_story_share(goal_id: ID): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
@@ -963,15 +954,6 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): NotePaginator
-  sort_payments(
-    orderBy: [OrderByClause!]
-
-    """Limits number of fetched items."""
-    first: Int!
-
-    """The offset from which items are returned."""
-    page: Int
-  ): PaymentPaginator
   list_user(
     phone_number: String
     email: String
@@ -1275,7 +1257,7 @@ input UpsertCouponInput {
   code: String!
   limit: Int
   sale_percent: Int!
-  expiry_date: DateTime
+  expiry_date: String
 }
 
 input UpsertFriendInput {
@@ -1356,6 +1338,7 @@ input UpsertPaymentInput {
   status: STATUS
   user_info: JSON
   type: String
+  code_sale: String
   money: String
   note: String
   attachments: JSON

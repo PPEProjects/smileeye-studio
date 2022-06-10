@@ -2,7 +2,7 @@
   <a-table
     :loading="false"
     :columns="columns"
-    :data-source="bills"
+    :data-source="payments"
     :pagination="{ total: 10, showLessItems: true, defaultPageSize: 6 }"
     row-key="name"
     @change="changePage($event.current - 1)"
@@ -13,27 +13,43 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <span class="font-medium ml-2">{{ record.name }}</span>
+        <span class="font-medium ml-2">{{ record.user.name }}</span>
+      </template>
+
+      <template v-if="column.key === 'email'">
+        <span>{{ record.user.email }}</span>
+      </template>
+
+      <template v-if="column.key === 'phone'">
+        <span>{{ record.user.phone_number }}</span>
+      </template>
+
+      <template v-if="column.key === 'goal'">
+        <span>{{ record.goal.name }}</span>
       </template>
 
       <template v-else-if="column.key === 'billImage'">
         <div class="rounded overflow-hidden">
-          <a-image :width="150" :height="80" :src="record.billImage" />
+          <a-image
+            :width="150"
+            :height="80"
+            :src="$cdn(record.attachments[0])"
+          />
         </div>
       </template>
 
       <template v-else-if="column.key === 'status'">
-        <a-tag v-if="record.status === PaymentStatusEnum.TRIAL" color="#f50">
+        <a-tag v-if="record.status === PaymentStatusEnum.TRIAL" color="#2db7f5">
           TRIAL
         </a-tag>
         <a-tag
           v-else-if="record.status === PaymentStatusEnum.ON_BUY"
-          color="#2db7f5"
+          color="#f50"
         >
           ON BUY
         </a-tag>
         <a-tag
-          v-else-if="record.status === PaymentStatusEnum.CONFIRMED"
+          v-else-if="record.status === PaymentStatusEnum.PAID_CONFIRMED"
           color="#87d068"
         >
           CONFIRMED
@@ -41,11 +57,10 @@
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
-        {{ record.createdAt }}
+        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
       </template>
 
       <payment-actions v-else-if="column.key === 'action'" />
-
     </template>
 
     <template #expandedRowRender="{ record }">
@@ -55,17 +70,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive } from 'vue'
+import { computed } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
-import { IPaymentTable, PaymentStatusEnum } from '@components/payment/types'
-import { paymentFactory } from '@utils/factory'
+import { PaymentStatusEnum } from '@components/payment/types'
 import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
 import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
 import { usePaymentStore } from '@store/payment'
+import { useQuery } from '@vue/apollo-composable'
+import {
+  SortPayments,
+  SortPaymentsVariables
+} from '#smileeye/queries/__generated__/SortPayments'
+import { SORT_PAYMENTS } from '#smileeye/queries/payment.query'
+import usePick from '@composables/usePick'
+import { useDayjs } from '@composables/useDayjs'
 
 const { t } = useLangs()
+
+const dayjs = useDayjs()
 
 // Store
 const paymentStore = usePaymentStore()
@@ -73,12 +97,12 @@ const paymentStore = usePaymentStore()
 const rawColumns = [
   {
     title: t('payment.table.user.name'),
-    dataIndex: 'name',
+    dataIndex: 'user.name',
     key: 'name'
   },
   {
     title: t('payment.table.user.email'),
-    dataIndex: 'email',
+    dataIndex: 'user',
     key: 'email'
   },
   {
@@ -95,6 +119,13 @@ const rawColumns = [
 
 const fixColumns = [
   {
+    title: t('payment.table.money'),
+    dataIndex: 'money',
+    key: 'money',
+    align: 'center',
+    width: 150
+  },
+  {
     title: t('payment.table.status'),
     dataIndex: 'status',
     key: 'status',
@@ -110,7 +141,7 @@ const fixColumns = [
   },
   {
     title: t('payment.table.createdAt'),
-    dataIndex: 'createdAt',
+    dataIndex: 'created_at',
     key: 'createdAt',
     align: 'center',
     width: 200
@@ -128,15 +159,19 @@ const columns = computed(() => {
   const _dynamic = paymentStore.columns.map((_index) => rawColumns[_index])
   return [..._dynamic, ...fixColumns]
 })
-// table source
-const bills = reactive<IPaymentTable[]>([])
 
 const changePage = (page: number) => {
   //
   console.log('Page', page)
 }
 
-for (let i = 0; i < 20; i++) {
-  bills.push(paymentFactory())
-}
+const { result } = useQuery<SortPayments, SortPaymentsVariables>(
+  SORT_PAYMENTS,
+  {
+    first: 6,
+    page: 1
+  }
+)
+
+const payments = usePick(result, [], (data) => data.sort_payments)
 </script>
