@@ -62,6 +62,36 @@
         "yes": ""
       }
     },
+    "detail": {
+      "title": ""
+    },
+    "form": {
+      "upsert": {
+        "actions": {
+          "add": "",
+          "cancel": "",
+          "deleteQuestion": "",
+          "detail": ""
+        },
+        "billImage": "",
+        "coupon": "",
+        "email": "",
+        "goal": "",
+        "money": "",
+        "name": "",
+        "note": "",
+        "noteImage": "",
+        "phone": "",
+        "referral": "",
+        "title": "",
+        "value": ""
+      }
+    },
+    "status": {
+      "confirmed": "",
+      "onBuy": "",
+      "trial": ""
+    },
     "table": {
       "action": "",
       "billImage": "",

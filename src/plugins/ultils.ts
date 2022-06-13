@@ -1,5 +1,6 @@
 import { App } from 'vue'
 
+//CDN
 enum CDNLocation {
   CODE_BY
 }
@@ -16,12 +17,16 @@ const $cdn = (path: string, location = CDNLocation.CODE_BY) => {
   return _path
 }
 
+// Link Builder
+
+// Cutsom type
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $cdn: typeof $cdn
   }
 }
 
+// Install Function
 const plugin = {
   install(app: App) {
     app.config.globalProperties.$cdn = $cdn

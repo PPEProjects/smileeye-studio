@@ -10,7 +10,7 @@ const messages = {
 
 const i18n = createI18n({
   legacy: false,
-  locale: 'en', // set locale
+  locale: 'vi', // set locale
   fallbackLocale: 'en', // set fallback locale
   messages
 })

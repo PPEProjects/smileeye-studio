@@ -22,6 +22,10 @@ let routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/payment/:id',
+    component: () => import('./pages/payment/id/index.vue')
+  },
+  {
     path: '/coupon',
     component: () => import('./pages/coupon/index.vue'),
     meta: {

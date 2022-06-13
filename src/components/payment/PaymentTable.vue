@@ -5,7 +5,7 @@
     :data-source="payments"
     :pagination="{ total: 10, showLessItems: true, defaultPageSize: 6 }"
     row-key="name"
-    @change="changePage($event.current - 1)"
+    @change="changePage($event.current)"
   >
     <template #headerCell="{ column }">
       <payment-setting-header v-if="!column.key" />
@@ -13,7 +13,13 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <span class="font-medium ml-2">{{ record.user.name }}</span>
+        <router-link
+          :to="'/payment/' + record.id"
+          href="javascript:void(0)"
+          class="font-medium ml-2"
+        >
+          {{ record.user.name }}
+        </router-link>
       </template>
 
       <template v-if="column.key === 'email'">
@@ -40,19 +46,19 @@
 
       <template v-else-if="column.key === 'status'">
         <a-tag v-if="record.status === PaymentStatusEnum.TRIAL" color="#2db7f5">
-          TRIAL
+          {{ t('payment.status.trial') }}
         </a-tag>
         <a-tag
           v-else-if="record.status === PaymentStatusEnum.ON_BUY"
           color="#f50"
         >
-          ON BUY
+          {{ t('payment.status.onBuy') }}
         </a-tag>
         <a-tag
           v-else-if="record.status === PaymentStatusEnum.PAID_CONFIRMED"
           color="#87d068"
         >
-          CONFIRMED
+          {{ t('payment.status.confirmed') }}
         </a-tag>
       </template>
 
@@ -60,7 +66,7 @@
         {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
       </template>
 
-      <payment-actions v-else-if="column.key === 'action'" />
+      <payment-actions v-else-if="column.key === 'action'" :payment="record" />
     </template>
 
     <template #expandedRowRender="{ record }">
@@ -70,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
 import { PaymentStatusEnum } from '@components/payment/types'
@@ -160,18 +166,24 @@ const columns = computed(() => {
   return [..._dynamic, ...fixColumns]
 })
 
-const changePage = (page: number) => {
-  //
-  console.log('Page', page)
-}
-
-const { result } = useQuery<SortPayments, SortPaymentsVariables>(
+// Resource
+const page = ref<number>(1)
+// Query hook
+const { result, refetch } = useQuery<SortPayments, SortPaymentsVariables>(
   SORT_PAYMENTS,
   {
     first: 6,
-    page: 1
+    page: page.value
   }
 )
 
 const payments = usePick(result, [], (data) => data.sort_payments)
+
+const changePage = (_page: number) => {
+  page.value = _page
+  refetch({
+    first: 6,
+    page: page.value
+  })
+}
 </script>

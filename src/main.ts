@@ -46,7 +46,7 @@ import i18n from '@plugins/i18n'
 import mitter from '@plugins/emitter'
 
 // CDN Plugin
-import cdn from '@plugins/cdn'
+import cdn from '@plugins/ultils'
 
 const app = createApp(App)
 

@@ -62,6 +62,36 @@
         "yes": "Xoá"
       }
     },
+    "detail": {
+      "title": "Đơn hàng Số: { id }"
+    },
+    "form": {
+      "upsert": {
+        "actions": {
+          "add": "Thay Đổi",
+          "cancel": "Huỷ Giao Dịch",
+          "deleteQuestion": "Bạn có chắc muốn huỷ giao dịch này?",
+          "detail": "Thông Tin Chi Tiết"
+        },
+        "billImage": "Hình Ảnh Hoá Đơn",
+        "coupon": "Mã Giảm Giá",
+        "email": "Địa Chỉ Email",
+        "goal": "Khoá Học",
+        "money": "Số Tiền Thực Nhận",
+        "name": "Tên Người Mua",
+        "note": "Gi Chú",
+        "noteImage": "Hình Ảnh Gi Chú",
+        "phone": "Số Điện Thoại",
+        "referral": "Người Giới Thiệu",
+        "title": "Tuỳ Chỉnh Đơn Hàng",
+        "value": "Giá Trị Đơn Hàng"
+      }
+    },
+    "status": {
+      "confirmed": "ĐÃ XONG",
+      "onBuy": "ĐANG MUA",
+      "trial": "XEM CHÙA"
+    },
     "table": {
       "action": "HÀNH ĐỘNG",
       "billImage": "HOÁ ĐƠN",

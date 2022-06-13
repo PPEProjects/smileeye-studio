@@ -23,7 +23,7 @@
       >
         <a
           v-if="canCancel"
-          class="-translate-x-7 z-10 absolute close-button right-0 text-xl top-0 transform translate-y-5 cursor-pointer text-gray-600"
+          class="-translate-x-7 z-10 absolute close-button right-0 text-xl top-0 transform translate-y-5 cursor-pointer text-gray-600 hover:text-gray-600"
           @click="dispose()"
         >
           <svg
@@ -39,7 +39,7 @@
         <div class="px-7">
           <h4
             v-if="title"
-            class="font-semibold text-gray-600 text-xl lg:text-2xl pb-1"
+            class="font-semibold text-gray-600 text-lg lg:text-2xl pb-1"
           >
             {{ title }}
           </h4>
