@@ -211,7 +211,7 @@ const { mutate: deletePayment } = useMutation<
         page: page.value
       },
       data: {
-        sort_payments: result.value!.sort_payments!.filter((e) => e.id !== options.variables?.input.id)
+        sort_payments: result.value!.sort_payments!.filter((e) => e?.id !== options.variables?.input.id)
       }
     })
   }

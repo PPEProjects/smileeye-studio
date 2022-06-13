@@ -8,10 +8,10 @@
 
 <script lang='ts' setup>
 
-import { IPaymentTable } from '@components/payment/types'
+import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
 
 interface Props {
-  payment: IPaymentTable
+  payment: SortPayments_sort_payments
 }
 
 defineProps<Props>()
