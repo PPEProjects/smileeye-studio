@@ -188,6 +188,7 @@
             :title="t('payment.action.delete.title')"
             :ok-text="t('payment.action.delete.yes')"
             :cancel-text="t('payment.action.delete.no')"
+            @confirm='$emitter.emit("deletePayment", formState.id); modal?.dispose()'
           >
             <a-button type="danger" :disabled="loading">
               {{ t('payment.form.upsert.actions.cancel') }}

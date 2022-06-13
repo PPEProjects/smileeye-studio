@@ -22,3 +22,11 @@ export const SORT_PAYMENTS = gql`
     }
   }
 `
+
+export const SUM_PAYMENT = gql`
+  query SumPayment {
+    sum_payment {
+      sum
+    }
+  }
+`

@@ -108,7 +108,11 @@
     },
     "title": ""
   },
+  "settings": {
+    "title": ""
+  },
   "sidebar": {
+    "config": "",
     "coupon": "",
     "dashboard": "",
     "members": {
@@ -122,5 +126,12 @@
       "logout": "",
       "settings": ""
     }
+  },
+  "users": {
+    "tab": {
+      "list": "",
+      "supporters": ""
+    },
+    "title": ""
   }
 }

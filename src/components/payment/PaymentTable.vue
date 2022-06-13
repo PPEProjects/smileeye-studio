@@ -3,7 +3,7 @@
     :loading="false"
     :columns="columns"
     :data-source="payments"
-    :pagination="{ total: 10, showLessItems: true, defaultPageSize: 6 }"
+    :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
     row-key="name"
     @change="changePage($event.current)"
   >
@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
 import { PaymentStatusEnum } from '@components/payment/types'
@@ -93,7 +93,7 @@ import {
   SortPayments,
   SortPaymentsVariables
 } from '#smileeye/queries/__generated__/SortPayments'
-import { SORT_PAYMENTS } from '#smileeye/queries/payment.query'
+import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
 import { DELETE_PAYMENT } from '#smileeye/mutations/payment.mutation'
@@ -101,6 +101,8 @@ import {
   DeletePayment,
   DeletePaymentVariables
 } from '#smileeye/mutations/__generated__/DeletePayment'
+import { useEmitter } from '@composables/useEmitter'
+import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
 
 const { t } = useLangs()
 
@@ -214,5 +216,21 @@ const { mutate: deletePayment } = useMutation<
     })
   }
 })
+
+// Counter
+const { result: paymentCounter } = useQuery<SumPayment>(SUM_PAYMENT)
+const counter = usePick(paymentCounter, 0, data => data.sum_payment.sum)
+
+
+// Delete from modal
+// Global event
+const emitter = useEmitter<{
+  deletePayment: string
+}>()
+onMounted(() => emitter.on('deletePayment', (id) => {
+  deletePayment({ input: { id } })
+}))
+
+onUnmounted(() => emitter.off('deletePayment'))
 
 </script>

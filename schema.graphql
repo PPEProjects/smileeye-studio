@@ -403,6 +403,7 @@ type GoalRoot {
   video: JSON
   image: JSON
   type: String
+  report_type: String
   owner_percent: String
   detailed_income: JSON
   trial_blocks: JSON
@@ -827,6 +828,7 @@ type Query {
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
   detail_my_payment(goal_id: ID!): [Payment]
+  sum_payment: SumPayment
   my_story_share(goal_id: ID): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
   tasks_by_month(month: String): [Task]
@@ -1074,6 +1076,10 @@ type StoryShare {
   reviews: [ReviewStoryShare]
   created_at: DateTime!
   updated_at: DateTime!
+}
+
+type SumPayment {
+  sum: Int
 }
 
 type Task {

@@ -108,7 +108,11 @@
     },
     "title": "Payment"
   },
+  "settings": {
+    "title": "Settings"
+  },
   "sidebar": {
+    "config": "Config",
     "coupon": "Coupon",
     "dashboard": "Dashboard",
     "members": {
@@ -122,5 +126,12 @@
       "logout": "Log Out",
       "settings": "Settings"
     }
+  },
+  "users": {
+    "tab": {
+      "list": "All",
+      "supporters": "Supporters"
+    },
+    "title": "Users"
   }
 }

@@ -108,7 +108,11 @@
     },
     "title": "Thanh Toán"
   },
+  "settings": {
+    "title": "Thiết Lập"
+  },
   "sidebar": {
+    "config": "Thiết Lập",
     "coupon": "Mã Giảm Giá",
     "dashboard": "Tổng Quan",
     "members": {
@@ -122,5 +126,12 @@
       "logout": "Đăng Xuất",
       "settings": "Cài Đặt"
     }
+  },
+  "users": {
+    "tab": {
+      "list": "Tất Cả",
+      "supporters": "Người Hỗ Trợ"
+    },
+    "title": "Thành Viên"
   }
 }

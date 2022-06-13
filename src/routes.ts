@@ -40,7 +40,12 @@ let routes: RouteRecordRaw[] = [
   {
     path: '/users',
     component: () => import('./pages/users/index.vue'),
+    redirect: '/users/list',
     children: [
+      {
+        path: '/users/list',
+        component: () => import('./pages/users/list/index.vue')
+      },
       {
         path: '/users/supporters',
         component: () => import('./pages/users/supporters/index.vue')
@@ -66,6 +71,15 @@ let routes: RouteRecordRaw[] = [
     component: () => import('./pages/notifications/index.vue'),
     meta: {
       title: 'Notifications'
+    }
+  },
+
+  // Cài đặt
+  {
+    path: '/settings',
+    component: () => import('./pages/settings/index.vue'),
+    meta: {
+      title: 'settings.title'
     }
   }
 ]

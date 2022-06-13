@@ -56,7 +56,7 @@
       />
 
       <menu-item
-        :active="/^(users|supporter)/.test($route.name)"
+        :active="/^(users)/.test($route.name)"
         icon="#i-group"
         :label="t('sidebar.members.members')"
         to="/users"
@@ -78,6 +78,13 @@
               icon="#i-love-card"
               :label="t('sidebar.coupon')"
               to="/coupon"
+            />
+
+            <menu-item
+              :active="/^(settings)/.test($route.name)"
+              icon="#i-extentions"
+              :label="t('sidebar.config')"
+              to="/settings"
             />
 
 <!--            <menu-item
