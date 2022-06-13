@@ -79,6 +79,7 @@ type Coupon {
   user: User
   code: String
   limit: Int
+  goal_root_ids: [ID]
   remaining: Int
   sale_percent: Int
   expiry_date: DateTime
@@ -761,7 +762,7 @@ type Payment {
   add_user: User
   goal_id: ID
   user_info: JSON
-  goal: Goal
+  goal: GoalRoot
   type: String
   status: String
   money: String
@@ -825,7 +826,7 @@ type Query {
   sort_payments(first: Int, page: Int): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
-  detail_my_payment(goal_id: ID!): Payment
+  detail_my_payment(goal_id: ID!): [Payment]
   my_story_share(goal_id: ID): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
   tasks_by_month(month: String): [Task]
@@ -1257,6 +1258,7 @@ input UpsertCouponInput {
   code: String!
   limit: Int
   sale_percent: Int!
+  goal_root_ids: [ID]
   expiry_date: String
 }
 

@@ -1,6 +1,6 @@
 <template>
   <payment-table />
-  <teleport-view to="#actions">
+  <teleport-view v-if='false' to="#actions">
     <a-button
       type="primary"
       size="large"

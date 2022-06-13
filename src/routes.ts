@@ -18,12 +18,16 @@ let routes: RouteRecordRaw[] = [
     path: '/payment',
     component: () => import('./pages/payment/index.vue'),
     meta: {
-      title: 'payment.title'
+      title: 'payment.title',
+      collapse: true
     }
   },
   {
     path: '/payment/:id',
-    component: () => import('./pages/payment/id/index.vue')
+    component: () => import('./pages/payment/id/index.vue'),
+    meta: {
+      collapse: true
+    }
   },
   {
     path: '/coupon',

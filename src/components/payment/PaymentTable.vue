@@ -18,16 +18,16 @@
           href="javascript:void(0)"
           class="font-medium ml-2"
         >
-          {{ record.user.name }}
+          {{ record.user_info.name }}
         </router-link>
       </template>
 
       <template v-if="column.key === 'email'">
-        <span>{{ record.user.email }}</span>
+        <span>{{ record.user_info.email }}</span>
       </template>
 
       <template v-if="column.key === 'phone'">
-        <span>{{ record.user.phone_number }}</span>
+        <span>{{ record.user_info.phone_number }}</span>
       </template>
 
       <template v-if="column.key === 'goal'">
@@ -66,7 +66,11 @@
         {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
       </template>
 
-      <payment-actions v-else-if="column.key === 'action'" :payment="record" />
+      <payment-actions
+        v-else-if="column.key === 'action'"
+        :payment="record"
+        @delete="deletePayment({ input: { id: record.id } })"
+      />
     </template>
 
     <template #expandedRowRender="{ record }">
@@ -84,7 +88,7 @@ import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
 import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
 import { usePaymentStore } from '@store/payment'
-import { useQuery } from '@vue/apollo-composable'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   SortPayments,
   SortPaymentsVariables
@@ -92,6 +96,11 @@ import {
 import { SORT_PAYMENTS } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
+import { DELETE_PAYMENT } from '#smileeye/mutations/payment.mutation'
+import {
+  DeletePayment,
+  DeletePaymentVariables
+} from '#smileeye/mutations/__generated__/DeletePayment'
 
 const { t } = useLangs()
 
@@ -156,7 +165,8 @@ const fixColumns = [
     title: t('payment.table.action'),
     key: 'action',
     align: 'right',
-    fixed: 'right'
+    fixed: 'right',
+    width: 130
   }
 ]
 
@@ -186,4 +196,23 @@ const changePage = (_page: number) => {
     page: page.value
   })
 }
+
+const { mutate: deletePayment } = useMutation<
+  DeletePayment,
+  DeletePaymentVariables
+>(DELETE_PAYMENT, {
+  update: (proxy, _, options) => {
+    proxy.writeQuery<SortPayments, SortPaymentsVariables>({
+      query: SORT_PAYMENTS,
+      variables: {
+        first: 6,
+        page: page.value
+      },
+      data: {
+        sort_payments: result.value!.sort_payments!.filter((e) => e.id !== options.variables?.input.id)
+      }
+    })
+  }
+})
+
 </script>

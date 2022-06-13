@@ -8,7 +8,12 @@
         class="hidden"
       />
 
-      <side-bar v-memo="[]" class="w-[280px] sidebar animate" />
+      <side-bar
+        class="w-[280px] sidebar animate"
+        :class="{
+          'collapse': isOpen
+        }"
+      />
 
       <div class="w-full h-screen animate">
         <div
@@ -27,7 +32,11 @@
 
           <!-- Global Title -->
           <div v-if="$route.meta.title" class="ml-3 text-lg mr-auto head-item">
-            {{ /^\D*\.\D*$/.test($route.meta.title) ? t($route.meta.title) : $route.meta.title }}
+            {{
+              /^\D*\.\D*$/.test($route.meta.title)
+                ? t($route.meta.title)
+                : $route.meta.title
+            }}
           </div>
           <div
             v-show="!$route.meta.title"
@@ -49,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, ref, watch } from 'vue'
 
 import SideBar from '@components/layout/SideBar.vue'
 import { AnimeInstance } from '#types/anime'
@@ -61,7 +70,10 @@ import { SUB_TOAST } from '#apollo/notify/subscriptions/toast.subscription'
 
 import { useUserStore } from '@store/user'
 import { ApolloEnum } from '@plugins/apollo'
-import { SubToast, SubToastVariables } from '#notify/subscriptions/__generated__/SubToast'
+import {
+  SubToast,
+  SubToastVariables
+} from '#notify/subscriptions/__generated__/SubToast'
 import { useLangs } from '@composables/useLangs'
 
 const { t } = useLangs()
@@ -85,12 +97,22 @@ watch(isOpen, () => {
 })
 
 const route = useRoute()
+
+const autoSidebar = () => {
+  if(route.meta.collapse && !isOpen.value) {
+    isOpen.value = true
+  }
+}
+
+onMounted(() => nextTick(() =>  setTimeout(() => autoSidebar(), 1500)))
+
 watch(route, () => {
   anime({
     targets: '#page-content',
     scale: [0.95, 1],
     opacity: [0, 1],
-    duration: 1500
+    duration: 1500,
+    complete: () => autoSidebar()
   })
 })
 
@@ -110,8 +132,8 @@ const { result } = useSubscription<SubToast, SubToastVariables>(
 watch(
   result,
   (data) => {
-    if(data?.subToast) {
-      if(data.subToast.error) {
+    if (data?.subToast) {
+      if (data.subToast.error) {
         message.error(data.subToast.message)
       } else {
         message.success(data.subToast.message)
@@ -123,7 +145,6 @@ watch(
 
 // clernup khi logout
 // useSubscription sẽ tự cleanup khi unmound
-
 </script>
 
 <style>

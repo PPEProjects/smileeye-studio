@@ -212,7 +212,7 @@ import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
 import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
-const { t, tc } = useLangs()
+const { t } = useLangs()
 
 const toHome = () => {
   ///

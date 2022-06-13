@@ -6,5 +6,6 @@ declare module 'vue-router' {
     layout?: string
     disableBack?: boolean
     title?: string
+    collapse?: boolean
   }
 }

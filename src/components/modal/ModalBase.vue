@@ -145,16 +145,21 @@ const mitter = useEmitter<{
 // Khi mound component nếu có event => lắng nghe event
 
 onMounted(() => {
-  props.event &&
+  if(props.event) {
     mitter.on(props.event, (_data: any) => {
       data.value = _data
       init()
     })
+    mitter.on(props.event + 'Dispose', () => dispose())
+  }
 })
 
 // Huỷ event khi destroy component để tránh memory leak
 onUnmounted(() => {
-  props.event && mitter.off(props.event)
+  if(props.event) {
+    mitter.off(props.event)
+    mitter.off(props.event + 'Dispose')
+  }
 })
 
 // Public các method, state trong setup script
@@ -169,7 +174,9 @@ defineExpose({
 </script>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'ModalBase'
-}
+})
 </script>

@@ -5,7 +5,6 @@
     placement="topLeft"
     :ok-text="t('payment.action.accept.yes')"
     :cancel-text="t('payment.action.accept.no')"
-    @confirm="confirm"
   >
     <a-button type="primary" size="small">
       <template #icon>
@@ -26,7 +25,7 @@
     placement="topLeft"
     :ok-text="t('payment.action.delete.yes')"
     :cancel-text="t('payment.action.delete.no')"
-    @confirm="confirm"
+    @confirm="emit('delete')"
   >
     <a-button type="danger" size="small" class="ml-2">
       <svg class="fill-current text-white" width="1em" height="1em">
@@ -39,11 +38,11 @@
 
 <script lang='ts' setup>
 // Action
-import { message } from 'ant-design-vue'
 import { CheckOutlined, EditOutlined } from '@ant-design/icons-vue'
 
 import { useLangs } from '@composables/useLangs'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
+import { defineEmits } from 'vue'
 
 const { t } = useLangs()
 
@@ -52,8 +51,7 @@ defineProps<{
   payment: SortPayments_sort_payments
 }>()
 
-const confirm = (e: MouseEvent) => {
-  console.log(e);
-  message.success('Click on Yes');
-}
+const emit = defineEmits<{
+  (e: 'delete'): void
+}>()
 </script>

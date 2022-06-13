@@ -6,6 +6,10 @@ enum CDNLocation {
 }
 
 const $cdn = (path: string, location = CDNLocation.CODE_BY) => {
+  if (!path) {
+    return ''
+  }
+
   let _path = path.replace(/^\//, '')
 
   switch (location) {

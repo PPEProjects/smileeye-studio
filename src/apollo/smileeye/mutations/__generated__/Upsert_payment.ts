@@ -3,23 +3,25 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { UpsertPaymentInput } from "./../../../../../__generated__/smileeyeTypes";
+
 // ====================================================
-// GraphQL query operation: SortPayments
+// GraphQL mutation operation: Upsert_payment
 // ====================================================
 
-export interface SortPayments_sort_payments_goal {
+export interface Upsert_payment_upsert_payment_goal {
   __typename: "GoalRoot";
   id: string | null;
   name: string | null;
   price: string | null;
 }
 
-export interface SortPayments_sort_payments {
+export interface Upsert_payment_upsert_payment {
   __typename: "Payment";
   id: string | null;
   add_user_id: string | null;
   goal_id: string | null;
-  goal: SortPayments_sort_payments_goal | null;
+  goal: Upsert_payment_upsert_payment_goal | null;
   status: string | null;
   type: string | null;
   user_info: any | null;
@@ -30,11 +32,10 @@ export interface SortPayments_sort_payments {
   created_at: any | null;
 }
 
-export interface SortPayments {
-  sort_payments: (SortPayments_sort_payments | null)[] | null;
+export interface Upsert_payment {
+  upsert_payment: (Upsert_payment_upsert_payment | null)[] | null;
 }
 
-export interface SortPaymentsVariables {
-  first?: number | null;
-  page?: number | null;
+export interface Upsert_paymentVariables {
+  input: UpsertPaymentInput;
 }

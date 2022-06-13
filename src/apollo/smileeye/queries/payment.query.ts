@@ -4,23 +4,21 @@ export const SORT_PAYMENTS = gql`
   query SortPayments($first: Int, $page: Int) {
     sort_payments(first: $first, page: $page) {
       id
-      user {
-        id
-        name
-        avatar
-        phone_number
-        email
-        username
-      }
-      attachments
-      created_at
-      money
-      status
+      add_user_id
+      goal_id
       goal {
         id
         name
+        price
       }
+      status
+      type
+      user_info
+      code_sale
+      money
       note
+      attachments
+      created_at
     }
   }
 `
