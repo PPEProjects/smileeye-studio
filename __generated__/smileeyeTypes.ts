@@ -34,6 +34,25 @@ export interface UpdatePassword {
   password_confirmation: string;
 }
 
+export interface UpdateUserInput {
+  id?: string | null;
+  role_label?: string | null;
+  username?: string | null;
+  phone_number?: string | null;
+  first_name?: string | null;
+  name?: string | null;
+  address?: string | null;
+  current_address?: any | null;
+  country?: string | null;
+  gender?: string | null;
+  date_of_birth?: string | null;
+  roles?: any | null;
+  is_flag?: boolean | null;
+  quotes?: string | null;
+  avatar?: string | null;
+  banner?: string | null;
+}
+
 export interface UpsertCouponInput {
   code: string;
   limit?: number | null;

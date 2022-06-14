@@ -14,6 +14,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@apollo/client": "^3.6.6",
+    "@do-kevin/pc-vn": "^2.0.5",
     "@nguyenshort/vue-lottie": "^0.0.8",
     "@nguyenshort/vue3-mitt": "^0.0.2",
     "@tailwindcss/aspect-ratio": "^0.4.0",

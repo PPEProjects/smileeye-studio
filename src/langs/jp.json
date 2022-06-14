@@ -132,13 +132,32 @@
       "edit": ""
     },
     "edit": {
+      "actions": {
+        "cancel": "",
+        "delete": {
+          "confirm": "",
+          "no": "",
+          "ok": ""
+        },
+        "detail": "",
+        "update": ""
+      },
+      "address_detail": "",
+      "district": "",
+      "name": "",
+      "phone": "",
+      "province": "",
       "rule": {
         "admin": "",
         "button": "",
         "label": "",
         "student": "",
         "support": ""
-      }
+      },
+      "upload": {
+        "guide": ""
+      },
+      "ward": ""
     },
     "tab": {
       "list": "",

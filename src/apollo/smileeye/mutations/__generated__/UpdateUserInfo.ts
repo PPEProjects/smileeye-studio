@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { UpdateUserInput } from "./../../../../../__generated__/smileeyeTypes";
+
 // ====================================================
-// GraphQL query operation: ListUser
+// GraphQL mutation operation: UpdateUserInfo
 // ====================================================
 
-export interface ListUser_list_user_data {
+export interface UpdateUserInfo_update_user {
   __typename: "User";
   id: string | null;
   name: string | null;
@@ -18,22 +20,12 @@ export interface ListUser_list_user_data {
   roles: any | null;
   role_label: string | null;
   current_address: any | null;
-  created_at: any;
 }
 
-export interface ListUser_list_user {
-  __typename: "UserPaginator";
-  /**
-   * A list of User items.
-   */
-  data: ListUser_list_user_data[];
+export interface UpdateUserInfo {
+  update_user: UpdateUserInfo_update_user | null;
 }
 
-export interface ListUser {
-  list_user: ListUser_list_user | null;
-}
-
-export interface ListUserVariables {
-  first: number;
-  page?: number | null;
+export interface UpdateUserInfoVariables {
+  input: UpdateUserInput;
 }

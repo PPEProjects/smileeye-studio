@@ -8,3 +8,19 @@ export const UPDATE_PASSWORD = gql`
     }
   }
 `
+
+export const UPDATE_USER_INFO = gql`
+  mutation UpdateUserInfo($input: UpdateUserInput!) {
+    update_user(input: $input) {
+      id
+      name
+      gender
+      avatar
+      phone_number
+      email
+      roles
+      role_label
+      current_address
+    }
+  }
+`

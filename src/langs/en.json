@@ -132,13 +132,32 @@
       "edit": "Edit"
     },
     "edit": {
+      "actions": {
+        "cancel": "Cancel",
+        "delete": {
+          "confirm": "Are you sure to remove this user?",
+          "no": "No",
+          "ok": "Okay"
+        },
+        "detail": "More Detail",
+        "update": "Update"
+      },
+      "address_detail": "Adress",
+      "district": "District",
+      "name": "Name",
+      "phone": "Phone Number",
+      "province": "Province",
       "rule": {
         "admin": "Admin",
         "button": "Update Permission",
         "label": "Roles",
         "student": "Student",
         "support": "Supporter"
-      }
+      },
+      "upload": {
+        "guide": "To upload a banner/avatar image, click on the respective location"
+      },
+      "ward": "Ward"
     },
     "tab": {
       "list": "All",

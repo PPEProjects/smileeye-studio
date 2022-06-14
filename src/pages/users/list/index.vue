@@ -72,7 +72,7 @@
       </template>
 
       <template v-else-if="column.key === 'action'">
-        <a-button type="primary" class="ml-2">
+        <a-button type="primary" class="ml-2" @click='$emitter.emit("updateUserModal", record)'>
           <template #icon>
             <edit-outlined />
           </template>
