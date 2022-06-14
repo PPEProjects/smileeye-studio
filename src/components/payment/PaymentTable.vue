@@ -1,6 +1,6 @@
 <template>
   <a-table
-    :loading="false"
+    :loading="loading || loadingQuickConfirm"
     :columns="columns"
     :data-source="payments"
     :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
@@ -45,17 +45,17 @@
       </template>
 
       <template v-else-if="column.key === 'status'">
-        <a-tag v-if="record.status === PaymentStatusEnum.TRIAL" color="#2db7f5">
+        <a-tag v-if="record.status === STATUS.TRIAL" color="#2db7f5">
           {{ t('payment.status.trial') }}
         </a-tag>
         <a-tag
-          v-else-if="record.status === PaymentStatusEnum.ON_BUY"
+          v-else-if="record.status === STATUS.ON_BUY"
           color="#f50"
         >
           {{ t('payment.status.onBuy') }}
         </a-tag>
         <a-tag
-          v-else-if="record.status === PaymentStatusEnum.PAID_CONFIRMED"
+          v-else-if="record.status === STATUS.PAID_CONFIRMED"
           color="#87d068"
         >
           {{ t('payment.status.confirmed') }}
@@ -70,6 +70,7 @@
         v-else-if="column.key === 'action'"
         :payment="record"
         @delete="deletePayment({ input: { id: record.id } })"
+        @confirm='quickConfirm({ input: { id: record.id, status: STATUS.PAID_CONFIRMED } })'
       />
     </template>
 
@@ -83,7 +84,6 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
-import { PaymentStatusEnum } from '@components/payment/types'
 import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
 import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
@@ -96,13 +96,15 @@ import {
 import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
-import { DELETE_PAYMENT } from '#smileeye/mutations/payment.mutation'
+import { DELETE_PAYMENT, QUICK_DONE_PAYMENT } from '#smileeye/mutations/payment.mutation'
 import {
   DeletePayment,
   DeletePaymentVariables
 } from '#smileeye/mutations/__generated__/DeletePayment'
-import { useEmitter } from '@composables/useEmitter'
 import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
+import { useEmitter } from '@nguyenshort/vue3-mitt'
+import { QuickDonePayment, QuickDonePaymentVariables } from '#smileeye/mutations/__generated__/QuickDonePayment'
+import { STATUS } from '#schema/smileeyeTypes'
 
 const { t } = useLangs()
 
@@ -181,7 +183,7 @@ const columns = computed(() => {
 // Resource
 const page = ref<number>(1)
 // Query hook
-const { result, refetch } = useQuery<SortPayments, SortPaymentsVariables>(
+const { result, refetch, loading } = useQuery<SortPayments, SortPaymentsVariables>(
   SORT_PAYMENTS,
   {
     first: 6,
@@ -232,5 +234,7 @@ onMounted(() => emitter.on('deletePayment', (id) => {
 }))
 
 onUnmounted(() => emitter.off('deletePayment'))
+
+const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<QuickDonePayment, QuickDonePaymentVariables>(QUICK_DONE_PAYMENT)
 
 </script>

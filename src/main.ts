@@ -43,7 +43,7 @@ import infinite from '@plugins/eternal-loading'
 import i18n from '@plugins/i18n'
 
 // Event bus
-import mitter from '@plugins/emitter'
+import VueMitter from '@nguyenshort/vue3-mitt'
 
 // CDN Plugin
 import cdn from '@plugins/ultils'
@@ -51,7 +51,7 @@ import cdn from '@plugins/ultils'
 const app = createApp(App)
 
 app.use(cdn)
-app.use(mitter)
+app.use(VueMitter)
 app.use(Antd)
 app.use(animejs)
 app.use(VueLottie)

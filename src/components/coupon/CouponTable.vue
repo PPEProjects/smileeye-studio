@@ -79,10 +79,10 @@ import {
   DeleteCoupon,
   DeleteCouponVariables
 } from '#smileeye/mutations/__generated__/DeleteCoupon'
-import { useEmitter } from '@composables/useEmitter'
 import { IFormCouponUpsert } from '@components/coupon/types'
 import { useCouponStore } from '@store/coupon'
 import { watch } from 'vue'
+import { useEmitter } from '@nguyenshort/vue3-mitt'
 
 const { t } = useLangs()
 const dayjs = useDayjs()

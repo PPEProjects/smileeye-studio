@@ -23,10 +23,10 @@
 import { PlusOutlined } from '@ant-design/icons-vue'
 import { useLangs } from '@composables/useLangs'
 import CouponTable from '@components/coupon/CouponTable.vue'
-import { useEmitter } from '@composables/useEmitter'
 import { IFormCouponUpsert } from '@components/coupon/types'
 import CouponUpsertModal from '@components/coupon/CouponUpsertModal.vue'
 import { useCouponStore } from '@store/coupon'
+import { useEmitter } from '@nguyenshort/vue3-mitt'
 const { t } = useLangs()
 
 const emitter = useEmitter<{

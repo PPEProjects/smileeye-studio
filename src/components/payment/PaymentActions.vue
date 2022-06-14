@@ -5,6 +5,7 @@
     placement="topLeft"
     :ok-text="t('payment.action.accept.yes')"
     :cancel-text="t('payment.action.accept.no')"
+    @confirm='emit("confirm")'
   >
     <a-button type="primary" size="small">
       <template #icon>
@@ -42,7 +43,6 @@ import { CheckOutlined, EditOutlined } from '@ant-design/icons-vue'
 
 import { useLangs } from '@composables/useLangs'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
-import { defineEmits } from 'vue'
 
 const { t } = useLangs()
 
@@ -53,5 +53,6 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'delete'): void
+  (e: 'confirm'): void
 }>()
 </script>

@@ -16,7 +16,7 @@
       <div
         :id="`${event}Body`"
         ref="body"
-        class="border-primary-600 border-t-4 modal-content relative py-7 w-full bg-white mx-3 sm:mx-0 overflow-hidden relative shadow-lg"
+        class="border-primary-600 border-t-4 modal-content relative pt-7 w-full bg-white mx-3 sm:mx-0 overflow-hidden relative shadow-lg"
         :style="{
           maxWidth: maxWidth + 'px'
         }"
@@ -68,7 +68,7 @@
 <script setup lang="ts">
 import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { AnimeInstance } from '#types/anime'
-import { useEmitter } from '@composables/useEmitter'
+import { useEmitter } from '@nguyenshort/vue3-mitt'
 
 type Props = {
   visible?: boolean

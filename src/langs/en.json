@@ -128,9 +128,27 @@
     }
   },
   "users": {
+    "actions": {
+      "edit": "Edit"
+    },
+    "edit": {
+      "rule": {
+        "admin": "Admin",
+        "button": "Update Permission",
+        "label": "Roles",
+        "student": "Student",
+        "support": "Supporter"
+      }
+    },
     "tab": {
       "list": "All",
       "supporters": "Supporters"
+    },
+    "table": {
+      "createdAt": "JOIN DATE",
+      "email": "EMAIL ADDESS",
+      "name": "NAME",
+      "role": "ROLE"
     },
     "title": "Users"
   }

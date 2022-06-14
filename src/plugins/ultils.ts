@@ -10,6 +10,10 @@ const $cdn = (path: string, location = CDNLocation.CODE_BY) => {
     return ''
   }
 
+  if (/^http/.test(path)) {
+    return path
+  }
+
   let _path = path.replace(/^\//, '')
 
   switch (location) {

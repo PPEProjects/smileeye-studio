@@ -128,9 +128,27 @@
     }
   },
   "users": {
+    "actions": {
+      "edit": ""
+    },
+    "edit": {
+      "rule": {
+        "admin": "",
+        "button": "",
+        "label": "",
+        "student": "",
+        "support": ""
+      }
+    },
     "tab": {
       "list": "",
       "supporters": ""
+    },
+    "table": {
+      "createdAt": "",
+      "email": "",
+      "name": "",
+      "role": ""
     },
     "title": ""
   }

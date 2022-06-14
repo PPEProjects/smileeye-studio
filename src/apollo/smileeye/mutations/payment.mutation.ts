@@ -28,3 +28,12 @@ export const DELETE_PAYMENT = gql`
     delete_payment(input: $input)
   }
 `
+
+export const QUICK_DONE_PAYMENT = gql`
+  mutation QuickDonePayment($input: UpsertPaymentInput!) {
+    upsert_payment(input: $input) {
+      id
+      status
+    }
+  }
+`

@@ -11,3 +11,20 @@ export const GET_ME = gql`
     }
   }
 `
+
+export const LIST_USERS = gql`
+  query ListUser($first: Int!, $page: Int) {
+    list_user(first: $first, page: $page) {
+      data {
+        id
+        name
+        gender
+        avatar
+        email
+        roles
+        role_label
+        created_at
+      }
+    }
+  }
+`

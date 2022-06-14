@@ -128,9 +128,27 @@
     }
   },
   "users": {
+    "actions": {
+      "edit": "Sửa"
+    },
+    "edit": {
+      "rule": {
+        "admin": "Quản Trị Viên",
+        "button": "Cập Nhật",
+        "label": "Quyền Hạn",
+        "student": "Học Sinh",
+        "support": "Người Hỗ Trợ"
+      }
+    },
     "tab": {
       "list": "Tất Cả",
       "supporters": "Người Hỗ Trợ"
+    },
+    "table": {
+      "createdAt": "NGÀY THAM GIA",
+      "email": "ĐỊA CHỈ EMAIL",
+      "name": "TÊN",
+      "role": "PHÂN QUYỀN"
     },
     "title": "Thành Viên"
   }

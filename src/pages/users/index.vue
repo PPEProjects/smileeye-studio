@@ -20,11 +20,12 @@
 
       <router-link
         to="/users/list"
-        class="user-tab"
+        class="user-tab ml-3"
         :class='{
-          "before:bg-primary-500 text-primary-500": $route.path === "/users/list",
+          "user-tab-active": $route.path === "/users/list",
           "text-gray-400": $route.path !== "/users/list"
         }'
+        active-class='_active'
       >
         {{ t('users.tab.list') }}
       </router-link>
@@ -33,21 +34,28 @@
         to="/users/supporters"
         class="user-tab"
         :class='{
-          "before:bg-primary-500": $route.path === "/users/supporters",
+          "user-tab-active": $route.path === "/users/supporters",
           "text-gray-400": $route.path !== "/users/supporters"
         }'
+        active-class='_active'
       >
         {{ t('users.tab.supporters') }}
       </router-link>
     </div>
   </teleport-view>
   <router-view />
+
+  <update-user-modal />
+  <edit-rule-modal />
+
 </template>
 
 <script lang="ts" setup>
 import TeleportView from '@components/layout/TeleportView.vue'
 import { PlusOutlined } from '@ant-design/icons-vue'
 import { useLangs } from '@composables/useLangs'
+import EditRuleModal from '@components/users/EditRuleModal.vue'
+import UpdateUserModal from '@components/users/UpdateUserModal.vue'
 
 const { t } = useLangs()
 </script>
@@ -62,6 +70,10 @@ export default defineComponent({
 
 <style>
 .user-tab {
-  @apply ml-4 h-full flex items-center relative before:absolute before:left-0 before:right-0 before:bottom-0 before:h-1 before:transition before:duration-300
+  @apply h-full flex items-center relative before:absolute before:left-0 before:right-0 before:bottom-0 before:h-1 before:transition before:duration-300 px-3
+}
+
+.user-tab-active {
+  @apply before:bg-primary-500 text-primary-500 bg-primary-50
 }
 </style>
