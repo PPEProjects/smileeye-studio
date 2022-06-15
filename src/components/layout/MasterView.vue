@@ -35,22 +35,22 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.$process.finish()
+    this.$loading.finish()
   },
   created() {
-    this.$process.start()
+    this.$loading.start()
     //  hook the progress bar to start before we move router-view
     this.$router.beforeEach((to, from, next) => {
       //  does the page we want to go to have a meta.progress object
       //  start the progress bar
-      this.$process.start()
+      this.$loading.start()
       //  continue to next page
       next();
     });
     //  hook the progress bar to finish after we've finished moving router-view
     this.$router.afterEach(() => {
       //  finish the progress bar
-      this.$process.finish()
+      this.$loading.finish()
     });
   },
   beforeCreate() {

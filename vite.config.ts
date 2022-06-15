@@ -45,6 +45,13 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path.replace(/^\/bunny/, '')
+      },
+      '/smileeye': {
+        // @ts-ignore
+        target: 'https://v2-be.smileeye.edu.vn/',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/smileeye/, '')
       }
     }
   }

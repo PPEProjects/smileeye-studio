@@ -28,9 +28,17 @@
       href="javascript:void(0)"
     >
       <h1>
-        <svg width="56px" height="56px" fill="currentColor">
-          <use xlink:href="#i-tagivi" />
-        </svg>
+        <div class="w-[56px] h-[56px] relative overflow-hidden">
+          <vue-lottie-player
+            id="logo-animation"
+            name='logo-animation'
+            :width="56"
+            :height="56"
+            path="/json/open-book.json"
+            @render='setAnime'
+            @mouseenter='hoverLogo'
+          />
+        </div>
       </h1>
     </a>
 
@@ -38,7 +46,7 @@
       <menu-item
         :active="/^dashboard/.test($route.name)"
         icon="#i-dashboard"
-        :label='t("sidebar.dashboard")'
+        :label="t('sidebar.dashboard')"
         to="/dashboard"
       />
       <menu-item
@@ -62,7 +70,6 @@
         to="/users"
       />
 
-
       <menu-item
         :active="/^(coupon|banners|categories)/.test($route.name)"
         label="Tools"
@@ -72,7 +79,6 @@
           <ul
             class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
           >
-
             <menu-item
               :active="/^(coupon)/.test($route.name)"
               icon="#i-love-card"
@@ -87,7 +93,7 @@
               to="/settings"
             />
 
-<!--            <menu-item
+            <!--            <menu-item
               :active="/^(draggable)/.test($route.name)"
               icon="#i-trail"
               label="Draggable"
@@ -115,11 +121,13 @@
           </ul>
         </template>
       </menu-item>
-
     </ul>
 
     <ul class="mt-auto relative">
-      <menu-item :active="/^settings/.test($route.name)" :label="t('sidebar.settings.settings')">
+      <menu-item
+        :active="/^settings/.test($route.name)"
+        :label="t('sidebar.settings.settings')"
+      >
         <template #icon>
           <img
             class="w-[24px] h-[24px] rounded-md"
@@ -162,7 +170,9 @@
 
             <div v-if="countNotify" class="absolute right-0 top-0">
               <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
+                ></span>
                 <span
                   class="relative inline-flex rounded-full h-2 w-2 bg-red-500"
                 ></span>
@@ -219,6 +229,7 @@ import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
 import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
+import { AnimationItem } from 'lottie-web'
 const { t } = useLangs()
 
 const toHome = () => {
@@ -279,7 +290,10 @@ onResult((value) => {
 })
 
 // Sub countNotify
-const { result: obs } = useSubscription<SubCountUnRead, SubCountUnReadVariables>(
+const { result: obs } = useSubscription<
+  SubCountUnRead,
+  SubCountUnReadVariables
+>(
   SUB_COUNT_UNREAD,
   {
     user: String(useUser.user?.id)
@@ -291,19 +305,48 @@ const { result: obs } = useSubscription<SubCountUnRead, SubCountUnReadVariables>
 
 // lắng ghe subsription và gi data
 const smileeye = useSmileeye()
-watch(obs, (value) => {
-  if(value?.subCountUnRead) {
-    smileeye.writeQuery<CountUnReadNotify, CountUnReadNotifyVariables>({
-      query: GET_COUNT_UNSREAD,
-      variables: {
-        user: String(useUser.user?.id)
-      },
-      data: {
-        countUnReadNotify: value?.subCountUnRead?.count
-      }
+watch(
+  obs,
+  (value) => {
+    if (value?.subCountUnRead) {
+      smileeye.writeQuery<CountUnReadNotify, CountUnReadNotifyVariables>({
+        query: GET_COUNT_UNSREAD,
+        variables: {
+          user: String(useUser.user?.id)
+        },
+        data: {
+          countUnReadNotify: value?.subCountUnRead?.count
+        }
+      })
+      countNotify.value = value?.subCountUnRead?.count
+    }
+  },
+  { deep: true }
+)
+
+const logoAnime = ref<AnimationItem>()
+const setAnime = (instance: AnimationItem) => {
+  logoAnime.value = instance
+}
+
+const hoverLogo = () => {
+  if(logoAnime.value) {
+    logoAnime.value.loop = true
+    logoAnime.value?.play()
+    logoAnime.value?.addEventListener('loopComplete', () => {
+      logoAnime.value!.loop = false
+      logoAnime.value?.pause()
     })
-    countNotify.value = value?.subCountUnRead?.count
   }
-}, { deep: true })
+}
 
 </script>
+
+<style>
+div#logo-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2.5);
+}
+</style>

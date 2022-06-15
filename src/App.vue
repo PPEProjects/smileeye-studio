@@ -3,9 +3,7 @@
   <suspense>
     <master-view />
   </suspense>
-  <teleport to='body'>
-    <vue-process-bar />
-  </teleport>
+  <vue-loading-indicator />
 </template>
 
 <script lang="ts">

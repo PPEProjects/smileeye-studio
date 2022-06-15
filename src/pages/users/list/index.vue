@@ -1,24 +1,35 @@
 <template>
-  <a-table :columns="userColumns" :data-source="users">
+  <a-table
+    :columns="userColumns"
+    :data-source="users"
+    :loading='loading'
+    :pagination="{
+      total: pageNavi?.total,
+      showLessItems: true,
+      defaultPageSize: 10
+    }"
+    @change='changePage'
+  >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'action'">
-        <a-dropdown v-model:visible='openSearch' :trigger="['click']">
+        <a-dropdown v-model:visible="openSearch" :trigger="['click']">
           <a class="ant-dropdown-link" @click.prevent>
             <search-outlined />
           </a>
           <template #overlay>
             <a-menu>
-
-              <a-menu-item key='1'>
+              <a-menu-item key="1">
                 <a-input-group compact>
-                  <a-select v-model:value='searchForm.field' style="width: 40%">
+                  <a-select v-model:value="formSearch.field" style="width: 40%">
                     <a-select-option value="email"> Email </a-select-option>
                     <a-select-option value="name"> Name </a-select-option>
+                    <a-select-option value="phone_number"> Phone Number </a-select-option>
                   </a-select>
                   <a-input
-                    v-model:value='searchForm.keyword'
+                    v-model:value="formSearch.keyword"
                     style="width: 60%"
                     placeholder="Nhập từ khoá..."
+                    @press-enter='searchUsers(); openSearch = false'
                   >
                     <template #prefix>
                       <search-outlined />
@@ -28,14 +39,25 @@
               </a-menu-item>
               <a-menu-divider />
 
-              <a-menu-item key='2'>
-                <div class='flex items-center'>
-                  <a-button type="primary" size="small" block @click='searchUsers'>Tìm</a-button>
-                  <div class='w-1 flex-shrink-0'></div>
-                  <a-button type="danger" size="small" block @click='cancelSearch'>Huỷ</a-button>
+              <a-menu-item key="2">
+                <div class="flex items-center">
+                  <a-button
+                    type="primary"
+                    size="small"
+                    block
+                    @click="searchUsers"
+                    >Tìm</a-button
+                  >
+                  <div class="w-1 flex-shrink-0"></div>
+                  <a-button
+                    type="danger"
+                    size="small"
+                    block
+                    @click="cancelSearch"
+                    >Huỷ</a-button
+                  >
                 </div>
               </a-menu-item>
-
             </a-menu>
           </template>
         </a-dropdown>
@@ -62,8 +84,8 @@
       </template>
 
       <template v-else-if="column.key === 'role'">
-        <div @click='$emitter.emit("editRuleModal", record)'>
-          <a-tag class='cursor-pointer' color="#108ee9">Student</a-tag>
+        <div @click="$emitter.emit('editRuleModal', record)">
+          <a-tag class="cursor-pointer" color="#108ee9">Student</a-tag>
         </div>
       </template>
 
@@ -72,7 +94,11 @@
       </template>
 
       <template v-else-if="column.key === 'action'">
-        <a-button type="primary" class="ml-2" @click='$emitter.emit("updateUserModal", record)'>
+        <a-button
+          type="primary"
+          class="ml-2"
+          @click="$emitter.emit('updateUserModal', record)"
+        >
           <template #icon>
             <edit-outlined />
           </template>
@@ -101,29 +127,55 @@ const userColumns = userColumnsBuilder()
 const dayjs = useDayjs()
 const { t } = useLangs()
 
-// data resource
-const page = ref<number>(1)
-const { result } = useQuery<ListUser, ListUserVariables>(LIST_USERS, {
-  first: 10,
-  page: page.value
-})
-const users = computed(() => result.value?.list_user?.data || [])
-
-
-// Search
-const openSearch = ref<boolean>(false)
-const searchForm = reactive({
-  field: 'email',
+// SearchState
+const formSearch = reactive<{
+  field: 'name' | 'email' | 'phone_number',
+  keyword: ''
+}>({
+  field: 'name',
   keyword: ''
 })
 
-const searchUsers = () => {
-  //
-}
-const cancelSearch = () => {
-  //
+// data resource
+const page = ref<number>(1)
+const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(LIST_USERS, {
+  first: 10,
+  [formSearch.field]: '%' + formSearch.keyword + '%',
+  page: page.value
+})
+const users = computed(() => result.value?.list_user?.data || [])
+const pageNavi = computed(() => result.value?.list_user?.paginatorInfo || {})
+
+const changePage = ($event: any) => {
+  page.value = $event.current
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
 }
 
+// Search
+const openSearch = ref<boolean>(false)
+
+const searchUsers = () => {
+  page.value = 0
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
+}
+const cancelSearch = () => {
+  formSearch.field = 'name'
+  formSearch.keyword = ''
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
+  openSearch.value = false
+}
 </script>
 
 <script lang="ts">

@@ -7,63 +7,67 @@ import {
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { useUserStore } from '@store/user'
-// import { useProcessBar } from '@nguyenshort/vue3-process-bar'
+import { App } from 'vue'
+import { VueLoadingIndicatorInstance } from '@nguyenshort/vue3-loading-indicator'
 
-const roundTripLink = new ApolloLink((operation, forward) => {
-  // const $process = useProcessBar()
+export default (app: App) => {
+  const $loading: VueLoadingIndicatorInstance =
+    app.config.globalProperties.$loading
 
-  // Called before operation is sent to server
-  operation.setContext({ start: Date.now() })
-  // $process.start()
+  const roundTripLink = new ApolloLink((operation, forward) => {
+    // Called before operation is sent to server
+    operation.setContext({ start: Date.now() })
+    $loading?.start()
 
-  return forward(operation).map((data) => {
-    /*if (data.errors) {
-      $process?.finish()
-    } else {
-      $process?.fail()
-    }*/
+    return forward(operation).map((data) => {
+      if (data.errors) {
+        $loading?.fail()
+      } else {
+        $loading?.finish()
+      }
 
-    // Called after server responds
-    const time = Date.now() - operation.getContext().start
-    console.log(
-      `Operation: ${operation.operationName} took ${time} to complete`
-    )
-    return data
-  })
-})
-
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  uri: import.meta.env.VITE_SMILE_EYE_GRAPHQL
-})
-
-const authLink = setContext((_, { headers }) => {
-  const useUser = useUserStore()
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${useUser._token}`
-    }
-  }
-})
-
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, extensions }) =>
+      // Called after server responds
+      const time = Date.now() - operation.getContext().start
       console.log(
-        `[GraphQL error]: Message: ${message}, Code: ${extensions.code}`
+        `Operation: ${operation.operationName} took ${time} to complete`
       )
-    )
-  }
-  if (networkError) {
-    console.log(`[Network error]: ${networkError}`)
-  }
-})
+      return data
+    })
+  })
 
-export default new ApolloClient({
-  link: roundTripLink.concat(errorLink.concat(authLink.concat(httpLink))),
-  cache: new InMemoryCache(),
-  connectToDevTools: true
-})
+  // HTTP connection to the API
+  const httpLink = createHttpLink({
+    // You should use an absolute URL here
+    uri: import.meta.env.VITE_SMILE_EYE_GRAPHQL
+  })
+
+  const authLink = setContext((_, { headers }) => {
+    const useUser = useUserStore()
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${useUser._token}`
+      }
+    }
+  })
+
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(({ message, extensions }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Code: ${extensions.code}`
+        )
+      )
+    }
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`)
+    }
+  })
+
+  return new ApolloClient({
+    link: roundTripLink.concat(errorLink.concat(authLink.concat(httpLink))),
+    cache: new InMemoryCache(),
+    connectToDevTools: true
+  })
+}

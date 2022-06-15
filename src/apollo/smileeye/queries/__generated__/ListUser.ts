@@ -22,12 +22,32 @@ export interface ListUser_list_user_data {
   created_at: any;
 }
 
+export interface ListUser_list_user_paginatorInfo {
+  __typename: "PaginatorInfo";
+  /**
+   * Number of items in the current page.
+   */
+  count: number;
+  /**
+   * Index of the current page.
+   */
+  currentPage: number;
+  /**
+   * Number of total available items.
+   */
+  total: number;
+}
+
 export interface ListUser_list_user {
   __typename: "UserPaginator";
   /**
    * A list of User items.
    */
   data: ListUser_list_user_data[];
+  /**
+   * Pagination information about the list of items.
+   */
+  paginatorInfo: ListUser_list_user_paginatorInfo;
 }
 
 export interface ListUser {
@@ -37,4 +57,7 @@ export interface ListUser {
 export interface ListUserVariables {
   first: number;
   page?: number | null;
+  phone_number?: string | null;
+  email?: string | null;
+  name?: string | null;
 }

@@ -47,14 +47,17 @@ import VueMitter from '@nguyenshort/vue3-mitt'
 
 // CDN Plugin
 import cdn from '@plugins/ultils'
+import VueLoadingIndicator from '@nguyenshort/vue3-loading-indicator'
 
 // Process by me
-import VueProcessBar from '@nguyenshort/vue3-process-bar'
 
 // Init app
 const app = createApp(App)
 
-app.use(VueProcessBar, { autoFinish: true, stepGap: 100 })
+app.use(VueLoadingIndicator, {
+  autoFinish: true,
+  stepGap: 100
+})
 
 app.use(cdn)
 app.use(VueMitter)
@@ -67,14 +70,14 @@ app.use(dayjs)
 app.use(cropper)
 app.use(infinite)
 app.use(i18n)
+app.use(head)
 
-app.use(apollo)
 app.use(http)
 app.use(pinia)
 
-app.use(router)
+app.use(apollo)
 
-app.use(head)
+app.use(router)
 
 app.mount('#app')
 

@@ -1,4 +1,4 @@
-@import "@nguyenshort/vue3-process-bar/dist/style.css";
+@import "@nguyenshort/vue3-loading-indicator/dist/style.css";
 
 @tailwind base;
 @tailwind components;

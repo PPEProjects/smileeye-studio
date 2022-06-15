@@ -110,7 +110,7 @@ const isReady = computed(() => email.value && password.value)
 
 // Support login action
 const router = useRouter()
-const http = inject<AxiosInstance>('http')!
+const $axios = inject<AxiosInstance>('$axios')!
 const cookies = inject<VueCookies>('$cookies')
 const useUser = useUserStore()
 
@@ -118,7 +118,7 @@ const useUser = useUserStore()
 
 const login = async () => {
   try {
-    const { data } = await http.post('/ppe-core/auth/login', { email: email.value, password: password.value })
+    const { data } = await $axios.post('/smileeye/ppe-core/auth/login', { email: email.value, password: password.value })
     cookies?.set('_token', data.token)
     useUser.setToken(data.token)
     useUser.setUser(data)
