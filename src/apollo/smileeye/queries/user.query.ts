@@ -20,6 +20,7 @@ export const LIST_USERS = gql`
         name
         gender
         avatar
+        banner
         phone_number
         email
         roles

@@ -16,7 +16,7 @@
       <div
         :id="`${event}Body`"
         ref="body"
-        class="border-primary-600 border-t-4 modal-content relative pt-7 w-full bg-white mx-3 sm:mx-0 overflow-hidden relative shadow-lg"
+        class="border-primary-600 border-t-4 modal-content relative pt-7 pb-5 w-full bg-white mx-3 sm:mx-0 overflow-hidden relative shadow-lg"
         :style="{
           maxWidth: maxWidth + 'px'
         }"

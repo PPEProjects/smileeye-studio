@@ -13,6 +13,7 @@ export interface ListUser_list_user_data {
   name: string | null;
   gender: string | null;
   avatar: string | null;
+  banner: string | null;
   phone_number: string | null;
   email: string | null;
   roles: any | null;

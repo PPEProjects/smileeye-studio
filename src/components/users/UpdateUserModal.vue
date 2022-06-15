@@ -1,5 +1,6 @@
 <template>
   <modal-base
+    ref="modal"
     event="updateUserModal"
     title="Update User"
     :max-width="1000"
@@ -9,27 +10,45 @@
       <div class="flex">
         <div class="w-3/5 pr-7">
           <div class="relative">
-            <div class="w-full h-[145px] rounded overflow-hidden cursor-pointer _upload_overlay">
+            <label
+              for="bannerImage"
+              class="w-full h-[145px] rounded overflow-hidden cursor-pointer _upload_overlay block"
+            >
               <img
-                src="https://i.imgur.com/TGrWoue.jpg"
+                :src="formState.banner"
                 alt=""
                 class="w-full h-full object-cover"
               />
-            </div>
+              <input
+                id="bannerImage"
+                type="file"
+                accept="image/*"
+                class="!hidden"
+                @change="triggerCropper('banner', $event)"
+              />
+            </label>
 
-            <div
-              class="w-[84px] h-[84px] overflow-hidden rounded-full absolute -bottom-7 left-7 border-2 border-white shadow-md cursor-pointer _upload_overlay"
+            <label
+              class="w-[84px] h-[84px] overflow-hidden rounded-full absolute -bottom-7 left-7 border-2 border-white shadow-md cursor-pointer _upload_overlay block"
+              for="avatarImage"
             >
               <img
                 class="w-full h-full object-cover"
-                src="https://i.imgur.com/jfZDmVD.png"
+                :src="formState.avatar"
                 alt=""
               />
-            </div>
+              <input
+                id="avatarImage"
+                type="file"
+                accept="image/*"
+                class="!hidden"
+                @change="triggerCropper('avatar', $event)"
+              />
+            </label>
           </div>
 
           <div class="h-7 flex justify-end items-start">
-            <p class='text-xs text-gray-400 relative top-1.5'>
+            <p class="text-xs text-gray-400 relative top-1.5">
               {{ t('users.edit.upload.guide') }}
             </p>
           </div>
@@ -46,7 +65,7 @@
               }
             ]"
           >
-            <a-input v-model:value='formState.name' />
+            <a-input v-model:value="formState.name" />
           </a-form-item>
 
           <a-form-item
@@ -61,7 +80,7 @@
               }
             ]"
           >
-            <a-input v-model:value='formState.email' />
+            <a-input v-model:value="formState.email" />
           </a-form-item>
 
           <a-form-item
@@ -76,7 +95,7 @@
               }
             ]"
           >
-            <a-input v-model:value='formState.phone_number' />
+            <a-input v-model:value="formState.phone_number" />
           </a-form-item>
         </div>
 
@@ -186,21 +205,20 @@
         </div>
       </div>
 
-
       <a-form-item>
         <div class="flex justify-end">
           <a-popconfirm
             :title="t('users.edit.actions.delete.confirm')"
             :ok-text="t('users.edit.actions.delete.ok')"
             :cancel-text="t('users.edit.actions.delete.no')"
-            :disabled='loading'
+            :disabled="loading"
           >
             <a-button type="danger">
               {{ t('users.edit.actions.cancel') }}
             </a-button>
           </a-popconfirm>
 
-          <a-button type="primary" class="ml-auto" ghost :disabled='loading'>
+          <a-button type="primary" class="ml-auto" ghost :disabled="loading">
             {{ t('users.edit.actions.detail') }}
           </a-button>
 
@@ -208,21 +226,30 @@
             type="primary"
             html-type="submit"
             class="ml-4"
-            :loading='loading'
-            @click='updateHandle'
+            :loading="loading"
+            @click="updateHandle"
           >
             {{ t('users.edit.actions.update') }}
           </a-button>
         </div>
       </a-form-item>
-
     </a-form>
   </modal-base>
 
+  <modal-base
+    v-model:visible="cropperState.show"
+    event="updateUserCopper"
+    title="CropImage"
+  >
+    <image-cropper ref="cropperRef" />
 
-  <modal-base event='updateUserCopper'></modal-base>
-
-
+    <template #bottom>
+      <div class="flex justify-end">
+        <a-button type="danger" class="uppercase">cancel</a-button>
+        <a-button type="primary" class="uppercase ml-3">Upload</a-button>
+      </div>
+    </template>
+  </modal-base>
 </template>
 
 <script lang="ts" setup>
@@ -240,15 +267,24 @@ import { computed, reactive, ref } from 'vue'
 import { District, Province, Ward } from '@components/users/types'
 import { useMutation } from '@vue/apollo-composable'
 import { UPDATE_USER_INFO } from '#smileeye/mutations/user.mutation'
-import { UpdateUserInfo, UpdateUserInfoVariables } from '#smileeye/mutations/__generated__/UpdateUserInfo'
+import {
+  UpdateUserInfo,
+  UpdateUserInfoVariables
+} from '#smileeye/mutations/__generated__/UpdateUserInfo'
+import ImageCropper from '@components/includes/ImageCropper.vue'
 
 const { t } = useLangs()
+
+// modal
+const modal = ref<any>(null)
 
 // init State
 const initState = {
   __typename: '',
   id: '',
   roles: [],
+  avatar: '',
+  banner: '',
   current_address: {
     detail: '',
     province: '',
@@ -303,23 +339,56 @@ const buildForm = (data: any) => {
   console.log(data)
 
   const _form = JSON.parse(JSON.stringify(data))
-  if(!_form.current_address) {
+  if (!_form.current_address) {
     _form.current_address = {}
   }
   Object.assign(formState, _form)
 }
 
 // Update
-const { mutate: updateAction, loading } = useMutation<UpdateUserInfo, UpdateUserInfoVariables>(UPDATE_USER_INFO)
+const { mutate: updateAction, loading } = useMutation<
+  UpdateUserInfo,
+  UpdateUserInfoVariables
+>(UPDATE_USER_INFO)
 const updateHandle = () => {
-  const _form: Partial<Record<keyof typeof initState, any>> = Object.assign({}, formState)
+  const _form: Partial<Record<keyof typeof initState, any>> = Object.assign(
+    {},
+    formState
+  )
   delete _form.__typename
   delete _form.created_at
-  updateAction({
-    input: _form
-  })
+  updateAction(
+    {
+      input: _form
+    },
+    {
+      update: () => {
+        modal.value?.dispose()
+      }
+    }
+  )
 }
 
+// Cropper
+const cropperState = reactive({
+  src: '',
+  current: '',
+  show: false
+})
+const cropperRef = ref<any>(null)
 
+const triggerCropper = (type: string, e: Event) => {
+  cropperState.current = type
+  const input = e.target as HTMLInputElement
+  // nê
+  if (!input.files?.length) {
+    return
+  }
 
+  // rebuild
+  cropperRef.value?.buildCropper(input.files.item(0))
+  // Todo: Change config
+  cropperState.show = true
+  console.log('INit')
+}
 </script>
