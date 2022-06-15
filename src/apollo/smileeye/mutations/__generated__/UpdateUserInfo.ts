@@ -15,6 +15,7 @@ export interface UpdateUserInfo_update_user {
   name: string | null;
   gender: string | null;
   avatar: string | null;
+  banner: string | null;
   phone_number: string | null;
   email: string | null;
   roles: any | null;

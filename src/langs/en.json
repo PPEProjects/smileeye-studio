@@ -127,6 +127,10 @@
       "settings": "Settings"
     }
   },
+  "upload": {
+    "fail": "Upload fail",
+    "success": "Upload successful"
+  },
   "users": {
     "actions": {
       "edit": "Edit"

@@ -1,6 +1,5 @@
 <template>
   <component :is="layout" :key="layout" />
-  <vue-process-bar />
 </template>
 
 <script lang="ts">
@@ -66,3 +65,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.vue-process-bar ._process {
+  transition: 200ms linear;
+}
+</style>

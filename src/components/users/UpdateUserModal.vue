@@ -6,7 +6,7 @@
     :max-width="1000"
     @init="buildForm"
   >
-    <a-form :model="formState" layout="vertical">
+    <a-form :model="formState" layout="vertical" @finish='updateHandle'>
       <div class="flex">
         <div class="w-3/5 pr-7">
           <div class="relative">
@@ -15,7 +15,7 @@
               class="w-full h-[145px] rounded overflow-hidden cursor-pointer _upload_overlay block"
             >
               <img
-                :src="formState.banner"
+                :src="$cdn(formState.banner)"
                 alt=""
                 class="w-full h-full object-cover"
               />
@@ -35,7 +35,7 @@
             >
               <img
                 class="w-full h-full object-cover"
-                :src="formState.avatar"
+                :src="$cdn(formState.avatar)"
                 alt=""
               />
               <input
@@ -183,7 +183,9 @@
             :name="['current_address', 'ward']"
             :label="t('users.edit.ward')"
           >
-            <a-select v-model:value="formState.current_address.ward">
+            <a-select
+              v-model:value="formState.current_address.ward"
+            >
               <a-select-option
                 v-for="ward in wards"
                 :key="ward.code"
@@ -228,7 +230,6 @@
             html-type="submit"
             class="ml-4"
             :loading="loading"
-            @click="updateHandle"
           >
             {{ t('users.edit.actions.update') }}
           </a-button>
@@ -246,8 +247,16 @@
 
     <template #bottom>
       <div class="flex justify-end">
-        <a-button type="danger" class="uppercase">cancel</a-button>
-        <a-button type="primary" class="uppercase ml-3">Upload</a-button>
+        <a-button type="danger" class="uppercase" :disabled="uploadingImage"
+          >cancel</a-button
+        >
+        <a-button
+          type="primary"
+          class="uppercase ml-3"
+          :loading="uploadingImage"
+          @click="uploadImageHandle"
+          >Upload</a-button
+        >
       </div>
     </template>
   </modal-base>
@@ -256,8 +265,8 @@
 <script lang="ts" setup>
 // @ts-ignore
 import {
-  getProvinces,
   getDistrictsByProvinceCode,
+  getProvinces,
   getWardsByDistrictCode
   // @ts-ignore
 } from '@do-kevin/pc-vn'
@@ -336,13 +345,12 @@ const changeDistrict = () => {
 }
 
 const buildForm = (data: any) => {
-  buildAddress()
-
   const _form = JSON.parse(JSON.stringify(data))
-  if (!_form.current_address) {
+  if (!_form.current_address || Array.isArray(_form.current_address)) {
     _form.current_address = {}
   }
   Object.assign(formState, _form)
+  buildAddress()
 }
 
 // Update
@@ -370,9 +378,13 @@ const updateHandle = () => {
 }
 
 // Cropper
-const cropperState = reactive({
+const cropperState = reactive<{
+  src: string
+  current: 'avatar' | 'banner'
+  show: boolean
+}>({
   src: '',
-  current: '',
+  current: 'avatar',
   show: false
 })
 const cropperRef = ref<any>(null)
@@ -407,5 +419,18 @@ const triggerCropper = (type: 'avatar' | 'banner', e: Event) => {
 
   // clear input
   input.value = ''
+}
+
+const uploadingImage = ref(false)
+const uploadImageHandle = async () => {
+  cropperRef.value?.cropImage(async (image: any) => {
+    if (!image) {
+      return
+    }
+    uploadingImage.value = true
+    formState[cropperState.current] = await cropperRef.value?.uploadCrop(image)
+    cropperState.show = false
+    uploadingImage.value = false
+  })
 }
 </script>

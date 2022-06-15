@@ -54,7 +54,7 @@ import VueProcessBar from '@nguyenshort/vue3-process-bar'
 // Init app
 const app = createApp(App)
 
-app.use(VueProcessBar, { throttle: 4 })
+app.use(VueProcessBar, { autoFinish: true, stepGap: 100 })
 
 app.use(cdn)
 app.use(VueMitter)

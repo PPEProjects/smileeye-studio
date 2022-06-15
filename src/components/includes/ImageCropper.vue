@@ -50,6 +50,9 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
 import { VueCropperMethods } from 'vue-cropperjs'
+import { v4 as uuidv4 } from 'uuid'
+import { message } from 'ant-design-vue'
+import { useLangs } from '@composables/useLangs'
 
 const _configDefault = {
   autoCropArea: 1,
@@ -75,9 +78,12 @@ export default defineComponent({
   setup(props) {
     const src = ref<string>(props.cropSrc)
     const configData = reactive(props.config)
+
+    const { t } = useLangs()
     return {
       src,
-      configData
+      configData,
+      t
     }
   },
   computed: {
@@ -98,10 +104,26 @@ export default defineComponent({
       this.src = URL.createObjectURL(file)
     },
 
-    cropImage() {
-      this.cropperRef.getCroppedCanvas().toBlob((data) => {
-        console.log(data)
+    cropImage(callback: (image: Blob|any) => Promise<void>) {
+      this.cropperRef.getCroppedCanvas().toBlob( (data) => {
+        callback(data)
       })
+    },
+
+    async uploadCrop(image: Blob) {
+      const fileName = `/admin/cropper/${uuidv4()}.jpg`
+      try {
+        await this.$axios.put( '/bunny' + fileName, image, {
+          headers: {
+            'Content-Type': 'image/png',
+            AccessKey: import.meta.env.VITE_BUNNY_TOKEN
+          }
+        })
+        message.success(this.t('upload.success'))
+        return fileName
+      } catch (e) {
+        message.error(this.t('upload.fail'))
+      }
     },
 
     changeConfig(config: { [key: string]: any }) {

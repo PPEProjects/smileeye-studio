@@ -6,6 +6,9 @@ interface ImportMetaEnv {
   readonly VITE_NOTIFY_SUBSCRIPTION: string
   readonly VITE_NOTIFY_API_KEY: string
   // more env variables...
+
+  readonly VITE_BUNNY_URL: string
+  readonly VITE_BUNNY_TOKEN: string
 }
 
 interface ImportMeta {

@@ -36,5 +36,16 @@ export default defineConfig({
         javascriptEnabled: true
       }
     }
+  },
+  server: {
+    proxy: {
+      '/bunny': {
+        // @ts-ignore
+        target: 'https://sg.storage.bunnycdn.com/smileeyev2/',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/bunny/, '')
+      }
+    }
   }
 })

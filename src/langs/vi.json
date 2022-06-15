@@ -127,6 +127,10 @@
       "settings": "Cài Đặt"
     }
   },
+  "upload": {
+    "fail": "Tải lên thất bại",
+    "success": "Tải lên thành công"
+  },
   "users": {
     "actions": {
       "edit": "Sửa"

@@ -16,6 +16,7 @@ export const UPDATE_USER_INFO = gql`
       name
       gender
       avatar
+      banner
       phone_number
       email
       roles
