@@ -11,7 +11,7 @@ enum ApolloEnum {
 const plugin = {
   install(app: App) {
     app.provide(ApolloClients, {
-      default: apolloClient,
+      default: apolloClient(app),
       notify: notifyClient
     })
   }

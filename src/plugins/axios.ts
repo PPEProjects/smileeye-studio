@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import { App } from 'vue'
+import app from '../main'
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_SMILE_EYE_SERVER,
@@ -8,6 +9,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
+    app.config.globalProperties.$Progress?.start()
     console.log('🔥 Request to:', config.url)
     // @ts-ignore
     config.headers['Authorization'] = 'Bearer '
@@ -26,11 +28,13 @@ http.interceptors.response.use(
     //   response.data.token = response.headers.authorization
     // }
     console.log('🌈 Response from:', response.config.url)
+    app.config.globalProperties.$Progress?.finish()
     return response.data
   },
   (error) => {
     const message = error.response.data.message || error.message
     console.log(message)
+    app.config.globalProperties.$Progress?.fail()
     return Promise.reject(error)
   }
 )

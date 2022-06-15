@@ -1,6 +1,10 @@
+@import "@nguyenshort/vue3-process-bar/dist/style.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Vue Loading Process */
 
 :root {
     --height-container: calc(100vh - 70px - 35px - 35px)

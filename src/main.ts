@@ -48,7 +48,13 @@ import VueMitter from '@nguyenshort/vue3-mitt'
 // CDN Plugin
 import cdn from '@plugins/ultils'
 
+// Process by me
+import VueProcessBar from '@nguyenshort/vue3-process-bar'
+
+// Init app
 const app = createApp(App)
+
+app.use(VueProcessBar, { throttle: 4 })
 
 app.use(cdn)
 app.use(VueMitter)
@@ -73,3 +79,5 @@ app.use(head)
 app.mount('#app')
 
 window.$vue = app
+
+export default app

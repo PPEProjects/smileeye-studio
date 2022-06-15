@@ -21,7 +21,7 @@
               />
               <input
                 id="bannerImage"
-                ref='bannerImage'
+                ref="bannerImage"
                 type="file"
                 accept="image/*"
                 class="!hidden"
@@ -392,7 +392,10 @@ const triggerCropper = (type: 'avatar' | 'banner', e: Event) => {
           aspectRatio: 1,
           viewMode: 3,
           minContainerHeight: 300,
-          minCropBoxWidth: 300
+          minCropBoxWidth: 300,
+          containerStyle: {
+            borderRadius: '50%'
+          }
         }
       : {
           aspectRatio: 2.3,
