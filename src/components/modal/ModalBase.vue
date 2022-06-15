@@ -86,6 +86,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 // ẩn hiện modal
 const _visible = ref<boolean>(false)
+// lắng nghe props visible => update lại _visible. Vì visible là optional
+watch(() => props.visible, () => _visible.value = props.visible)
 
 // Ref DOM
 const body = ref<HTMLDivElement>()

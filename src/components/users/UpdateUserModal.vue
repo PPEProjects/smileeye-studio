@@ -21,6 +21,7 @@
               />
               <input
                 id="bannerImage"
+                ref='bannerImage'
                 type="file"
                 accept="image/*"
                 class="!hidden"
@@ -336,7 +337,6 @@ const changeDistrict = () => {
 
 const buildForm = (data: any) => {
   buildAddress()
-  console.log(data)
 
   const _form = JSON.parse(JSON.stringify(data))
   if (!_form.current_address) {
@@ -377,18 +377,32 @@ const cropperState = reactive({
 })
 const cropperRef = ref<any>(null)
 
-const triggerCropper = (type: string, e: Event) => {
+const triggerCropper = (type: 'avatar' | 'banner', e: Event) => {
   cropperState.current = type
   const input = e.target as HTMLInputElement
   // nê
   if (!input.files?.length) {
     return
   }
-
   // rebuild
+  // change config cropper
+  cropperRef.value?.changeConfig(
+    type === 'avatar'
+      ? {
+          aspectRatio: 1,
+          viewMode: 3,
+          minContainerHeight: 300,
+          minCropBoxWidth: 300
+        }
+      : {
+          aspectRatio: 2.3,
+          viewMode: 1
+        }
+  )
   cropperRef.value?.buildCropper(input.files.item(0))
-  // Todo: Change config
   cropperState.show = true
-  console.log('INit')
+
+  // clear input
+  input.value = ''
 }
 </script>
