@@ -1,10 +1,16 @@
 <template>
   <modal-base
+    ref='modal'
     title="Chỉnh Sửa Phân Quyền"
     event="editRuleModal"
     @init="buildForm"
   >
-    <a-form :model="formState">
+    <a-form
+      :model="formState"
+      @finish="
+        mutate({ input: { user_id: formState.id, role_ids: formState.roles } })
+      "
+    >
       <a-form-item
         name="roles"
         :rules="[
@@ -22,23 +28,9 @@
           class="w-full"
         >
           <a-row>
-            <a-col :span="8">
-              <a-checkbox value="student">
-                {{ t('users.edit.rule.student') }}
-              </a-checkbox>
-            </a-col>
-            <a-col :span="8">
-              <a-checkbox value="supporter">
-                <span class="text-primary-500">
-                  {{ t('users.edit.rule.support') }}
-                </span>
-              </a-checkbox>
-            </a-col>
-            <a-col :span="8">
-              <a-checkbox value="admin">
-                <span class="text-rose-500">
-                  {{ t('users.edit.rule.admin') }}
-                </span>
+            <a-col v-for="(role, index) in roles" :key="index" :span="8">
+              <a-checkbox :value="role.id">
+                <span class="capitalize">{{ role.name }}</span>
               </a-checkbox>
             </a-col>
           </a-row>
@@ -47,7 +39,7 @@
 
       <a-form-item>
         <div class="flex justify-end">
-          <a-button type="danger" html-type="submit">
+          <a-button type="danger" html-type="submit" :loading="loading">
             {{ t('users.edit.rule.button') }}
           </a-button>
         </div>
@@ -59,17 +51,20 @@
 <script lang="ts" setup>
 import ModalBase from '@components/modal/ModalBase.vue'
 import { useLangs } from '@composables/useLangs'
-import { computed, reactive } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
+import { computed, reactive, ref } from 'vue'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   ListRoles,
   ListRolesVariables
 } from '#smileeye/queries/__generated__/ListRoles'
 import { LIST_ROLES } from '#smileeye/queries/user.query'
+import { ASSIGN_ROLES } from '#smileeye/mutations/user.mutation'
+import { useSmileeye } from '#apollo/client/smileeye'
 
 const { t } = useLangs()
 
 const initState = {
+  __typename: '',
   id: '',
   roles: []
 }
@@ -79,6 +74,7 @@ const formState = reactive<typeof initState>(initState)
 const buildForm = (data: any) => {
   formState.id = data.id
   formState.roles = data.roles.map((role: { id: any }) => role.id)
+  formState.__typename = data.__typename
 }
 
 // List roles
@@ -87,6 +83,23 @@ const { result } = useQuery<ListRoles, ListRolesVariables>(LIST_ROLES, {
   page: 1
 })
 
-const roles = computed(() => result.value?.list_roles || [])
+const roles = computed(() => result.value?.list_roles?.data || [])
 
+const { mutate, loading, onDone } = useMutation(ASSIGN_ROLES)
+
+const proxy = useSmileeye().cache
+
+const modal = ref<any>(null)
+
+onDone(({ data }) => {
+  proxy.modify({
+    id: proxy.identify(formState),
+    fields: {
+      roles() {
+        return data.assign_role
+      }
+    }
+  })
+  modal.value.dispose()
+})
 </script>

@@ -11,6 +11,7 @@ export interface DetailUser_detail_user {
   __typename: "User";
   id: string | null;
   name: string | null;
+  email: string | null;
   current_address: any | null;
   country: string | null;
   gender: string | null;
@@ -18,6 +19,8 @@ export interface DetailUser_detail_user {
   banner: string | null;
   avatar: string | null;
   phone_number: string | null;
+  roles: any | null;
+  created_at: any;
 }
 
 export interface DetailUser {

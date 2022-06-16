@@ -20,6 +20,11 @@ export enum STATUS {
   TRIAL = "TRIAL",
 }
 
+export interface AssignRoleInput {
+  role_ids: string[];
+  user_id: string;
+}
+
 export interface DeleteCouponInput {
   id: string;
 }

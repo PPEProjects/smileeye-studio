@@ -52,6 +52,7 @@ export const DETAIL_USER = gql`
     detail_user(id: $id) {
       id
       name
+      email
       current_address
       country
       gender
@@ -59,6 +60,8 @@ export const DETAIL_USER = gql`
       banner
       avatar
       phone_number
+      roles
+      created_at
     }
   }
 `

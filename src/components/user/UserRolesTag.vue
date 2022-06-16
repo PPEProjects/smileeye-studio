@@ -6,7 +6,9 @@
       class="cursor-pointer"
       color="#108ee9"
     >
-      {{ role.name }}
+      <span class='capitalize'>
+        {{ role.name }}
+      </span>
     </a-tag>
   </div>
 </template>

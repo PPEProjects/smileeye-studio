@@ -24,3 +24,12 @@ export const UPDATE_USER_INFO = gql`
     }
   }
 `
+
+export const ASSIGN_ROLES = gql`
+  mutation AssignRole($input: AssignRoleInput!) {
+    assign_role(input: $input) {
+      id
+      name
+    }
+  }
+`

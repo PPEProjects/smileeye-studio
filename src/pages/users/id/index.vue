@@ -11,6 +11,20 @@
       </div>
     </teleport-view>
 
+    <teleport-view to="#actions">
+      <a-button
+        type="primary"
+        size="large"
+        class="uppercase"
+        @click="$emitter.emit('updateUserModal', user)"
+      >
+        <template #icon>
+          <edit-outlined />
+        </template>
+        edit user
+      </a-button>
+    </teleport-view>
+
 
     <div class='flex __user-container'>
 
@@ -20,12 +34,17 @@
 
     </div>
 
+    <update-user-modal />
+    <edit-rule-modal />
+
   </template>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
+import { EditOutlined } from '@ant-design/icons-vue'
+
 import {
   DetailUser,
   DetailUserVariables
@@ -35,6 +54,8 @@ import TeleportView from '@components/layout/TeleportView.vue'
 import { computed } from 'vue'
 import UserPlaceholder from '@components/user/UserPlaceholder.vue'
 import UserInfo from '@components/user/UserInfo.vue'
+import EditRuleModal from '@components/users/EditRuleModal.vue'
+import UpdateUserModal from '@components/users/UpdateUserModal.vue'
 
 const route = useRoute()
 
