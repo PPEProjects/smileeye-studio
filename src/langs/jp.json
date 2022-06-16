@@ -160,16 +160,18 @@
       "phone": "",
       "province": "",
       "rule": {
-        "admin": "",
         "button": "",
-        "label": "",
-        "student": "",
-        "support": ""
+        "label": ""
       },
       "upload": {
         "guide": ""
       },
       "ward": ""
+    },
+    "search": {
+      "cancel": "",
+      "input": "",
+      "search": ""
     },
     "tab": {
       "list": "",

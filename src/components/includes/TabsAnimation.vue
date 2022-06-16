@@ -75,7 +75,7 @@ const tabAnimation = () => {
      * Note: Cả 2 element support animation để có độ cao và offset giống nhau...chỉ khác độ rộng => chỉnh nó bằng css
      */
     anime({
-      targets: '.tab-anime',
+      targets: $container.value?.querySelectorAll('.tab-anime'),
       height: [tabLine.value?.scrollHeight, height],
       top: [tabLine.value?.offsetTop, offsetTop]
     })
@@ -92,7 +92,7 @@ const tabAnimation = () => {
      * Note: Cả 2 element support animation để có độ cao và offset giống nhau...chỉ khác độ rộng => chỉnh nó bằng css
      */
     anime({
-      targets: '.tab-anime',
+      targets: $container.value?.querySelectorAll('.tab-anime'),
       width: [tabLine.value?.scrollWidth, width],
       left: [tabLine.value?.offsetLeft, offsetLeft]
     })
@@ -112,10 +112,7 @@ onMounted(() => nextTick(() => {
   // auto animation
   if(props.auto && props.tab) {
     $container.value?.querySelectorAll(props.tab).forEach(($el) => {
-      useEventListener($el, 'click', () => {
-        console.log(document.querySelector('.__tab-animation'))
-        changeTab()
-      })
+      useEventListener($el, 'click', () => changeTab())
     })
   }
 }))

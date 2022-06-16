@@ -17,17 +17,12 @@ export interface ListUser_list_user_data {
   phone_number: string | null;
   email: string | null;
   roles: any | null;
-  role_label: string | null;
   current_address: any | null;
   created_at: any;
 }
 
 export interface ListUser_list_user_paginatorInfo {
   __typename: "PaginatorInfo";
-  /**
-   * Number of items in the current page.
-   */
-  count: number;
   /**
    * Index of the current page.
    */
@@ -39,15 +34,9 @@ export interface ListUser_list_user_paginatorInfo {
 }
 
 export interface ListUser_list_user {
-  __typename: "UserPaginator";
-  /**
-   * A list of User items.
-   */
-  data: ListUser_list_user_data[];
-  /**
-   * Pagination information about the list of items.
-   */
-  paginatorInfo: ListUser_list_user_paginatorInfo;
+  __typename: "ListUser";
+  data: (ListUser_list_user_data | null)[] | null;
+  paginatorInfo: ListUser_list_user_paginatorInfo | null;
 }
 
 export interface ListUser {
@@ -56,7 +45,7 @@ export interface ListUser {
 
 export interface ListUserVariables {
   first: number;
-  page?: number | null;
+  page: number;
   phone_number?: string | null;
   email?: string | null;
   name?: string | null;

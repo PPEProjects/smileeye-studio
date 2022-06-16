@@ -42,6 +42,10 @@ let routes: RouteRecordRaw[] = [
     component: () => import('./pages/users/index.vue')
   },
   {
+    path: '/users/:id(\\d+)',
+    component: () => import('./pages/users/id/index.vue')
+  },
+  {
     path: '/draggable',
     component: () => import('./pages/draggable/index.vue'),
     meta: {

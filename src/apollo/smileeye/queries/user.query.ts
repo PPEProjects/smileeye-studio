@@ -15,7 +15,7 @@ export const GET_ME = gql`
 export const LIST_USERS = gql`
   query ListUser(
     $first: Int!
-    $page: Int
+    $page: Int!
     $phone_number: String
     $email: String
     $name: String
@@ -36,14 +36,39 @@ export const LIST_USERS = gql`
         phone_number
         email
         roles
-        role_label
         current_address
         created_at
       }
       paginatorInfo {
-        count
         currentPage
         total
+      }
+    }
+  }
+`
+
+export const DETAIL_USER = gql`
+  query DetailUser($id: ID!) {
+    detail_user(id: $id) {
+      id
+      name
+      current_address
+      country
+      gender
+      date_of_birth
+      banner
+      avatar
+      phone_number
+    }
+  }
+`
+
+export const LIST_ROLES = gql`
+  query ListRoles($first: Int!, $page: Int) {
+    list_roles(first: $first, page: $page) {
+      data {
+        id
+        name
       }
     }
   }

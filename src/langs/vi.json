@@ -160,16 +160,18 @@
       "phone": "Số Điện Thoại",
       "province": "Tỉnh Thành",
       "rule": {
-        "admin": "Quản Trị Viên",
         "button": "Cập Nhật",
-        "label": "Quyền Hạn",
-        "student": "Học Sinh",
-        "support": "Người Hỗ Trợ"
+        "label": "Quyền Hạn"
       },
       "upload": {
         "guide": "Nhấp vào vị trị tương ứng để tải ảnh lên"
       },
       "ward": "Phường/Xã"
+    },
+    "search": {
+      "cancel": "Huỷ Bỏ",
+      "input": "Nhập từ khoá...",
+      "search": "Tìm Kiếm"
     },
     "tab": {
       "list": "Tất Cả",

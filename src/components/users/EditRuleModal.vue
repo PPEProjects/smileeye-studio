@@ -4,7 +4,7 @@
     event="editRuleModal"
     @init="buildForm"
   >
-    <a-form :model='formState'>
+    <a-form :model="formState">
       <a-form-item
         name="roles"
         :rules="[
@@ -59,7 +59,13 @@
 <script lang="ts" setup>
 import ModalBase from '@components/modal/ModalBase.vue'
 import { useLangs } from '@composables/useLangs'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import {
+  ListRoles,
+  ListRolesVariables
+} from '#smileeye/queries/__generated__/ListRoles'
+import { LIST_ROLES } from '#smileeye/queries/user.query'
 
 const { t } = useLangs()
 
@@ -71,6 +77,16 @@ const formState = reactive<typeof initState>(initState)
 
 // student, admin, supporter, coach
 const buildForm = (data: any) => {
-  Object.assign(formState, JSON.parse(JSON.stringify(data)))
+  formState.id = data.id
+  formState.roles = data.roles.map((role: { id: any }) => role.id)
 }
+
+// List roles
+const { result } = useQuery<ListRoles, ListRolesVariables>(LIST_ROLES, {
+  first: 100,
+  page: 1
+})
+
+const roles = computed(() => result.value?.list_roles || [])
+
 </script>

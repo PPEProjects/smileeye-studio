@@ -18,9 +18,8 @@ export const UPDATE_USER_INFO = gql`
       avatar
       banner
       phone_number
-      email
       roles
-      role_label
+      email
       current_address
     }
   }

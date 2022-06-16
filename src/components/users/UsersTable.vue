@@ -28,7 +28,7 @@
                   <a-input
                     v-model:value="formSearch.keyword"
                     style="width: 60%"
-                    placeholder="Nhập từ khoá..."
+                    :placeholder="t('users.search.input')"
                     @press-enter='searchUsers(); openSearch = false'
                   >
                     <template #prefix>
@@ -46,16 +46,18 @@
                     size="small"
                     block
                     @click="searchUsers"
-                  >Tìm</a-button
                   >
+                    {{ t('users.search.search') }}
+                  </a-button>
                   <div class="w-1 flex-shrink-0"></div>
                   <a-button
                     type="danger"
                     size="small"
                     block
                     @click="cancelSearch"
-                  >Huỷ</a-button
                   >
+                    {{ t('users.search.cancel') }}
+                  </a-button>
                 </div>
               </a-menu-item>
             </a-menu>
@@ -66,7 +68,7 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <div class="flex items-center">
+        <router-link :to='"/users/" + record.id' class="flex items-center">
           <div
             class="rounded-full overflow-hidden mr-3 border-2 border-white shadow-md"
           >
@@ -79,14 +81,12 @@
             />
           </div>
 
-          <p class="mb-0 font-medium">{{ record.name }}</p>
-        </div>
+          <p class="mb-0 font-medium text-gray-700">{{ record.name }}</p>
+        </router-link>
       </template>
 
       <template v-else-if="column.key === 'role'">
-        <div @click="$emitter.emit('editRuleModal', record)">
-          <a-tag class="cursor-pointer" color="#108ee9">Student</a-tag>
-        </div>
+        <user-roles-tag :user='record' />
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
@@ -118,6 +118,7 @@ import { computed, reactive, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { ListUser, ListUserVariables } from '#smileeye/queries/__generated__/ListUser'
 import { LIST_USERS } from '#smileeye/queries/user.query'
+import UserRolesTag from '@components/user/UserRolesTag.vue'
 
 const userColumns = userColumnsBuilder()
 
@@ -147,7 +148,7 @@ const changePage = ($event: any) => {
   page.value = $event.current
   refetch({
     first: 10,
-    [formSearch.field]: '%' + formSearch.keyword + '%',
+    [formSearch.field]: formSearch.keyword,
     page: page.value
   })
 }
@@ -159,7 +160,7 @@ const searchUsers = () => {
   page.value = 0
   refetch({
     first: 10,
-    [formSearch.field]: '%' + formSearch.keyword + '%',
+    [formSearch.field]: formSearch.keyword,
     page: page.value
   })
 }
@@ -168,7 +169,7 @@ const cancelSearch = () => {
   formSearch.keyword = ''
   refetch({
     first: 10,
-    [formSearch.field]: '%' + formSearch.keyword + '%',
+    [formSearch.field]: formSearch.keyword,
     page: page.value
   })
   openSearch.value = false

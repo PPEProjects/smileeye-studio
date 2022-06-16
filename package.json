@@ -41,6 +41,7 @@
     "vite-tsconfig-paths": "^3.5.0",
     "vue": "^3.2.25",
     "vue-animejs": "^2.1.1",
+    "vue-content-loader": "^2.0.1",
     "vue-cookies": "^1.8.1",
     "vue-cropperjs": "^5.0.0",
     "vue-i18n": "^9.1.10",

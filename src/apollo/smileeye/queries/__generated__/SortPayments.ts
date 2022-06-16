@@ -11,7 +11,7 @@ export interface SortPayments_sort_payments_goal {
   __typename: "GoalRoot";
   id: string | null;
   name: string | null;
-  price: string | null;
+  price: number | null;
 }
 
 export interface SortPayments_sort_payments {
@@ -24,7 +24,7 @@ export interface SortPayments_sort_payments {
   type: string | null;
   user_info: any | null;
   code_sale: string | null;
-  money: string | null;
+  money: number | null;
   note: string | null;
   attachments: any | null;
   created_at: any | null;

@@ -42,108 +42,107 @@
       </h1>
     </a>
 
-    <tabs-animation class='mt-20 flex flex-col h-full' active=''>
-      <ul class="nav-primary">
-        <menu-item
-          :active="/^dashboard/.test($route.name)"
-          icon="#i-dashboard"
-          :label="t('sidebar.dashboard')"
-          to="/dashboard"
-        />
-        <menu-item
-          :active="/^(stories|story|chapter|publish)/.test($route.name)"
-          icon="#i-workspace"
-          label="Workspace"
-          to="/stories"
-        />
+    <ul class="mt-20 nav-primary">
+      <menu-item
+        :active="/^dashboard/.test($route.name)"
+        icon="#i-dashboard"
+        :label="t('sidebar.dashboard')"
+        to="/dashboard"
+      />
+      <menu-item
+        :active="/^(stories|story|chapter|publish)/.test($route.name)"
+        icon="#i-workspace"
+        label="Workspace"
+        to="/stories"
+      />
 
-        <menu-item
-          :active="/^(payment)/.test($route.name)"
-          icon="#i-income"
-          :label="t('sidebar.payment')"
-          to="/payment"
-        />
+      <menu-item
+        :active="/^(payment)/.test($route.name)"
+        icon="#i-income"
+        :label="t('sidebar.payment')"
+        to="/payment"
+      />
 
-        <menu-item
-          :active="/^(users)/.test($route.name)"
-          icon="#i-group"
-          :label="t('sidebar.members.members')"
-          to="/users"
-        />
+      <menu-item
+        :active="/^(users)/.test($route.name)"
+        icon="#i-group"
+        :label="t('sidebar.members.members')"
+        to="/users"
+      />
 
-        <menu-item
-          :active="/^(coupon|banners|categories)/.test($route.name)"
-          label="Tools"
-          icon="#i-hammer"
-        >
-          <template #default>
-            <ul
-              class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
-            >
-              <menu-item
-                :active="/^(coupon)/.test($route.name)"
-                icon="#i-love-card"
-                :label="t('sidebar.coupon')"
-                to="/coupon"
-              />
+      <menu-item
+        :active="/^(coupon|banners|categories)/.test($route.name)"
+        label="Tools"
+        icon="#i-hammer"
+      >
+        <template #default>
+          <ul
+            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+          >
+            <menu-item
+              :active="/^(coupon)/.test($route.name)"
+              icon="#i-love-card"
+              :label="t('sidebar.coupon')"
+              to="/coupon"
+            />
 
-              <menu-item
-                :active="/^(settings)/.test($route.name)"
-                icon="#i-extentions"
-                :label="t('sidebar.config')"
-                to="/settings"
-              />
-            </ul>
-          </template>
-        </menu-item>
-      </ul>
+            <menu-item
+              :active="/^(settings)/.test($route.name)"
+              icon="#i-extentions"
+              :label="t('sidebar.config')"
+              to="/settings"
+            />
+          </ul>
+        </template>
+      </menu-item>
+    </ul>
 
-      <ul class="mt-auto relative">
-        <menu-item
-          :active="/^settings/.test($route.name)"
-          :label="t('sidebar.settings.settings')"
-        >
-          <template #icon>
-            <img
-              class="w-[24px] h-[24px] rounded-md"
-              :src="
+    <ul class="mt-auto relative">
+      <menu-item
+        :active="/^settings/.test($route.name)"
+        :label="t('sidebar.settings.settings')"
+      >
+        <template #icon>
+          <img
+            class="w-[24px] h-[24px] rounded-md"
+            :src="
               useUser.user?.avatar ||
               'https://user-pic.webnovel.com/userheadimg/4308112429-10/100.jpg?1591111535475'
             "
-              alt=""
+            alt=""
+          />
+        </template>
+
+        <template #default>
+          <ul
+            class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+          >
+            <menu-item
+              icon="#i-logout"
+              :label="t('sidebar.settings.logout')"
+              @click.prevent="logOut()"
             />
-          </template>
+          </ul>
+        </template>
+      </menu-item>
 
-          <template #default>
-            <ul
-              class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+      <menu-item
+        :active="/^(notifications)/.test($route.name)"
+        :label="t('sidebar.notify')"
+        to="/notifications"
+      >
+        <template #icon>
+          <div class="relative">
+            <svg
+              width="24px"
+              height="24px"
+              fill="currentColor"
+              class="relative"
             >
-              <menu-item
-                icon="#i-logout"
-                :label="t('sidebar.settings.logout')"
-                @click.prevent="logOut()"
-              />
-            </ul>
-          </template>
-        </menu-item>
+              <use xlink:href="#i-chatbubble" />
+            </svg>
 
-        <menu-item
-          :active="/^(notifications)/.test($route.name)"
-          :label="t('sidebar.notify')"
-          to="/notifications"
-        >
-          <template #icon>
-            <div class="relative">
-              <svg
-                width="24px"
-                height="24px"
-                fill="currentColor"
-                class="relative"
-              >
-                <use xlink:href="#i-chatbubble" />
-              </svg>
-
-              <div v-if="countNotify" class="absolute right-0 top-0">
+            <div v-if="countNotify" class="absolute right-0 top-0">
               <span class="flex h-2 w-2 relative">
                 <span
                   class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
@@ -152,12 +151,11 @@
                   class="relative inline-flex rounded-full h-2 w-2 bg-red-500"
                 ></span>
               </span>
-              </div>
             </div>
-          </template>
-        </menu-item>
-      </ul>
-    </tabs-animation>
+          </div>
+        </template>
+      </menu-item>
+    </ul>
 
     <div class="px-7 -mt-2 horizontal-menu">
       <div class="border-t flex items-center pt-5">
@@ -206,7 +204,6 @@ import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
 import { AnimationItem } from 'lottie-web'
-import TabsAnimation from '@components/includes/TabsAnimation.vue'
 const { t } = useLangs()
 
 const toHome = () => {

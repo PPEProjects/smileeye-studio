@@ -37,6 +37,8 @@ export interface UpdatePassword {
 export interface UpdateUserInput {
   id?: string | null;
   role_label?: string | null;
+  email?: string | null;
+  permission?: any | null;
   username?: string | null;
   phone_number?: string | null;
   first_name?: string | null;
@@ -69,7 +71,7 @@ export interface UpsertPaymentInput {
   user_info?: any | null;
   type?: string | null;
   code_sale?: string | null;
-  money?: string | null;
+  money?: number | null;
   note?: string | null;
   attachments?: any | null;
 }

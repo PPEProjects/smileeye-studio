@@ -160,16 +160,18 @@
       "phone": "Phone Number",
       "province": "Province",
       "rule": {
-        "admin": "Admin",
         "button": "Update Permission",
-        "label": "Roles",
-        "student": "Student",
-        "support": "Supporter"
+        "label": "Roles"
       },
       "upload": {
         "guide": "To upload a banner/avatar image, click on the respective location"
       },
       "ward": "Ward"
+    },
+    "search": {
+      "cancel": "Cancel",
+      "input": "Enter keyword...",
+      "search": "Search"
     },
     "tab": {
       "list": "All",

@@ -11,7 +11,7 @@
         <div class="w-3/5 pr-7">
           <div class="relative">
             <div
-              class="w-full h-[145px] rounded overflow-hidden cursor-pointer _upload_overlay block"
+              class="w-full h-[133px] rounded overflow-hidden cursor-pointer _upload_overlay block"
               @click="triggerCropper('banner')"
             >
               <img
@@ -90,42 +90,10 @@
             name="roles"
             :label="t('users.edit.rule.label')"
             class="!mb-[15px]"
-            :rules="[
-              {
-                required: true,
-                message: t('form.validate.required', {
-                  field: t('users.edit.rule.label')
-                })
-              }
-            ]"
           >
-            <a-checkbox-group
-              v-model:value="formState.roles"
-              name="checkboxgroup"
-              class="w-full"
-            >
-              <a-row>
-                <a-col :span="8">
-                  <a-checkbox value="student">
-                    {{ t('users.edit.rule.student') }}
-                  </a-checkbox>
-                </a-col>
-                <a-col :span="8">
-                  <a-checkbox value="supporter">
-                    <span class="text-primary-500">
-                      {{ t('users.edit.rule.support') }}
-                    </span>
-                  </a-checkbox>
-                </a-col>
-                <a-col :span="8">
-                  <a-checkbox value="admin">
-                    <span class="text-rose-500">
-                      {{ t('users.edit.rule.admin') }}
-                    </span>
-                  </a-checkbox>
-                </a-col>
-              </a-row>
-            </a-checkbox-group>
+
+            <user-roles-tag :user='formState' />
+
           </a-form-item>
 
           <a-form-item
@@ -278,6 +246,7 @@ import {
 } from '#smileeye/mutations/__generated__/UpdateUserInfo'
 import ImageCropper from '@components/includes/ImageCropper.vue'
 import { useFileSystemAccess } from '@vueuse/core'
+import UserRolesTag from '@components/user/UserRolesTag.vue'
 
 const { t } = useLangs()
 
@@ -363,7 +332,11 @@ const updateHandle = () => {
   delete _form.created_at
   updateAction(
     {
-      input: _form
+      input: _form,
+      roleInput: {
+        user_id: _form.id,
+        role_ids: _form.roles.map((item: { id: any }) => item.id)
+      }
     },
     {
       update: () => {

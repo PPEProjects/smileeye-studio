@@ -10,9 +10,9 @@
     <a
         class="pl-7 flex items-center text-theme-text hover:text-theme-text animate h-[56px] border-l-4"
         :class="{
-          'border-primary-500 bg-primary-50': active,
-          'border-transparent hover:bg-primary-50': !active,
-          '_parent_menu': $slots['default']
+        'border-primary-500 bg-primary-50 _active': active,
+        'border-transparent hover:bg-primary-50': !active,
+        '_parent_menu': $slots['default']
       }"
         @click="to ? $router.push(to) : null"
     >

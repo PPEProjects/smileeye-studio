@@ -13,7 +13,7 @@ export interface UpsertPayment_upsert_payment_goal {
   __typename: "GoalRoot";
   id: string | null;
   name: string | null;
-  price: string | null;
+  price: number | null;
 }
 
 export interface UpsertPayment_upsert_payment {
@@ -26,7 +26,7 @@ export interface UpsertPayment_upsert_payment {
   type: string | null;
   user_info: any | null;
   code_sale: string | null;
-  money: string | null;
+  money: number | null;
   note: string | null;
   attachments: any | null;
   created_at: any | null;

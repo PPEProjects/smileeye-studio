@@ -41,6 +41,16 @@ input AddMemberFriendGroupInput {
   member_ids: [ID!]!
 }
 
+input AssignPermissionInput {
+  permission_ids: [ID!]!
+  role_id: ID!
+}
+
+input AssignRoleInput {
+  role_ids: [ID!]!
+  user_id: ID!
+}
+
 type Attachment {
   id: ID
   file: String
@@ -175,6 +185,11 @@ input CreatePaymentInput {
   attachments: JSON
 }
 
+input CreateRoleOrPermissionInput {
+  name: String!
+  type: TYPE!
+}
+
 input CreateStoryShareInput {
   goal_id: ID
   image: String
@@ -263,6 +278,11 @@ input DeletePaymentInput {
   id: ID!
 }
 
+input DeleteRoleOrPermissionInput {
+  id: ID!
+  type: TYPE!
+}
+
 input deleteTaskInput {
   ids: [ID]
   date: String
@@ -273,7 +293,7 @@ input EditGoalRootInput {
   id: ID
   name: String
   description: String
-  price: String
+  price: Int
   status: String
   video: JSON
   image: JSON
@@ -398,7 +418,7 @@ type GoalRoot {
   description: String
   goal_score: GoalScore
   total_score: String
-  price: String
+  price: Int
   status: String
   video: JSON
   image: JSON
@@ -547,6 +567,11 @@ type JapanesePostPaginator {
 """A JSON with format `{}, []`"""
 scalar JSON
 
+type ListUser {
+  data: [User]
+  paginatorInfo: PaginatorInfo
+}
+
 input LoginInput {
   username: String!
   password: String!
@@ -620,6 +645,11 @@ type Mutation {
   upsert_payment(input: UpsertPaymentInput!): [Payment]
   delete_payment(input: DeletePaymentInput!): Boolean
   upsert_review_story_share(input: UpsertReviewStoryShareInput!): ReviewStoryShare
+  create_role_or_permission(input: CreateRoleOrPermissionInput!): RoleAndPermission
+  assign_role(input: AssignRoleInput!): [RoleAndPermission]
+  remove_role(input: AssignRoleInput!): [RoleAndPermission]
+  revoke_permission(input: AssignPermissionInput!): [RoleAndPermission]
+  delete_role_or_permission(input: DeleteRoleOrPermissionInput!): Boolean
   create_story_share(input: CreateStoryShareInput!): StoryShare
   update_story_share(input: UpdateStoryShareInput!): StoryShare
   create_task(input: CreateTaskInput!): Task
@@ -763,16 +793,22 @@ type Payment {
   add_user: User
   goal_id: ID
   user_info: JSON
+  user_invite: User
   goal: GoalRoot
   type: String
   status: String
-  money: String
+  money: Int
   note: String
   code_sale: String
   attachments: JSON
   created_at: DateTime
   updated_at: DateTime
   number_member: Int
+}
+
+type PermissionOfRole {
+  role: RoleAndPermission
+  permissions: [RoleAndPermission]
 }
 
 type Query {
@@ -817,6 +853,7 @@ type Query {
   detail_japanese_learn(id: ID): JapaneseLearn
   list_userid_japanese_learn(goal_id: ID!): UserID
   progress_user_japanese_learn(name: String): JSON
+  progress_user(goal_root_id: ID!): [User]
   detail_japanese_posts(id: ID, goal_id: ID): JapanesePost
   my_japanese_posts: [JapanesePost]
   other_japanese_posts(goal_id: ID): [JapanesePost]
@@ -827,8 +864,11 @@ type Query {
   sort_payments(first: Int, page: Int): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
+  my_total_payment: JSON
   detail_my_payment(goal_id: ID!): [Payment]
   sum_payment: SumPayment
+  user_roles(user_id: ID!): [RoleAndPermission]
+  role_permissions(role_id: ID!): PermissionOfRole
   my_story_share(goal_id: ID): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
   tasks_by_month(month: String): [Task]
@@ -836,6 +876,7 @@ type Query {
   detail_task(id: ID): Task
   my_tasks(date: String!): [Task]
   detail_me: User
+  list_user(phone_number: String, role: String, email: String, name: String, first: Int!, page: Int!, orderBy: [OrderByClause!]): ListUser
   list_student(goal_root_id: ID): [User]
   detail_user(id: ID!): User
   users(
@@ -957,18 +998,20 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): NotePaginator
-  list_user(
-    phone_number: String
-    email: String
-    name: String
-    orderBy: [OrderByClause!]
-
+  list_roles(
     """Limits number of fetched items."""
     first: Int!
 
     """The offset from which items are returned."""
     page: Int
-  ): UserPaginator
+  ): RoleAndPermissionPaginator
+  list_permission(
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): RoleAndPermissionPaginator
 }
 
 input RefreshTokenInput {
@@ -1015,6 +1058,24 @@ type ReviewStoryShare {
   is_read: Boolean
   created_at: DateTime!
   updated_at: DateTime!
+}
+
+type RoleAndPermission {
+  id: ID!
+  name: String!
+  permissions: [RoleAndPermission]
+  role: [RoleAndPermission]
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""A paginated list of RoleAndPermission items."""
+type RoleAndPermissionPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of RoleAndPermission items."""
+  data: [RoleAndPermission!]!
 }
 
 """Information about pagination using a simple paginator."""
@@ -1129,6 +1190,11 @@ enum Trashed {
   WITHOUT
 }
 
+enum TYPE {
+  ROLE
+  PERMISSION
+}
+
 input UpdateFriendGroupInput {
   id: ID
   name: String
@@ -1239,6 +1305,8 @@ input UpdateStoryShareInput {
 input UpdateUserInput {
   id: ID
   role_label: String
+  email: String
+  permission: JSON
   username: String
   phone_number: String
   first_name: String
@@ -1347,7 +1415,7 @@ input UpsertPaymentInput {
   user_info: JSON
   type: String
   code_sale: String
-  money: String
+  money: Int
   note: String
   attachments: JSON
 }
@@ -1367,6 +1435,7 @@ type User {
   country: String
   gender: String
   date_of_birth: String
+  permission: JSON
   roles: JSON
   is_flag: Boolean
   quotes: String
@@ -1381,6 +1450,7 @@ type User {
   role_label: String
   phone_number: String
   attachment: Attachment
+  progress: [JapaneseLearn]
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -1396,6 +1466,11 @@ type UserPaginator {
 
   """A list of User items."""
   data: [User!]!
+}
+
+type UserRole {
+  user: User
+  roles: [RoleAndPermission]
 }
 
 input VerifyEmailInput {
