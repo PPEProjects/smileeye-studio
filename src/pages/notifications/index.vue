@@ -4,29 +4,40 @@
 
       <div class='relative h-full'>
 
-        <ul id='listTab' class='h-full border-l border-gray-100 relative z-20'>
-          <li
-            v-for='(item, index) in list' :key='index'
-            class='tab-item'
-            :class='{
-              "active": item.icon === currentTab.icon
-          }'
-          >
-            <a
-              class='animate block mr-4'
-              :class='[ item.icon === currentTab.icon ? "translate-x-1" : "" ]'
-              @click='changeTab(item)'
+        <tabs-animation
+          class='h-full border-l border-gray-100 z-20'
+          active='.tab-item.active'
+          auto
+          tab='.tab-item a'
+        >
+
+          <template #default>
+
+            <li
+              v-for='(item, index) in list' :key='index'
+              class='tab-item'
+              :class='{
+                  "active": item.icon === currentTab.icon
+              }'
             >
-              <div class='flex items-center py-5 pl-4'>
-                <img class='flex-shrink-0' width='35' height='35' :src='item.icon' alt='' />
-                <div class='ml-3 flex justify-center flex-col'>
-                  <h4 class='text-[16px] font-medium mb-0'>{{ item.name }}</h4>
-                  <sub class='mt-1 text-gray-400'>{{ item.note }}</sub>
+              <a
+                class='animate block mr-4'
+                :class='[ item.icon === currentTab.icon ? "translate-x-1" : "" ]'
+                @click='changeTab(item)'
+              >
+                <div class='flex items-center py-5 pl-4'>
+                  <img class='flex-shrink-0' width='35' height='35' :src='item.icon' alt='' />
+                  <div class='ml-3 flex justify-center flex-col'>
+                    <h4 class='text-[16px] font-medium mb-0'>{{ item.name }}</h4>
+                    <sub class='mt-1 text-gray-400'>{{ item.note }}</sub>
+                  </div>
                 </div>
-              </div>
-            </a>
-          </li>
-        </ul>
+              </a>
+            </li>
+
+          </template>
+
+        </tabs-animation>
 
         <span ref='tabLine' class='absolute tab-anime bg-primary-500 w-[3px] top-0 z-20'></span>
         <span ref='tabBackground' class='absolute tab-anime bg-primary-50 w-full _bg top-0 z-10'></span>
@@ -49,9 +60,9 @@
 
 <script lang='ts' setup>
 
-import { inject, nextTick, onMounted, ref } from 'vue'
-import { AnimeInstance } from '#types/anime'
+import { ref } from 'vue'
 import ListNotifies from '@components/notifications/ListNotifies.vue'
+import TabsAnimation from '@components/includes/TabsAnimation.vue'
 
 interface ITab {
   name: string
@@ -79,43 +90,9 @@ const list = [
 
 let currentTab = ref<ITab>(list[0])
 
-// animate
-const anime = inject<AnimeInstance>('anime')!
-const tabLine = ref<HTMLDivElement>()
-
-const tabAnimation = () => {
-  const $parent = document.querySelector('#listTab')!
-  const $active = $parent.querySelector<HTMLDivElement>('.active')
-  if(!$active) {
-    // Không có tab active ==> ko thể xảy ra
-    return
-  }
-  // height của active
-  const height = $active.scrollHeight
-  // offset top với container
-  const offsetTop = $active.offsetTop
-
-  /**
-   * Animation thay đổi:
-   * 1. Offset + height của line
-   * 2. Offser + height của tab
-   * Note: Cả 2 element support animation để có độ cao và offset giống nhau...chỉ khác độ rộng => chỉnh nó bằng css
-   */
-  anime({
-    targets: '.tab-anime',
-    height: [tabLine.value?.scrollHeight, height],
-    top: [tabLine.value?.offsetTop, offsetTop]
-  })
-}
-
 const changeTab = (tab: ITab) => {
   currentTab.value = tab
-  // khi đổi tab => animation
-  nextTick(() => tabAnimation())
 }
-
-// first setup
-onMounted(() => nextTick(() => tabAnimation()))
 
 </script>
 
