@@ -4,7 +4,7 @@
     :columns="columns"
     :data-source="payments"
     :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
-    row-key="name"
+    row-key="id"
     @change="changePage($event.current)"
   >
     <template #headerCell="{ column }">

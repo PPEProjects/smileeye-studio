@@ -21,8 +21,7 @@ const plugin = {
       (config) => {
         console.log('🔥 Request to:', config.url)
         $loading?.start()
-        // @ts-ignore
-        config.headers['Authorization'] = 'Bearer '
+        config.headers!['Authorization'] = 'Bearer '
         return config
       },
       (error) => {

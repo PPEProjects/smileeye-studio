@@ -43,6 +43,11 @@
     },
     "title": "Hệ Thống Mã Giảm Giá"
   },
+  "cropper": {
+    "cancel": "Huỷ Bỏ",
+    "title": "Di Chuyển và Cắt Hình Của Bạn",
+    "upload": "Tải Lên"
+  },
   "form": {
     "validate": {
       "min": "{ field } phải hơn { min }",
@@ -148,6 +153,9 @@
       },
       "address_detail": "Địa Chỉ Cụ Thể",
       "district": "Quận/Huyện",
+      "modal": {
+        "title": "Cập Nhật Thành Viên"
+      },
       "name": "Tên",
       "phone": "Số Điện Thoại",
       "province": "Tỉnh Thành",

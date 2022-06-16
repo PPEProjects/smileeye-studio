@@ -43,6 +43,11 @@
     },
     "title": ""
   },
+  "cropper": {
+    "cancel": "",
+    "title": "",
+    "upload": ""
+  },
   "form": {
     "validate": {
       "min": "",
@@ -148,6 +153,9 @@
       },
       "address_detail": "",
       "district": "",
+      "modal": {
+        "title": ""
+      },
       "name": "",
       "phone": "",
       "province": "",

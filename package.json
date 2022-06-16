@@ -23,6 +23,7 @@
     "@ts-pro/vue-eternal-loading": "^1.2.0",
     "@types/node": "^17.0.38",
     "@vue/apollo-composable": "^4.0.0-alpha.17",
+    "@vueuse/core": "^8.6.0",
     "@vueuse/head": "^0.7.6",
     "animejs": "^3.2.1",
     "ant-design-vue": "^3.2.5",

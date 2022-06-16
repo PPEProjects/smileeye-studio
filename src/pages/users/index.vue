@@ -1,79 +1,187 @@
 <template>
+  <a-table
+    :columns="userColumns"
+    :data-source="users"
+    :loading='loading'
+    :pagination="{
+      total: pageNavi?.total,
+      showLessItems: true,
+      defaultPageSize: 10
+    }"
+    @change='changePage'
+  >
+    <template #headerCell="{ column }">
+      <template v-if="column.key === 'action'">
+        <a-dropdown v-model:visible="openSearch" :trigger="['click']">
+          <a class="ant-dropdown-link" @click.prevent>
+            <search-outlined />
+          </a>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item key="1">
+                <a-input-group compact>
+                  <a-select v-model:value="formSearch.field" style="width: 40%">
+                    <a-select-option value="email"> Email </a-select-option>
+                    <a-select-option value="name"> Name </a-select-option>
+                    <a-select-option value="phone_number"> Phone Number </a-select-option>
+                  </a-select>
+                  <a-input
+                    v-model:value="formSearch.keyword"
+                    style="width: 60%"
+                    placeholder="Nhập từ khoá..."
+                    @press-enter='searchUsers(); openSearch = false'
+                  >
+                    <template #prefix>
+                      <search-outlined />
+                    </template>
+                  </a-input>
+                </a-input-group>
+              </a-menu-item>
+              <a-menu-divider />
 
-  <teleport-view to="#actions">
-    <a-button
-      type="primary"
-      size="large"
-      class="uppercase"
-      @click="$emitter.emit('upsertPaymentModal')"
-    >
-      <template #icon>
-        <plus-outlined />
+              <a-menu-item key="2">
+                <div class="flex items-center">
+                  <a-button
+                    type="primary"
+                    size="small"
+                    block
+                    @click="searchUsers"
+                    >Tìm</a-button
+                  >
+                  <div class="w-1 flex-shrink-0"></div>
+                  <a-button
+                    type="danger"
+                    size="small"
+                    block
+                    @click="cancelSearch"
+                    >Huỷ</a-button
+                  >
+                </div>
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
       </template>
-      add user
-    </a-button>
-  </teleport-view>
+    </template>
 
-  <teleport-view to="#title">
-    <div class="h-[70px] flex items-center">
-      {{ t('users.title') }}
+    <template #bodyCell="{ column, record }">
+      <template v-if="column.key === 'name'">
+        <div class="flex items-center">
+          <div
+            class="rounded-full overflow-hidden mr-3 border-2 border-white shadow-md"
+          >
+            <img
+              width="45"
+              height="45"
+              :src="$cdn(record.avatar)"
+              alt=""
+              class="object-cover"
+            />
+          </div>
 
-      <router-link
-        to="/users/list"
-        class="user-tab ml-3"
-        :class='{
-          "user-tab-active": $route.path === "/users/list",
-          "text-gray-400": $route.path !== "/users/list"
-        }'
-        active-class='_active'
-      >
-        {{ t('users.tab.list') }}
-      </router-link>
+          <p class="mb-0 font-medium">{{ record.name }}</p>
+        </div>
+      </template>
 
-      <router-link
-        to="/users/supporters"
-        class="user-tab"
-        :class='{
-          "user-tab-active": $route.path === "/users/supporters",
-          "text-gray-400": $route.path !== "/users/supporters"
-        }'
-        active-class='_active'
-      >
-        {{ t('users.tab.supporters') }}
-      </router-link>
-    </div>
-  </teleport-view>
-  <router-view />
+      <template v-else-if="column.key === 'role'">
+        <div @click="$emitter.emit('editRuleModal', record)">
+          <a-tag class="cursor-pointer" color="#108ee9">Student</a-tag>
+        </div>
+      </template>
 
-  <update-user-modal />
-  <edit-rule-modal />
+      <template v-else-if="column.key === 'createdAt'">
+        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
+      </template>
 
+      <template v-else-if="column.key === 'action'">
+        <a-button
+          type="primary"
+          class="ml-2"
+          @click="$emitter.emit('updateUserModal', record)"
+        >
+          <template #icon>
+            <edit-outlined />
+          </template>
+          {{ t('users.actions.edit') }}
+        </a-button>
+      </template>
+    </template>
+  </a-table>
 </template>
 
 <script lang="ts" setup>
-import TeleportView from '@components/layout/TeleportView.vue'
-import { PlusOutlined } from '@ant-design/icons-vue'
-import { useLangs } from '@composables/useLangs'
-import EditRuleModal from '@components/users/EditRuleModal.vue'
-import UpdateUserModal from '@components/users/UpdateUserModal.vue'
+import { computed, reactive, ref } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import { EditOutlined, SearchOutlined } from '@ant-design/icons-vue'
 
+import {
+  ListUser,
+  ListUserVariables
+} from '#smileeye/queries/__generated__/ListUser'
+import { LIST_USERS } from '#smileeye/queries/user.query'
+import { userColumnsBuilder } from '@components/users/config'
+import { useDayjs } from '@composables/useDayjs'
+import { useLangs } from '@composables/useLangs'
+
+const userColumns = userColumnsBuilder()
+const dayjs = useDayjs()
 const { t } = useLangs()
+
+// SearchState
+const formSearch = reactive<{
+  field: 'name' | 'email' | 'phone_number',
+  keyword: ''
+}>({
+  field: 'name',
+  keyword: ''
+})
+
+// data resource
+const page = ref<number>(1)
+const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(LIST_USERS, {
+  first: 10,
+  [formSearch.field]: '%' + formSearch.keyword + '%',
+  page: page.value
+})
+const users = computed(() => result.value?.list_user?.data || [])
+const pageNavi = computed(() => result.value?.list_user?.paginatorInfo || {})
+
+const changePage = ($event: any) => {
+  page.value = $event.current
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
+}
+
+// Search
+const openSearch = ref<boolean>(false)
+
+const searchUsers = () => {
+  page.value = 0
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
+}
+const cancelSearch = () => {
+  formSearch.field = 'name'
+  formSearch.keyword = ''
+  refetch({
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  })
+  openSearch.value = false
+}
 </script>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'UserPage'
+  name: 'UsersList'
 })
 </script>
-
-<style>
-.user-tab {
-  @apply h-full flex items-center relative before:absolute before:left-0 before:right-0 before:bottom-0 before:h-1 before:transition before:duration-300 px-3
-}
-
-.user-tab-active {
-  @apply before:bg-primary-500 text-primary-500 bg-primary-50
-}
-</style>

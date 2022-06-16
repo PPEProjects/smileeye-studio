@@ -1,7 +1,7 @@
 <template>
   <div>
     <pre>
-      {{ JSON.stringify(payment) }}
+      {{ payment }}
     </pre>
   </div>
 </template>

@@ -43,6 +43,11 @@
     },
     "title": "Coupon System"
   },
+  "cropper": {
+    "cancel": "Cancel",
+    "title": "Move and Crop Your Image",
+    "upload": "Upload"
+  },
   "form": {
     "validate": {
       "min": "{ field } must bigger than { min }",
@@ -148,6 +153,9 @@
       },
       "address_detail": "Adress",
       "district": "District",
+      "modal": {
+        "title": "Update User"
+      },
       "name": "Name",
       "phone": "Phone Number",
       "province": "Province",

@@ -39,18 +39,7 @@ let routes: RouteRecordRaw[] = [
   // User List
   {
     path: '/users',
-    component: () => import('./pages/users/index.vue'),
-    redirect: '/users/list',
-    children: [
-      {
-        path: '/users/list',
-        component: () => import('./pages/users/list/index.vue')
-      },
-      {
-        path: '/users/supporters',
-        component: () => import('./pages/users/supporters/index.vue')
-      }
-    ]
+    component: () => import('./pages/users/index.vue')
   },
   {
     path: '/draggable',

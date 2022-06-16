@@ -2,50 +2,35 @@
   <modal-base
     ref="modal"
     event="updateUserModal"
-    title="Update User"
+    :title="t('users.edit.modal.title')"
     :max-width="1000"
     @init="buildForm"
   >
-    <a-form :model="formState" layout="vertical" @finish='updateHandle'>
+    <a-form :model="formState" layout="vertical" @finish="updateHandle">
       <div class="flex">
         <div class="w-3/5 pr-7">
           <div class="relative">
-            <label
-              for="bannerImage"
+            <div
               class="w-full h-[145px] rounded overflow-hidden cursor-pointer _upload_overlay block"
+              @click="triggerCropper('banner')"
             >
               <img
                 :src="$cdn(formState.banner)"
                 alt=""
                 class="w-full h-full object-cover"
               />
-              <input
-                id="bannerImage"
-                ref="bannerImage"
-                type="file"
-                accept="image/*"
-                class="!hidden"
-                @change="triggerCropper('banner', $event)"
-              />
-            </label>
+            </div>
 
-            <label
+            <div
               class="w-[84px] h-[84px] overflow-hidden rounded-full absolute -bottom-7 left-7 border-2 border-white shadow-md cursor-pointer _upload_overlay block"
-              for="avatarImage"
+              @click="triggerCropper('avatar')"
             >
               <img
                 class="w-full h-full object-cover"
                 :src="$cdn(formState.avatar)"
                 alt=""
               />
-              <input
-                id="avatarImage"
-                type="file"
-                accept="image/*"
-                class="!hidden"
-                @change="triggerCropper('avatar', $event)"
-              />
-            </label>
+            </div>
           </div>
 
           <div class="h-7 flex justify-end items-start">
@@ -183,9 +168,7 @@
             :name="['current_address', 'ward']"
             :label="t('users.edit.ward')"
           >
-            <a-select
-              v-model:value="formState.current_address.ward"
-            >
+            <a-select v-model:value="formState.current_address.ward">
               <a-select-option
                 v-for="ward in wards"
                 :key="ward.code"
@@ -221,7 +204,13 @@
             </a-button>
           </a-popconfirm>
 
-          <a-button type="primary" class="ml-auto" ghost :disabled="loading">
+          <a-button
+            type="primary"
+            class="ml-auto"
+            ghost
+            :disabled="loading"
+            @click="useFile.open()"
+          >
             {{ t('users.edit.actions.detail') }}
           </a-button>
 
@@ -240,23 +229,29 @@
 
   <modal-base
     v-model:visible="cropperState.show"
-    event="updateUserCopper"
+    :event="t('cropper.title')"
     title="CropImage"
   >
     <image-cropper ref="cropperRef" />
 
     <template #bottom>
       <div class="flex justify-end">
-        <a-button type="danger" class="uppercase" :disabled="uploadingImage"
-          >cancel</a-button
+        <a-button
+          type="danger"
+          class="uppercase"
+          :disabled="uploadingImage"
+          @click="cropperState.show = false"
         >
+          {{ t('cropper.cancel') }}
+        </a-button>
         <a-button
           type="primary"
           class="uppercase ml-3"
           :loading="uploadingImage"
           @click="uploadImageHandle"
-          >Upload</a-button
         >
+          {{ t('cropper.upload') }}
+        </a-button>
       </div>
     </template>
   </modal-base>
@@ -282,6 +277,7 @@ import {
   UpdateUserInfoVariables
 } from '#smileeye/mutations/__generated__/UpdateUserInfo'
 import ImageCropper from '@components/includes/ImageCropper.vue'
+import { useFileSystemAccess } from '@vueuse/core'
 
 const { t } = useLangs()
 
@@ -389,36 +385,46 @@ const cropperState = reactive<{
 })
 const cropperRef = ref<any>(null)
 
-const triggerCropper = (type: 'avatar' | 'banner', e: Event) => {
-  cropperState.current = type
-  const input = e.target as HTMLInputElement
-  // nê
-  if (!input.files?.length) {
-    return
-  }
-  // rebuild
-  // change config cropper
-  cropperRef.value?.changeConfig(
-    type === 'avatar'
-      ? {
-          aspectRatio: 1,
-          viewMode: 3,
-          minContainerHeight: 300,
-          minCropBoxWidth: 300,
-          containerStyle: {
-            borderRadius: '50%'
-          }
-        }
-      : {
-          aspectRatio: 2.3,
-          viewMode: 1
-        }
-  )
-  cropperRef.value?.buildCropper(input.files.item(0))
-  cropperState.show = true
+const useFile = useFileSystemAccess({
+  dataType: 'Blob',
+  types: [
+    {
+      description: 'Image File',
+      accept: {
+        'image/*': ['.png', '.gif', '.jpeg', '.jpg']
+      }
+    }
+  ]
+})
 
-  // clear input
-  input.value = ''
+const triggerCropper = async (type: 'avatar' | 'banner') => {
+  try {
+    cropperState.current = type
+    await useFile.open()
+    if (!useFile.file?.value) {
+      return
+    }
+    cropperRef.value?.changeConfig(
+      type === 'avatar'
+        ? {
+            aspectRatio: 1,
+            viewMode: 3,
+            minContainerHeight: 300,
+            minCropBoxWidth: 300,
+            containerStyle: {
+              borderRadius: '50%'
+            }
+          }
+        : {
+            aspectRatio: 2.3,
+            viewMode: 1
+          }
+    )
+    cropperRef.value?.buildCropper(useFile.data.value)
+    cropperState.show = true
+  } catch (e) {
+    // Không chọn file
+  }
 }
 
 const uploadingImage = ref(false)
