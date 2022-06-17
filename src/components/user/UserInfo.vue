@@ -50,7 +50,7 @@
 
         <div class="py-2 border-b border-gray-200">
           <pushpin-outlined :style="{ width: '20px', height: '20px' }" />
-          <span class="ml-1.5">{{ user.current_address.detail || '--' }}</span>
+          <span class="ml-1.5">{{ user.current_address?.detail || '--' }}</span>
         </div>
 
         <div class="py-2">

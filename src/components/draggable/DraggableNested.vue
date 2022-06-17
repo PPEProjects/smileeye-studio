@@ -2,14 +2,15 @@
   <draggable
       class="dragArea"
       tag="ul"
-      :list="tasks"
+      :list="node"
       :group="{ name: 'g1' }"
       item-key="name"
   >
     <template #item="{ element }">
       <li>
         <p>{{ element.name }}</p>
-        <draggable-nested :tasks="element.tasks"/>
+        <slot name='node' :element='element'></slot>
+        <draggable-nested v-if='element.children' :node="element.children"/>
       </li>
     </template>
   </draggable>
@@ -21,14 +22,14 @@ import draggable from 'vuedraggable'
 
 export default defineComponent({
   name: "DraggableNested",
+  components: {
+    draggable
+  },
   props: {
-    tasks: {
+    node: {
       required: true,
       type: Array
     }
-  },
-  components: {
-    draggable
   }
 })
 </script>

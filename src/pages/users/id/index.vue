@@ -30,7 +30,7 @@
 
       <user-info class='w-[350px] flex-shrink-0 h-full bg-white' :user='user' ></user-info>
 
-      <div class='w-auto flex-shrink-0 bg-white h-full __tab'></div>
+      <user-tab-content class='w-auto flex-shrink-0 bg-white h-full' />
 
     </div>
 
@@ -56,6 +56,7 @@ import UserPlaceholder from '@components/user/UserPlaceholder.vue'
 import UserInfo from '@components/user/UserInfo.vue'
 import EditRuleModal from '@components/users/EditRuleModal.vue'
 import UpdateUserModal from '@components/users/UpdateUserModal.vue'
+import UserTabContent from '@components/user/UserTabContent.vue'
 
 const route = useRoute()
 
