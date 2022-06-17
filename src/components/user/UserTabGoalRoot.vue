@@ -28,12 +28,17 @@
             }"
               @click='currentGoal = index'
             >
-              <div>
+              <div
+                class='animate'
+                :class="{
+                  'opacity-70': currentGoal !== index
+                }"
+              >
                 <div
                   class="aspect-w-3 aspect-h-4 overflow-hidden rounded-md border-2 border-white shadow"
                 >
                   <img
-                    src="https://i.imgur.com/pGjoWEA.jpg"
+                    :src="$cdn(goal?.image?.[0])"
                     alt=""
                     class="w-full h-full object-cover"
                   />

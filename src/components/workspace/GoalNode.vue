@@ -22,7 +22,10 @@
         }"
         :data-key="element.id"
       >
-        <div class="goal-node-content">
+        <div
+          class="goal-node-content"
+          @dragenter='onDragEnter(element.id)'
+        >
           <div class="line-horizontal" />
 
           <template v-if="element.children?.length">
@@ -101,6 +104,13 @@ export default defineComponent({
         group: "description",
         disabled: false
       };
+    }
+  },
+  methods: {
+    onDragEnter(id: string) {
+      if (!this.expaned?.includes(id)) {
+        this.expaned?.push(id)
+      }
     }
   }
 })
