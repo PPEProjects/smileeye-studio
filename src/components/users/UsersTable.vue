@@ -32,7 +32,7 @@
                     style="width: 60%"
                     :placeholder="t('users.search.input')"
                     @press-enter="
-                      searchUsers()
+                      searchUsers();
                       openSearch = false
                     "
                   >
