@@ -30,7 +30,7 @@
 
       <user-info class='w-[350px] flex-shrink-0 h-full bg-white' :user='user' ></user-info>
 
-      <user-tab-content class='w-auto flex-shrink-0 bg-white h-full' />
+      <user-tab-content class='w-auto flex-shrink-0 bg-white h-full' :user='user'/>
 
     </div>
 

@@ -74,16 +74,19 @@ import {
   GoalRootByUser,
   GoalRootByUserVariables
 } from '#smileeye/queries/__generated__/GoalRootByUser'
-import { useUserStore } from '@store/user'
 import { computed, ref } from 'vue'
 import GoalTree from '@components/workspace/GoalTree.vue'
+import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
+
+const props = defineProps<{
+  user: DetailUser_detail_user
+}>()
 
 // goal data
-const userStore = useUserStore()
 const { result, loading, onResult } = useQuery<GoalRootByUser, GoalRootByUserVariables>(
   GOAL_ROOT_BY_USER,
   {
-    userId: String(userStore.user?.id)
+    userId: String(props.user?.id)
   }
 )
 const goals = computed(() => result.value?.goal_root_by_user || [])
