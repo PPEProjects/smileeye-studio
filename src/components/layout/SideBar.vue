@@ -28,15 +28,15 @@
       href="javascript:void(0)"
     >
       <h1>
-        <div class="w-[56px] h-[56px] relative overflow-hidden">
+        <div class="w-[56px] h-[56px] relative overflow-hidden" @click='partyMenu'>
           <vue-lottie-player
             id="logo-animation"
-            name='logo-animation'
+            name="logo-animation"
             :width="56"
             :height="56"
             path="/json/open-book.json"
-            @render='setAnime'
-            @mouseenter='hoverLogo'
+            @render="setAnime"
+            @mouseenter="hoverLogo"
           />
         </div>
       </h1>
@@ -204,6 +204,7 @@ import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
 import { AnimationItem } from 'lottie-web'
+import party from 'party-js'
 const { t } = useLangs()
 
 const toHome = () => {
@@ -304,7 +305,7 @@ const setAnime = (instance: AnimationItem) => {
 }
 
 const hoverLogo = () => {
-  if(logoAnime.value) {
+  if (logoAnime.value) {
     logoAnime.value.loop = true
     logoAnime.value?.play()
     logoAnime.value?.addEventListener('loopComplete', () => {
@@ -314,6 +315,14 @@ const hoverLogo = () => {
   }
 }
 
+const partyMenu = () => {
+  const _logo = document.querySelector<HTMLDivElement>('#logo-animation')
+  if(_logo) {
+    party.confetti(_logo, {
+      count: party.variation.range(20, 40)
+    })
+  }
+}
 </script>
 
 <style>
