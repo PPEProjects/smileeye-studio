@@ -2,13 +2,13 @@
   <a-table
     :columns="userColumns"
     :data-source="users"
-    :loading='loading'
+    :loading="loading"
     :pagination="{
       total: pageNavi?.total,
       showLessItems: true,
       defaultPageSize: 10
     }"
-    @change='changePage'
+    @change="changePage"
   >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'action'">
@@ -23,13 +23,18 @@
                   <a-select v-model:value="formSearch.field" style="width: 40%">
                     <a-select-option value="email"> Email </a-select-option>
                     <a-select-option value="name"> Name </a-select-option>
-                    <a-select-option value="phone_number"> Phone Number </a-select-option>
+                    <a-select-option value="phone_number">
+                      Phone Number
+                    </a-select-option>
                   </a-select>
                   <a-input
                     v-model:value="formSearch.keyword"
                     style="width: 60%"
                     :placeholder="t('users.search.input')"
-                    @press-enter='searchUsers(); openSearch = false'
+                    @press-enter="
+                      searchUsers()
+                      openSearch = false
+                    "
                   >
                     <template #prefix>
                       <search-outlined />
@@ -68,7 +73,7 @@
 
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <router-link :to='"/users/" + record.id' class="flex items-center">
+        <router-link :to="'/users/' + record.id" class="flex items-center">
           <div
             class="rounded-full overflow-hidden mr-3 border-2 border-white shadow-md"
           >
@@ -86,7 +91,7 @@
       </template>
 
       <template v-else-if="column.key === 'role'">
-        <user-roles-tag :user='record' />
+        <user-roles-tag :user="record" />
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
@@ -109,14 +114,18 @@
   </a-table>
 </template>
 
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { EditOutlined, SearchOutlined } from '@ant-design/icons-vue'
 import { userColumnsBuilder } from '@components/users/config'
 import { useDayjs } from '@composables/useDayjs'
 import { useLangs } from '@composables/useLangs'
 import { computed, reactive, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
-import { ListUser, ListUserVariables } from '#smileeye/queries/__generated__/ListUser'
+import {
+  ListUser,
+  ListUser_list_user_paginatorInfo,
+  ListUserVariables
+} from '#smileeye/queries/__generated__/ListUser'
 import { LIST_USERS } from '#smileeye/queries/user.query'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
 
@@ -127,7 +136,7 @@ const { t } = useLangs()
 
 // SearchState
 const formSearch = reactive<{
-  field: 'name' | 'email' | 'phone_number',
+  field: 'name' | 'email' | 'phone_number'
   keyword: ''
 }>({
   field: 'name',
@@ -136,13 +145,20 @@ const formSearch = reactive<{
 
 // data resource
 const page = ref<number>(1)
-const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(LIST_USERS, {
-  first: 10,
-  [formSearch.field]: '%' + formSearch.keyword + '%',
-  page: page.value
-})
+const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(
+  LIST_USERS,
+  {
+    first: 10,
+    [formSearch.field]: '%' + formSearch.keyword + '%',
+    page: page.value
+  }
+)
 const users = computed(() => result.value?.list_user?.data || [])
-const pageNavi = computed(() => result.value?.list_user?.paginatorInfo || {})
+const pageNavi = computed(
+  () =>
+    result.value?.list_user?.paginatorInfo ||
+    ({} as ListUser_list_user_paginatorInfo)
+)
 
 const changePage = ($event: any) => {
   page.value = $event.current
@@ -174,5 +190,4 @@ const cancelSearch = () => {
   })
   openSearch.value = false
 }
-
 </script>

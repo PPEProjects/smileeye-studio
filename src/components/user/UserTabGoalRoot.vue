@@ -15,7 +15,7 @@
                 ? 6
                 : 7
             )"
-            :key="goal.id"
+            :key="String(goal.id)"
             class="px-2.5"
             :class="{
               'w-1/5': width <= 768,
@@ -36,7 +36,7 @@
               </div>
 
               <h2 class="capitalize line-clamp-2 mt-2 text-gray-600">
-                {{ goal.name }}
+                {{ goal?.name }}
               </h2>
             </div>
           </li>

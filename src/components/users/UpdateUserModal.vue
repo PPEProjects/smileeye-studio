@@ -258,6 +258,9 @@ const initState = {
   __typename: '',
   id: '',
   roles: [],
+  name: '',
+  email: '',
+  phone_number: '',
   avatar: '',
   banner: '',
   current_address: {
@@ -332,11 +335,7 @@ const updateHandle = () => {
   delete _form.created_at
   updateAction(
     {
-      input: _form,
-      roleInput: {
-        user_id: _form.id,
-        role_ids: _form.roles.map((item: { id: any }) => item.id)
-      }
+      input: _form
     },
     {
       update: () => {
