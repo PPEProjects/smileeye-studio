@@ -30,8 +30,9 @@
 
       <user-info class='w-[350px] flex-shrink-0 h-full bg-white' :user='user' ></user-info>
 
-<!--      <user-tab-content class='w-auto flex-shrink-0 bg-white h-full' :user='user'/>-->
-      <router-view />
+      <div class="__tab overflow-hidden w-auto flex-shrink-0 bg-white h-full px-5">
+        <router-view :user='user' />
+      </div>
 
     </div>
 
@@ -73,7 +74,7 @@ const user = computed(() => result.value?.detail_user)
 </script>
 
 <style>
-#users-\:id\(\\d\+\) #page-content {
+#users-id-goals-goalID #page-content, #users-id-goals #page-content {
   padding: 0;
   background: transparent;
 }

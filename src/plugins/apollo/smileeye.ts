@@ -54,10 +54,12 @@ export default (app: App) => {
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, extensions }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Code: ${extensions.code}`
-        )
+      graphQLErrors.forEach(
+        ({ message, extensions }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Code: ${extensions.code}`
+          )
+        // Xoá cookie, đăng xuất, login
       )
     }
     if (networkError) {

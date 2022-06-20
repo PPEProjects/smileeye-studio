@@ -76,3 +76,19 @@ export const LIST_ROLES = gql`
     }
   }
 `
+
+export const LIST_POST_BY_UER = gql`
+  query PostsByGoalRoot($userId: ID, $goalRootId: ID) {
+    list_japanese_posts_by_goal_root(
+      user_id: $userId
+      goal_root_id: $goalRootId
+    ) {
+      id
+      title
+      description
+      more
+      updated_at
+      created_at
+    }
+  }
+`

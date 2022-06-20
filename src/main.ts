@@ -48,6 +48,7 @@ import VueMitter from '@nguyenshort/vue3-mitt'
 // CDN Plugin
 import cdn from '@plugins/ultils'
 import VueLoadingIndicator from '@nguyenshort/vue3-loading-indicator'
+import firebase from '@plugins/firebase'
 
 // Process by me
 
@@ -72,6 +73,7 @@ app.use(infinite)
 app.use(i18n)
 app.use(head)
 
+app.use(firebase)
 app.use(http)
 app.use(pinia)
 

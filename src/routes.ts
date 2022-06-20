@@ -53,7 +53,11 @@ let routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/users/:id(\\d+)/goals',
-        component: () => import('./pages/users/id/goals/index.vue')
+        component: () => import('./pages/users/goals/index.vue')
+      },
+      {
+        path: '/users/:id(\\d+)/goals/:goalID(\\d+)',
+        component: () => import('./pages/users/goals/id/index.vue')
       }
     ]
   },
@@ -89,7 +93,7 @@ const extendRoutes = (_routes: RouteRecordRaw[]) => {
     record.name = record.path
       .replace(/\//, '')
       .replaceAll('/', '-')
-      .replaceAll(new RegExp(/\(.*\)/, 'g'), '')
+      .replaceAll(new RegExp(/\([^)]*\)/, 'g'), '')
       .replaceAll(new RegExp(/:/, 'g'), '')
 
     // deep loop
