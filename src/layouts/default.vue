@@ -58,10 +58,9 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, nextTick, onMounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 
 import SideBar from '@components/layout/SideBar.vue'
-import { AnimeInstance } from '#types/anime'
 import { useRoute } from 'vue-router'
 import { useSubscription } from '@vue/apollo-composable'
 import { message } from 'ant-design-vue'
@@ -75,11 +74,12 @@ import {
   SubToastVariables
 } from '#notify/subscriptions/__generated__/SubToast'
 import { useLangs } from '@composables/useLangs'
+import { useAnime } from '@composables/useAnime'
 
 const { t } = useLangs()
 
 const isOpen = ref<boolean>(false)
-const anime = inject<AnimeInstance>('anime')!
+const anime = useAnime()
 watch(isOpen, () => {
   if (!isOpen.value) {
     anime({

@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onMounted, ref, CSSProperties } from 'vue'
-import { AnimeInstance } from '#types/anime'
+import { computed, nextTick, onMounted, ref, CSSProperties } from 'vue'
 import { useEventListener } from '@vueuse/core'
+import { useAnime } from '@composables/useAnime'
 
 const props = withDefaults(
   defineProps<{
@@ -50,7 +50,7 @@ const style = computed<CSSProperties>(() => ({
   [props.direction === 'verical' ? 'width' : 'height']: props.throttle + 'px'
 }))
 
-const anime = inject<AnimeInstance>('anime')!
+const anime = useAnime()
 
 const $container = ref<HTMLDivElement>()
 const tabLine = ref<HTMLDivElement>()

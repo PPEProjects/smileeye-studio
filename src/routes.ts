@@ -43,7 +43,19 @@ let routes: RouteRecordRaw[] = [
   },
   {
     path: '/users/:id(\\d+)',
-    component: () => import('./pages/users/id/index.vue')
+    component: () => import('./pages/users/id/index.vue'),
+    redirect: (to) => {
+      return {
+        name: 'users-id-goals',
+        params: { id: to.params.id }
+      }
+    },
+    children: [
+      {
+        path: '/users/:id(\\d+)/goals',
+        component: () => import('./pages/users/id/goals/index.vue')
+      }
+    ]
   },
   {
     path: '/cropper',
@@ -74,7 +86,12 @@ let routes: RouteRecordRaw[] = [
 const extendRoutes = (_routes: RouteRecordRaw[]) => {
   _routes.forEach((record) => {
     // tạo router name, xoá '/' ở đầu và thay thế còn lại = '-'
-    record.name = record.path.replace(/\//, '').replaceAll('/', '-')
+    record.name = record.path
+      .replace(/\//, '')
+      .replaceAll('/', '-')
+      .replaceAll(new RegExp(/\(.*\)/, 'g'), '')
+      .replaceAll(new RegExp(/:/, 'g'), '')
+
     // deep loop
     if (record.children) {
       record.children = extendRoutes(record.children)

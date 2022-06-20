@@ -184,7 +184,6 @@
 <script lang="ts" setup>
 import MenuItem from '@components/layout/MenuItem.vue'
 import { inject, nextTick, onMounted, ref, watch } from 'vue'
-import { AnimeInstance } from '#types/anime'
 import { VueCookies } from 'vue-cookies'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@store/user'
@@ -205,6 +204,7 @@ import { useSmileeye } from '#apollo/client/smileeye'
 import { useLangs } from '@composables/useLangs'
 import { AnimationItem } from 'lottie-web'
 import party from 'party-js'
+import { useAnime } from '@composables/useAnime'
 const { t } = useLangs()
 
 const toHome = () => {
@@ -223,7 +223,7 @@ const logOut = () => {
   message.success('Tạn biệt bạn trẻ')
 }
 
-const anime = inject<AnimeInstance>('anime')!
+const anime = useAnime()
 
 const playAnimation = () => {
   anime({

@@ -37,8 +37,8 @@
 </template>
 
 <script lang="ts" setup>
-import {inject, nextTick, ref} from "vue";
-import {AnimeInstance} from "#types/anime"
+import {nextTick, ref} from "vue";
+import { useAnime } from '@composables/useAnime'
 
 const emit = defineEmits<{
   (e: 'update:value', value: string): void
@@ -67,7 +67,7 @@ const onChangeTextField = (event: any) => {
   emit('update:value', event.target.value)
 }
 
-const anime = inject<AnimeInstance>('anime')!
+const anime = useAnime()
 const onFocus = () => {
   isFocus.value = true
 }

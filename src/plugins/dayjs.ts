@@ -7,9 +7,11 @@ dayjs.extend(relativeTime)
 
 import { App } from 'vue'
 
+export const DAYJS_CONSTANT = Symbol.for('dayjs')
+
 const plugin = {
   install(app: App) {
-    app.provide('dayjs', dayjs)
+    app.provide(DAYJS_CONSTANT, dayjs)
   }
 }
 

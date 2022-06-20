@@ -29,7 +29,9 @@
     </tabs-animation>
 
     <div class='__tab-content px-4'>
-      <component :is="tabs[currentTab].component" :user='user' />
+      <keep-alive>
+        <component :is="tabs[currentTab].component" :user='user' />
+      </keep-alive>
     </div>
 
   </div>
@@ -40,7 +42,7 @@ import TabsAnimation from '@components/includes/TabsAnimation.vue'
 import { defineAsyncComponent, ref } from 'vue'
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
 
-const props = defineProps<{
+defineProps<{
   user: DetailUser_detail_user
 }>()
 
@@ -55,7 +57,7 @@ const tabs = [
   }
 ]
 
-const currentTab = ref(0)
+const currentTab = ref(1)
 </script>
 
 <style>

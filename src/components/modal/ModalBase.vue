@@ -66,9 +66,9 @@
 </template>
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { AnimeInstance } from '#types/anime'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
+import { useAnime } from '@composables/useAnime'
 
 type Props = {
   visible?: boolean
@@ -103,7 +103,7 @@ const emit = defineEmits<{
 }>()
 
 // Lắng nghe visible để binding 2 chiều và do animation
-const anime = inject<AnimeInstance>('anime')!
+const anime = useAnime()
 watch(_visible, (value) => {
   // Binding 2 chiều
   emit('update:visible', value)
