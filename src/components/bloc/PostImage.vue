@@ -1,5 +1,5 @@
 <template>
-  <img
+  <a-image
     :src="$cdn(image)"
     alt=""
     class="w-full h-full object-cover transform animate hover:scale-105"
