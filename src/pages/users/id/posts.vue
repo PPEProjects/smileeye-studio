@@ -7,7 +7,7 @@
     <div ref="el" class="flex -mx-8">
       <div
         v-for="(group, index) in gridData"
-        :key="index"
+        :key="`${index}-${posts.length}`"
         class="px-3"
         :style="{ width: `${100 / gridData.length}%` }"
       >
@@ -98,6 +98,9 @@ const posts = computed<PostUnion[]>(() =>
       }
     }
 
+    // Type data
+    _post.__typename = post?.__typename as "JapanesePost" | undefined
+
     return _post
 
   })
@@ -128,7 +131,7 @@ const gridData = computed<PostUnion[][]>(() => {
 </script>
 
 <style>
-.__user-container .__tab {
+#users-id-goals-goalID-posts .__user-container .__tab {
   background: transparent;
 }
 </style>

@@ -688,6 +688,7 @@ type Mutation {
   delete_role_or_permission(input: DeleteRoleOrPermissionInput!): Boolean
   create_story_share(input: CreateStoryShareInput!): StoryShare
   update_story_share(input: UpdateStoryShareInput!): StoryShare
+  delete_story_share(id: ID!): JSON
   create_task(input: CreateTaskInput!): Task
   update_task(input: EditTaskInput!): Task
   delete_task(input: deleteTaskInput!): Boolean
