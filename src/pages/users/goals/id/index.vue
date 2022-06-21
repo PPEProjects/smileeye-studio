@@ -1,4 +1,32 @@
 <template>
+
+  <teleport-view to="#title">
+    <div class="h-[70px] flex items-center">
+      {{ t('users.title') }}
+      <tabs-animation active='._active' tag='div' auto tab='.user-tab' direction='horizontal' class='flex items-center h-full'>
+        <router-link
+          to="/users"
+          class="ml-3 block user-tab px-2"
+          :class='{
+            "user-tab-active _active": !$route.query.group
+          }'
+        >
+          Lộ Trình Học
+        </router-link>
+
+        <router-link
+          to="/users?group=supporters"
+          class="block ml-3 user-tab px-2"
+          :class='{
+            "_active": $route.query.group === "supporters"
+          }'
+        >
+          Hoạt Động
+        </router-link>
+      </tabs-animation>
+    </div>
+  </teleport-view>
+
   <a-spin :spinning="loading">
     <div ref="el" class="flex -mx-8">
       <div
@@ -36,7 +64,11 @@ import { computed, ref } from 'vue'
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
 import { useElementSize } from '@vueuse/core'
 import JapanPost from '@components/bloc/JapanPost.vue'
+import TabsAnimation from '@components/includes/TabsAnimation.vue'
+import { useLangs } from '@composables/useLangs'
 const route = useRoute()
+
+const { t } = useLangs()
 
 
 defineProps<{

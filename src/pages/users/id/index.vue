@@ -5,12 +5,6 @@
   </template>
 
   <template v-else>
-    <teleport-view to="#title">
-      <div class="h-[70px] flex items-center">
-        {{ user.name }}
-      </div>
-    </teleport-view>
-
     <teleport-view to="#actions">
       <a-button
         type="primary"
