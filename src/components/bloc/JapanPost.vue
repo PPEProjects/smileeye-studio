@@ -8,47 +8,70 @@
           {{ post.title }}
         </h2>
 
-        <button>
-          <more-outlined />
-        </button>
+        <a-popover v-model:visible="visible" title="Tuỳ Chỉnh" trigger="click">
+          <template #content>
+            <a class='text-rose-500 hover:text-rose-500' @click="hide">
+              <delete-outlined class='mr-1' />
+              Xoá
+            </a>
+          </template>
+
+          <button>
+            <more-outlined />
+          </button>
+
+        </a-popover>
+
       </div>
       <div class="text-xs text-gray-500">
         {{ dayjs(post.created_at).fromNow() }}
       </div>
     </div>
 
-    <!-- Dinamic content 310 / 220 -->
 
-    <div class="overflow-hidden">
-      <template v-if='hasContent("video")'>
-        <post-video :post='post' />
-      </template>
-      <template v-else-if='hasContent("media")'>
-        <post-image :post='post'/>
-      </template>
-    </div>
+    <div class="overflow-hidden empty:-mb-3">
+      <div v-for='(content, index) in post.more?.media' :key='index'>
+        <template v-if='typeof content === "string"'>
+          <post-image :image="content" />
+        </template>
+        <template v-else-if='typeof content === "object"'>
+          <post-video :video="content.file" />
+        </template>
 
-    <div class="px-3.5 mt-4">
-      <div class="text-gray-500">
-        <div class="flex">
-          <message-outlined />
-          <div class="ml-1 text-[12px]">{{ Object.keys(comments).length }}</div>
-        </div>
       </div>
     </div>
 
-    <div class="px-3.5 mt-1">
-      <p class="line-clamp-3 text-gray-500 text-[13px] mb-0">
-        {{ post.more.content }}
-      </p>
+    <div
+      class='flex mt-3'
+      :class='{
+        "flex-col-reverse": post.type === "diary",
+        "flex-col": post.type === "post"
+      }'
+    >
+      <div class="px-3.5 mt-1">
+        <div class="text-gray-500">
+          <div class="flex">
+            <message-outlined />
+            <div class="ml-1 text-[12px]">{{ Object.keys(comments).length }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-3.5 mt-1">
+        <p
+          class="line-clamp-3 text-gray-500 text-[13px] mb-0"
+          v-html="post.more?.content?.trim()"
+        ></p>
+      </div>
     </div>
+
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref as dbRef, onValue } from 'firebase/database'
 import { useFireRTDB } from '@composables/useFirebase'
-import { MoreOutlined, MessageOutlined } from '@ant-design/icons-vue'
+import { MoreOutlined, MessageOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 
 import { PostsByGoalRoot_list_japanese_posts_by_goal_root } from '#smileeye/queries/__generated__/PostsByGoalRoot'
 import { useDayjs } from '@composables/useDayjs'
@@ -58,8 +81,12 @@ import PostImage from '@components/bloc/PostImage.vue'
 
 const dayjs = useDayjs()
 
+type PostUnion = Partial<PostsByGoalRoot_list_japanese_posts_by_goal_root> & {
+  type: string
+}
+
 const props = defineProps<{
-  post: PostsByGoalRoot_list_japanese_posts_by_goal_root
+  post: PostUnion
 }>()
 
 const comments = ref<any[]>([])
@@ -70,10 +97,10 @@ onValue(starCountRef, (snapshot) => {
   data && (comments.value = data)
 })
 
-const hasContent = (key: string) => {
-  if(!props.post.more) {
-    return false
-  }
-  return Object.prototype.hasOwnProperty.call(props.post.more, key)
-}
+
+const visible = ref<boolean>(false);
+
+const hide = () => {
+  visible.value = false;
+};
 </script>

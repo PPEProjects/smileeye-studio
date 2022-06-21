@@ -1,8 +1,7 @@
 <template>
   <a-spin :spinning="loading">
-
-    <div v-if='!posts1.length' class='mt-24'>
-      <a-empty description='' />
+    <div v-if="!posts.length" class="mt-24">
+      <a-empty description="" />
     </div>
 
     <div ref="el" class="flex -mx-8">
@@ -17,11 +16,11 @@
           :key="index2"
           class="mb-6 shadow-lg shadow-gray-100"
         >
-            <japan-post
-              :key="posts1.id"
-              :post="post"
-              class="mb-6 shadow-lg shadow-gray-100"
-            />
+          <japan-post
+            :key="posts.id"
+            :post="post"
+            class="mb-6 shadow-lg shadow-gray-100"
+          />
         </div>
       </div>
     </div>
@@ -32,15 +31,17 @@
 import { useRoute } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 import {
-  PostsByGoalRoot,
   PostsByGoalRoot_list_japanese_posts_by_goal_root,
-  PostsByGoalRootVariables
 } from '#smileeye/queries/__generated__/PostsByGoalRoot'
-import { LIST_POST_BY_UER } from '#smileeye/queries/user.query'
 import { computed, ref } from 'vue'
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
 import { useElementSize } from '@vueuse/core'
 import JapanPost from '@components/bloc/JapanPost.vue'
+import {
+  ListPostsAndDiary, ListPostsAndDiary_list_posts_and_diary_StoryShare,
+  ListPostsAndDiaryVariables
+} from '#smileeye/queries/__generated__/ListPostsAndDiary'
+import { GET_POST_BOTH } from '#smileeye/queries/goal.query'
 const route = useRoute()
 
 defineProps<{
@@ -58,28 +59,59 @@ const chuckSize = computed(() => {
     return 4
   }
 })
+// New API
+const { result: queryData, loading } = useQuery<
+  ListPostsAndDiary,
+  ListPostsAndDiaryVariables
+>(GET_POST_BOTH, {
+  userId: String(route.params.id),
+  goalRootId: String(route.params.goalID)
+})
 
-const { result, loading } = useQuery<PostsByGoalRoot, PostsByGoalRootVariables>(
-  LIST_POST_BY_UER,
-  {
-    userId: String(route.params.id),
-    goalRootId: String(route.params.goalID)
-  }
+type PostUnion = Partial<PostsByGoalRoot_list_japanese_posts_by_goal_root> & {
+  type: string
+}
+
+function hasKey(post: any, key: string) {
+  return Object.prototype.hasOwnProperty.call(post, key)
+}
+
+// <PostUnion[]>
+const posts = computed<PostUnion[]>(() =>
+  (queryData.value?.list_posts_and_diary || []).map((post) => {
+
+    const _post: PostUnion = {} as PostUnion
+
+    _post.id = post?.id
+    _post.type = hasKey(post, 'content') ? 'diary' : 'post'
+
+    if(_post.type === 'post') {
+      Object.assign(_post, post)
+      _post.type = 'post'
+    } else {
+      // post diary
+      const postDiary = post as ListPostsAndDiary_list_posts_and_diary_StoryShare
+      _post.title = postDiary.goal?.name
+      _post.created_at = postDiary.created_at
+      _post.more = {
+        content: postDiary.content,
+      }
+    }
+
+    return _post
+
+  })
 )
-const posts1 = computed(
-  () => result.value?.list_japanese_posts_by_goal_root || []
-)
 
-type Post = PostsByGoalRoot_list_japanese_posts_by_goal_root
 
-const gridData = computed(() => {
+const gridData = computed<PostUnion[][]>(() => {
   // Build chuck of posts
   let chuck: any[] = []
-  for (let i = 0; i < posts1.value.length; i += chuckSize.value) {
-    chuck.push(posts1.value.slice(i, i + chuckSize.value))
+  for (let i = 0; i < posts.value.length; i += chuckSize.value) {
+    chuck.push(posts.value.slice(i, i + chuckSize.value))
   }
 
-  const grid: Post[][] = []
+  const grid: PostUnion[][] = []
 
   for (let i = 0; i < chuck.length; i++) {
     for (let j = 0; j < chuckSize.value; j++) {
@@ -92,6 +124,11 @@ const gridData = computed(() => {
   }
   return grid
 })
+
 </script>
 
-<style></style>
+<style>
+.__user-container .__tab {
+  background: transparent;
+}
+</style>

@@ -23,7 +23,6 @@ export const GET_POST_BOTH = gql`
       ... on JapanesePost {
         id
         title
-        description
         more
         type
         created_at
@@ -32,6 +31,10 @@ export const GET_POST_BOTH = gql`
         id
         content
         created_at
+        goal {
+          id
+          name
+        }
       }
     }
   }
