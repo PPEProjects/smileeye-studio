@@ -13,8 +13,8 @@ export interface PostsByGoalRoot_list_japanese_posts_by_goal_root {
   title: string | null;
   description: string | null;
   more: any | null;
-  updated_at: any | null;
-  created_at: any | null;
+  updated_at: any;
+  created_at: any;
 }
 
 export interface PostsByGoalRoot {

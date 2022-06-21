@@ -11,7 +11,7 @@ import { AssignRoleInput } from "./../../../../../__generated__/smileeyeTypes";
 
 export interface AssignRole_assign_role {
   __typename: "RoleAndPermission";
-  id: string;
+  id: number;
   name: string;
 }
 

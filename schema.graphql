@@ -65,6 +65,24 @@ type AuthPayload {
   user: User
 }
 
+type ChangeEmail {
+  id: ID
+  user: User
+  old_email: String
+  new_email: String
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type checkCoupon {
+  code: String
+  code_sale: Int
+  type: String
+  name_goal: String
+  price: Int
+  sale: Int
+}
+
 type CoachMember {
   id: ID
   user: User
@@ -82,6 +100,11 @@ type CoachMemberPaginator {
 
   """A list of CoachMember items."""
   data: [CoachMember!]!
+}
+
+input ConfirmEmailInput {
+  new_email: String
+  password: String
 }
 
 type Coupon {
@@ -287,6 +310,17 @@ input deleteTaskInput {
   ids: [ID]
   date: String
   is_all: Boolean
+}
+
+type Diary {
+  id: ID!
+  user: User!
+  goal: Goal!
+  image: String
+  content: String
+  reviews: [ReviewStoryShare]
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 input EditGoalRootInput {
@@ -546,13 +580,14 @@ type JapanesePost {
   goal_id: ID
   type: String
   goal: Goal
+  japanese_goal: JapaneseGoal
   title: String
   description: String
   media: JSON
   likes: JSON
   more: JSON
-  created_at: DateTime
-  updated_at: DateTime
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 """A paginated list of JapanesePost items."""
@@ -592,6 +627,7 @@ type Mutation {
   socialLogin(input: SocialLoginInput!): AuthPayload!
   verifyEmail(input: VerifyEmailInput!): AuthPayload!
   updatePassword(input: UpdatePassword!): UpdatePasswordResponse!
+  confirm_email(input: ConfirmEmailInput!): JSON
   upsert_coach_member(input: UpsertCoachMemberInput!): CoachMember
   delete_coach_member(input: DeleteCoachMemberInput!): Boolean
   delete_coach_from_goal(input: DeleteCoachFromGoal!): Boolean
@@ -811,12 +847,15 @@ type PermissionOfRole {
   permissions: [RoleAndPermission]
 }
 
+union PostAndDiary = JapanesePost | StoryShare
+
 type Query {
   user(id: ID): User
   detail_coach_member(user_id: ID!): CoachMember
   list_coach_members(goal_root_id: ID): [User]
   list_coupons: [Coupon]
   sort_coupons(first: Int, page: Int, expiry: FilterExpiry): SortCoupon
+  check_coupon(goal_root_id: ID!, code: String!): checkCoupon
   my_friends: [User]
   list_invite_friends: [User]
   my_friend_groups: [FriendGroup]
@@ -839,8 +878,8 @@ type Query {
   my_progress: [GoalRoot]
   my_goal_score: [GoalScore]
   detail_goal_score(id: ID, goal_id: ID): GoalScore
-  list_goal_score(user_id: ID, goal_root_id: ID): JSON
-  list_goal_template(status: String): [GoalTemplate]
+  list_goal_score(user_id: ID!, goal_root_id: ID!): Score
+  list_goal_template(status: String, first: Int, page: Int): [GoalTemplate]
   detail_japanese_goal(id: ID, goal_id: ID): JapaneseGoal
   search_by_type_japanese_goal(type: String): [JapaneseGoal]
   auto_play_japanese_goal(root_id: ID): JapaneseGoal
@@ -859,6 +898,7 @@ type Query {
   other_japanese_posts(goal_id: ID): [JapanesePost]
   list_japanese_post(goal_id: ID): [JapanesePost]
   list_japanese_posts_by_goal_root(user_id: ID, goal_root_id: ID): [JapanesePost]
+  list_posts_and_diary(user_id: ID, goal_root_id: ID): [PostAndDiary]
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
   sort_payments(first: Int, page: Int): [Payment]
@@ -871,6 +911,7 @@ type Query {
   role_permissions(role_id: ID!): PermissionOfRole
   my_story_share(goal_id: ID): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
+  list_story_share_by_goal_root(user_id: ID!, goal_root_id: ID!): [Diary]
   tasks_by_month(month: String): [Task]
   tasks_sort_by_day(month: String): [TaskByMonth]
   detail_task(id: ID): Task
@@ -1061,7 +1102,7 @@ type ReviewStoryShare {
 }
 
 type RoleAndPermission {
-  id: ID!
+  id: Int!
   name: String!
   permissions: [RoleAndPermission]
   role: [RoleAndPermission]
@@ -1076,6 +1117,13 @@ type RoleAndPermissionPaginator {
 
   """A list of RoleAndPermission items."""
   data: [RoleAndPermission!]!
+}
+
+type Score {
+  score: String
+  total_score: String
+  achievement: String
+  sum_topic: String
 }
 
 """Information about pagination using a simple paginator."""

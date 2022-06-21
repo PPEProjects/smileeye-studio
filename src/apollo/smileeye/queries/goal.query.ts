@@ -16,3 +16,23 @@ export const GOAL_TREE = gql`
     my_tree_goal_v2(goal_id: $goalId)
   }
 `
+
+export const GET_POST_BOTH = gql`
+  query ListPostsAndDiary($userId: ID, $goalRootId: ID) {
+    list_posts_and_diary(user_id: $userId, goal_root_id: $goalRootId) {
+      ... on JapanesePost {
+        id
+        title
+        description
+        more
+        type
+        created_at
+      }
+      ... on StoryShare {
+        id
+        content
+        created_at
+      }
+    }
+  }
+`

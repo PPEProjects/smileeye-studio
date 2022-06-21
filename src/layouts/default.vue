@@ -44,7 +44,7 @@
             class="ml-3 text-lg mr-auto empty:hidden head-item"
           ></div>
 
-          <div id="actions" class="flex items-center empty:hidden"></div>
+          <div id="actions" class="flex items-center empty:hidden ml-auto"></div>
         </div>
 
         <div id="page-body" class="p-[32px] w-full overflow-y-auto">
