@@ -19,7 +19,7 @@
               <router-link
                 class="animate"
                 :to="{
-                  name: 'users-id-goals-goalID',
+                  name: 'users-id-goals-goalID-detail',
                   params: {
                     id: user.id,
                     goalID: goal.id

@@ -53,11 +53,15 @@ let routes: RouteRecordRaw[] = [
     children: [
       {
         path: '/users/:id(\\d+)/goals',
-        component: () => import('./pages/users/goals/index.vue')
+        component: () => import('./pages/users/id/goals.vue')
       },
       {
-        path: '/users/:id(\\d+)/goals/:goalID(\\d+)',
-        component: () => import('./pages/users/goals/id/index.vue')
+        path: '/users/:id(\\d+)/goals/:goalID(\\d+)/posts',
+        component: () => import('./pages/users/id/posts.vue')
+      },
+      {
+        path: '/users/:id(\\d+)/goals/:goalID(\\d+)/detail',
+        component: () => import('./pages/users/id/detail.vue')
       }
     ]
   },
