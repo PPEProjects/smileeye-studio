@@ -55,12 +55,12 @@
         label="Goals"
         to="/goals"
       />
-      <menu-item
+<!--      <menu-item
         :active="/^(stories|story|chapter|publish)/.test($route.name)"
         icon="#i-workspace"
         label="Workspace"
         to="/stories"
-      />
+      />-->
 
       <menu-item
         :active="/^(payment)/.test($route.name)"
