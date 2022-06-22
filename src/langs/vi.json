@@ -55,11 +55,6 @@
     }
   },
   "goals": {
-    "edit": {
-      "modal": {
-        "title": "Cập Nhật Goal"
-      }
-    },
     "action": {
       "accept": {
         "no": "Không",
@@ -68,8 +63,22 @@
       },
       "delete": {
         "no": "Không",
-        "title": "Bạn có chắc chắn xóa Goal này không ?",
+        "title": "Xoá",
         "yes": "Xoá"
+      }
+    },
+    "edit": {
+      "modal": {
+        "title": "Cập Nhật Goal"
+      }
+    },
+    "form": {
+      "upsert": {
+        "actions": {
+          "add": "Thêm mới",
+          "cancel": "Huỷ",
+          "detail": "Chi tiết"
+        }
       }
     },
     "tab": {

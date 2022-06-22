@@ -14,6 +14,9 @@
       <template v-if="column.key === 'trial'">
         <span>{{ record.trial_blocks?.length }}</span>
       </template>
+      <template v-if="column.key === 'image'">
+        <span>{{ record.trial_blocks?.length }}</span>
+      </template>
       <template v-if="column.key === 'name'">
         <router-link
           :to="'/payment/' + record.id"
@@ -56,10 +59,10 @@ import GoalActions from '@components/goals/GoalActions.vue'
 import GoalSettingHeader from '@components/goals/GoalSettingHeader.vue'
 import { usePaymentStore } from '@store/payment'
 import { useMutation, useQuery } from '@vue/apollo-composable'
-import {
-  SortPayments,
-  SortPaymentsVariables
-} from '#smileeye/queries/__generated__/SortPayments'
+// import {
+//   SortPayments,
+//   SortPaymentsVariables
+// } from '#smileeye/queries/__generated__/SortPayments'
 import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
@@ -67,10 +70,10 @@ import {
   DELETE_PAYMENT,
   QUICK_DONE_PAYMENT
 } from '#smileeye/mutations/payment.mutation'
-import {
-  DeletePayment,
-  DeletePaymentVariables
-} from '#smileeye/mutations/__generated__/DeletePayment'
+// import {
+//   DeletePayment,
+//   DeletePaymentVariables
+// } from '#smileeye/mutations/__generated__/DeletePayment'
 import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import {
@@ -82,16 +85,22 @@ import { ListGoalRoot } from '#smileeye/queries/__generated__/ListGoalRoot'
 import {DeleteGoalVariables, DeleteGoal} from "#smileeye/mutations/__generated__/DeleteGoal";
 import UpdateGoalModal from "@components/goals/UpdateGoalModal.vue";
 import { DELETE_GOAL_ROOT} from "#smileeye/mutations/goal.mutation";
+import {useGoalStore} from "@store/goal";
 
 const { t } = useLangs()
 const dayjs = useDayjs()
 // Store
-const paymentStore = usePaymentStore()
+const goalStore = useGoalStore()
 const fixColumns = [
   {
     title: t('goals.table.name'),
     dataIndex: 'goal.name',
     key: 'name'
+  },
+  {
+    title: 'Image',
+    dataIndex: 'goal.image',
+    key: 'image'
   },
   {
     title: t('goals.table.owner'),
@@ -112,30 +121,31 @@ const fixColumns = [
   }
 ]
 
-const rawColumns = [
-  {
-    title: t('goals.table.name'),
-    dataIndex: 'goal.name',
-    key: null
-  },
-  {
-    title: t('goals.table.trial'),
-    dataIndex: 'trial',
-    key: 'trial',
-    align: 'center',
-    width: 150
-  },
-  {
-    title: t('goals.table.request_date'),
-    key: 'request_date',
-    width: 130
-  }
-]
+// const rawColumns = [
+//   {
+//     title: t('goals.table.name'),
+//     dataIndex: 'goal.name',
+//     key: null
+//   },
+//   {
+//     title: t('goals.table.trial'),
+//     dataIndex: 'trial',
+//     key: 'trial',
+//     align: 'center',
+//     width: 150
+//   },
+//   {
+//     title: t('goals.table.request_date'),
+//     key: 'request_date',
+//     width: 130
+//   }
+// ]
 
 // Setup table
 const columns = computed(() => {
-  // const _dynamic = paymentStore.columns.map((_index) => rawColumns[_index])
-  return [...rawColumns, ...fixColumns]
+  const _dynamic = goalStore.columns.map((_index) => goalStore._headerColumns[_index])
+  // console.log('_dynamic', {_dynamic})
+  return [..._dynamic, ...fixColumns]
 })
 
 // Resource
