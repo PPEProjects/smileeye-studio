@@ -29,6 +29,10 @@ export interface DeleteCouponInput {
   id: string;
 }
 
+export interface DeleteJapanesePostInput {
+  id: string;
+}
+
 export interface DeletePaymentInput {
   id: string;
 }

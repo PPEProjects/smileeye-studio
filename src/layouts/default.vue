@@ -44,7 +44,7 @@
             class="ml-3 text-lg mr-auto empty:hidden head-item"
           ></div>
 
-          <div id="actions" class="flex items-center empty:hidden"></div>
+          <div id="actions" class="flex items-center empty:hidden ml-auto"></div>
         </div>
 
         <div id="page-body" class="p-[32px] w-full overflow-y-auto">
@@ -111,6 +111,7 @@ watch(route, () => {
     targets: '#page-content',
     scale: [0.95, 1],
     opacity: [0, 1],
+    // translateY: [-50, 0],
     duration: 1500,
     complete: () => autoSidebar()
   })

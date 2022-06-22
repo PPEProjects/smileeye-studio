@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 
+import eslint from 'vite-plugin-eslint'
+
 // @ts-ignore
 import GrapHQLGenerator from './src/plugins/vite'
 
@@ -29,7 +31,16 @@ export default defineConfig({
   // Graphql của nam đang bị lỗi query cần fix
   // npx apollo client:download-schema --endpoint=https://v2-be.smileeye.edu.vn/graphql schema.graphqls
   // Lỗi
-  plugins: [vue(), GrapHQLGenerator()],
+  plugins: [
+    vue(),
+    GrapHQLGenerator(),
+    eslint({
+      emitError: true,
+      emitWarning: true,
+      failOnError: true,
+      failOnWarning: true
+    })
+  ],
   css: {
     preprocessorOptions: {
       less: {

@@ -9,7 +9,7 @@
 
 export interface ListRoles_list_roles_data {
   __typename: "RoleAndPermission";
-  id: string;
+  id: number;
   name: string;
 }
 

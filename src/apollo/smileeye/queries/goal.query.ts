@@ -17,6 +17,29 @@ export const GOAL_TREE = gql`
   }
 `
 
+export const GET_POST_BOTH = gql`
+  query ListPostsAndDiary($userId: ID, $goalRootId: ID) {
+    list_posts_and_diary(user_id: $userId, goal_root_id: $goalRootId) {
+      ... on JapanesePost {
+        id
+        title
+        more
+        type
+        created_at
+      }
+      ... on StoryShare {
+        id
+        content
+        created_at
+        goal {
+          id
+          name
+        }
+      }
+    }
+  }
+`
+
 export const LIST_GOAL_ROOT = gql`
   query List_goal_root {
     list_goal_root {

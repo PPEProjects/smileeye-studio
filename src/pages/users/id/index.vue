@@ -1,16 +1,12 @@
 <template>
+
+  <user-goal-tab />
+
   <template v-if='!user || loading'>
     <div class='__user-placeholder bg-white'></div>
     <user-placeholder />
   </template>
-
   <template v-else>
-    <teleport-view to="#title">
-      <div class="h-[70px] flex items-center">
-        {{ user.name }}
-      </div>
-    </teleport-view>
-
     <teleport-view to="#actions">
       <a-button
         type="primary"
@@ -58,6 +54,7 @@ import UserPlaceholder from '@components/user/UserPlaceholder.vue'
 import UserInfo from '@components/user/UserInfo.vue'
 import EditRuleModal from '@components/users/EditRuleModal.vue'
 import UpdateUserModal from '@components/users/UpdateUserModal.vue'
+import UserGoalTab from '@components/user/UserGoalTab.vue'
 
 const route = useRoute()
 
@@ -74,11 +71,6 @@ const user = computed(() => result.value?.detail_user)
 </script>
 
 <style>
-#users-id-goals-goalID #page-content, #users-id-goals #page-content {
-  padding: 0;
-  background: transparent;
-}
-
 .__user-container ._info, .__user-placeholder, .__user-container .__tab {
   min-height: var(--height-container);
 }
@@ -86,5 +78,14 @@ const user = computed(() => result.value?.detail_user)
 .__user-container .__tab{
   margin-left: 30px;
   width: calc(100% - 380px);
+}
+
+#users-id-goals .__tab , #users-id-goals-goalID-detail .__tab {
+  border-left: solid #f4f7ff;
+}
+
+#users-id-goals #page-content, #users-id-goals-goalID-posts #page-content, #users-id-goals-goalID-detail #page-content {
+  background: transparent;
+  padding: 0;
 }
 </style>

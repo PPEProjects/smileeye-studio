@@ -10,6 +10,7 @@
     :list="node"
     item-key="id"
     v-bind="dragOptions"
+    :disabled="true"
     @start="drag = true"
     @end="drag = false"
   >
@@ -22,10 +23,7 @@
         }"
         :data-key="element.id"
       >
-        <div
-          class="goal-node-content"
-          @dragenter='onDragEnter(element.id)'
-        >
+        <div class="goal-node-content" @dragenter="onDragEnter(element.id)">
           <div class="line-horizontal" />
 
           <template v-if="element.children?.length">
@@ -101,9 +99,9 @@ export default defineComponent({
     dragOptions() {
       return {
         animation: 200,
-        group: "description",
+        group: 'description',
         disabled: false
-      };
+      }
     }
   },
   methods: {
