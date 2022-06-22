@@ -54,6 +54,21 @@
       "required": ""
     }
   },
+  "goals": {
+    "action": {
+      "delete": {
+        "title": ""
+      }
+    },
+    "form": {
+      "upsert": {
+        "actions": {
+          "add": "",
+          "detail": ""
+        }
+      }
+    }
+  },
   "payment": {
     "action": {
       "accept": {

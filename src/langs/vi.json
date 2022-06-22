@@ -55,6 +55,32 @@
     }
   },
   "goals": {
+    "action": {
+      "accept": {
+        "no": "Không",
+        "title": "Chấp nhận hoá đơn ?",
+        "yes": "Đồng Ý"
+      },
+      "delete": {
+        "no": "Không",
+        "title": "Xoá",
+        "yes": "Xoá"
+      }
+    },
+    "edit": {
+      "modal": {
+        "title": "Cập Nhật Goal"
+      }
+    },
+    "form": {
+      "upsert": {
+        "actions": {
+          "add": "Thêm mới",
+          "cancel": "Huỷ",
+          "detail": "Chi tiết"
+        }
+      }
+    },
     "tab": {
       "list": "Tất Cả",
       "sell_request": "Goal bán"

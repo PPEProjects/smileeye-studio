@@ -4,35 +4,35 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: List_goal_root
+// GraphQL query operation: ListGoalRoot
 // ====================================================
 
-export interface List_goal_root_list_goal_root_user {
+export interface ListGoalRoot_list_goal_root_user {
   __typename: "User";
   id: string | null;
   name: string | null;
 }
 
-export interface List_goal_root_list_goal_root_sellRequest {
+export interface ListGoalRoot_list_goal_root_sellRequest {
   __typename: "GoalTemplate";
   id: string | null;
   created_at: any;
 }
 
-export interface List_goal_root_list_goal_root_goal_score {
+export interface ListGoalRoot_list_goal_root_goal_score {
   __typename: "GoalScore";
   id: string | null;
 }
 
-export interface List_goal_root_list_goal_root {
+export interface ListGoalRoot_list_goal_root {
   __typename: "GoalRoot";
   id: string | null;
   name: string | null;
   user_id: string | null;
-  user: List_goal_root_list_goal_root_user | null;
-  sellRequest: List_goal_root_list_goal_root_sellRequest | null;
+  user: ListGoalRoot_list_goal_root_user | null;
+  sellRequest: ListGoalRoot_list_goal_root_sellRequest | null;
   description: string | null;
-  goal_score: List_goal_root_list_goal_root_goal_score | null;
+  goal_score: ListGoalRoot_list_goal_root_goal_score | null;
   total_score: string | null;
   price: number | null;
   status: string | null;
@@ -48,6 +48,6 @@ export interface List_goal_root_list_goal_root {
   created_at: any;
 }
 
-export interface List_goal_root {
-  list_goal_root: (List_goal_root_list_goal_root | null)[] | null;
+export interface ListGoalRoot {
+  list_goal_root: (ListGoalRoot_list_goal_root | null)[] | null;
 }

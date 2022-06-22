@@ -60,8 +60,11 @@ import { PlusSquareOutlined } from '@ant-design/icons-vue'
 import { MenuProps } from 'ant-design-vue'
 import { ref } from 'vue'
 import { usePaymentStore } from '@store/payment'
+import {useGoalStore} from "@store/goal";
 // payment store
 // support v-model
+const goalStore = useGoalStore()
+console.log('goalStore', {goalStore})
 const paymentStore = usePaymentStore()
 
 const columns = ref<number[]>([])
