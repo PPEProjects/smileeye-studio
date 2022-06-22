@@ -15,7 +15,7 @@
 
       <template v-if='column.key === "limit"'>
         <a-tag color="#f50">
-          {{ record.limit - (record.remaining | record.limit) }}/{{ record.limit }}
+          {{ record.limit - (record.remaining || record.limit) }}/{{ record.limit }}
         </a-tag>
       </template>
 
