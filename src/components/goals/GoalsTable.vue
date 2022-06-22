@@ -1,14 +1,9 @@
 <template>
-<!--
-  <pre>
-  {{columns}}
-  </pre>
--->
-
   <a-table
+    :loading="loading || loadingQuickConfirm"
     :columns="columns"
-    :data-source="payments"
-    :pagination="{ total: counter, showLessItems: true, defaultPageSize: 60 }"
+    :data-source="goals"
+    :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
     row-key="id"
     @change="changePage($event.current)"
   >
@@ -45,66 +40,6 @@
         "
       />
     </template>
-<!--      <template v-if="column.key === 'email'">
-        <span>{{ record.user_info.email }}</span>
-      </template>
-
-      <template v-if="column.key === 'phone'">
-        <span>{{ record.user_info.phone_number }}</span>
-      </template>
-
-      <template v-if="column.key === 'goal'">
-        <span>{{ record.goal.name }}</span>
-      </template>
-
-      <template v-else-if="column.key === 'billImage'">
-        <div class="rounded overflow-hidden">
-          <a-image
-            :width="150"
-            :height="80"
-            :src="$cdn(record.attachments[0])"
-          />
-        </div>
-      </template>
-
-      <template v-else-if="column.key === 'status'">
-        <a-tag v-if="record.status === STATUS.TRIAL" color="#2db7f5">
-          {{ t('payment.status.trial') }}
-        </a-tag>
-        <a-tag v-else-if="record.status === STATUS.ON_BUY" color="#f50">
-          {{ t('payment.status.onBuy') }}
-        </a-tag>
-        <a-tag
-          v-else-if="record.status === STATUS.PAID_CONFIRMED"
-          color="#87d068"
-        >
-          {{ t('payment.status.confirmed') }}
-        </a-tag>
-      </template>
-
-      <template v-else-if="column.key === 'createdAt'">
-        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
-      </template>
-
-      <payment-actions
-        v-else-if="column.key === 'action'"
-        :payment="record"
-        @delete="deletePayment({ input: { id: record.id } })"
-        @confirm="
-          quickConfirm({
-            input: { id: record.id, status: STATUS.PAID_CONFIRMED }
-          })
-        "
-      />
-    </template>
-
-
-    <template #expandedRowRender="{ record }">
-      <PaymentExpanded :payment="record" />
-    </template>-->
-
-
-
   </a-table>
 </template>
 
@@ -112,9 +47,6 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
-// import PaymentActions from '@components/payment/PaymentActions.vue'
-// import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
-// import PaymentSettingHeader from '@components/payment/TableSettingHeader.vue'
 import GoalActions from '@components/goals/GoalActions.vue'
 import GoalSettingHeader from '@components/goals/GoalSettingHeader.vue'
 import { usePaymentStore } from '@store/payment'
@@ -140,7 +72,6 @@ import {
   QuickDonePayment,
   QuickDonePaymentVariables
 } from '#smileeye/mutations/__generated__/QuickDonePayment'
-// import { STATUS } from '#schema/smileeyeTypes'
 import { LIST_GOAL_ROOT } from '#smileeye/queries/goal.query'
 
 const { t } = useLangs()
@@ -178,13 +109,6 @@ const rawColumns = [
     dataIndex: 'goal.name',
     key: null
   },
-  // {
-  //   title: t('goals.table.member'),
-  //   dataIndex: 'member',
-  //   key: 'member',
-  //   align: 'center',
-  //   width: 150
-  // },
   {
     title: t('goals.table.trial'),
     dataIndex: 'trial',
@@ -257,8 +181,8 @@ const { result, refetch, loading } = useQuery<
   }
 )
 
-const payments = usePick(result, [], (data) => data.list_goal_root)
-console.log('payments', {payments})
+const goals = usePick(result, [], (data) => data.list_goal_root)
+console.log('goals', {goals})
 const changePage = (_page: number) => {
   page.value = _page
   refetch({
@@ -271,20 +195,20 @@ const { mutate: deletePayment } = useMutation<
   DeletePayment,
   DeletePaymentVariables
 >(DELETE_PAYMENT, {
-  update: (proxy, _, options) => {
-    proxy.writeQuery<SortPayments, SortPaymentsVariables>({
-      query: SORT_PAYMENTS,
-      variables: {
-        first: 6,
-        page: page.value
-      },
-      data: {
-        sort_payments: result.value!.sort_payments!.filter(
-          (e) => e?.id !== options.variables?.input.id
-        )
-      }
-    })
-  }
+  // update: (proxy, _, options) => {
+  //   proxy.writeQuery<SortPayments, SortPaymentsVariables>({
+  //     query: SORT_PAYMENTS,
+  //     variables: {
+  //       first: 6,
+  //       page: page.value
+  //     },
+  //     data: {
+  //       sort_payments: result.value!.sort_payments!.filter(
+  //         (e) => e?.id !== options.variables?.input.id
+  //       )
+  //     }
+  //   })
+  // }
 })
 
 // Counter
