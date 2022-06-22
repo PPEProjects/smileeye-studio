@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const SORT_PAYMENTS = gql`
-  query SortPayments($first: Int, $page: Int) {
-    sort_payments(first: $first, page: $page) {
+  query SortPayments($first: Int, $page: Int, $status: String) {
+    sort_payments(first: $first, page: $page, status: $status) {
       id
       add_user_id
       goal_id

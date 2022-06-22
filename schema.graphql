@@ -902,7 +902,7 @@ type Query {
   list_posts_and_diary(user_id: ID, goal_root_id: ID): [PostAndDiary]
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
-  sort_payments(first: Int, page: Int): [Payment]
+  sort_payments(first: Int, page: Int, status: String): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
   my_total_payment: JSON

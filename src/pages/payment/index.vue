@@ -36,10 +36,10 @@
 
 
         <router-link
-          to="/payment?status=confirmed"
+          to="/payment?status=paid_confirmed"
           class="block ml-3 user-tab px-2"
           :class='{
-            "_active": $route.query.status === "confirmed"
+            "_active": $route.query.status === "paid_confirmed"
           }'
         >
           {{ t('payment.status.confirmed') }}

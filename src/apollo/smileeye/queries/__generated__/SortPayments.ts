@@ -37,4 +37,5 @@ export interface SortPayments {
 export interface SortPaymentsVariables {
   first?: number | null;
   page?: number | null;
+  status?: string | null;
 }
