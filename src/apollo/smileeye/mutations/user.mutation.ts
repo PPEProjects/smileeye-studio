@@ -25,11 +25,11 @@ export const UPDATE_USER_INFO = gql`
   }
 `
 
-export const ASSIGN_ROLES = gql`
-  mutation AssignRole($input: AssignRoleInput!) {
-    assign_role(input: $input) {
+export const UPDATE_ROLES = gql`
+  mutation UpdateRoles($input: AssignRoleInput!) {
+    assign_and_remove_role(input: $input) {
       id
-      name
+      roles
     }
   }
 `

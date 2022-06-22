@@ -1,6 +1,6 @@
 <template>
   <modal-base
-    ref='modal'
+    ref="modal"
     title="Chỉnh Sửa Phân Quyền"
     event="editRuleModal"
     @init="buildForm"
@@ -58,8 +58,11 @@ import {
   ListRolesVariables
 } from '#smileeye/queries/__generated__/ListRoles'
 import { LIST_ROLES } from '#smileeye/queries/user.query'
-import { ASSIGN_ROLES } from '#smileeye/mutations/user.mutation'
-import { useSmileeye } from '#apollo/client/smileeye'
+import { UPDATE_ROLES } from '#smileeye/mutations/user.mutation'
+import {
+  UpdateRoles,
+  UpdateRolesVariables
+} from '#smileeye/mutations/__generated__/UpdateRoles'
 
 const { t } = useLangs()
 
@@ -85,21 +88,14 @@ const { result } = useQuery<ListRoles, ListRolesVariables>(LIST_ROLES, {
 
 const roles = computed(() => result.value?.list_roles?.data || [])
 
-const { mutate, loading, onDone } = useMutation(ASSIGN_ROLES)
-
-const proxy = useSmileeye().cache
-
 const modal = ref<any>(null)
 
-onDone(({ data }) => {
-  proxy.modify({
-    id: proxy.identify(formState),
-    fields: {
-      roles() {
-        return data.assign_role
-      }
+const { mutate, loading } = useMutation<UpdateRoles, UpdateRolesVariables>(
+  UPDATE_ROLES,
+  {
+    onQueryUpdated: () => {
+      modal.value.dispose()
     }
-  })
-  modal.value.dispose()
-})
+  }
+)
 </script>

@@ -6,19 +6,19 @@
 import { AssignRoleInput } from "./../../../../../__generated__/smileeyeTypes";
 
 // ====================================================
-// GraphQL mutation operation: AssignRole
+// GraphQL mutation operation: UpdateRoles
 // ====================================================
 
-export interface AssignRole_assign_role {
-  __typename: "RoleAndPermission";
-  id: number;
-  name: string;
+export interface UpdateRoles_assign_and_remove_role {
+  __typename: "User";
+  id: string | null;
+  roles: any | null;
 }
 
-export interface AssignRole {
-  assign_role: (AssignRole_assign_role | null)[] | null;
+export interface UpdateRoles {
+  assign_and_remove_role: UpdateRoles_assign_and_remove_role | null;
 }
 
-export interface AssignRoleVariables {
+export interface UpdateRolesVariables {
   input: AssignRoleInput;
 }
