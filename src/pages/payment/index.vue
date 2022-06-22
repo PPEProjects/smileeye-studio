@@ -25,6 +25,16 @@
         </router-link>
 
         <router-link
+          to="/payment?status=wanted"
+          class="block ml-3 user-tab px-2"
+          :class='{
+            "_active": $route.query.status === "wanted"
+          }'
+        >
+          {{ t('payment.status.wanted') }}
+        </router-link>
+
+        <router-link
           to="/payment?status=on_buy"
           class="block ml-3 user-tab px-2"
           :class='{
