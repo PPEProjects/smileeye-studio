@@ -116,16 +116,16 @@
       "wanted": "Wanted"
     },
     "table": {
-      "action": "ACTIONS",
-      "billImage": "RECIPE",
-      "createdAt": "CREATED",
-      "money": "MONEY",
-      "status": "STATUS",
+      "action": "Actions",
+      "billImage": "Recipe",
+      "createdAt": "Created",
+      "money": "Money",
+      "status": "Status",
       "user": {
-        "email": "EMAIL",
-        "goal": "GOAL NAME",
-        "name": "NAME",
-        "phone": "PHONE NUMBER"
+        "email": "Email",
+        "goal": "Goal Name",
+        "name": "Name",
+        "phone": "Phone Number"
       }
     },
     "title": "Payment"

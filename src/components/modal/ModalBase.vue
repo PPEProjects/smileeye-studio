@@ -46,7 +46,7 @@
 
           <div
             :id="`${event}Content`"
-            class="max-h-screen-80 overflow-y-auto overflow-x-hidden scrollbar-none"
+            class="max-h-screen-80 overflow-y-auto overflow-x-hidden scrollbar-none __base-content"
             :class="{
               'opacity-0': !_visible
             }"
@@ -182,3 +182,9 @@ export default defineComponent({
   name: 'ModalBase'
 })
 </script>
+
+<style>
+.__base-content > form {
+  margin-bottom: -1.25rem;
+}
+</style>

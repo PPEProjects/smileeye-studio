@@ -11,6 +11,7 @@
       <table-setting-header
         v-if="!column.key"
         v-model:value="selectColumns"
+        :auto='false'
         :columns="rawColumns"
       />
     </template>

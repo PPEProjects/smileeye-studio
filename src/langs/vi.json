@@ -148,16 +148,16 @@
       "wanted": "Mong Muốn"
     },
     "table": {
-      "action": "HÀNH ĐỘNG",
-      "billImage": "HOÁ ĐƠN",
-      "createdAt": "NGÀY TẠO",
-      "money": "SỐ TIỀN",
-      "status": "TRẠNG THÁI",
+      "action": "Hành Động",
+      "billImage": "Hoá Đơn",
+      "createdAt": "Ngày Tạo",
+      "money": "Số Tiền",
+      "status": "Trạng Thái",
       "user": {
-        "email": "EMAIL",
-        "goal": "TÊN KHOÁ HỌC",
-        "name": "TÊN",
-        "phone": "SỐ ĐIỆN THOẠI"
+        "email": "Email",
+        "goal": "Tên Khoá Học",
+        "name": "Tên",
+        "phone": "Số Điện Thoại"
       }
     },
     "title": "Thanh Toán"
