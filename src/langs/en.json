@@ -115,6 +115,9 @@
     "title": "Payment"
   },
   "settings": {
+    "language": {
+      "guide": "Tap to change the language interface"
+    },
     "title": "Settings"
   },
   "sidebar": {
@@ -129,6 +132,7 @@
     "notify": "Notify",
     "payment": "Payment",
     "settings": {
+      "languages": "Languages",
       "logout": "Log Out",
       "settings": "Settings"
     }

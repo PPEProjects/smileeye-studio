@@ -55,6 +55,9 @@
       </div>
     </div>
   </div>
+
+  <update-language-modal />
+
 </template>
 
 <script lang="ts" setup>
@@ -75,6 +78,7 @@ import {
 } from '#notify/subscriptions/__generated__/SubToast'
 import { useLangs } from '@composables/useLangs'
 import { useAnime } from '@composables/useAnime'
+import UpdateLanguageModal from '@components/includes/UpdateLanguageModal.vue'
 
 const { t } = useLangs()
 

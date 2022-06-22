@@ -124,6 +124,11 @@
             class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
           >
             <menu-item
+              icon="#i-langs"
+              :label="t('sidebar.settings.languages')"
+              @click.prevent="$emitter.emit('updateLangsModal')"
+            />
+            <menu-item
               icon="#i-logout"
               :label="t('sidebar.settings.logout')"
               @click.prevent="logOut()"
