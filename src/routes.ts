@@ -87,6 +87,11 @@ let routes: RouteRecordRaw[] = [
     meta: {
       title: 'settings.title'
     }
+  },
+  // Anh Tiến,
+  {
+    path: '/goals',
+    component: () => import('./pages/goals/index.vue')
   }
 ]
 

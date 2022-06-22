@@ -34,12 +34,12 @@ export default defineConfig({
   plugins: [
     vue(),
     GrapHQLGenerator(),
-    eslint({
-      emitError: true,
-      emitWarning: true,
-      failOnError: true,
-      failOnWarning: true
-    })
+    // eslint({
+    //   emitError: true,
+    //   emitWarning: false,
+    //   failOnError: true,
+    //   failOnWarning: true
+    // })
   ],
   css: {
     preprocessorOptions: {

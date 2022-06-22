@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+// goal_root_by_user
 export const GOAL_ROOT_BY_USER = gql`
   query GoalRootByUser($userId: ID!) {
     goal_root_by_user(user_id: $userId) {

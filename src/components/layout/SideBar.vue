@@ -50,6 +50,12 @@
         to="/dashboard"
       />
       <menu-item
+        :active="/^(goals)/.test($route.name)"
+        icon="#i-goal"
+        label="Goals"
+        to="/goals"
+      />
+      <menu-item
         :active="/^(stories|story|chapter|publish)/.test($route.name)"
         icon="#i-workspace"
         label="Workspace"
