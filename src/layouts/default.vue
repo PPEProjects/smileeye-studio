@@ -80,7 +80,8 @@ import { useLangs } from '@composables/useLangs'
 import { useAnime } from '@composables/useAnime'
 import UpdateLanguageModal from '@components/includes/UpdateLanguageModal.vue'
 
-const { t } = useLangs()
+const { t, locale } = useLangs()
+
 
 const isOpen = ref<boolean>(false)
 const anime = useAnime()
