@@ -66,6 +66,7 @@ export default (app: App) => {
               notify.error('Phiên đăng nhập đã kết thúc').then(() => {
                 window.$vue._context.provides.$cookies.remove('_token')
                 useUser.logout()
+                window.location.reload()
               })
           }
         }
