@@ -54,6 +54,44 @@
       "required": "{ field } là bắt buộc"
     }
   },
+  "goals": {
+    "edit": {
+      "modal": {
+        "title": "Cập Nhật Goal"
+      }
+    },
+    "action": {
+      "accept": {
+        "no": "Không",
+        "title": "Chấp nhận hoá đơn ?",
+        "yes": "Đồng Ý"
+      },
+      "delete": {
+        "no": "Không",
+        "title": "Bạn có chắc chắn xóa Goal này không ?",
+        "yes": "Xoá"
+      }
+    },
+    "tab": {
+      "list": "Tất Cả",
+      "sell_request": "Goal bán"
+    },
+    "table": {
+      "action": "HÀNH ĐỘNG",
+      "checked": "Checked",
+      "done": "Done",
+      "member": "Member",
+      "name": "Goal Template",
+      "onbuy": "Onbuy",
+      "owner": "Owner",
+      "paid_confirmed": "Paid Confirmed",
+      "per_goal": "Per Goal",
+      "request_date": "Request Date",
+      "status": "Status",
+      "trial": "Trial"
+    },
+    "title": "Goal"
+  },
   "payment": {
     "action": {
       "accept": {
@@ -184,26 +222,5 @@
       "role": "PHÂN QUYỀN"
     },
     "title": "Thành Viên"
-  },
-  "goals": {
-    "tab": {
-      "list": "Tất Cả",
-      "sell_request": "Goal bán"
-    },
-    "title": "Goal",
-    "table": {
-      "action": "HÀNH ĐỘNG",
-      "name": "Goal Template",
-      "owner": "Owner",
-      "status": "Status",
-      "member": "Member",
-      "trial": "Trial",
-      "onbuy": "Onbuy",
-      "paid_confirmed": "Paid Confirmed",
-      "done": "Done",
-      "checked": "Checked",
-      "per_goal": "Per Goal",
-      "request_date": "Request Date"
-    }
   }
 }

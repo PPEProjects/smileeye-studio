@@ -42,7 +42,7 @@ export const GET_POST_BOTH = gql`
 `
 
 export const LIST_GOAL_ROOT = gql`
-  query List_goal_root {
+  query ListGoalRoot {
     list_goal_root {
       id
       name
@@ -53,6 +53,7 @@ export const LIST_GOAL_ROOT = gql`
       }
       sellRequest {
         id
+        created_at
       }
       description
       goal_score {

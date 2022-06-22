@@ -14,18 +14,17 @@
     </a-button>
   </a-popconfirm>-->
 
-
-  <a-button type="primary" size="small" class='ml-2' @click='$emitter.emit("upsertPaymentModal", payment)'>
+  <a-button type="primary" size="small" class='ml-2' @click='$emitter.emit("updateGoalModal", payment)'>
     <template #icon>
       <edit-outlined />
     </template>
   </a-button>
 
   <a-popconfirm
-    :title="t('payment.action.delete.title')"
+    :title="t('goals.action.delete.title')"
     placement="topLeft"
-    :ok-text="t('payment.action.delete.yes')"
-    :cancel-text="t('payment.action.delete.no')"
+    :ok-text="t('goals.action.delete.yes')"
+    :cancel-text="t('goals.action.delete.no')"
     @confirm="emit('delete')"
   >
     <a-button type="danger" size="small" class="ml-2">
