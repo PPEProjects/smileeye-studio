@@ -683,6 +683,7 @@ type Mutation {
   upsert_review_story_share(input: UpsertReviewStoryShareInput!): ReviewStoryShare
   create_role_or_permission(input: CreateRoleOrPermissionInput!): RoleAndPermission
   assign_role(input: AssignRoleInput!): [RoleAndPermission]
+  assign_and_remove_role(input: AssignRoleInput!): User
   remove_role(input: AssignRoleInput!): [RoleAndPermission]
   revoke_permission(input: AssignPermissionInput!): [RoleAndPermission]
   delete_role_or_permission(input: DeleteRoleOrPermissionInput!): Boolean

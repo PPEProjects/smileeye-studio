@@ -112,7 +112,8 @@
       "all": "All",
       "confirmed": "Confirmed",
       "onBuy": "On Buy",
-      "trial": "Trial"
+      "trial": "Trial",
+      "wanted": "Wanted"
     },
     "table": {
       "action": "ACTIONS",

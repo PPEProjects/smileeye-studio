@@ -8,7 +8,11 @@
     @change="changePage($event.current)"
   >
     <template #headerCell="{ column }">
-      <payment-setting-header v-if="!column.key" />
+      <table-setting-header
+        v-if="!column.key"
+        v-model:value="selectColumns"
+        :columns="rawColumns"
+      />
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -35,7 +39,7 @@
       </template>
 
       <template v-else-if="column.key === 'billImage'">
-        <div class="rounded overflow-hidden">
+        <div v-if="record.attachments?.[0]" class="rounded overflow-hidden">
           <a-image
             :width="150"
             :height="80"
@@ -48,10 +52,7 @@
         <a-tag v-if="record.status === STATUS.TRIAL" color="#2db7f5">
           {{ t('payment.status.trial') }}
         </a-tag>
-        <a-tag
-          v-else-if="record.status === STATUS.ON_BUY"
-          color="#f50"
-        >
+        <a-tag v-else-if="record.status === STATUS.ON_BUY" color="#f50">
           {{ t('payment.status.onBuy') }}
         </a-tag>
         <a-tag
@@ -60,18 +61,29 @@
         >
           {{ t('payment.status.confirmed') }}
         </a-tag>
+        <a-tag v-else-if="record.status === STATUS.WANTED" color="#9c27b0">
+          {{ t('payment.status.wanted') }}
+        </a-tag>
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
         {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
       </template>
 
-      <payment-actions
-        v-else-if="column.key === 'action'"
-        :payment="record"
-        @delete="deletePayment({ input: { id: record.id } })"
-        @confirm='quickConfirm({ input: { id: record.id, status: STATUS.PAID_CONFIRMED } })'
-      />
+      <template v-else-if="column.key === 'action'">
+        <div v-if="record.status === STATUS.WANTED">--</div>
+
+        <payment-actions
+          v-else
+          :payment="record"
+          @delete="deletePayment({ input: { id: record.id } })"
+          @confirm="
+            quickConfirm({
+              input: { id: record.id, status: STATUS.PAID_CONFIRMED }
+            })
+          "
+        />
+      </template>
     </template>
 
     <template #expandedRowRender="{ record }">
@@ -81,13 +93,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
 import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
-import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
-import { usePaymentStore } from '@store/payment'
+import TableSettingHeader from '@components/includes/TableSettingHeader.vue'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   SortPayments,
@@ -96,14 +107,20 @@ import {
 import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
-import { DELETE_PAYMENT, QUICK_DONE_PAYMENT } from '#smileeye/mutations/payment.mutation'
+import {
+  DELETE_PAYMENT,
+  QUICK_DONE_PAYMENT
+} from '#smileeye/mutations/payment.mutation'
 import {
   DeletePayment,
   DeletePaymentVariables
 } from '#smileeye/mutations/__generated__/DeletePayment'
 import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
-import { QuickDonePayment, QuickDonePaymentVariables } from '#smileeye/mutations/__generated__/QuickDonePayment'
+import {
+  QuickDonePayment,
+  QuickDonePaymentVariables
+} from '#smileeye/mutations/__generated__/QuickDonePayment'
 import { STATUS } from '#schema/smileeyeTypes'
 import { useRoute } from 'vue-router'
 
@@ -111,10 +128,9 @@ const { t } = useLangs()
 
 const dayjs = useDayjs()
 
-// Store
-const paymentStore = usePaymentStore()
+const selectColumns = ref<number[]>([])
 
-const rawColumns = [
+const rawColumns = reactive([
   {
     title: t('payment.table.user.name'),
     dataIndex: 'user.name',
@@ -135,7 +151,7 @@ const rawColumns = [
     dataIndex: 'goal',
     key: 'goal'
   }
-]
+])
 
 const fixColumns = [
   {
@@ -177,7 +193,7 @@ const fixColumns = [
 
 // Setup table
 const columns = computed(() => {
-  const _dynamic = paymentStore.columns.map((_index) => rawColumns[_index])
+  const _dynamic = selectColumns.value.map((_index) => rawColumns[_index])
   return [..._dynamic, ...fixColumns]
 })
 
@@ -185,14 +201,14 @@ const route = useRoute()
 // Resource
 const page = ref<number>(1)
 // Query hook
-const { result, refetch, loading } = useQuery<SortPayments, SortPaymentsVariables>(
-  SORT_PAYMENTS,
-  {
-    first: 6,
-    page: page.value,
-    status: (route.query.status as string || '').toUpperCase()
-  }
-)
+const { result, refetch, loading } = useQuery<
+  SortPayments,
+  SortPaymentsVariables
+>(SORT_PAYMENTS, {
+  first: 6,
+  page: page.value,
+  status: ((route.query.status as string) || '').toUpperCase()
+})
 
 const payments = usePick(result, [], (data) => data.sort_payments)
 
@@ -201,7 +217,7 @@ const changePage = (_page: number) => {
   refetch({
     first: 6,
     page: page.value,
-    status: (route.query.status as string || '').toUpperCase()
+    status: ((route.query.status as string) || '').toUpperCase()
   })
 }
 
@@ -215,10 +231,12 @@ const { mutate: deletePayment } = useMutation<
       variables: {
         first: 6,
         page: page.value,
-        status: (route.query.status as string || '').toUpperCase()
+        status: ((route.query.status as string) || '').toUpperCase()
       },
       data: {
-        sort_payments: result.value!.sort_payments!.filter((e) => e?.id !== options.variables?.input.id)
+        sort_payments: result.value!.sort_payments!.filter(
+          (e) => e?.id !== options.variables?.input.id
+        )
       }
     })
   }
@@ -226,20 +244,23 @@ const { mutate: deletePayment } = useMutation<
 
 // Counter
 const { result: paymentCounter } = useQuery<SumPayment>(SUM_PAYMENT)
-const counter = usePick(paymentCounter, 0, data => data.sum_payment.sum)
-
+const counter = usePick(paymentCounter, 0, (data) => data.sum_payment.sum)
 
 // Delete from modal
 // Global event
 const emitter = useEmitter<{
   deletePayment: string
 }>()
-onMounted(() => emitter.on('deletePayment', (id) => {
-  deletePayment({ input: { id } })
-}))
+onMounted(() =>
+  emitter.on('deletePayment', (id) => {
+    deletePayment({ input: { id } })
+  })
+)
 
 onUnmounted(() => emitter.off('deletePayment'))
 
-const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<QuickDonePayment, QuickDonePaymentVariables>(QUICK_DONE_PAYMENT)
-
+const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
+  QuickDonePayment,
+  QuickDonePaymentVariables
+>(QUICK_DONE_PAYMENT)
 </script>

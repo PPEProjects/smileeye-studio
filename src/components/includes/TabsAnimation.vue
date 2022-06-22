@@ -19,9 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, CSSProperties } from 'vue'
+import { computed, nextTick, onMounted, ref, CSSProperties, watch } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { useAnime } from '@composables/useAnime'
+import { useLangs } from '@composables/useLangs'
+
+const { locale } = useLangs()
+
 
 const props = withDefaults(
   defineProps<{
