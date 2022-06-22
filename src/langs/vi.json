@@ -184,5 +184,26 @@
       "role": "PHÂN QUYỀN"
     },
     "title": "Thành Viên"
+  },
+  "goals": {
+    "tab": {
+      "list": "Tất Cả",
+      "sell_request": "Goal bán"
+    },
+    "title": "Goal",
+    "table": {
+      "action": "HÀNH ĐỘNG",
+      "name": "Goal Template",
+      "owner": "Owner",
+      "status": "Status",
+      "member": "Member",
+      "trial": "Trial",
+      "onbuy": "Onbuy",
+      "paid_confirmed": "Paid Confirmed",
+      "done": "Done",
+      "checked": "Checked",
+      "per_goal": "Per Goal",
+      "request_date": "Request Date"
+    }
   }
 }

@@ -1170,7 +1170,7 @@ enum SortOrder {
 enum STATUS {
   ON_BUY
   TRIAL
-  SENT_RECEIPT
+  WANTED
   PAID_CONFIRMED
 }
 
