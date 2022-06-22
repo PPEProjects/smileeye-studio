@@ -75,14 +75,12 @@
       <template v-if="column.key === 'name'">
         <router-link :to="'/users/' + record.id" class="flex items-center">
           <div
-            class="rounded-full overflow-hidden mr-3 border-2 border-white shadow-md"
+            class="rounded-full overflow-hidden mr-3 border-2 border-white shadow-md w-[45px] h-[45px]"
           >
             <img
-              width="45"
-              height="45"
               :src="$cdn(record.avatar)"
               alt=""
-              class="object-cover"
+              class="object-cover w-full h-full"
             />
           </div>
 
@@ -128,6 +126,9 @@ import {
 } from '#smileeye/queries/__generated__/ListUser'
 import { LIST_USERS } from '#smileeye/queries/user.query'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const userColumns = userColumnsBuilder()
 
@@ -150,7 +151,8 @@ const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(
   {
     first: 10,
     [formSearch.field]: formSearch.keyword,
-    page: page.value
+    page: page.value,
+    role: route.query.group as string || ''
   }
 )
 const users = computed(() => result.value?.list_user?.data || [])
@@ -165,7 +167,8 @@ const changePage = ($event: any) => {
   refetch({
     first: 10,
     [formSearch.field]: formSearch.keyword,
-    page: page.value
+    page: page.value,
+    role: route.query.group as string || ''
   })
 }
 
@@ -177,7 +180,8 @@ const searchUsers = () => {
   refetch({
     first: 10,
     [formSearch.field]: formSearch.keyword,
-    page: page.value
+    page: page.value,
+    role: route.query.group as string || ''
   })
 }
 const cancelSearch = () => {
@@ -186,7 +190,8 @@ const cancelSearch = () => {
   refetch({
     first: 10,
     [formSearch.field]: formSearch.keyword,
-    page: page.value
+    page: page.value,
+    role: route.query.group as string || ''
   })
   openSearch.value = false
 }

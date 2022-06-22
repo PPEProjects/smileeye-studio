@@ -94,9 +94,10 @@
       }
     },
     "status": {
-      "confirmed": "CONFIRMED",
-      "onBuy": "ON BUY",
-      "trial": "TRIAL"
+      "all": "All",
+      "confirmed": "Confirmed",
+      "onBuy": "On Buy",
+      "trial": "Trial"
     },
     "table": {
       "action": "ACTIONS",

@@ -1,5 +1,4 @@
 <template>
-
   <teleport-view to="#actions">
     <a-button
       type="primary"
@@ -18,23 +17,30 @@
     <div class="h-[70px] flex items-center">
       {{ t('users.title') }}
 
-      <tabs-animation active='._active' tag='div' auto tab='.user-tab' direction='horizontal' class='flex items-center h-full'>
+      <tabs-animation
+        active="._active"
+        tag="div"
+        auto
+        tab=".user-tab"
+        direction="horizontal"
+        class="flex items-center h-full"
+      >
         <router-link
           to="/users"
           class="ml-3 block user-tab px-2"
-          :class='{
-            "user-tab-active _active": !$route.query.group
-          }'
+          :class="{
+            'user-tab-active _active': !$route.query.group
+          }"
         >
           {{ t('users.tab.list') }}
         </router-link>
 
         <router-link
-          to="/users?group=supporters"
+          to="/users?group=supporter"
           class="block ml-3 user-tab px-2"
-          :class='{
-            "_active": $route.query.group === "supporters"
-          }'
+          :class="{
+            _active: $route.query.group === 'supporter'
+          }"
         >
           {{ t('users.tab.supporters') }}
         </router-link>
@@ -42,11 +48,10 @@
     </div>
   </teleport-view>
 
-  <users-table />
+  <users-table :key="$route.fullPath" />
 
   <update-user-modal />
   <edit-rule-modal />
-
 </template>
 
 <script lang="ts" setup>
@@ -58,7 +63,6 @@ import { useLangs } from '@composables/useLangs'
 import TabsAnimation from '@components/includes/TabsAnimation.vue'
 
 const { t } = useLangs()
-
 </script>
 
 <script lang="ts">

@@ -1,36 +1,65 @@
 <template>
-  <payment-table />
-  <teleport-view v-if='false' to="#actions">
-    <a-button
-      type="primary"
-      size="large"
-      class="uppercase"
-      @click="$emitter.emit('upsertPaymentModal')"
-    >
-      <template #icon>
-        <plus-outlined />
-      </template>
-      add bill
-    </a-button>
+  <teleport-view to="#title">
+    <div class="h-[70px] flex items-center">
+      {{ t('payment.title') }}
+
+      <tabs-animation active='._active' tag='div' auto tab='.user-tab' direction='horizontal' class='flex items-center h-full'>
+        <router-link
+          to="/payment"
+          class="ml-3 block user-tab px-2"
+          :class='{
+            "user-tab-active _active": !$route.query.status
+          }'
+        >
+          {{ t('payment.status.all') }}
+        </router-link>
+
+        <router-link
+          to="/payment?status=trial"
+          class="block ml-3 user-tab px-2"
+          :class='{
+            "_active": $route.query.status === "trial"
+          }'
+        >
+          {{ t('payment.status.trial') }}
+        </router-link>
+
+        <router-link
+          to="/payment?status=on_buy"
+          class="block ml-3 user-tab px-2"
+          :class='{
+            "_active": $route.query.status === "on_buy"
+          }'
+        >
+          {{ t('payment.status.onBuy') }}
+        </router-link>
+
+
+        <router-link
+          to="/payment?status=confirmed"
+          class="block ml-3 user-tab px-2"
+          :class='{
+            "_active": $route.query.status === "confirmed"
+          }'
+        >
+          {{ t('payment.status.confirmed') }}
+        </router-link>
+
+      </tabs-animation>
+    </div>
   </teleport-view>
 
+  <payment-table :key='$route.fullPath' />
   <upsert-payment-modal />
 </template>
 
 <script lang="ts" setup>
-import { PlusOutlined } from '@ant-design/icons-vue'
-import { usePaymentStore } from '@store/payment'
+import PaymentTable from '@components/payment/PaymentTable.vue'
 import UpsertPaymentModal from '@components/payment/UpsertPaymentModal.vue'
 
-usePaymentStore()
-</script>
+import TabsAnimation from '@components/includes/TabsAnimation.vue'
+import TeleportView from '@components/layout/TeleportView.vue'
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import PaymentTable from '@components/payment/PaymentTable.vue'
-
-export default defineComponent({
-  name: 'InComePage',
-  components: { PaymentTable }
-})
+import { useLangs } from '@composables/useLangs'
+const { t } = useLangs()
 </script>

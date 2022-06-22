@@ -94,6 +94,7 @@
       }
     },
     "status": {
+      "all": "",
       "confirmed": "",
       "onBuy": "",
       "trial": ""

@@ -16,11 +16,7 @@ let routes: RouteRecordRaw[] = [
   },
   {
     path: '/payment',
-    component: () => import('./pages/payment/index.vue'),
-    meta: {
-      title: 'payment.title',
-      collapse: true
-    }
+    component: () => import('./pages/payment/index.vue')
   },
   {
     path: '/payment/:id',
