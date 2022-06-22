@@ -9,6 +9,7 @@ import { onError } from '@apollo/client/link/error'
 import { useUserStore } from '@store/user'
 import { App } from 'vue'
 import { VueLoadingIndicatorInstance } from '@nguyenshort/vue3-loading-indicator'
+import { message as notify } from 'ant-design-vue'
 
 export default (app: App) => {
   const $loading: VueLoadingIndicatorInstance =
@@ -55,10 +56,20 @@ export default (app: App) => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(
-        ({ message, extensions }) =>
+        ({ message, extensions }) => {
           console.log(
-            `[GraphQL error]: Message: ${message}, Code: ${extensions.code}`
+            `[GraphQL error]: Message: ${message}, Code: ${extensions.category}`
           )
+          const useUser = useUserStore()
+          switch (extensions.category) {
+            case 'authentication':
+              notify.error('Phiên đăng nhập đã kết thúc').then(() => {
+                window.$vue._context.provides.$cookies.remove('_token')
+                useUser.logout()
+                window.location.reload()
+              })
+          }
+        }
         // Xoá cookie, đăng xuất, login
       )
     }

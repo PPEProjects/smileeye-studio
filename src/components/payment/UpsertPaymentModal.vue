@@ -251,7 +251,7 @@ let initState = {
   note: '',
   attachments: []
 }
-const formState = reactive<typeof initState>(initState)
+let formState = reactive<typeof initState>(initState)
 
 const resetForm = () => {
   Object.assign({}, initState)

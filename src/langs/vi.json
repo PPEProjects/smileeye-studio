@@ -132,9 +132,10 @@
       }
     },
     "status": {
-      "confirmed": "ĐÃ XONG",
-      "onBuy": "ĐANG MUA",
-      "trial": "XEM CHÙA"
+      "all": "Tất Cả",
+      "confirmed": "Đã Mua",
+      "onBuy": "Đang Mua",
+      "trial": "Xem Chùa"
     },
     "table": {
       "action": "HÀNH ĐỘNG",

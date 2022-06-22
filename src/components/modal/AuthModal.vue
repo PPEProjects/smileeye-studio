@@ -102,8 +102,8 @@ onMounted(() => {
 
 
 // Form data
-const email = ref<string>('dnstylish@gmail.com')
-const password = ref<string>('Khoi@025')
+const email = ref<string>('')
+const password = ref<string>('')
 
 // active button
 const isReady = computed(() => email.value && password.value)

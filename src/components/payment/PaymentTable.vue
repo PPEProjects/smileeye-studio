@@ -105,6 +105,7 @@ import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import { QuickDonePayment, QuickDonePaymentVariables } from '#smileeye/mutations/__generated__/QuickDonePayment'
 import { STATUS } from '#schema/smileeyeTypes'
+import { useRoute } from 'vue-router'
 
 const { t } = useLangs()
 
@@ -180,6 +181,7 @@ const columns = computed(() => {
   return [..._dynamic, ...fixColumns]
 })
 
+const route = useRoute()
 // Resource
 const page = ref<number>(1)
 // Query hook
@@ -187,7 +189,8 @@ const { result, refetch, loading } = useQuery<SortPayments, SortPaymentsVariable
   SORT_PAYMENTS,
   {
     first: 6,
-    page: page.value
+    page: page.value,
+    status: (route.query.status as string || '').toUpperCase()
   }
 )
 
@@ -197,7 +200,8 @@ const changePage = (_page: number) => {
   page.value = _page
   refetch({
     first: 6,
-    page: page.value
+    page: page.value,
+    status: (route.query.status as string || '').toUpperCase()
   })
 }
 
@@ -210,7 +214,8 @@ const { mutate: deletePayment } = useMutation<
       query: SORT_PAYMENTS,
       variables: {
         first: 6,
-        page: page.value
+        page: page.value,
+        status: (route.query.status as string || '').toUpperCase()
       },
       data: {
         sort_payments: result.value!.sort_payments!.filter((e) => e?.id !== options.variables?.input.id)
