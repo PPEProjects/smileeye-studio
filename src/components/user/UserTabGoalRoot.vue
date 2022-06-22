@@ -1,5 +1,3 @@
-<!-- @ts-nocheck -->
-
 <template>
   <a-spin :spinning="loading">
     <div ref="container" class="w-full">

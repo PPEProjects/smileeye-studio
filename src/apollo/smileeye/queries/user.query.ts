@@ -19,6 +19,7 @@ export const LIST_USERS = gql`
     $phone_number: String
     $email: String
     $name: String
+    $role: String
   ) {
     list_user(
       first: $first
@@ -26,6 +27,7 @@ export const LIST_USERS = gql`
       phone_number: $phone_number
       email: $email
       name: $name
+      role: $role
     ) {
       data {
         id

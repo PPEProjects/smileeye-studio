@@ -49,4 +49,5 @@ export interface ListUserVariables {
   phone_number?: string | null;
   email?: string | null;
   name?: string | null;
+  role?: string | null;
 }

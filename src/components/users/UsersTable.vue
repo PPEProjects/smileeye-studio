@@ -149,7 +149,7 @@ const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(
   LIST_USERS,
   {
     first: 10,
-    [formSearch.field]: '%' + formSearch.keyword + '%',
+    [formSearch.field]: formSearch.keyword,
     page: page.value
   }
 )

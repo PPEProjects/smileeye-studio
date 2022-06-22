@@ -16,8 +16,8 @@ export enum FilterExpiry {
 export enum STATUS {
   ON_BUY = "ON_BUY",
   PAID_CONFIRMED = "PAID_CONFIRMED",
-  SENT_RECEIPT = "SENT_RECEIPT",
   TRIAL = "TRIAL",
+  WANTED = "WANTED",
 }
 
 export interface AssignRoleInput {
