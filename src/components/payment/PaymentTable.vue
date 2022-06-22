@@ -8,7 +8,11 @@
     @change="changePage($event.current)"
   >
     <template #headerCell="{ column }">
-      <payment-setting-header v-if="!column.key" />
+      <table-setting-header
+        v-if="!column.key"
+        v-model:value="selectColumns"
+        :columns="rawColumns"
+      />
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -89,13 +93,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 
 import { useLangs } from '@composables/useLangs'
 import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
-import PaymentSettingHeader from '@components/payment/PaymentSettingHeader.vue'
-import { usePaymentStore } from '@store/payment'
+import TableSettingHeader from '@components/includes/TableSettingHeader.vue'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   SortPayments,
@@ -125,10 +128,9 @@ const { t } = useLangs()
 
 const dayjs = useDayjs()
 
-// Store
-const paymentStore = usePaymentStore()
+const selectColumns = ref<number[]>([])
 
-const rawColumns = [
+const rawColumns = reactive([
   {
     title: t('payment.table.user.name'),
     dataIndex: 'user.name',
@@ -149,7 +151,7 @@ const rawColumns = [
     dataIndex: 'goal',
     key: 'goal'
   }
-]
+])
 
 const fixColumns = [
   {
@@ -191,7 +193,7 @@ const fixColumns = [
 
 // Setup table
 const columns = computed(() => {
-  const _dynamic = paymentStore.columns.map((_index) => rawColumns[_index])
+  const _dynamic = selectColumns.value.map((_index) => rawColumns[_index])
   return [..._dynamic, ...fixColumns]
 })
 
