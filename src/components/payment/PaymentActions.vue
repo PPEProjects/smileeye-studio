@@ -1,6 +1,7 @@
 <template>
 
   <a-popconfirm
+    v-if='payment.status !== STATUS.PAID_CONFIRMED'
     :title="t('actions.accept.title', { name: t('payment.payment') })"
     placement="topLeft"
     :ok-text="t('button.yes')"
@@ -15,7 +16,12 @@
   </a-popconfirm>
 
 
-  <a-button type="primary" size="small" class='ml-2' @click='$emitter.emit("upsertPaymentModal", payment)'>
+  <a-button
+    type="primary"
+    size="small"
+    class='ml-2'
+    @click='$emitter.emit("upsertPaymentModal", payment)'
+  >
     <template #icon>
       <edit-outlined />
     </template>
@@ -43,6 +49,7 @@ import { CheckOutlined, EditOutlined } from '@ant-design/icons-vue'
 
 import { useLangs } from '@composables/useLangs'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
+import { STATUS } from '#schema/smileeyeTypes'
 
 const { t } = useLangs()
 

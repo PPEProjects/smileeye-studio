@@ -182,7 +182,7 @@
           </svg>
         </button>
 
-        <button class="menu-bottom" @click="toHome()">
+        <button class="menu-bottom cursor-pointer" @click="toHome()">
           <svg width="24px" height="24px" fill="currentColor">
             <use xlink:href="#i-home" />
           </svg>
@@ -219,7 +219,7 @@ import { useAnime } from '@composables/useAnime'
 const { t } = useLangs()
 
 const toHome = () => {
-  ///
+  window.location.href = 'https://v2.smileeye.edu.vn/goals'
 }
 
 const router = useRouter()
