@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { GOAL_TREE } from '#smileeye/queries/goal.query'
 import { IGoalNode } from '@components/workspace/types'
-import { nextTick, onMounted, provide, ref, watch } from 'vue'
+import { provide, ref, watch } from 'vue'
 import { useSmileeye } from '#apollo/client/smileeye'
 import {
   GetGoalTree,
@@ -64,16 +64,6 @@ watch(
   },
   // fix
   { deep: true }
-)
-
-onMounted(() =>
-  nextTick(() => {
-    document
-      .querySelector<HTMLLabelElement>(
-        '.__goal-tree > .goal-node-item > .goal-node-content > .__expand-button'
-      )
-      ?.click()
-  })
 )
 </script>
 

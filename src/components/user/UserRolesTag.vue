@@ -1,5 +1,5 @@
 <template>
-  <div v-if='user.roles.length' @click="$emitter.emit('editRuleModal', user)">
+  <div v-if='user.roles?.length' @click="$emitter.emit('editRuleModal', user)">
     <a-tag
       v-for="(role, index) in user.roles"
       :key="index"
