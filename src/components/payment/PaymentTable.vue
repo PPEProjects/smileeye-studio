@@ -5,7 +5,7 @@
     :data-source="payments"
     :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
     row-key="id"
-    @change="changePage($event.current)"
+    @change="queryVariables.page = $event.current"
   >
     <template #headerCell="{ column }">
       <table-setting-header
@@ -199,28 +199,19 @@ const columns = computed(() => {
 })
 
 const route = useRoute()
-// Resource
-const page = ref<number>(1)
+
+const queryVariables = reactive({
+  first: 6,
+  page: 1,
+  status: ((route.query.status as string) || '').toUpperCase()
+})
 // Query hook
 const { result, refetch, loading } = useQuery<
   SortPayments,
   SortPaymentsVariables
->(SORT_PAYMENTS, {
-  first: 6,
-  page: page.value,
-  status: ((route.query.status as string) || '').toUpperCase()
-})
+>(SORT_PAYMENTS, queryVariables)
 
 const payments = usePick(result, [], (data) => data.sort_payments)
-
-const changePage = (_page: number) => {
-  page.value = _page
-  refetch({
-    first: 6,
-    page: page.value,
-    status: ((route.query.status as string) || '').toUpperCase()
-  })
-}
 
 const { mutate: deletePayment } = useMutation<
   DeletePayment,
@@ -229,11 +220,7 @@ const { mutate: deletePayment } = useMutation<
   update: (proxy, _, options) => {
     proxy.writeQuery<SortPayments, SortPaymentsVariables>({
       query: SORT_PAYMENTS,
-      variables: {
-        first: 6,
-        page: page.value,
-        status: ((route.query.status as string) || '').toUpperCase()
-      },
+      variables: queryVariables,
       data: {
         sort_payments: result.value!.sort_payments!.filter(
           (e) => e?.id !== options.variables?.input.id

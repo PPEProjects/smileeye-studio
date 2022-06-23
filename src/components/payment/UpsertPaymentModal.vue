@@ -154,15 +154,15 @@
               v-model:value="formState.status"
               placeholder="Please select status"
             >
-              <a-select-option :value="PaymentStatusEnum.TRIAL">
+              <a-select-option :value="STATUS.TRIAL">
                 {{ t('payment.status.trial') }}
               </a-select-option>
 
-              <a-select-option :value="PaymentStatusEnum.PAID_CONFIRMED">
+              <a-select-option :value="STATUS.PAID_CONFIRMED">
                 {{ t('payment.status.confirmed') }}
               </a-select-option>
 
-              <a-select-option :value="PaymentStatusEnum.ON_BUY">
+              <a-select-option :value="STATUS.ON_BUY">
                 {{ t('payment.status.onBuy') }}
               </a-select-option>
             </a-select>
@@ -218,7 +218,7 @@ import ModalBase from '@components/modal/ModalBase.vue'
 import { useLangs } from '@composables/useLangs'
 import { reactive, ref } from 'vue'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
-import { PaymentStatusEnum } from '@components/payment/types'
+import { STATUS } from '#schema/smileeyeTypes'
 import { useMutation } from '@vue/apollo-composable'
 import {
   UpsertPayment,
