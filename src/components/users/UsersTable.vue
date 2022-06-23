@@ -8,70 +8,11 @@
       showLessItems: true,
       defaultPageSize: 10
     }"
-    @change="changePage"
+    @change="page = $event.current"
   >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'action'">
-        <a-dropdown v-model:visible="openSearch" :trigger="['click']">
-          <a class="ant-dropdown-link" @click.prevent>
-            <search-outlined />
-          </a>
-          <template #overlay>
-            <a-menu>
-              <a-menu-item key="1">
-                <a-input-group compact>
-                  <a-select v-model:value="formSearch.field" style="width: 40%">
-                    <a-select-option value="email">
-                      {{ t('user.email') }}
-                    </a-select-option>
-                    <a-select-option value="name">
-                      {{ t('user.name') }}
-                    </a-select-option>
-                    <a-select-option value="phone_number">
-                      {{ t('user.phone') }}
-                    </a-select-option>
-                  </a-select>
-                  <a-input
-                    v-model:value="formSearch.keyword"
-                    style="width: 60%"
-                    :placeholder="t('input.keyword')"
-                    @press-enter="
-                      searchUsers();
-                      openSearch = false
-                    "
-                  >
-                    <template #prefix>
-                      <search-outlined />
-                    </template>
-                  </a-input>
-                </a-input-group>
-              </a-menu-item>
-              <a-menu-divider />
-
-              <a-menu-item key="2">
-                <div class="flex items-center">
-                  <a-button
-                    type="primary"
-                    size="small"
-                    block
-                    @click="searchUsers"
-                  >
-                    {{ t('button.search') }}
-                  </a-button>
-                  <div class="w-1 flex-shrink-0"></div>
-                  <a-button
-                    type="danger"
-                    size="small"
-                    block
-                    @click="cancelSearch"
-                  >
-                    {{ t('button.cancel') }}
-                  </a-button>
-                </div>
-              </a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
+        <search-header-table v-model:value='formSearch' :options="searchOptions" @change='page = 1' />
       </template>
     </template>
 
@@ -117,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import { EditOutlined, SearchOutlined } from '@ant-design/icons-vue'
+import { EditOutlined } from '@ant-design/icons-vue'
 import { userColumnsBuilder } from '@components/users/config'
 import { useDayjs } from '@composables/useDayjs'
 import { useLangs } from '@composables/useLangs'
@@ -132,6 +73,7 @@ import { LIST_USERS } from '#smileeye/queries/user.query'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useRoute } from 'vue-router'
 import { SortOrder } from '#schema/smileeyeTypes'
+import SearchHeaderTable from '@components/includes/SearchHeaderTable.vue'
 
 const route = useRoute()
 
@@ -139,6 +81,22 @@ const userColumns = userColumnsBuilder()
 
 const dayjs = useDayjs()
 const { t } = useLangs()
+
+// Search options
+const searchOptions = [
+  {
+    label: t('user.name'),
+    value: 'name'
+  },
+  {
+    label: t('user.phone'),
+    value: 'phone_number'
+  },
+  {
+    label: t('user.email'),
+    value: 'email'
+  }
+]
 
 // SearchState
 const formSearch = reactive<{
@@ -151,19 +109,24 @@ const formSearch = reactive<{
 
 // data resource
 const page = ref<number>(1)
-const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(
+const queryVariables = computed(() => ({
+  first: 10,
+  [formSearch.field]: formSearch.keyword,
+  page: page.value,
+  role: (route.query.group as string) || '',
+  orderBy: [
+    {
+      column: 'created_at',
+      order: SortOrder.DESC
+    }
+  ]
+}))
+
+const { result, loading } = useQuery<ListUser, ListUserVariables>(
   LIST_USERS,
+  queryVariables,
   {
-    first: 10,
-    [formSearch.field]: formSearch.keyword,
-    page: page.value,
-    role: route.query.group as string || '',
-    orderBy: [
-      {
-        column: 'created_at',
-        order: SortOrder.DESC
-      }
-    ]
+    debounce: 300
   }
 )
 const users = computed(() => result.value?.list_user?.data || [])
@@ -172,56 +135,4 @@ const pageNavi = computed(
     result.value?.list_user?.paginatorInfo ||
     ({} as ListUser_list_user_paginatorInfo)
 )
-
-const changePage = ($event: any) => {
-  page.value = $event.current
-  refetch({
-    first: 10,
-    [formSearch.field]: formSearch.keyword,
-    page: page.value,
-    role: route.query.group as string || '',
-    orderBy: [
-      {
-        column: 'created_at',
-        order: SortOrder.DESC
-      }
-    ]
-  })
-}
-
-// Search
-const openSearch = ref<boolean>(false)
-
-const searchUsers = () => {
-  page.value = 0
-  refetch({
-    first: 10,
-    [formSearch.field]: formSearch.keyword,
-    page: page.value,
-    role: route.query.group as string || '',
-    orderBy: [
-      {
-        column: 'created_at',
-        order: SortOrder.DESC
-      }
-    ]
-  })
-}
-const cancelSearch = () => {
-  formSearch.field = 'name'
-  formSearch.keyword = ''
-  refetch({
-    first: 10,
-    [formSearch.field]: formSearch.keyword,
-    page: page.value,
-    role: route.query.group as string || '',
-    orderBy: [
-      {
-        column: 'created_at',
-        order: SortOrder.DESC
-      }
-    ]
-  })
-  openSearch.value = false
-}
 </script>
