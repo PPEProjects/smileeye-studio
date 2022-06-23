@@ -3,15 +3,17 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, inject } from 'vue'
+import { defineComponent, inject } from 'vue'
+import DefaultLayout from '@layouts/default.vue'
+import BlankLayout from '@layouts/blank.vue'
 import { VueCookies } from 'vue-cookies'
 import { useUserStore } from '@store/user'
 
 export default defineComponent({
   name: 'MasterView',
   components: {
-    default: defineAsyncComponent(() => import('@layouts/default.vue')),
-    blank: defineAsyncComponent(() => import('@layouts/blank.vue')),
+    default: DefaultLayout,
+    blank: BlankLayout
   },
   async setup() {
     const cookies = inject<VueCookies>('$cookies')
