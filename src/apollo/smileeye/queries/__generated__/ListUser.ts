@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { OrderByClause } from "./../../../../../__generated__/smileeyeTypes";
+
 // ====================================================
 // GraphQL query operation: ListUser
 // ====================================================
@@ -50,4 +52,5 @@ export interface ListUserVariables {
   email?: string | null;
   name?: string | null;
   role?: string | null;
+  orderBy?: OrderByClause[] | null;
 }

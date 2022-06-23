@@ -5,34 +5,33 @@ export const userColumnsBuilder = () => {
 
   return [
     {
-      title: t('users.table.name'),
+      title: t('user.name'),
       dataIndex: 'name',
       key: 'name',
       ellipsis: true,
       width: 250
     },
     {
-      title: t('users.table.email'),
+      title: t('user.email'),
       dataIndex: 'email',
       key: 'email',
       width: 220
     },
     {
-      title: t('users.table.createdAt'),
+      title: t('user.createdAt'),
       dataIndex: 'created_at',
       align: 'center',
       width: 150,
       key: 'createdAt'
     },
     {
-      title: t('users.table.role'),
+      title: t('user.role'),
       dataIndex: 'role',
       align: 'center',
       width: 180,
       key: 'role'
     },
     {
-      title: t('payment.table.action'),
       key: 'action',
       align: 'right',
       fixed: 'right',

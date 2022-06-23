@@ -1,52 +1,47 @@
 {
+  "actions": {
+    "accept": {
+      "title": "Xác nhận { name } ?"
+    },
+    "delete": {
+      "title": "Bạn có chắc muốn xoá { name } ?"
+    },
+    "edit": {
+      "title": "Chỉnh sửa { name }"
+    }
+  },
+  "button": {
+    "addNew": "Thêm Mới",
+    "cancel": "Huỷ Bỏ",
+    "delete": "Xoá",
+    "detail": "Thông Tin",
+    "edit": "Sửa",
+    "no": "Không",
+    "search": "Tìm Kiếm",
+    "update": "Cập Nhật",
+    "upload": "Tải Lên",
+    "yes": "Đồng Ý"
+  },
+  "counpon": {
+    "percent": "Giá Trị"
+  },
   "coupon": {
-    "action": {
-      "add": "Thêm"
+    "code": "Mã Giảm",
+    "createdAt": "Ngày Tạo",
+    "expiryDate": "Ngày Hết Hạn",
+    "label": "Mã Giảm Giá",
+    "limit": "Số Lượng",
+    "percent": "Giá Trị",
+    "placeholder": {
+      "expiry_date": "Nhập thời gian"
     },
-    "actions": {
-      "delete": {
-        "no": "Thôi",
-        "yes": "Xoá"
-      },
-      "destroy": {
-        "title": "Hành động này sẽ khiển mã hết hạn?"
-      }
-    },
-    "form": {
-      "button": {
-        "add": "Thêm"
-      },
-      "code": {
-        "label": "Mã Giảm Giá",
-        "validate": "Mã giảm giá là bắt buộc"
-      },
-      "expiry": {
-        "label": "Ngày Hết Hạn"
-      },
-      "limit": {
-        "label": "Số Lượng"
-      },
-      "percent": {
-        "label": "% Giảm"
-      }
-    },
-    "notify": {
-      "created": "Thêm thành công"
-    },
-    "table": {
-      "actions": "HÀNH ĐỘNG",
-      "code": "MÃ GIẢM",
-      "createdAt": "NGÀY TẠO",
-      "expiryDate": "NGÀY HẾT HẠN",
-      "percent": "GIÁ TRỊ",
-      "use": "SỬ DỤNG"
-    },
-    "title": "Hệ Thống Mã Giảm Giá"
+    "use": "Sử Dụng"
   },
   "cropper": {
-    "cancel": "Huỷ Bỏ",
-    "title": "Di Chuyển và Cắt Hình Của Bạn",
-    "upload": "Tải Lên"
+    "guide": {
+      "tab": "Nhấp vào vị trị tương ứng để tải ảnh lên"
+    },
+    "title": "Di Chuyển Và Cắt Hình"
   },
   "form": {
     "validate": {
@@ -54,113 +49,29 @@
       "required": "{ field } là bắt buộc"
     }
   },
-  "goals": {
-    "action": {
-      "accept": {
-        "no": "Không",
-        "title": "Chấp nhận hoá đơn ?",
-        "yes": "Đồng Ý"
-      },
-      "delete": {
-        "no": "Không",
-        "title": "Xoá",
-        "yes": "Xoá"
-      }
-    },
-    "edit": {
-      "modal": {
-        "title": "Cập Nhật Goal"
-      }
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "Thêm mới",
-          "cancel": "Huỷ",
-          "detail": "Chi tiết"
-        }
-      }
-    },
-    "tab": {
-      "list": "Tất Cả",
-      "sell_request": "Goal bán"
-    },
-    "table": {
-      "action": "HÀNH ĐỘNG",
-      "checked": "Checked",
-      "done": "Done",
-      "member": "Member",
-      "name": "Goal Template",
-      "onbuy": "Onbuy",
-      "owner": "Owner",
-      "paid_confirmed": "Paid Confirmed",
-      "per_goal": "Per Goal",
-      "request_date": "Request Date",
-      "status": "Status",
-      "trial": "Trial"
-    },
-    "title": "Goal"
+  "goal": {
+    "name": "Tên Khoá Học"
+  },
+  "input": {
+    "keyword": "Từ khoá..."
   },
   "payment": {
-    "action": {
-      "accept": {
-        "no": "Không",
-        "title": "Chấp nhận hoá đơn ?",
-        "yes": "Đồng Ý"
-      },
-      "delete": {
-        "no": "Không",
-        "title": "Bạn có chắc chắn xóa hóa đơn này không ?",
-        "yes": "Xoá"
-      }
-    },
-    "detail": {
-      "title": "Đơn hàng Số: { id }"
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "Thay Đổi",
-          "cancel": "Huỷ Giao Dịch",
-          "deleteQuestion": "Bạn có chắc muốn huỷ giao dịch này?",
-          "detail": "Thông Tin Chi Tiết"
-        },
-        "billImage": "Hình Ảnh Hoá Đơn",
-        "coupon": "Mã Giảm Giá",
-        "email": "Địa Chỉ Email",
-        "goal": "Khoá Học",
-        "money": "Số Tiền Thực Nhận",
-        "name": "Tên Người Mua",
-        "note": "Gi Chú",
-        "noteImage": "Hình Ảnh Gi Chú",
-        "phone": "Số Điện Thoại",
-        "referral": "Người Giới Thiệu",
-        "status": "Trạng Thái",
-        "title": "Tuỳ Chỉnh Đơn Hàng",
-        "value": "Giá Trị Đơn Hàng"
-      }
-    },
+    "billImage": "Hoá Đơn",
+    "createdAt": "Ngày Tạo",
+    "money": "Thực Nhân",
+    "note": "Gi Chú",
+    "payment": "hoá đơn",
+    "price": "Giá Cả",
+    "referral": "Giới Thiệu",
     "status": {
       "all": "Tất Cả",
       "confirmed": "Đã Mua",
       "onBuy": "Đang Mua",
+      "title": "Trạng Thái",
       "trial": "Xem Chùa",
       "wanted": "Mong Muốn"
     },
-    "table": {
-      "action": "Hành Động",
-      "billImage": "Hoá Đơn",
-      "createdAt": "Ngày Tạo",
-      "money": "Số Tiền",
-      "status": "Trạng Thái",
-      "user": {
-        "email": "Email",
-        "goal": "Tên Khoá Học",
-        "name": "Tên",
-        "phone": "Số Điện Thoại"
-      }
-    },
-    "title": "Thanh Toán"
+    "title": "Hệ Thống Thanh Toán"
   },
   "settings": {
     "language": {
@@ -185,57 +96,29 @@
       "settings": "Cài Đặt"
     }
   },
-  "upload": {
-    "fail": "Tải lên thất bại",
-    "success": "Tải lên thành công"
+  "table": {
+    "action": {
+      "title": "Hành Động"
+    }
   },
-  "users": {
-    "actions": {
-      "edit": "Sửa"
-    },
-    "edit": {
-      "actions": {
-        "cancel": "Huỷ Bỏ",
-        "delete": {
-          "confirm": "Bạn có chắc muốn xoá thành viên này?",
-          "no": "Không",
-          "ok": "Đồng Ý"
-        },
-        "detail": "Thông Tin Chi Tiết",
-        "update": "Thay Đổi"
-      },
-      "address_detail": "Địa Chỉ Cụ Thể",
+  "user": {
+    "address": {
+      "detail": "Địa Chỉ Cụ Thể",
       "district": "Quận/Huyện",
-      "modal": {
-        "title": "Cập Nhật Thành Viên"
-      },
-      "name": "Tên",
-      "phone": "Số Điện Thoại",
-      "province": "Tỉnh Thành",
-      "rule": {
-        "button": "Cập Nhật",
-        "label": "Quyền Hạn"
-      },
-      "upload": {
-        "guide": "Nhấp vào vị trị tương ứng để tải ảnh lên"
-      },
+      "province": "Tỉnh/Thành Phố",
       "ward": "Phường/Xã"
     },
-    "search": {
-      "cancel": "Huỷ Bỏ",
-      "input": "Nhập từ khoá...",
-      "search": "Tìm Kiếm"
-    },
+    "createdAt": "Ngày Tham Gia",
+    "email": "Email",
+    "name": "Tên",
+    "phone": "Số Điện Thoại",
+    "role": "Phân Quyền"
+  },
+  "users": {
+    "label": "Thành Viên",
     "tab": {
-      "list": "Tất Cả",
+      "all": "Tất Cả",
       "supporters": "Người Hỗ Trợ"
-    },
-    "table": {
-      "createdAt": "NGÀY THAM GIA",
-      "email": "ĐỊA CHỈ EMAIL",
-      "name": "TÊN",
-      "role": "PHÂN QUYỀN"
-    },
-    "title": "Thành Viên"
+    }
   }
 }

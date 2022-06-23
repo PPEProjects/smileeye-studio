@@ -14,7 +14,7 @@
       <template #icon>
         <plus-outlined />
       </template>
-      {{ t('coupon.action.add') }}
+      {{ t('button.addNew') }}
     </a-button>
   </teleport-view>
 </template>
@@ -44,9 +44,3 @@ export default defineComponent({
   name: 'CouponPage'
 })
 </script>
-
-<style>
-#upsertCouponContent {
-  margin-bottom: -30px;
-}
-</style>

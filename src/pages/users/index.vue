@@ -1,5 +1,5 @@
 <template>
-  <teleport-view to="#actions">
+<!--  <teleport-view to="#actions">
     <a-button
       type="primary"
       size="large"
@@ -11,11 +11,11 @@
       </template>
       add user
     </a-button>
-  </teleport-view>
+  </teleport-view>-->
 
   <teleport-view to="#title">
     <div class="h-[70px] flex items-center">
-      {{ t('users.title') }}
+      {{ t('users.label') }}
 
       <tabs-animation
         active="._active"
@@ -32,7 +32,7 @@
             'user-tab-active _active': !$route.query.group
           }"
         >
-          {{ t('users.tab.list') }}
+          {{ t('users.tab.all') }}
         </router-link>
 
         <router-link
@@ -55,7 +55,6 @@
 </template>
 
 <script lang="ts" setup>
-import { PlusOutlined } from '@ant-design/icons-vue'
 import UpdateUserModal from '@components/users/UpdateUserModal.vue'
 import EditRuleModal from '@components/users/EditRuleModal.vue'
 import UsersTable from '@components/users/UsersTable.vue'

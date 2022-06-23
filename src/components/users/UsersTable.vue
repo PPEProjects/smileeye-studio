@@ -21,16 +21,20 @@
               <a-menu-item key="1">
                 <a-input-group compact>
                   <a-select v-model:value="formSearch.field" style="width: 40%">
-                    <a-select-option value="email"> Email </a-select-option>
-                    <a-select-option value="name"> Name </a-select-option>
+                    <a-select-option value="email">
+                      {{ t('user.email') }}
+                    </a-select-option>
+                    <a-select-option value="name">
+                      {{ t('user.name') }}
+                    </a-select-option>
                     <a-select-option value="phone_number">
-                      Phone Number
+                      {{ t('user.phone') }}
                     </a-select-option>
                   </a-select>
                   <a-input
                     v-model:value="formSearch.keyword"
                     style="width: 60%"
-                    :placeholder="t('users.search.input')"
+                    :placeholder="t('input.keyword')"
                     @press-enter="
                       searchUsers();
                       openSearch = false
@@ -52,7 +56,7 @@
                     block
                     @click="searchUsers"
                   >
-                    {{ t('users.search.search') }}
+                    {{ t('button.search') }}
                   </a-button>
                   <div class="w-1 flex-shrink-0"></div>
                   <a-button
@@ -61,7 +65,7 @@
                     block
                     @click="cancelSearch"
                   >
-                    {{ t('users.search.cancel') }}
+                    {{ t('button.cancel') }}
                   </a-button>
                 </div>
               </a-menu-item>
@@ -105,7 +109,7 @@
           <template #icon>
             <edit-outlined />
           </template>
-          {{ t('users.actions.edit') }}
+          {{ t('button.edit') }}
         </a-button>
       </template>
     </template>
@@ -127,6 +131,7 @@ import {
 import { LIST_USERS } from '#smileeye/queries/user.query'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useRoute } from 'vue-router'
+import { SortOrder } from '#schema/smileeyeTypes'
 
 const route = useRoute()
 
@@ -152,7 +157,13 @@ const { result, loading, refetch } = useQuery<ListUser, ListUserVariables>(
     first: 10,
     [formSearch.field]: formSearch.keyword,
     page: page.value,
-    role: route.query.group as string || ''
+    role: route.query.group as string || '',
+    orderBy: [
+      {
+        column: 'created_at',
+        order: SortOrder.DESC
+      }
+    ]
   }
 )
 const users = computed(() => result.value?.list_user?.data || [])
@@ -168,7 +179,13 @@ const changePage = ($event: any) => {
     first: 10,
     [formSearch.field]: formSearch.keyword,
     page: page.value,
-    role: route.query.group as string || ''
+    role: route.query.group as string || '',
+    orderBy: [
+      {
+        column: 'created_at',
+        order: SortOrder.DESC
+      }
+    ]
   })
 }
 
@@ -181,7 +198,13 @@ const searchUsers = () => {
     first: 10,
     [formSearch.field]: formSearch.keyword,
     page: page.value,
-    role: route.query.group as string || ''
+    role: route.query.group as string || '',
+    orderBy: [
+      {
+        column: 'created_at',
+        order: SortOrder.DESC
+      }
+    ]
   })
 }
 const cancelSearch = () => {
@@ -191,7 +214,13 @@ const cancelSearch = () => {
     first: 10,
     [formSearch.field]: formSearch.keyword,
     page: page.value,
-    role: route.query.group as string || ''
+    role: route.query.group as string || '',
+    orderBy: [
+      {
+        column: 'created_at',
+        order: SortOrder.DESC
+      }
+    ]
   })
   openSearch.value = false
 }

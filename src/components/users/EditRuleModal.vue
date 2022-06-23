@@ -17,7 +17,7 @@
           {
             required: true,
             message: t('form.validate.required', {
-              field: t('users.edit.rule.label')
+              field: t('user.role')
             })
           }
         ]"
@@ -40,7 +40,7 @@
       <a-form-item>
         <div class="flex justify-end">
           <a-button type="danger" html-type="submit" :loading="loading">
-            {{ t('users.edit.rule.button') }}
+            {{ t('button.update') }}
           </a-button>
         </div>
       </a-form-item>

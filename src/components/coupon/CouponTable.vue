@@ -11,7 +11,7 @@
     row-key="code"
     @change='changePage'
   >
-    <template #bodyCell="{ column, record, index }">
+    <template #bodyCell="{ column, record }">
 
       <template v-if='column.key === "limit"'>
         <a-tag color="#f50">
@@ -45,11 +45,11 @@
         </a-button>
 
         <a-popconfirm
-          :title="t('coupon.actions.destroy.title')"
           placement="topLeft"
-          :ok-text="t('coupon.actions.delete.yes')"
-          :cancel-text="t('coupon.actions.delete.no')"
-          @confirm="deleteHandle(record, index)"
+          :title="t('actions.delete.title')"
+          :ok-text="t('button.yes')"
+          :cancel-text="t('button.no')"
+          @confirm="deleteCouponAction({ input: { id: String(record.id) } })"
         >
           <a-button type="danger" size="small" class="ml-2">
             <svg class="fill-current text-white" width="1em" height="1em">
@@ -79,7 +79,6 @@ import {
   DeleteCoupon,
   DeleteCouponVariables
 } from '#smileeye/mutations/__generated__/DeleteCoupon'
-import { IFormCouponUpsert } from '@components/coupon/types'
 import { useCouponStore } from '@store/coupon'
 import { watch } from 'vue'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
@@ -93,37 +92,36 @@ const couponStore = useCouponStore()
 // Table setup
 const columns = [
   {
-    title: t('coupon.table.code'),
+    title: t('coupon.code'),
     dataIndex: 'code',
     key: 'code'
   },
   {
-    title: t('coupon.table.use'),
+    title: t('coupon.use'),
     dataIndex: 'limit',
     key: 'limit',
     align: 'center'
   },
   {
-    title: t('coupon.table.percent'),
+    title: t('coupon.percent'),
     dataIndex: 'sale_percent',
     key: 'percent',
     align: 'center'
   },
   {
-    title: t('coupon.table.expiryDate'),
+    title: t('coupon.expiryDate'),
     dataIndex: 'expiry_date',
     key: 'expiryDate',
     align: 'center'
   },
   {
-    title: t('coupon.table.createdAt'),
+    title: t('coupon.createdAt'),
     dataIndex: 'created_at',
     key: 'createdAt',
     align: 'center',
     width: 200
   },
   {
-    title: t('coupon.table.actions'),
     key: 'action',
     align: 'right',
     fixed: 'right'
@@ -146,39 +144,20 @@ watch(result, (value) => {
 const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
   DeleteCoupon,
   DeleteCouponVariables
->(DELETE_COUPON)
-
-const deleteHandle = async (
-  data: SortCoupons_sort_coupons_data,
-  index: number
-) => {
-  await deleteCouponAction(
-    { input: { id: String(data.id) } },
-    {
-      update: (proxy) => {
-        const _cache = Object.assign({}, result.value?.sort_coupons)
-
-        proxy.writeQuery<SortCoupons, SortCouponsVariables>({
-          query: SORT_COUPONS,
-          variables: {
-            first: 7,
-            page: couponStore.page,
-            expiry: FilterExpiry.all
-          },
-          data: {
-            sort_coupons: Object.assign({}, _cache, {
-              data: _cache.data?.filter((e, _index) => _index !== index)
-            })
-          }
-        })
-      }
-    }
-  )
-}
+>(DELETE_COUPON, {
+  update: (proxy, _, options) => {
+    proxy.evict({
+      id: proxy.identify({
+        __typename: 'Coupon',
+        id: options?.variables?.input?.id
+      })
+    })
+  }
+})
 
 // Global event
 const emitter = useEmitter<{
-  upsertCoupon: IFormCouponUpsert | object
+  upsertCoupon: SortCoupons_sort_coupons_data | object
 }>()
 
 const changePage = ($event: any) => {

@@ -2,7 +2,7 @@
   <modal-base
     ref="modal"
     event="upsertPaymentModal"
-    :title="t('payment.form.upsert.title')"
+    :title="t('actions.edit.title', { name: t('payment.payment') })"
     :max-width="1000"
     @init="buildForm"
   >
@@ -17,13 +17,13 @@
       <div class="flex">
         <div class="w-2/5 flex-shrink-0">
           <a-form-item
-            :label="t('payment.form.upsert.name')"
+            :label="t('user.name')"
             :name="['user_info', 'name']"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('payment.form.upsert.name')
+                  field: t('user.name'),
                 })
               }
             ]"
@@ -32,13 +32,13 @@
           </a-form-item>
 
           <a-form-item
-            :label="t('payment.form.upsert.email')"
+            :label="t('user.email')"
             :name="['user_info', 'email']"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('payment.form.upsert.email')
+                  field: t('user.email')
                 })
               }
             ]"
@@ -47,13 +47,13 @@
           </a-form-item>
 
           <a-form-item
-            :label="t('payment.form.upsert.phone')"
+            :label="t('user.phone')"
             :name="['user_info', 'phone_number']"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('payment.form.upsert.phone')
+                  field: t('user.phone')
                 })
               }
             ]"
@@ -62,13 +62,13 @@
           </a-form-item>
 
           <a-form-item
-            :label="t('payment.form.upsert.goal')"
+            :label="t('goal.name')"
             :name="['goal', 'name']"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('payment.form.upsert.goal')
+                  field: t('goal.name')
                 })
               }
             ]"
@@ -79,13 +79,13 @@
           <div class="flex">
             <div class="w-full">
               <a-form-item
-                :label="t('payment.form.upsert.value')"
+                :label="t('payment.price')"
                 :name="['goal', 'price']"
                 :rules="[
                   {
                     required: true,
                     message: t('form.validate.required', {
-                      field: t('payment.form.upsert.value')
+                      field: t('payment.price')
                     })
                   }
                 ]"
@@ -98,7 +98,7 @@
 
             <div class="w-full">
               <a-form-item
-                :label="t('payment.form.upsert.referral')"
+                :label="t('payment.referral')"
                 name="code"
               >
                 <a-input v-model:value="formState.referral" />
@@ -111,7 +111,7 @@
           <div class="flex">
             <div class="w-full">
               <a-form-item
-                :label="t('payment.form.upsert.coupon')"
+                :label="t('coupon.label')"
                 name="code_sale"
               >
                 <a-input v-model:value="formState.code_sale" />
@@ -122,13 +122,13 @@
 
             <div class="w-full">
               <a-form-item
-                :label="t('payment.form.upsert.money')"
+                :label="t('payment.money')"
                 name="money"
                 :rules="[
                   {
                     required: true,
                     message: t('form.validate.required', {
-                      field: t('payment.form.upsert.money')
+                      field: t('payment.money')
                     })
                   }
                 ]"
@@ -139,13 +139,13 @@
           </div>
 
           <a-form-item
-            :label="t('payment.form.upsert.status')"
+            :label="t('payment.status.title')"
             name="status"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('payment.form.upsert.status')
+                  field: t('payment.status.title')
                 })
               }
             ]"
@@ -168,11 +168,11 @@
             </a-select>
           </a-form-item>
 
-          <a-form-item :label="t('payment.form.upsert.note')" name="note">
+          <a-form-item :label="t('payment.note')" name="note">
             <a-input v-model:value="formState.note" />
           </a-form-item>
 
-          <a-form-item :label="t('payment.form.upsert.billImage')" name="code">
+          <a-form-item :label="t('payment.billImage')" name="code">
             <a-image
               :width="'100%'"
               :height="120"
@@ -185,18 +185,18 @@
       <a-form-item>
         <div class="flex justify-end">
           <a-popconfirm
-            :title="t('payment.action.delete.title')"
-            :ok-text="t('payment.action.delete.yes')"
-            :cancel-text="t('payment.action.delete.no')"
+            :title="t('actions.delete.title', { name: t('payment.payment') })"
+            :ok-text="t('button.yes')"
+            :cancel-text="t('button.no')"
             @confirm='$emitter.emit("deletePayment", formState.id); modal?.dispose()'
           >
             <a-button type="danger" :disabled="loading">
-              {{ t('payment.form.upsert.actions.cancel') }}
+              {{ t('button.delete') }}
             </a-button>
           </a-popconfirm>
 
           <a-button type="primary" class="ml-auto" ghost :disabled="loading">
-            {{ t('payment.form.upsert.actions.detail') }}
+            {{ t('button.detail') }}
           </a-button>
 
           <a-button
@@ -205,7 +205,7 @@
             class="ml-4"
             :loading="loading"
           >
-            {{ t('payment.form.upsert.actions.add') }}
+            {{ t('button.update') }}
           </a-button>
         </div>
       </a-form-item>
@@ -295,9 +295,5 @@ const buildInput = () => {
 <style>
 #upsertPaymentModal .ant-image {
   overflow: hidden;
-}
-
-#upsertPaymentModalBody {
-  padding-bottom: 0;
 }
 </style>

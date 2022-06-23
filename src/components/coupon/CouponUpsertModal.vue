@@ -15,13 +15,13 @@
       @finish="mutate({ input: formState })"
     >
       <a-form-item
-        :label="t('coupon.form.code.label')"
+        :label="t('coupon.code')"
         name="code"
         :rules="[
           {
             required: true,
             message: t('form.validate.required', {
-              field: t('coupon.form.code.label')
+              field: t('coupon.code')
             })
           }
         ]"
@@ -30,13 +30,13 @@
       </a-form-item>
 
       <a-form-item
-        :label="t('coupon.form.percent.label')"
+        :label="t('coupon.percent')"
         name="sale_percent"
         :rules="[
           {
             required: true,
             message: t('form.validate.required', {
-              field: t('coupon.form.percent.label')
+              field: t('coupon.percent')
             })
           }
         ]"
@@ -49,7 +49,7 @@
         />
       </a-form-item>
 
-      <a-form-item :label="t('coupon.form.limit.label')" name="limit">
+      <a-form-item :label="t('coupon.limit')" name="limit">
         <a-input-number
           v-model:value="formState.limit"
           style="width: 100%"
@@ -57,10 +57,10 @@
         />
       </a-form-item>
 
-      <a-form-item :label="t('coupon.form.expiry.label')" name="limit">
+      <a-form-item :label="t('coupon.expiryDate')" name="limit">
         <a-date-picker
           v-model:value="formState.expiry_date"
-          placeholder="Select Time"
+          :placeholder="t('coupon.placeholder.expiry_date')"
           style="width: 100%"
           :disabled-date="disabledDate"
           value-format="YYYY-MM-DD HH:mm:ss"
@@ -75,7 +75,7 @@
             html-type="submit"
             :loading="loading"
           >
-            {{ t('coupon.form.button.add') }}
+            {{ t( formState.id ? 'button.update' : 'button.addNew') }}
           </a-button>
         </div>
       </a-form-item>
@@ -92,7 +92,6 @@ import {
   UpsertCouponVariables
 } from '#smileeye/mutations/__generated__/UpsertCoupon'
 import { UPSERT_COUPON } from '#smileeye/mutations/coupon.mutation'
-import { IFormCouponUpsert } from '@components/coupon/types'
 import {
   SortCoupons,
   SortCoupons_sort_coupons_data,
@@ -121,7 +120,8 @@ const disabledDate = (current: Dayjs) => {
 };
 
 // Form data
-const formState = reactive<IFormCouponUpsert>({
+const formState = reactive<Partial<SortCoupons_sort_coupons_data>>({
+  id: '',
   code: '',
   limit: 1,
   sale_percent: 1,
@@ -129,6 +129,7 @@ const formState = reactive<IFormCouponUpsert>({
 })
 
 const buildData = (data: SortCoupons_sort_coupons_data) => {
+  formState.id = data.id
   formState.code = data?.code || ''
   formState.limit = data?.limit || 1
   formState.sale_percent = data?.sale_percent || 1

@@ -29,7 +29,7 @@ let routes: RouteRecordRaw[] = [
     path: '/coupon',
     component: () => import('./pages/coupon/index.vue'),
     meta: {
-      title: 'coupon.title'
+      title: 'coupon.label'
     }
   },
   // User List

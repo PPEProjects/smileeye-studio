@@ -20,6 +20,7 @@ export const LIST_USERS = gql`
     $email: String
     $name: String
     $role: String
+    $orderBy: [OrderByClause!]
   ) {
     list_user(
       first: $first
@@ -28,6 +29,7 @@ export const LIST_USERS = gql`
       email: $email
       name: $name
       role: $role
+      orderBy: $orderBy
     ) {
       data {
         id

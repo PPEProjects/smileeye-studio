@@ -133,22 +133,22 @@ const selectColumns = ref<number[]>([])
 
 const rawColumns = reactive([
   {
-    title: t('payment.table.user.name'),
+    title: t('user.name'),
     dataIndex: 'user.name',
     key: 'name'
   },
   {
-    title: t('payment.table.user.email'),
+    title: t('user.email'),
     dataIndex: 'user',
     key: 'email'
   },
   {
-    title: t('payment.table.user.phone'),
+    title: t('user.phone'),
     dataIndex: 'phone',
     key: 'phone'
   },
   {
-    title: t('payment.table.user.goal'),
+    title: t('goal.name'),
     dataIndex: 'goal',
     key: 'goal'
   }
@@ -156,35 +156,35 @@ const rawColumns = reactive([
 
 const fixColumns = [
   {
-    title: t('payment.table.money'),
+    title: t('payment.money'),
     dataIndex: 'money',
     key: 'money',
     align: 'center',
     width: 150
   },
   {
-    title: t('payment.table.status'),
+    title: t('payment.status.title'),
     dataIndex: 'status',
     key: 'status',
     align: 'center',
     width: 150
   },
   {
-    title: t('payment.table.billImage'),
+    title: t('payment.billImage'),
     dataIndex: 'billImage',
     key: 'billImage',
     align: 'center',
     width: 180
   },
   {
-    title: t('payment.table.createdAt'),
+    title: t('payment.createdAt'),
     dataIndex: 'created_at',
     key: 'createdAt',
     align: 'center',
     width: 200
   },
   {
-    title: t('payment.table.action'),
+    title: t('table.action.title'),
     key: 'action',
     align: 'right',
     fixed: 'right',

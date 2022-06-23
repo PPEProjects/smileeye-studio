@@ -20,6 +20,14 @@ export enum STATUS {
   WANTED = "WANTED",
 }
 
+/**
+ * Directions for ordering a list of records.
+ */
+export enum SortOrder {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 export interface AssignRoleInput {
   role_ids: string[];
   user_id: string;
@@ -39,6 +47,14 @@ export interface DeleteJapanesePostInput {
 
 export interface DeletePaymentInput {
   id: string;
+}
+
+/**
+ * Allows ordering a list of records.
+ */
+export interface OrderByClause {
+  column: string;
+  order: SortOrder;
 }
 
 export interface UpdatePassword {

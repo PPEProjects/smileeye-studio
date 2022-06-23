@@ -1,209 +1,92 @@
 {
-  "coupon": {
-    "action": {
-      "add": "Add"
+  "actions": {
+    "accept": {
+      "title": ""
     },
-    "actions": {
-      "delete": {
-        "no": "Cancel",
-        "yes": "Delete"
-      },
-      "destroy": {
-        "title": "Do you want to destroy the current coupon?"
-      }
-    },
-    "form": {
-      "button": {
-        "add": "Add"
-      },
-      "code": {
-        "label": "Code",
-        "validate": "Code is required"
-      },
-      "expiry": {
-        "label": "Expiry Day"
-      },
-      "limit": {
-        "label": "Limit"
-      },
-      "percent": {
-        "label": "% Value"
-      }
-    },
-    "notify": {
-      "created": "Created success"
-    },
-    "table": {
-      "actions": "ACTIONS",
-      "code": "CODE",
-      "createdAt": "CREATED AT",
-      "expiryDate": "EXPIRY DATE",
-      "percent": "VALUE",
-      "use": "USED"
-    },
-    "title": "Coupon System"
-  },
-  "cropper": {
-    "cancel": "Cancel",
-    "title": "Move and Crop Your Image",
-    "upload": "Upload"
-  },
-  "form": {
-    "validate": {
-      "min": "{ field } must bigger than { min }",
-      "required": "{ field } is required"
-    }
-  },
-  "goals": {
-    "action": {
-      "delete": {
-        "title": ""
-      }
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "",
-          "detail": ""
-        }
-      }
-    }
-  },
-  "payment": {
-    "action": {
-      "accept": {
-        "no": "No",
-        "title": "Do you want to accept this bill ?",
-        "yes": "Yes"
-      },
-      "delete": {
-        "no": "No",
-        "title": "Are you sure delete this bill ?",
-        "yes": "Yes"
-      }
-    },
-    "detail": {
-      "title": "Recipe: { id }"
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "Upsert",
-          "cancel": "Cancel Recipe",
-          "deleteQuestion": "Do you want to delete this bill?",
-          "detail": "More Detail"
-        },
-        "billImage": "Recipe Image",
-        "coupon": "Coupon",
-        "email": "Email Address",
-        "goal": "Goal",
-        "money": "Income",
-        "name": "Name",
-        "note": "Note",
-        "noteImage": "Note Image",
-        "phone": "Phone Number",
-        "referral": "Referral",
-        "status": "Status",
-        "title": "Customize Recipe",
-        "value": "Value"
-      }
-    },
-    "status": {
-      "all": "All",
-      "confirmed": "Confirmed",
-      "onBuy": "On Buy",
-      "trial": "Trial",
-      "wanted": "Wanted"
-    },
-    "table": {
-      "action": "Actions",
-      "billImage": "Recipe",
-      "createdAt": "Created",
-      "money": "Money",
-      "status": "Status",
-      "user": {
-        "email": "Email",
-        "goal": "Goal Name",
-        "name": "Name",
-        "phone": "Phone Number"
-      }
-    },
-    "title": "Payment"
-  },
-  "settings": {
-    "language": {
-      "guide": "Tap to change the language interface"
-    },
-    "title": "Settings"
-  },
-  "sidebar": {
-    "config": "Config",
-    "coupon": "Coupon",
-    "dashboard": "Dashboard",
-    "members": {
-      "members": "Members",
-      "supporters": "Supporters",
-      "users": "Users"
-    },
-    "notify": "Notify",
-    "payment": "Payment",
-    "settings": {
-      "languages": "Languages",
-      "logout": "Log Out",
-      "settings": "Settings"
-    }
-  },
-  "upload": {
-    "fail": "Upload fail",
-    "success": "Upload successful"
-  },
-  "users": {
-    "actions": {
-      "edit": "Edit"
+    "delete": {
+      "title": ""
     },
     "edit": {
-      "actions": {
-        "cancel": "Cancel",
-        "delete": {
-          "confirm": "Are you sure to remove this user?",
-          "no": "No",
-          "ok": "Okay"
-        },
-        "detail": "More Detail",
-        "update": "Update"
-      },
-      "address_detail": "Adress",
-      "district": "District",
-      "modal": {
-        "title": "Update User"
-      },
-      "name": "Name",
-      "phone": "Phone Number",
-      "province": "Province",
-      "rule": {
-        "button": "Update Permission",
-        "label": "Roles"
-      },
-      "upload": {
-        "guide": "To upload a banner/avatar image, click on the respective location"
-      },
-      "ward": "Ward"
+      "title": ""
+    }
+  },
+  "button": {
+    "addNew": "",
+    "cancel": "",
+    "delete": "",
+    "detail": "",
+    "edit": "",
+    "no": "",
+    "search": "",
+    "update": "",
+    "upload": "",
+    "yes": ""
+  },
+  "counpon": {
+    "percent": ""
+  },
+  "coupon": {
+    "code": "",
+    "createdAt": "",
+    "expiryDate": "",
+    "label": "",
+    "limit": "",
+    "percent": "",
+    "placeholder": {
+      "expiry_date": ""
     },
-    "search": {
-      "cancel": "Cancel",
-      "input": "Enter keyword...",
-      "search": "Search"
+    "use": ""
+  },
+  "cropper": {
+    "guide": {
+      "tab": ""
     },
+    "title": ""
+  },
+  "goal": {
+    "name": ""
+  },
+  "input": {
+    "keyword": ""
+  },
+  "payment": {
+    "billImage": "",
+    "createdAt": "",
+    "money": "",
+    "note": "",
+    "payment": "",
+    "price": "",
+    "referral": "",
+    "status": {
+      "all": "All",
+      "confirmed": "Purchased",
+      "onBuy": "On Buy",
+      "title": "",
+      "trial": "Trial",
+      "wanted": "Wish"
+    }
+  },
+  "table": {
+    "action": {
+      "title": ""
+    }
+  },
+  "user": {
+    "address": {
+      "detail": "",
+      "district": "",
+      "province": "",
+      "ward": ""
+    },
+    "createdAt": "",
+    "phone": "",
+    "role": ""
+  },
+  "users": {
+    "label": "",
     "tab": {
-      "list": "All",
-      "supporters": "Supporters"
-    },
-    "table": {
-      "createdAt": "JOIN DATE",
-      "email": "EMAIL ADDESS",
-      "name": "NAME",
-      "role": "ROLE"
-    },
-    "title": "Users"
+      "all": "",
+      "supporters": ""
+    }
   }
 }

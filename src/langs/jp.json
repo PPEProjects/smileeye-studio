@@ -1,209 +1,92 @@
 {
+  "actions": {
+    "accept": {
+      "title": ""
+    },
+    "delete": {
+      "title": ""
+    },
+    "edit": {
+      "title": ""
+    }
+  },
+  "button": {
+    "addNew": "",
+    "cancel": "",
+    "delete": "",
+    "detail": "",
+    "edit": "",
+    "no": "",
+    "search": "",
+    "update": "",
+    "upload": "",
+    "yes": ""
+  },
+  "counpon": {
+    "percent": ""
+  },
   "coupon": {
-    "action": {
-      "add": ""
+    "code": "",
+    "createdAt": "",
+    "expiryDate": "",
+    "label": "",
+    "limit": "",
+    "percent": "",
+    "placeholder": {
+      "expiry_date": ""
     },
-    "actions": {
-      "delete": {
-        "no": "",
-        "yes": ""
-      },
-      "destroy": {
-        "title": ""
-      }
-    },
-    "form": {
-      "button": {
-        "add": ""
-      },
-      "code": {
-        "label": "",
-        "validate": ""
-      },
-      "expiry": {
-        "label": ""
-      },
-      "limit": {
-        "label": ""
-      },
-      "percent": {
-        "label": ""
-      }
-    },
-    "notify": {
-      "created": ""
-    },
-    "table": {
-      "actions": "",
-      "code": "",
-      "createdAt": "",
-      "expiryDate": "",
-      "percent": "",
-      "use": ""
+    "use": ""
+  },
+  "cropper": {
+    "guide": {
+      "tab": ""
     },
     "title": ""
   },
-  "cropper": {
-    "cancel": "",
-    "title": "",
-    "upload": ""
+  "goal": {
+    "name": ""
   },
-  "form": {
-    "validate": {
-      "min": "",
-      "required": ""
-    }
-  },
-  "goals": {
-    "action": {
-      "delete": {
-        "title": ""
-      }
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "",
-          "detail": ""
-        }
-      }
-    }
+  "input": {
+    "keyword": ""
   },
   "payment": {
-    "action": {
-      "accept": {
-        "no": "",
-        "title": "",
-        "yes": ""
-      },
-      "delete": {
-        "no": "",
-        "title": "",
-        "yes": ""
-      }
-    },
-    "detail": {
-      "title": ""
-    },
-    "form": {
-      "upsert": {
-        "actions": {
-          "add": "",
-          "cancel": "",
-          "deleteQuestion": "",
-          "detail": ""
-        },
-        "billImage": "",
-        "coupon": "",
-        "email": "",
-        "goal": "",
-        "money": "",
-        "name": "",
-        "note": "",
-        "noteImage": "",
-        "phone": "",
-        "referral": "",
-        "status": "",
-        "title": "",
-        "value": ""
-      }
-    },
+    "billImage": "",
+    "createdAt": "",
+    "money": "",
+    "note": "",
+    "payment": "",
+    "price": "",
+    "referral": "",
     "status": {
       "all": "",
       "confirmed": "",
       "onBuy": "",
+      "title": "",
       "trial": "",
       "wanted": ""
-    },
-    "table": {
-      "action": "",
-      "billImage": "",
-      "createdAt": "",
-      "money": "",
-      "status": "",
-      "user": {
-        "email": "",
-        "goal": "",
-        "name": "",
-        "phone": ""
-      }
-    },
-    "title": ""
-  },
-  "settings": {
-    "language": {
-      "guide": ""
-    },
-    "title": ""
-  },
-  "sidebar": {
-    "config": "",
-    "coupon": "",
-    "dashboard": "",
-    "members": {
-      "members": "",
-      "supporters": "",
-      "users": ""
-    },
-    "notify": "",
-    "payment": "",
-    "settings": {
-      "languages": "",
-      "logout": "",
-      "settings": ""
     }
   },
-  "upload": {
-    "fail": "",
-    "success": ""
+  "table": {
+    "action": {
+      "title": ""
+    }
   },
-  "users": {
-    "actions": {
-      "edit": ""
-    },
-    "edit": {
-      "actions": {
-        "cancel": "",
-        "delete": {
-          "confirm": "",
-          "no": "",
-          "ok": ""
-        },
-        "detail": "",
-        "update": ""
-      },
-      "address_detail": "",
+  "user": {
+    "address": {
+      "detail": "",
       "district": "",
-      "modal": {
-        "title": ""
-      },
-      "name": "",
-      "phone": "",
       "province": "",
-      "rule": {
-        "button": "",
-        "label": ""
-      },
-      "upload": {
-        "guide": ""
-      },
       "ward": ""
     },
-    "search": {
-      "cancel": "",
-      "input": "",
-      "search": ""
-    },
+    "createdAt": "",
+    "phone": "",
+    "role": ""
+  },
+  "users": {
+    "label": "",
     "tab": {
-      "list": "",
+      "all": "",
       "supporters": ""
-    },
-    "table": {
-      "createdAt": "",
-      "email": "",
-      "name": "",
-      "role": ""
-    },
-    "title": ""
+    }
   }
 }

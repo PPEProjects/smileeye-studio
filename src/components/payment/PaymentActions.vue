@@ -1,10 +1,10 @@
 <template>
 
   <a-popconfirm
-    :title="t('payment.action.accept.title')"
+    :title="t('actions.accept.title', { name: t('payment.payment') })"
     placement="topLeft"
-    :ok-text="t('payment.action.accept.yes')"
-    :cancel-text="t('payment.action.accept.no')"
+    :ok-text="t('button.yes')"
+    :cancel-text="t('button.no')"
     @confirm='emit("confirm")'
   >
     <a-button type="primary" size="small">
@@ -22,10 +22,10 @@
   </a-button>
 
   <a-popconfirm
-    :title="t('payment.action.delete.title')"
+    :title="t('actions.delete.title', { name: t('payment.payment') })"
     placement="topLeft"
-    :ok-text="t('payment.action.delete.yes')"
-    :cancel-text="t('payment.action.delete.no')"
+    :ok-text="t('button.yes')"
+    :cancel-text="t('button.no')"
     @confirm="emit('delete')"
   >
     <a-button type="danger" size="small" class="ml-2">

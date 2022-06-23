@@ -2,7 +2,7 @@
   <modal-base
     ref="modal"
     event="updateUserModal"
-    :title="t('users.edit.modal.title')"
+    :title="t('actions.edit.title', { name: t('users.label') })"
     :max-width="1000"
     @init="buildForm"
   >
@@ -35,18 +35,18 @@
 
           <div class="h-7 flex justify-end items-start">
             <p class="text-xs text-gray-400 relative top-1.5">
-              {{ t('users.edit.upload.guide') }}
+              {{ t('cropper.guide.tab') }}
             </p>
           </div>
 
           <a-form-item
             name="name"
-            :label="t('users.edit.name')"
+            :label="t('user.name')"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('users.edit.name')
+                  field: t('user.name')
                 })
               }
             ]"
@@ -61,7 +61,7 @@
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: 'Email'
+                  field: t('user.email')
                 })
               }
             ]"
@@ -71,12 +71,12 @@
 
           <a-form-item
             name="phone_number"
-            :label="t('users.edit.phone')"
+            :label="t('user.phone')"
             :rules="[
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('users.edit.phone')
+                  field: t('user.phone')
                 })
               }
             ]"
@@ -86,19 +86,13 @@
         </div>
 
         <div class="w-2/5">
-          <a-form-item
-            name="roles"
-            :label="t('users.edit.rule.label')"
-            class="!mb-[15px]"
-          >
-
-            <user-roles-tag :user='formState' />
-
+          <a-form-item name="roles" :label="t('user.role')" class="!mb-[15px]">
+            <user-roles-tag :user="formState" />
           </a-form-item>
 
           <a-form-item
             :name="['current_address', 'province']"
-            :label="t('users.edit.province')"
+            :label="t('user.address.province')"
           >
             <a-select
               v-model:value="formState.current_address.province"
@@ -116,7 +110,7 @@
 
           <a-form-item
             :name="['current_address', 'district']"
-            :label="t('users.edit.district')"
+            :label="t('user.address.district')"
           >
             <a-select
               v-model:value="formState.current_address.district"
@@ -134,7 +128,7 @@
 
           <a-form-item
             :name="['current_address', 'ward']"
-            :label="t('users.edit.ward')"
+            :label="t('user.address.ward')"
           >
             <a-select v-model:value="formState.current_address.ward">
               <a-select-option
@@ -149,7 +143,7 @@
 
           <a-form-item
             :name="['current_address', 'detail']"
-            :label="t('users.edit.address_detail')"
+            :label="t('user.address.detail')"
           >
             <a-input
               v-model:value="formState.current_address.detail"
@@ -162,13 +156,13 @@
       <a-form-item>
         <div class="flex justify-end">
           <a-popconfirm
-            :title="t('users.edit.actions.delete.confirm')"
-            :ok-text="t('users.edit.actions.delete.ok')"
-            :cancel-text="t('users.edit.actions.delete.no')"
+            :title="t('actions.delete.title', { name: formState.name })"
+            :ok-text="t('button.yes')"
+            :cancel-text="t('button.no')"
             :disabled="loading"
           >
             <a-button type="danger">
-              {{ t('users.edit.actions.cancel') }}
+              {{ t('button.delete') }}
             </a-button>
           </a-popconfirm>
 
@@ -179,7 +173,7 @@
             :disabled="loading"
             @click="useFile.open()"
           >
-            {{ t('users.edit.actions.detail') }}
+            {{ t('button.detail') }}
           </a-button>
 
           <a-button
@@ -188,7 +182,7 @@
             class="ml-4"
             :loading="loading"
           >
-            {{ t('users.edit.actions.update') }}
+            {{ t('button.update') }}
           </a-button>
         </div>
       </a-form-item>
@@ -197,8 +191,8 @@
 
   <modal-base
     v-model:visible="cropperState.show"
-    :event="t('cropper.title')"
-    title="CropImage"
+    event="cropImageModal"
+    :title="t('cropper.title')"
   >
     <image-cropper ref="cropperRef" />
 
@@ -210,7 +204,7 @@
           :disabled="uploadingImage"
           @click="cropperState.show = false"
         >
-          {{ t('cropper.cancel') }}
+          {{ t('button.cancel') }}
         </a-button>
         <a-button
           type="primary"
@@ -218,7 +212,7 @@
           :loading="uploadingImage"
           @click="uploadImageHandle"
         >
-          {{ t('cropper.upload') }}
+          {{ t('button.upload') }}
         </a-button>
       </div>
     </template>
