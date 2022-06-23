@@ -239,7 +239,7 @@ let initState = {
     price: ''
   },
   referral: '',
-  status: PaymentStatusEnum.TRIAL,
+  status: STATUS.TRIAL,
   type: '',
   user_info: {
     name: '',

@@ -1,38 +1,14 @@
 <template>
 
   <coupon-table />
-
   <coupon-upsert-modal />
 
-  <teleport-view to="#actions">
-    <a-button
-      type="primary"
-      size="large"
-      class="uppercase"
-      @click="emitter.emit('upsertCoupon', {})"
-    >
-      <template #icon>
-        <plus-outlined />
-      </template>
-      {{ t('button.addNew') }}
-    </a-button>
-  </teleport-view>
 </template>
 
 <script lang="ts" setup>
-import { PlusOutlined } from '@ant-design/icons-vue'
-import { useLangs } from '@composables/useLangs'
 import CouponTable from '@components/coupon/CouponTable.vue'
-import { IFormCouponUpsert } from '@components/coupon/types'
 import CouponUpsertModal from '@components/coupon/CouponUpsertModal.vue'
 import { useCouponStore } from '@store/coupon'
-import { useEmitter } from '@nguyenshort/vue3-mitt'
-const { t } = useLangs()
-
-const emitter = useEmitter<{
-  upsertCoupon: IFormCouponUpsert | object
-}>()
-
 // init store
 useCouponStore()
 </script>
