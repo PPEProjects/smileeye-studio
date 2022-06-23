@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config({})
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
@@ -48,7 +51,7 @@ export default defineConfig({
       failOnError: true,
       failOnWarning: true
     }),
-    removeConsole()
+    process.env.NODE_ENV === 'production' ? removeConsole() : undefined
   ],
   css: {
     preprocessorOptions: {

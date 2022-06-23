@@ -70,7 +70,7 @@
           </div>
         </div>
       </form>
-      <div class="text-xs text-center mt-5 text-gray-400">
+      <div class="text-xs text-center mt-8 text-gray-400">
         <span class="mr-1">© 2021 Comix</span>
         <i>|</i>
         <span class="mx-1">Terms of Service</span>
