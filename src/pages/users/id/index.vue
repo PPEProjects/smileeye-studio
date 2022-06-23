@@ -56,6 +56,7 @@ const UserInfo = defineAsyncComponent(() => import('@components/user/UserInfo.vu
 const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
 const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
 const UserGoalTab = defineAsyncComponent(() => import('@components/user/UserGoalTab.vue'))
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 
 const route = useRoute()
 
