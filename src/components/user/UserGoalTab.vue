@@ -45,6 +45,11 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue'
+
+const TabsAnimation = defineAsyncComponent(() => import('@components/includes/TabsAnimation.vue'))
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
+
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>
