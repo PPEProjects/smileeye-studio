@@ -25,10 +25,10 @@
         </router-link>
 
         <router-link
-          to="/payment?status=wanted"
+          to="/payment?status=in_need"
           class="block ml-3 user-tab px-2"
           :class='{
-            "_active": $route.query.status === "wanted"
+            "_active": $route.query.status === "in_need"
           }'
         >
           {{ t('payment.status.wanted') }}

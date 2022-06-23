@@ -62,7 +62,7 @@
         >
           {{ t('payment.status.confirmed') }}
         </a-tag>
-        <a-tag v-else-if="record.status === STATUS.WANTED" color="#9c27b0">
+        <a-tag v-else-if="record.status === STATUS.IN_NEED" color="#9c27b0">
           {{ t('payment.status.wanted') }}
         </a-tag>
       </template>
@@ -72,7 +72,7 @@
       </template>
 
       <template v-else-if="column.key === 'action'">
-        <div v-if="record.status === STATUS.WANTED">--</div>
+        <div v-if="record.status === STATUS.IN_NEED">--</div>
 
         <payment-actions
           v-else
