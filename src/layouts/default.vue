@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, watch } from 'vue'
+import { defineAsyncComponent, nextTick, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import SideBar from '@components/layout/SideBar.vue'
@@ -78,7 +78,8 @@ import {
   SubToastVariables
 } from '#notify/subscriptions/__generated__/SubToast'
 import { useAnime } from '@composables/useAnime'
-import UpdateLanguageModal from '@components/includes/UpdateLanguageModal.vue'
+
+const UpdateLanguageModal = defineAsyncComponent(() => import('@components/includes/UpdateLanguageModal.vue'))
 
 const { t } = useI18n()
 

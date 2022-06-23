@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts" setup>
-import AuthModal from '../components/modal/AuthModal.vue'
+import { defineAsyncComponent } from 'vue'
+
+const AuthModal = defineAsyncComponent(() => import('@components/modal/AuthModal.vue'))
 
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@store/user'

@@ -6,8 +6,10 @@
 </template>
 
 <script lang="ts" setup>
-import CouponTable from '@components/coupon/CouponTable.vue'
-import CouponUpsertModal from '@components/coupon/CouponUpsertModal.vue'
+import { defineAsyncComponent } from 'vue'
+
+const CouponTable = defineAsyncComponent(() => import('@components/coupon/CouponTable.vue'))
+const CouponUpsertModal = defineAsyncComponent(() => import('@components/coupon/CouponUpsertModal.vue'))
 import { useCouponStore } from '@store/coupon'
 // init store
 useCouponStore()
