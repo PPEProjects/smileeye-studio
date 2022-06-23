@@ -68,6 +68,8 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent, ref } from 'vue'
+
 import { ref as dbRef, onValue } from 'firebase/database'
 import { useFireRTDB } from '@composables/useFirebase'
 import {
@@ -76,11 +78,11 @@ import {
   DeleteOutlined
 } from '@ant-design/icons-vue'
 
+const PostVideo = defineAsyncComponent(() => import('@components/bloc/PostVideo.vue'))
+const PostImage = defineAsyncComponent(() => import('@components/bloc/PostImage.vue'))
+
 import { PostsByGoalRoot_list_japanese_posts_by_goal_root } from '#smileeye/queries/__generated__/PostsByGoalRoot'
 import { useDayjs } from '@composables/useDayjs'
-import { ref } from 'vue'
-import PostVideo from '@components/bloc/PostVideo.vue'
-import PostImage from '@components/bloc/PostImage.vue'
 import { useMutation } from '@vue/apollo-composable'
 import {
   DeletePosts,

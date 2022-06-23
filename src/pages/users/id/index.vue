@@ -39,6 +39,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed, defineAsyncComponent } from 'vue'
+
 import { useRoute } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 import { EditOutlined } from '@ant-design/icons-vue'
@@ -48,13 +50,12 @@ import {
   DetailUserVariables
 } from '#smileeye/queries/__generated__/DetailUser'
 import { DETAIL_USER } from '#smileeye/queries/user.query'
-import TeleportView from '@components/layout/TeleportView.vue'
-import { computed } from 'vue'
-import UserPlaceholder from '@components/user/UserPlaceholder.vue'
-import UserInfo from '@components/user/UserInfo.vue'
-import EditRuleModal from '@components/users/EditRuleModal.vue'
-import UpdateUserModal from '@components/users/UpdateUserModal.vue'
-import UserGoalTab from '@components/user/UserGoalTab.vue'
+
+const UserPlaceholder = defineAsyncComponent(() => import('@components/user/UserPlaceholder.vue'))
+const UserInfo = defineAsyncComponent(() => import('@components/user/UserInfo.vue'))
+const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
+const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
+const UserGoalTab = defineAsyncComponent(() => import('@components/user/UserGoalTab.vue'))
 
 const route = useRoute()
 

@@ -44,10 +44,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue'
 
-import GoalActions from '@components/goals/GoalActions.vue'
 import GoalSettingHeader from '@components/goals/GoalSettingHeader.vue'
+const GoalActions = defineAsyncComponent(() => import('@components/goals/GoalActions.vue'))
+
 import { usePaymentStore } from '@store/payment'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {

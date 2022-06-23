@@ -6,8 +6,10 @@
 </template>
 
 <script lang="ts" setup>
-import GoalTree from '@components/workspace/GoalTree.vue'
+const GoalTree = defineAsyncComponent(() => import('@components/workspace/GoalTree.vue'))
+
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
+import { defineAsyncComponent } from 'vue'
 
 defineProps<{
   user: DetailUser_detail_user

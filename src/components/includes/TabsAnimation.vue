@@ -118,6 +118,14 @@ onMounted(() => nextTick(() => {
 }))
 </script>
 
+<script lang='ts'>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'TabsAnimation',
+})
+</script>
+
 
 <style>
 .__tab-animation > *:not(.tab-anime) {

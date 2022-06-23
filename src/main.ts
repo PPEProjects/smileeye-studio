@@ -28,7 +28,6 @@ const pinia = createPinia()
 import dayjs from './plugins/dayjs'
 
 // Mounted Teleport
-import teleport from './plugins/teleport'
 import cropper from './plugins/cropper'
 // import draggable from "./plugins/draggable"
 
@@ -46,7 +45,7 @@ import i18n from '@plugins/i18n'
 import VueMitter from '@nguyenshort/vue3-mitt'
 
 // CDN Plugin
-import cdn from '@plugins/ultils'
+import ultils from '@plugins/ultils'
 import VueLoadingIndicator from '@nguyenshort/vue3-loading-indicator'
 import firebase from '@plugins/firebase'
 
@@ -60,13 +59,12 @@ app.use(VueLoadingIndicator, {
   stepGap: 100
 })
 
-app.use(cdn)
+app.use(ultils)
 app.use(VueMitter)
 app.use(Antd)
 app.use(animejs)
 app.use(VueLottie)
 app.use(VueCookies)
-app.use(teleport)
 app.use(dayjs)
 app.use(cropper)
 app.use(infinite)

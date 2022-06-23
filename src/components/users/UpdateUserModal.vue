@@ -228,8 +228,11 @@ import {
   // @ts-ignore
 } from '@do-kevin/pc-vn'
 
-import ModalBase from '@components/modal/ModalBase.vue'
-import { computed, reactive, ref } from 'vue'
+import { computed, defineAsyncComponent, reactive, ref } from 'vue'
+
+const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
+const ImageCropper = defineAsyncComponent(() => import('@components/includes/ImageCropper.vue'))
+
 import { District, Province, Ward } from '@components/users/types'
 import { useMutation } from '@vue/apollo-composable'
 import { UPDATE_USER_INFO } from '#smileeye/mutations/user.mutation'
@@ -237,7 +240,6 @@ import {
   UpdateUserInfo,
   UpdateUserInfoVariables
 } from '#smileeye/mutations/__generated__/UpdateUserInfo'
-import ImageCropper from '@components/includes/ImageCropper.vue'
 import { useFileSystemAccess } from '@vueuse/core'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useI18n } from 'vue-i18n'

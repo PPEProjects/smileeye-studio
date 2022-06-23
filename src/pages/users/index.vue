@@ -2,7 +2,6 @@
   <teleport-view to="#title">
     <div class="h-[70px] flex items-center">
       {{ t('users.label') }}
-
       <tabs-animation
         active="._active"
         tag="div"
@@ -47,7 +46,6 @@ import { defineAsyncComponent } from 'vue'
 const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
 const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
 const UsersTable = defineAsyncComponent(() => import('@components/users/UsersTable.vue'))
-const TabsAnimation = defineAsyncComponent(() => import('@components/includes/TabsAnimation.vue'))
 
 const { t } = useI18n()
 </script>

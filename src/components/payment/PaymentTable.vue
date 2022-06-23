@@ -94,11 +94,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
 
-import PaymentActions from '@components/payment/PaymentActions.vue'
-import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
-import TableSettingHeader from '@components/includes/TableSettingHeader.vue'
+const PaymentActions = defineAsyncComponent(() => import('@components/payment/PaymentActions.vue'))
+const PaymentExpanded = defineAsyncComponent(() => import('@components/payment/PaymentExpanded.vue'))
+const TableSettingHeader = defineAsyncComponent(() => import('@components/includes/TableSettingHeader.vue'))
+
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   SortPayments,

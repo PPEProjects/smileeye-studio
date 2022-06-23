@@ -58,10 +58,14 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, defineAsyncComponent, reactive, ref } from 'vue'
+
+const SearchHeaderTable = defineAsyncComponent(() => import('@components/includes/SearchHeaderTable.vue'))
+const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
+
 import { EditOutlined } from '@ant-design/icons-vue'
 import { userColumnsBuilder } from '@components/users/config'
 import { useDayjs } from '@composables/useDayjs'
-import { computed, reactive, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import {
   ListUser,
@@ -69,10 +73,8 @@ import {
   ListUserVariables
 } from '#smileeye/queries/__generated__/ListUser'
 import { LIST_USERS } from '#smileeye/queries/user.query'
-import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useRoute } from 'vue-router'
 import { SortOrder } from '#schema/smileeyeTypes'
-import SearchHeaderTable from '@components/includes/SearchHeaderTable.vue'
 import { useI18n } from 'vue-i18n'
 
 const route = useRoute()

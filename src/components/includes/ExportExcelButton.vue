@@ -76,10 +76,10 @@
 
 <script lang="ts" setup>
 import { FileExcelOutlined } from '@ant-design/icons-vue'
-import { computed, reactive, ref } from 'vue'
+import { computed, defineAsyncComponent, reactive, ref } from 'vue'
 import type { Dayjs } from 'dayjs'
+const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
 
-import ModalBase from '@components/modal/ModalBase.vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const openModal = ref(false)

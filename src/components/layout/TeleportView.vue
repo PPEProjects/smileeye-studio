@@ -28,3 +28,11 @@ const setupView = () => {
 onMounted(() => nextTick(() => setupView()))
 
 </script>
+
+<script lang='ts'>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'TeleportView',
+})
+</script>

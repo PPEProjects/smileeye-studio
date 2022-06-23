@@ -214,8 +214,10 @@
 </template>
 
 <script lang="ts" setup>
-import ModalBase from '@components/modal/ModalBase.vue'
-import { reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref } from 'vue'
+
+const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
+
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
 import { STATUS } from '#schema/smileeyeTypes'
 import { useMutation } from '@vue/apollo-composable'

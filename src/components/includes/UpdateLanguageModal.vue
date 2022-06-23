@@ -24,8 +24,9 @@
 </template>
 
 <script lang='ts' setup>
-import ModalBase from '../modal/ModalBase.vue'
-import { reactive } from 'vue'
+const ModalBase = defineAsyncComponent(() => import('../modal/ModalBase.vue'))
+
+import { defineAsyncComponent, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t, locale } = useI18n()

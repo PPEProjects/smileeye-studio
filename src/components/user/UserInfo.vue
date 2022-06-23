@@ -63,8 +63,11 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue'
+const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
+
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
-import UserRolesTag from '@components/user/UserRolesTag.vue'
+
 import {
   PhoneOutlined,
   MailOutlined,
