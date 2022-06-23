@@ -68,14 +68,14 @@
 </template>
 
 <script lang="ts" setup>
-import PaymentTable from '@components/payment/PaymentTable.vue'
-import UpsertPaymentModal from '@components/payment/UpsertPaymentModal.vue'
+import { defineAsyncComponent, reactive } from 'vue'
 
-import TabsAnimation from '@components/includes/TabsAnimation.vue'
-import TeleportView from '@components/layout/TeleportView.vue'
+const PaymentTable = defineAsyncComponent(() => import('@components/payment/PaymentTable.vue'))
+const UpsertPaymentModal = defineAsyncComponent(() => import('@components/payment/UpsertPaymentModal.vue'))
+const TabsAnimation = defineAsyncComponent(() => import('@components/includes/TabsAnimation.vue'))
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
+const ExportExcelButton = defineAsyncComponent(() => import('@components/includes/ExportExcelButton.vue'))
 
-import ExportExcelButton from '@components/includes/ExportExcelButton.vue'
-import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 

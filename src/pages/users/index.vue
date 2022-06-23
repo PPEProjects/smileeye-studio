@@ -1,18 +1,4 @@
 <template>
-<!--  <teleport-view to="#actions">
-    <a-button
-      type="primary"
-      size="large"
-      class="uppercase"
-      @click="$emitter.emit('upsertPaymentModal')"
-    >
-      <template #icon>
-        <plus-outlined />
-      </template>
-      add user
-    </a-button>
-  </teleport-view>-->
-
   <teleport-view to="#title">
     <div class="h-[70px] flex items-center">
       {{ t('users.label') }}
@@ -55,11 +41,13 @@
 </template>
 
 <script lang="ts" setup>
-import UpdateUserModal from '@components/users/UpdateUserModal.vue'
-import EditRuleModal from '@components/users/EditRuleModal.vue'
 import UsersTable from '@components/users/UsersTable.vue'
 import TabsAnimation from '@components/includes/TabsAnimation.vue'
 import { useI18n } from 'vue-i18n'
+import { defineAsyncComponent } from 'vue'
+
+const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
+const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
 
 const { t } = useI18n()
 </script>

@@ -84,9 +84,11 @@
 </template>
 
 <script setup lang="ts">
-import ModalBase from '@components/modal/ModalBase.vue'
-import { reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref } from 'vue'
 import { useMutation } from '@vue/apollo-composable'
+
+const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
+
 import {
   UpsertCoupon,
   UpsertCouponVariables
