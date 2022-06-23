@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "preview": "vite preview",
     "apollo:codegen": "npx apollo codegen:generate --localSchemaFile=schema.graphql --target=typescript --tagName=gql --includes=./src/apollo/smileeye/**/*.ts --globalTypesFile=__generated__/smileeyeTypes.ts",
     "apollo:codegen:notify": "npx apollo codegen:generate --localSchemaFile=notify@current.graphql --target=typescript --tagName=gql --includes=./src/apollo/notify/**/*.ts --globalTypesFile=__generated__/notifyTypes.ts",
