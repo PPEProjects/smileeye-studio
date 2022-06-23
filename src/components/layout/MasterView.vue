@@ -1,5 +1,7 @@
 <template>
-  <component :is="layout" :key="layout" />
+  <div>
+    <component :is="layout" :key="layout" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,7 +13,7 @@ export default defineComponent({
   name: 'MasterView',
   components: {
     default: defineAsyncComponent(() => import('@layouts/default.vue')),
-    blank: defineAsyncComponent(() => import('@layouts/blank.vue')),
+    blank: defineAsyncComponent(() => import('@layouts/blank.vue'))
   },
   async setup() {
     const cookies = inject<VueCookies>('$cookies')
@@ -34,7 +36,7 @@ export default defineComponent({
   },
   computed: {
     layout() {
-      return this.$route.meta.layout || 'blank'
+      return this.$route.meta.layout || 'default'
     }
   },
   mounted() {

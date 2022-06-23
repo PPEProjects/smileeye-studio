@@ -7,13 +7,15 @@
 </template>
 
 <script lang="ts">
-import { defineAsyncComponent, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
+import IconView from '@components/layout/IconView.vue'
+import MasterView from '@components/layout/MasterView.vue'
 
 export default defineComponent({
   name: 'MainApplication',
   components: {
-    MasterView: defineAsyncComponent(() => import('@components/layout/MasterView.vue')),
-    IconView: defineAsyncComponent(() => import('@components/layout/IconView.vue')),
+    MasterView,
+    IconView
   }
 })
 </script>
