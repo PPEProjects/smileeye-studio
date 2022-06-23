@@ -3,7 +3,7 @@ import App from './App.vue'
 import './assets/css/tailwind.css'
 import './assets/less/ant.less'
 
-import Antd from 'ant-design-vue'
+const Antd = () => import('ant-design-vue')
 
 // Cookie
 import VueCookies from 'vue-cookies'
