@@ -47,8 +47,8 @@ export default defineConfig({
       emitWarning: true,
       failOnError: true,
       failOnWarning: true
-    })
-    // removeConsole()
+    }),
+    removeConsole()
   ],
   css: {
     preprocessorOptions: {
