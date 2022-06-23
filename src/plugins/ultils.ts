@@ -1,4 +1,4 @@
-import { App, defineAsyncComponent } from 'vue'
+import { App } from 'vue'
 
 //CDN
 enum CDNLocation {
@@ -39,22 +39,6 @@ const plugin = {
   install(app: App) {
     app.config.globalProperties.$cdn = $cdn
     app.provide('$cdn', $cdn)
-
-    // Global component
-    app.component(
-      'TeleportView',
-      defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
-    )
-    app.component(
-      'ModalBase',
-      defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
-    )
-    app.component(
-      'TabsAnimation',
-      defineAsyncComponent(
-        () => import('@components/includes/TabsAnimation.vue')
-      )
-    )
   }
 }
 

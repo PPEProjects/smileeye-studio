@@ -43,6 +43,7 @@
 import { useI18n } from 'vue-i18n'
 import { defineAsyncComponent } from 'vue'
 
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
 const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
 const UsersTable = defineAsyncComponent(() => import('@components/users/UsersTable.vue'))

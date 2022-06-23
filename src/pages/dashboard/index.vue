@@ -12,11 +12,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineAsyncComponent, defineComponent } from 'vue'
 import SpeakView from '@components/includes/SpeakView.vue'
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 
 export default defineComponent({
   name: 'DashboardPage',
-  components: { SpeakView }
+  components: { SpeakView, TeleportView }
 })
 </script>

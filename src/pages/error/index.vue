@@ -20,7 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue"
+import { defineAsyncComponent, onMounted, ref } from 'vue'
+
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 
 const show = ref(false)
 
