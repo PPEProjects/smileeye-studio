@@ -128,7 +128,7 @@ const columns = [
   }
 ]
 
-const { result, loading, refetch } = useQuery<SortCoupons, SortCouponsVariables>(
+const { result, loading } = useQuery<SortCoupons, SortCouponsVariables>(
   SORT_COUPONS,
   {
     first: 7,
@@ -162,11 +162,11 @@ const emitter = useEmitter<{
 
 const changePage = ($event: any) => {
   couponStore.setPage($event.current)
-  refetch({
+  /*refetch({
     first: 7,
     page: couponStore.page,
     expiry: FilterExpiry.all
-  })
+  })*/
 }
 
 </script>
