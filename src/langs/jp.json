@@ -24,9 +24,6 @@
     "upload": "",
     "yes": ""
   },
-  "counpon": {
-    "percent": ""
-  },
   "coupon": {
     "code": "",
     "createdAt": "",
@@ -51,6 +48,12 @@
     "range": "",
     "startDay": ""
   },
+  "form": {
+    "validate": {
+      "min": "{ field } phải hơn { min }",
+      "required": "{ field } là bắt buộc"
+    }
+  },
   "goal": {
     "name": ""
   },
@@ -72,7 +75,31 @@
       "title": "",
       "trial": "",
       "wanted": ""
+    },
+    "title": "Hệ Thống Thanh Toán"
+  },
+  "sidebar": {
+    "config": "Thiết Lập",
+    "coupon": "Mã Giảm Giá",
+    "dashboard": "Tổng Quan",
+    "members": {
+      "members": "Thành Viên",
+      "supporters": "Hỗ Trợ",
+      "users": "Thành Viên"
+    },
+    "notify": "Thông Báo",
+    "payment": "Thanh Toán",
+    "settings": {
+      "languages": "Ngôn Ngữ",
+      "logout": "Đăng Xuất",
+      "settings": "Cài Đặt"
     }
+  },
+  "settings": {
+    "language": {
+      "guide": "Nhấp để thay đổi ngôn ngữ"
+    },
+    "title": "Thiết Lập"
   },
   "table": {
     "action": {
@@ -87,6 +114,8 @@
       "ward": ""
     },
     "createdAt": "",
+    "email": "",
+    "name": "",
     "phone": "",
     "role": ""
   },
