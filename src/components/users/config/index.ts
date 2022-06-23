@@ -1,8 +1,7 @@
-import { useLangs } from '@composables/useLangs'
+import { useI18n } from 'vue-i18n'
 
 export const userColumnsBuilder = () => {
-  const { t } = useLangs()
-
+  const { t } = useI18n()
   return [
     {
       title: t('user.name'),

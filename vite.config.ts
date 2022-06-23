@@ -1,12 +1,8 @@
-import * as dotenv from 'dotenv'
-dotenv.config({})
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 
 import eslint from 'vite-plugin-eslint'
-import removeConsole from 'vite-plugin-remove-console'
 
 // @ts-ignore
 import GrapHQLGenerator from './src/plugins/vite'
@@ -50,8 +46,7 @@ export default defineConfig({
       emitWarning: true,
       failOnError: true,
       failOnWarning: true
-    }),
-    process.env.NODE_ENV === 'production' ? removeConsole() : undefined
+    })
   ],
   css: {
     preprocessorOptions: {

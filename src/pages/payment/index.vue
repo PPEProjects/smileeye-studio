@@ -74,10 +74,10 @@ import UpsertPaymentModal from '@components/payment/UpsertPaymentModal.vue'
 import TabsAnimation from '@components/includes/TabsAnimation.vue'
 import TeleportView from '@components/layout/TeleportView.vue'
 
-import { useLangs } from '@composables/useLangs'
 import ExportExcelButton from '@components/includes/ExportExcelButton.vue'
 import { reactive } from 'vue'
-const { t } = useLangs()
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const columns = reactive([
   {

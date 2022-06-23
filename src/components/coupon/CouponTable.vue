@@ -73,7 +73,6 @@ import {
 } from '#smileeye/queries/__generated__/SortCoupons'
 import { SORT_COUPONS } from '#smileeye/queries/coupon.query'
 import { FilterExpiry } from '#schema/smileeyeTypes'
-import { useLangs } from '@composables/useLangs'
 import { useDayjs } from '@composables/useDayjs'
 import { DELETE_COUPON } from '#smileeye/mutations/coupon.mutation'
 import {
@@ -83,8 +82,9 @@ import {
 import { computed, reactive } from 'vue'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import { useSmileeye } from '#apollo/client/smileeye'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 const dayjs = useDayjs()
 
 // Table setup

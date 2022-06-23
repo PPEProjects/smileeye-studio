@@ -212,11 +212,11 @@ import {
 import { SUB_COUNT_UNREAD } from '#notify/subscriptions/notify.subscription'
 import { ApolloEnum } from '@plugins/apollo'
 import { useSmileeye } from '#apollo/client/smileeye'
-import { useLangs } from '@composables/useLangs'
 import { AnimationItem } from 'lottie-web'
 import party from 'party-js'
 import { useAnime } from '@composables/useAnime'
-const { t } = useLangs()
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const toHome = () => {
   window.location.href = 'https://v2.smileeye.edu.vn/goals'

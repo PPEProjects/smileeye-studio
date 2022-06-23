@@ -29,9 +29,9 @@
 
 <script setup lang="ts">
 import { PlusOutlined } from '@ant-design/icons-vue'
-import { useLangs } from '@composables/useLangs'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 defineProps<{
   user: any

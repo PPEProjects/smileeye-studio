@@ -229,7 +229,6 @@ import {
 } from '@do-kevin/pc-vn'
 
 import ModalBase from '@components/modal/ModalBase.vue'
-import { useLangs } from '@composables/useLangs'
 import { computed, reactive, ref } from 'vue'
 import { District, Province, Ward } from '@components/users/types'
 import { useMutation } from '@vue/apollo-composable'
@@ -241,9 +240,9 @@ import {
 import ImageCropper from '@components/includes/ImageCropper.vue'
 import { useFileSystemAccess } from '@vueuse/core'
 import UserRolesTag from '@components/user/UserRolesTag.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
-
+const { t } = useI18n()
 // modal
 const modal = ref<any>(null)
 

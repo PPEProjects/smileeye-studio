@@ -40,10 +40,10 @@
 // Action
 import { EditOutlined } from '@ant-design/icons-vue'
 
-import { useLangs } from '@composables/useLangs'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 
 defineProps<{

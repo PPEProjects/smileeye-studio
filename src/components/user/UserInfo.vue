@@ -73,7 +73,7 @@ import {
   ShareAltOutlined
 } from '@ant-design/icons-vue'
 import { useDayjs } from '@composables/useDayjs'
-import { useLangs } from '@composables/useLangs'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   user: DetailUser_detail_user
@@ -81,7 +81,7 @@ const props = defineProps<{
 
 const dayjs = useDayjs()
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 const goToProfile = () => {
   window.open(`https://v2.smileeye.edu.vn/profile/${props.user?.id}`, '_blank')

@@ -62,6 +62,7 @@
 
 <script lang="ts" setup>
 import { nextTick, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import SideBar from '@components/layout/SideBar.vue'
 import { useRoute } from 'vue-router'
@@ -76,11 +77,10 @@ import {
   SubToast,
   SubToastVariables
 } from '#notify/subscriptions/__generated__/SubToast'
-import { useLangs } from '@composables/useLangs'
 import { useAnime } from '@composables/useAnime'
 import UpdateLanguageModal from '@components/includes/UpdateLanguageModal.vue'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 
 const isOpen = ref<boolean>(false)

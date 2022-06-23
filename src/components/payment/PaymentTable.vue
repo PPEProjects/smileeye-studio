@@ -96,7 +96,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 
-import { useLangs } from '@composables/useLangs'
 import PaymentActions from '@components/payment/PaymentActions.vue'
 import PaymentExpanded from '@components/payment/PaymentExpanded.vue'
 import TableSettingHeader from '@components/includes/TableSettingHeader.vue'
@@ -124,8 +123,9 @@ import {
 } from '#smileeye/mutations/__generated__/QuickDonePayment'
 import { STATUS } from '#schema/smileeyeTypes'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 const dayjs = useDayjs()
 

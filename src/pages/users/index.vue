@@ -58,10 +58,10 @@
 import UpdateUserModal from '@components/users/UpdateUserModal.vue'
 import EditRuleModal from '@components/users/EditRuleModal.vue'
 import UsersTable from '@components/users/UsersTable.vue'
-import { useLangs } from '@composables/useLangs'
 import TabsAnimation from '@components/includes/TabsAnimation.vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 </script>
 
 <script lang="ts">

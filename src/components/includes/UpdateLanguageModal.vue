@@ -25,10 +25,10 @@
 
 <script lang='ts' setup>
 import ModalBase from '../modal/ModalBase.vue'
-import { useLangs } from '@composables/useLangs'
 import { reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const { t, locale } = useLangs()
+const { t, locale } = useI18n()
 
 const list = reactive([
   {

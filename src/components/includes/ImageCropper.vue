@@ -52,7 +52,7 @@ import { defineComponent, reactive, ref } from 'vue'
 import { VueCropperMethods } from 'vue-cropperjs'
 import { v4 as uuidv4 } from 'uuid'
 import { message } from 'ant-design-vue'
-import { useLangs } from '@composables/useLangs'
+import { useI18n } from 'vue-i18n'
 
 const _configDefault = {
   autoCropArea: 1,
@@ -79,7 +79,7 @@ export default defineComponent({
     const src = ref<string>(props.cropSrc)
     const configData = reactive(props.config)
 
-    const { t } = useLangs()
+    const { t } = useI18n()
     return {
       src,
       configData,

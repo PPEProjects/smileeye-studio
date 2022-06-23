@@ -50,7 +50,6 @@
 
 <script lang="ts" setup>
 import ModalBase from '@components/modal/ModalBase.vue'
-import { useLangs } from '@composables/useLangs'
 import { computed, reactive, ref } from 'vue'
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
@@ -63,8 +62,9 @@ import {
   UpdateRoles,
   UpdateRolesVariables
 } from '#smileeye/mutations/__generated__/UpdateRoles'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 const initState = {
   __typename: '',

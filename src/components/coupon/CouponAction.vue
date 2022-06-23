@@ -25,9 +25,9 @@
 <script lang='ts' setup>
 // Action
 import { EditOutlined } from '@ant-design/icons-vue'
+import { useI18n } from 'vue-i18n'
 
-import { useLangs } from '@composables/useLangs'
-const { t } = useLangs()
+const { t } = useI18n()
 
 // edit
 const emit = defineEmits<{

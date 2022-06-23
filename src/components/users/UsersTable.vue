@@ -61,7 +61,6 @@
 import { EditOutlined } from '@ant-design/icons-vue'
 import { userColumnsBuilder } from '@components/users/config'
 import { useDayjs } from '@composables/useDayjs'
-import { useLangs } from '@composables/useLangs'
 import { computed, reactive, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import {
@@ -74,14 +73,14 @@ import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useRoute } from 'vue-router'
 import { SortOrder } from '#schema/smileeyeTypes'
 import SearchHeaderTable from '@components/includes/SearchHeaderTable.vue'
+import { useI18n } from 'vue-i18n'
 
 const route = useRoute()
 
 const userColumns = userColumnsBuilder()
 
 const dayjs = useDayjs()
-const { t } = useLangs()
-
+const { t } = useI18n()
 // Search options
 const searchOptions = [
   {

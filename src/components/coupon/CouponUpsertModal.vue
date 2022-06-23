@@ -93,13 +93,13 @@ import {
 } from '#smileeye/mutations/__generated__/UpsertCoupon'
 import { UPSERT_COUPON } from '#smileeye/mutations/coupon.mutation'
 import { SortCoupons_sort_coupons_data } from '#smileeye/queries/__generated__/SortCoupons'
-import { useLangs } from '@composables/useLangs'
 import { Dayjs } from 'dayjs'
 import { useDayjs } from '@composables/useDayjs'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import { UpsertCouponInput } from '#schema/smileeyeTypes'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 
 // Modal
 const modal = ref<any>(null)

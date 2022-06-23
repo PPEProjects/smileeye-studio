@@ -76,13 +76,12 @@
 
 <script lang="ts" setup>
 import { FileExcelOutlined } from '@ant-design/icons-vue'
-import { useLangs } from '@composables/useLangs'
 import { computed, reactive, ref } from 'vue'
 import type { Dayjs } from 'dayjs'
 
 import ModalBase from '@components/modal/ModalBase.vue'
-const { t } = useLangs()
-
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const openModal = ref(false)
 
 defineProps<{

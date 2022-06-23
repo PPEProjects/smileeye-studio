@@ -9,9 +9,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useLangs } from '@composables/useLangs'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 import TeleportView from '@components/layout/TeleportView.vue'
-const { t } = useLangs()
 </script>
 
 <script lang="ts">

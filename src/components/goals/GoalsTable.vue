@@ -46,7 +46,6 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-import { useLangs } from '@composables/useLangs'
 import GoalActions from '@components/goals/GoalActions.vue'
 import GoalSettingHeader from '@components/goals/GoalSettingHeader.vue'
 import { usePaymentStore } from '@store/payment'
@@ -73,9 +72,9 @@ import {
   QuickDonePaymentVariables
 } from '#smileeye/mutations/__generated__/QuickDonePayment'
 import { LIST_GOAL_ROOT } from '#smileeye/queries/goal.query'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
-// const dayjs = useDayjs()
+const { t } = useI18n()// const dayjs = useDayjs()
 // Store
 const paymentStore = usePaymentStore()
 const fixColumns = [

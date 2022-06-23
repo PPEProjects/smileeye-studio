@@ -46,6 +46,6 @@
 
 <script lang="ts" setup>
 import TabsAnimation from '@components/includes/TabsAnimation.vue'
-import { useLangs } from '@composables/useLangs'
-const { t } = useLangs()
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 </script>

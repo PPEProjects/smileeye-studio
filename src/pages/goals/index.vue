@@ -29,12 +29,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useLangs } from '@composables/useLangs'
 import GoalsTable from '@components/goals/GoalsTable.vue'
 import TeleportView from "@components/layout/TeleportView.vue";
 import TabsAnimation from "@components/includes/TabsAnimation.vue";
+import { useI18n } from 'vue-i18n'
 
-const { t } = useLangs()
+const { t } = useI18n()
 </script>
 
 <script lang="ts">

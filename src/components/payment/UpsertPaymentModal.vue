@@ -215,7 +215,6 @@
 
 <script lang="ts" setup>
 import ModalBase from '@components/modal/ModalBase.vue'
-import { useLangs } from '@composables/useLangs'
 import { reactive, ref } from 'vue'
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
 import { STATUS } from '#schema/smileeyeTypes'
@@ -225,8 +224,8 @@ import {
   UpsertPaymentVariables
 } from '#smileeye/mutations/__generated__/UpsertPayment'
 import { UPSERT_PAYMENT } from '#smileeye/mutations/payment.mutation'
-const { t } = useLangs()
-
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 const modal = ref<any>(null)
 
 let initState = {
