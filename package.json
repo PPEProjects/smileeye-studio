@@ -78,6 +78,7 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
     "vite-plugin-eslint": "^1.6.1",
+    "vite-plugin-remove-console": "^1.0.0",
     "vue-tsc": "^0.34.7"
   }
 }

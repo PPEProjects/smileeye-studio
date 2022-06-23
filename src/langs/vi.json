@@ -12,10 +12,12 @@
   },
   "button": {
     "addNew": "Thêm Mới",
+    "addRole": "Thêm Quyền",
     "cancel": "Huỷ Bỏ",
     "delete": "Xoá",
     "detail": "Thông Tin",
     "edit": "Sửa",
+    "export": "Xuất File",
     "no": "Không",
     "search": "Tìm Kiếm",
     "update": "Cập Nhật",
@@ -42,6 +44,12 @@
       "tab": "Nhấp vào vị trị tương ứng để tải ảnh lên"
     },
     "title": "Di Chuyển Và Cắt Hình"
+  },
+  "export": {
+    "endDay": "Ngày kết thúc",
+    "fields": "Các Cột",
+    "range": "Phạm Vi",
+    "startDay": "Ngày bắt đầu"
   },
   "form": {
     "validate": {

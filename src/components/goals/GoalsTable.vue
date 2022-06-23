@@ -55,9 +55,9 @@ import {
   SortPayments,
   SortPaymentsVariables
 } from '#smileeye/queries/__generated__/SortPayments'
-import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
+import { SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import usePick from '@composables/usePick'
-import { useDayjs } from '@composables/useDayjs'
+//import { useDayjs } from '@composables/useDayjs'
 import {
   DELETE_PAYMENT,
   QUICK_DONE_PAYMENT
@@ -75,7 +75,7 @@ import {
 import { LIST_GOAL_ROOT } from '#smileeye/queries/goal.query'
 
 const { t } = useLangs()
-const dayjs = useDayjs()
+// const dayjs = useDayjs()
 // Store
 const paymentStore = usePaymentStore()
 const fixColumns = [

@@ -23,7 +23,7 @@
           href="javascript:void(0)"
           class="font-medium ml-2"
         >
-          {{ record.user_info.name }}
+          {{ record.user_info?.name }}
         </router-link>
       </template>
 
@@ -32,11 +32,11 @@
       </template>
 
       <template v-if="column.key === 'phone'">
-        <span>{{ record.user_info.phone_number }}</span>
+        <span>{{ record.user_info?.phone_number }}</span>
       </template>
 
       <template v-if="column.key === 'goal'">
-        <span>{{ record.goal.name }}</span>
+        <span>{{ record.goal?.name || '-' }}</span>
       </template>
 
       <template v-else-if="column.key === 'billImage'">
@@ -129,7 +129,7 @@ const { t } = useLangs()
 
 const dayjs = useDayjs()
 
-const selectColumns = ref<number[]>([])
+const selectColumns = ref<number[]>([0])
 
 const rawColumns = reactive([
   {
@@ -206,7 +206,7 @@ const queryVariables = reactive({
   status: ((route.query.status as string) || '').toUpperCase()
 })
 // Query hook
-const { result, refetch, loading } = useQuery<
+const { result, loading } = useQuery<
   SortPayments,
   SortPaymentsVariables
 >(SORT_PAYMENTS, queryVariables)

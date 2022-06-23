@@ -59,6 +59,10 @@
     </div>
   </teleport-view>
 
+  <teleport-view to='#actions'>
+    <export-excel-button :columns='columns' />
+  </teleport-view>
+
   <payment-table :key='$route.fullPath' />
   <upsert-payment-modal />
 </template>
@@ -71,5 +75,43 @@ import TabsAnimation from '@components/includes/TabsAnimation.vue'
 import TeleportView from '@components/layout/TeleportView.vue'
 
 import { useLangs } from '@composables/useLangs'
+import ExportExcelButton from '@components/includes/ExportExcelButton.vue'
+import { reactive } from 'vue'
 const { t } = useLangs()
+
+const columns = reactive([
+  {
+    label: t('user.name'),
+    value: 'name'
+  },
+  {
+    label: t('user.email'),
+    value: 'email'
+  },
+  {
+    label: t('user.phone'),
+    value: 'user_phone'
+  },
+  {
+    label: t('goal.name'),
+    value: 'goal'
+  },
+  {
+    label: t('payment.price'),
+    value: 'price'
+  },
+  {
+    label: t('payment.billImage'),
+    value: 'billImage'
+  },
+  {
+    label: t('payment.status.title'),
+    value: 'status'
+  },
+  {
+    label: t('payment.createdAt'),
+    value: 'created_at'
+  }
+])
+
 </script>

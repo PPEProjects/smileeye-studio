@@ -5,8 +5,6 @@ import {
   DetailMe,
   DetailMe_detail_me
 } from '#smileeye/queries/__generated__/DetailMe'
-import { inject } from 'vue'
-import { VueCookies } from 'vue-cookies'
 
 type IUser = DetailMe_detail_me | null
 

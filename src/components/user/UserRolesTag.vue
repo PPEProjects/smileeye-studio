@@ -20,7 +20,7 @@
     >
       <plus-outlined />
       <span class='capitalize'>
-          Add Role
+          {{ t('button.addRole') }}
         </span>
     </a-tag>
   </div>
@@ -29,6 +29,9 @@
 
 <script setup lang="ts">
 import { PlusOutlined } from '@ant-design/icons-vue'
+import { useLangs } from '@composables/useLangs'
+
+const { t } = useLangs()
 
 defineProps<{
   user: any

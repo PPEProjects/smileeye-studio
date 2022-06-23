@@ -12,10 +12,12 @@
   },
   "button": {
     "addNew": "",
+    "addRole": "",
     "cancel": "",
     "delete": "",
     "detail": "",
     "edit": "",
+    "export": "",
     "no": "",
     "search": "",
     "update": "",
@@ -42,6 +44,11 @@
       "tab": ""
     },
     "title": ""
+  },
+  "export": {
+    "endDay": "",
+    "fields": "",
+    "startDay": ""
   },
   "goal": {
     "name": ""

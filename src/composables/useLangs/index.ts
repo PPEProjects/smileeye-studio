@@ -1,6 +1,6 @@
 // @ts-ignore
-import { useI18n } from 'vue-i18n/index'
+import * as VueI18n from 'vue-i18n'
 
 export const useLangs = () => {
-  return useI18n()
+  return VueI18n.useI18n()
 }

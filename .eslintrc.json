@@ -23,11 +23,7 @@
     "parser": "@typescript-eslint/parser",
     "sourceType": "module"
   },
-  "plugins": [
-    "vue",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["vue", "@typescript-eslint", "prettier"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off",
     "no-console": "off",
@@ -43,6 +39,7 @@
         "selector": "interface",
         "format": ["camelCase", "PascalCase"]
       }
-    ]
+    ],
+    "vue/no-v-html": "off"
   }
 }

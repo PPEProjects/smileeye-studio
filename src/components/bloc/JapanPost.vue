@@ -117,7 +117,7 @@ const { mutate: deletePost, loading } = useMutation<DeletePosts, DeletePostsVari
   {
     variables: {
       input: {
-        id: props.post.id
+        id: String(props.post.id)
       }
     }
   }

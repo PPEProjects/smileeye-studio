@@ -3,12 +3,20 @@ import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 
 import eslint from 'vite-plugin-eslint'
+import removeConsole from 'vite-plugin-remove-console'
 
 // @ts-ignore
 import GrapHQLGenerator from './src/plugins/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    __VUE_I18N_FULL_INSTALL__: true,
+    __VUE_I18N_LEGACY_API__: false
+  },
+  build: {
+    chunkSizeWarningLimit: 10000
+  },
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components'),
@@ -34,12 +42,13 @@ export default defineConfig({
   plugins: [
     vue(),
     GrapHQLGenerator(),
-    /*eslint({
+    eslint({
       emitError: true,
       emitWarning: true,
       failOnError: true,
       failOnWarning: true
-    })*/
+    })
+    // removeConsole()
   ],
   css: {
     preprocessorOptions: {
