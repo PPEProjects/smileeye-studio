@@ -22,9 +22,7 @@ export interface SortCoupons_sort_coupons_data {
 
 export interface SortCoupons_sort_coupons_info {
   __typename: "InfoCoupon";
-  last_page: number | null;
-  expired: number | null;
-  availability: number | null;
+  total: number | null;
 }
 
 export interface SortCoupons_sort_coupons {

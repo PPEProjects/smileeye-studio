@@ -2,25 +2,26 @@
   <a-table
     :loading="loading || isDeleting"
     :columns="columns"
-    :data-source="couponStore.coupons"
+    :data-source="coupons"
     :pagination="{
-      total: couponStore.counter.availability,
+      total: counter,
       showLessItems: true,
       defaultPageSize: 7
     }"
     row-key="code"
-    @change='changePage'
+    @change="changePage"
   >
     <template #bodyCell="{ column, record }">
-
-      <template v-if='column.key === "limit"'>
+      <template v-if="column.key === 'limit'">
         <a-tag color="#f50">
-          {{ record.limit - (record.remaining || record.limit) }}/{{ record.limit }}
+          {{ record.limit - (record.remaining || record.limit) }}/{{
+            record.limit
+          }}
         </a-tag>
       </template>
 
       <template v-else-if="column.key === 'expiryDate'">
-        <span v-if='record.expiry_date'>{{
+        <span v-if="record.expiry_date">{{
           dayjs(record.expiry_date, 'YYYY-MM-DD hh:mm:ss').format('DD-MM-YYYY')
         }}</span>
 
@@ -79,15 +80,11 @@ import {
   DeleteCoupon,
   DeleteCouponVariables
 } from '#smileeye/mutations/__generated__/DeleteCoupon'
-import { useCouponStore } from '@store/coupon'
-import { watch } from 'vue'
+import { computed, reactive } from 'vue'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 
 const { t } = useLangs()
 const dayjs = useDayjs()
-
-// Store
-const couponStore = useCouponStore()
 
 // Table setup
 const columns = [
@@ -128,18 +125,22 @@ const columns = [
   }
 ]
 
+const queryVariable = reactive({
+  first: 7,
+  page: 0,
+  expiry: FilterExpiry.all
+})
+
 const { result, loading } = useQuery<SortCoupons, SortCouponsVariables>(
   SORT_COUPONS,
-  {
-    first: 7,
-    page: couponStore.page,
-    expiry: FilterExpiry.all
-  }
+  queryVariable
 )
-watch(result, (value) => {
-  couponStore.setCoupons((value?.sort_coupons?.data as any) || [])
-  couponStore.setCounter(value?.sort_coupons?.info as any)
-})
+
+const coupons = computed<SortCoupons_sort_coupons_data[]>(
+  () =>
+    (result.value?.sort_coupons?.data || []) as SortCoupons_sort_coupons_data[]
+)
+const counter = computed<number>(() => result.value?.sort_coupons?.info?.total || 0)
 
 const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
   DeleteCoupon,
@@ -154,19 +155,12 @@ const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
     })
   }
 })
-
 // Global event
 const emitter = useEmitter<{
   upsertCoupon: SortCoupons_sort_coupons_data | object
 }>()
 
 const changePage = ($event: any) => {
-  couponStore.setPage($event.current)
-  /*refetch({
-    first: 7,
-    page: couponStore.page,
-    expiry: FilterExpiry.all
-  })*/
+  queryVariable.page = $event.current
 }
-
 </script>

@@ -83,7 +83,14 @@
     "role": ""
   },
   "users": {
+    "goal": {
+      "activity": "",
+      "info": ""
+    },
     "label": "",
+    "profile": {
+      "info": ""
+    },
     "tab": {
       "all": "",
       "supporters": ""

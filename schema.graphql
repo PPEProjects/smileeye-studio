@@ -504,6 +504,7 @@ type GoalTemplate {
 }
 
 type InfoCoupon {
+  total: Int
   last_page: Int
   expired: Int
   availability: Int
@@ -904,6 +905,7 @@ type Query {
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
   sort_payments(first: Int, page: Int, status: String): [Payment]
+  sort_payments_by_date(status: String, date_from: String!, date_to: String!): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
   my_total_payment: JSON
@@ -1171,7 +1173,7 @@ enum SortOrder {
 enum STATUS {
   ON_BUY
   TRIAL
-  WANTED
+  IN_NEED
   PAID_CONFIRMED
 }
 

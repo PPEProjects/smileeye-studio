@@ -14,10 +14,10 @@ export enum FilterExpiry {
 }
 
 export enum STATUS {
+  IN_NEED = "IN_NEED",
   ON_BUY = "ON_BUY",
   PAID_CONFIRMED = "PAID_CONFIRMED",
   TRIAL = "TRIAL",
-  WANTED = "WANTED",
 }
 
 /**

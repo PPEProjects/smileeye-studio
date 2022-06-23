@@ -13,9 +13,7 @@ export const SORT_COUPONS = gql`
         created_at
       }
       info {
-        last_page
-        expired
-        availability
+        total
       }
     }
   }

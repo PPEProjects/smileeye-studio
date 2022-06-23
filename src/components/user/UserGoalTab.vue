@@ -1,7 +1,7 @@
 <template>
   <teleport-view to="#title">
     <div class="h-[70px] flex items-center">
-      {{ t('users.title') }}
+      {{ t('users.label') }}
 
       <template v-if="$route.name.includes('users-id-goals-goalID-')">
         <tabs-animation
@@ -23,7 +23,7 @@
               params: $route.params
             }"
           >
-            Thông Tin
+            {{ t('users.goal.info') }}
           </router-link>
 
           <router-link
@@ -36,7 +36,7 @@
               params: $route.params
             }"
           >
-            Hoạt Động
+            {{ t('users.goal.activity') }}
           </router-link>
         </tabs-animation>
       </template>

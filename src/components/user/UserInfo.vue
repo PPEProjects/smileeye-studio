@@ -35,7 +35,7 @@
         :user="user"
       />
 
-      <h3>Thông tin</h3>
+      <h3>{{ t('users.profile.info') }}</h3>
 
       <div class="text-gray-600">
         <div class="py-2 border-b border-gray-200">
@@ -73,12 +73,15 @@ import {
   ShareAltOutlined
 } from '@ant-design/icons-vue'
 import { useDayjs } from '@composables/useDayjs'
+import { useLangs } from '@composables/useLangs'
 
 const props = defineProps<{
   user: DetailUser_detail_user
 }>()
 
 const dayjs = useDayjs()
+
+const { t } = useLangs()
 
 const goToProfile = () => {
   window.open(`https://v2.smileeye.edu.vn/profile/${props.user?.id}`, '_blank')
