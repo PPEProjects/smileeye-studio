@@ -41,13 +41,13 @@
 </template>
 
 <script lang="ts" setup>
-import UsersTable from '@components/users/UsersTable.vue'
-import TabsAnimation from '@components/includes/TabsAnimation.vue'
 import { useI18n } from 'vue-i18n'
 import { defineAsyncComponent } from 'vue'
 
 const UpdateUserModal = defineAsyncComponent(() => import('@components/users/UpdateUserModal.vue'))
 const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
+const UsersTable = defineAsyncComponent(() => import('@components/users/UsersTable.vue'))
+const TabsAnimation = defineAsyncComponent(() => import('@components/includes/TabsAnimation.vue'))
 
 const { t } = useI18n()
 </script>
