@@ -56,7 +56,6 @@ export const LIST_GOAL_ROOT = gql`
         created_at
       }
       price
-      status
       owner_percent
       detailed_income
       trial_blocks

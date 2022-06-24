@@ -52,7 +52,7 @@
               'opacity-0': !_visible
             }"
           >
-            <slot :show="_visible" :data="data" />
+            <slot :show="_visible" :data="data" :dispose='dispose' />
           </div>
         </div>
 

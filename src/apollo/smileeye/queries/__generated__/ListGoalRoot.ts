@@ -27,7 +27,6 @@ export interface ListGoalRoot_list_goal_root {
   user: ListGoalRoot_list_goal_root_user | null;
   sellRequest: ListGoalRoot_list_goal_root_sellRequest | null;
   price: number | null;
-  status: string | null;
   owner_percent: string | null;
   detailed_income: any | null;
   trial_blocks: any | null;

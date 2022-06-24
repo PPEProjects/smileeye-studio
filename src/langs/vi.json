@@ -59,7 +59,10 @@
     "owner": "Chủ Sở Hữu",
     "percent": "Chiết Khấu",
     "price": "Giá Cả",
-    "status": "Trạng Thái"
+    "status": "Trạng Thái",
+    "sellRequest": {
+      "createdAt": "Ngày Yêu Cầu"
+    }
   },
   "goals": {
     "tab": {
@@ -147,6 +150,13 @@
     "tab": {
       "all": "Tất Cả",
       "supporters": "Người Hỗ Trợ"
+    }
+  },
+  "sellRequest": {
+    "approved": "Đã Xác Nhận",
+    "pending": "Chờ Xác Nhận",
+    "form": {
+      "label": "Cập nhật thoả thuận"
     }
   }
 }

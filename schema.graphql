@@ -83,6 +83,16 @@ type checkCoupon {
   sale: Int
 }
 
+type CheckGoal {
+  id: ID!
+  user: User
+  goal: Goal
+  type: Type!
+  checked: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type CoachMember {
   id: ID
   user: User
@@ -270,6 +280,7 @@ input DeleteGoalMemberInput {
 
 input DeleteGoalRootInput {
   id: ID
+  is_admin: Boolean
 }
 
 input DeleteGoalScoreInput {
@@ -336,6 +347,7 @@ input EditGoalRootInput {
   end_day: DateTime
   trial_blocks: JSON
   is_trial: Boolean
+  is_admin: Boolean
 }
 
 input EditTaskInput {
@@ -854,6 +866,7 @@ union PostAndDiary = JapanesePost | StoryShare
 
 type Query {
   user(id: ID): User
+  check_goals(user_id: ID!, goal_root_id: ID!): [CheckGoal]
   detail_coach_member(user_id: ID!): CoachMember
   list_coach_members(goal_root_id: ID): [User]
   list_coupons: [Coupon]
@@ -904,7 +917,7 @@ type Query {
   list_posts_and_diary(user_id: ID, goal_root_id: ID): [PostAndDiary]
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
-  sort_payments(first: Int, page: Int, status: String): [Payment]
+  sort_payments(first: Int, page: Int, status: String, search: SearchPayment): [Payment]
   sort_payments_by_date(status: String, date_from: String!, date_to: String!): [Payment]
   my_payments: [Payment]
   detail_payment(id: ID!): Payment
@@ -1130,6 +1143,13 @@ type Score {
   sum_topic: String
 }
 
+input SearchPayment {
+  user_name: String
+  email: String
+  phone_number: String
+  goal_name: String
+}
+
 """Information about pagination using a simple paginator."""
 type SimplePaginatorInfo {
   """Number of items in the current page."""
@@ -1240,6 +1260,11 @@ enum Trashed {
 
   """Only return non-trashed results."""
   WITHOUT
+}
+
+enum Type {
+  study
+  template
 }
 
 enum TYPE {

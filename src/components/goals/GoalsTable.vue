@@ -1,11 +1,9 @@
 <template>
   <a-table
-    :loading="loading || loadingQuickConfirm"
     :columns="columns"
     :data-source="goals"
-    :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
+    :pagination="{ total: goals.length, showLessItems: true, defaultPageSize: 7 }"
     row-key="id"
-    @change="queryVariables.page = $event.current"
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
@@ -14,85 +12,98 @@
         </span>
       </template>
 
-      <template v-if="column.key === 'owner'">
-
-        <span>{{ record.user?.name }}</span>
-
+      <template v-else-if="column.key === 'owner'">
+        <router-link
+          :to="{ name: 'users-id', params: { id: record.user?.id } }"
+          class='text-gray-700 hover:text-gray-700'
+          >
+          {{ record.user?.name }}
+        </router-link>
       </template>
 
-      <template v-if="column.key === 'phone'">
-        <span>{{ record.user_info?.phone_number }}</span>
-      </template>
-
-      <template v-if="column.key === 'goal'">
+      <template v-else-if="column.key === 'goal'">
         <span>{{ record.goal?.name || '-' }}</span>
       </template>
 
-      <template v-else-if="column.key === 'billImage'">
-        <div v-if="record.attachments?.[0]" class="rounded overflow-hidden">
-          <a-image
-            :width="150"
-            :height="80"
-            :src="$cdn(record.attachments[0])"
-          />
-        </div>
+      <template v-else-if="column.key === 'price'">
+        <span>{{ record.price || '--' }}</span>
       </template>
 
       <template v-else-if="column.key === 'status'">
-        {{ record.sellRequest?.status || '-' }}
+        <template v-if='record.sellRequest?.status'>
+          <a-tag
+            v-if="record.sellRequest?.status === 'approved'"
+            color="#355cdd"
+          >
+            {{ t('sellRequest.approved') }}
+          </a-tag>
+          <a-tag
+            v-else-if="record.sellRequest?.status === 'pending'"
+            color="#f50"
+          >
+            {{ t('sellRequest.pending') }}
+          </a-tag>
+        </template>
+        <span v-else>--</span>
+      </template>
+
+      <template v-else-if="column.key === 'percent'">
+        {{ record.percent || '--' }}
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
-        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
+        {{ dayjs(record.sellRequest?.created_at).format('DD/MM/YYYY') }}
       </template>
 
       <template v-else-if="column.key === 'action'">
-        <div v-if="record.status === STATUS.IN_NEED">--</div>
+        <a-popconfirm
+          :title="t('actions.accept.title', { name: t('payment.payment') })"
+          placement="topLeft"
+          :ok-text="t('button.yes')"
+          :cancel-text="t('button.no')"
+        >
+          <a-button type="primary" size="small">
+            <template #icon>
+              <check-outlined />
+            </template>
+          </a-button>
+        </a-popconfirm>
 
-        <payment-actions
-          v-else
-          :payment="record"
-          @delete="deletePayment({ input: { id: record.id } })"
-          @confirm="
-            quickConfirm({
-              input: { id: record.id, status: STATUS.PAID_CONFIRMED }
-            })
-          "
-        />
+
+        <a-button
+          type="primary"
+          size="small"
+          class='ml-2'
+          @click='$emitter.emit("upsertGoalTemplate", record)'
+        >
+          <template #icon>
+            <edit-outlined />
+          </template>
+        </a-button>
+
+        <a-popconfirm
+          :title="t('actions.delete.title', { name: t('payment.payment') })"
+          placement="topLeft"
+          :ok-text="t('button.yes')"
+          :cancel-text="t('button.no')"
+        >
+          <a-button type="danger" size="small" class="ml-2">
+            <svg class="fill-current text-white" width="1em" height="1em">
+              <use xlink:href="#i-remove" />
+            </svg>
+          </a-button>
+        </a-popconfirm>
       </template>
     </template>
   </a-table>
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, onMounted, onUnmounted, reactive } from 'vue'
+import { reactive } from 'vue'
 
-const PaymentActions = defineAsyncComponent(() => import('@components/payment/PaymentActions.vue'))
+import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue'
 
-import { useMutation, useQuery } from '@vue/apollo-composable'
-import {
-  SortPayments,
-  SortPaymentsVariables
-} from '#smileeye/queries/__generated__/SortPayments'
-import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
-import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
-import {
-  DELETE_PAYMENT,
-  QUICK_DONE_PAYMENT
-} from '#smileeye/mutations/payment.mutation'
-import {
-  DeletePayment,
-  DeletePaymentVariables
-} from '#smileeye/mutations/__generated__/DeletePayment'
-import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
-import { useEmitter } from '@nguyenshort/vue3-mitt'
-import {
-  QuickDonePayment,
-  QuickDonePaymentVariables
-} from '#smileeye/mutations/__generated__/QuickDonePayment'
-import { STATUS } from '#schema/smileeyeTypes'
-import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ListGoalRoot_list_goal_root } from '#smileeye/queries/__generated__/ListGoalRoot'
 
@@ -135,6 +146,12 @@ const columns = reactive([
     align: 'center'
   },
   {
+    title: t('goal.sellRequest.createdAt'),
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    align: 'center'
+  },
+  {
     title: t('table.action.title'),
     key: 'action',
     align: 'right',
@@ -142,57 +159,4 @@ const columns = reactive([
     width: 130
   }
 ])
-
-const route = useRoute()
-
-const queryVariables = reactive({
-  first: 6,
-  page: 1,
-  status: ((route.query.status as string) || '').toUpperCase()
-})
-// Query hook
-const { result, loading } = useQuery<
-  SortPayments,
-  SortPaymentsVariables
-  >(SORT_PAYMENTS, queryVariables)
-
-
-const { mutate: deletePayment } = useMutation<
-  DeletePayment,
-  DeletePaymentVariables
-  >(DELETE_PAYMENT, {
-  update: (proxy, _, options) => {
-    proxy.writeQuery<SortPayments, SortPaymentsVariables>({
-      query: SORT_PAYMENTS,
-      variables: queryVariables,
-      data: {
-        sort_payments: result.value!.sort_payments!.filter(
-          (e) => e?.id !== options.variables?.input.id
-        )
-      }
-    })
-  }
-})
-
-// Counter
-const { result: paymentCounter } = useQuery<SumPayment>(SUM_PAYMENT)
-const counter = usePick(paymentCounter, 0, (data) => data.sum_payment.sum)
-
-// Delete from modal
-// Global event
-const emitter = useEmitter<{
-  deletePayment: string
-}>()
-onMounted(() =>
-  emitter.on('deletePayment', (id) => {
-    deletePayment({ input: { id } })
-  })
-)
-
-onUnmounted(() => emitter.off('deletePayment'))
-
-const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
-  QuickDonePayment,
-  QuickDonePaymentVariables
-  >(QUICK_DONE_PAYMENT)
 </script>

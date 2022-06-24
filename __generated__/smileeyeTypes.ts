@@ -39,6 +39,7 @@ export interface DeleteCouponInput {
 
 export interface DeleteGoalRootInput {
   id?: string | null;
+  is_admin?: boolean | null;
 }
 
 export interface DeleteJapanesePostInput {
@@ -47,6 +48,22 @@ export interface DeleteJapanesePostInput {
 
 export interface DeletePaymentInput {
   id: string;
+}
+
+export interface EditGoalRootInput {
+  id?: string | null;
+  name?: string | null;
+  description?: string | null;
+  price?: number | null;
+  status?: string | null;
+  video?: any | null;
+  image?: any | null;
+  owner_percent?: string | null;
+  start_day?: any | null;
+  end_day?: any | null;
+  trial_blocks?: any | null;
+  is_trial?: boolean | null;
+  is_admin?: boolean | null;
 }
 
 /**
@@ -90,6 +107,14 @@ export interface UpsertCouponInput {
   sale_percent: number;
   goal_root_ids?: (string | null)[] | null;
   expiry_date?: string | null;
+}
+
+export interface UpsertGoalTemplateInput {
+  goal_id?: string | null;
+  status?: string | null;
+  request?: string | null;
+  sell_goal?: string | null;
+  message?: string | null;
 }
 
 export interface UpsertPaymentInput {
