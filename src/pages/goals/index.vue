@@ -20,13 +20,22 @@
           {{ t('goals.tab.all') }}
         </router-link>
         <router-link
-          to="/goals?group=sell-request"
+          to="/goals?group=pending"
           class="block ml-3 goal-tab px-2"
           :class="{
-            _active: $route.query.group === 'sell-request'
+            _active: $route.query.group === 'pending'
           }"
         >
-          {{ t('goals.tab.sell_request') }}
+          {{ t('sellRequest.pending') }}
+        </router-link>
+        <router-link
+          to="/goals?group=approved"
+          class="block ml-3 goal-tab px-2"
+          :class="{
+            _active: $route.query.group === 'approved'
+          }"
+        >
+          {{ t('sellRequest.approved') }}
         </router-link>
       </tabs-animation>
     </div>
@@ -54,11 +63,20 @@ import { ListGoalRoot, ListGoalRoot_list_goal_root } from '#smileeye/queries/__g
 import { UpdateGoalDeal, UpdateGoalDealVariables } from '#smileeye/mutations/__generated__/UpdateGoalDeal'
 import { UPDATE_GOAL_DEAL } from '#smileeye/mutations/goal.mutation'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
+import { useRoute } from 'vue-router'
 const { t } = useI18n()
+
+const route = useRoute()
 
 // Tính toán goals từ ngoài => filter => props vào
 const { result, loading } = useQuery<ListGoalRoot>(LIST_GOAL_ROOT)
-const goals = computed<ListGoalRoot_list_goal_root[]>(()=> (result.value?.list_goal_root || []) as ListGoalRoot_list_goal_root[])
+const goals = computed<ListGoalRoot_list_goal_root[]>(()=> {
+
+  const _goals = (result.value?.list_goal_root || []) as ListGoalRoot_list_goal_root[]
+
+  return ['pending', 'approved'].includes(route.query.group as string) ? _goals.filter(goal => goal.sellRequest?.status === route.query.group) : _goals
+
+})
 
 const { mutate, loading: spinning } = useMutation<UpdateGoalDeal, UpdateGoalDealVariables>(UPDATE_GOAL_DEAL)
 
