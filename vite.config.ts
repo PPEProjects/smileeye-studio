@@ -23,21 +23,6 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 10000
   },
-  resolve: {
-    alias: {
-      '@components': path.resolve(__dirname, './src/components'),
-      '@layouts': path.resolve(__dirname, './src/layouts'),
-      '@store': path.resolve(__dirname, './src/store'),
-      '#types': path.resolve(__dirname, './src/types'),
-      '#schema': path.resolve(__dirname, './__generated__'),
-      '#apollo': path.resolve(__dirname, './src/apollo'),
-      '#notify': path.resolve(__dirname, './src/apollo/notify'),
-      '#smileeye': path.resolve(__dirname, './src/apollo/smileeye'),
-      '@plugins': path.resolve(__dirname, './src/plugins'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@composables': path.resolve(__dirname, './src/composables')
-    }
-  },
   preview: {
     port: 3111
   },

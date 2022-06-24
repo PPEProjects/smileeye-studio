@@ -3,6 +3,7 @@
     ref="modal"
     title="Chỉnh Sửa Phân Quyền"
     event="editRuleModal"
+    :z-index='10001'
     @init="buildForm"
   >
     <a-form

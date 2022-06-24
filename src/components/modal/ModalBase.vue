@@ -6,6 +6,7 @@
       :class="{
         'invisible opacity-0': !_visible
       }"
+      :style='{ zIndex }'
     >
       <a
         v-if="canCancel"
@@ -75,13 +76,15 @@ type Props = {
   event: string
   title?: string
   maxWidth?: number
-  canCancel?: boolean
+  canCancel?: boolean,
+  zIndex?: number
 }
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
   title: '',
   maxWidth: 550,
-  canCancel: true
+  canCancel: true,
+  zIndex: 1000
 })
 
 // ẩn hiện modal
