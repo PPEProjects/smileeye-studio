@@ -3,9 +3,16 @@ import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 
 import eslint from 'vite-plugin-eslint'
+import VueI18n from '@intlify/vite-plugin-vue-i18n'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // @ts-ignore
 import GrapHQLGenerator from './src/plugins/vite'
+
+// auto import component
+import Components from 'unplugin-vue-components/vite'
+// @ts-ignore
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,11 +53,36 @@ export default defineConfig({
       emitWarning: true,
       failOnError: true,
       failOnWarning: true
-    })
+    }),
+    Components({
+      dirs: [],
+      resolvers: [
+        AntDesignVueResolver({
+          importStyle: 'less'
+        })
+      ]
+    }),
+    VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      include: path.resolve(__dirname, './**/langs/**')
+    }),
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    tsconfigPaths()
   ],
   css: {
     preprocessorOptions: {
       less: {
+        modifyVars: {
+          'primary-color': '#3b66f5',
+          'surface-lighter': '#f6f7fc',
+          'table-header-bg': '#fff',
+          'table-header-color': 'rgba(18,18,23,.6)',
+          'table-selected-row-bg': '#fff',
+          'font-family':
+            '"Avenir Next", Roboto, "Segoe UI", "Open Sans", "Helvetica Neue", "PingFang SC", "Songti SC", "Heiti SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif'
+        },
         javascriptEnabled: true
       }
     }

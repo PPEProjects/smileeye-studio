@@ -1,10 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/css/tailwind.css'
-import './assets/less/ant.less'
-
-import Antd from 'ant-design-vue'
-
 // Cookie
 import VueCookies from 'vue-cookies'
 
@@ -61,7 +57,6 @@ app.use(VueLoadingIndicator, {
 
 app.use(ultils)
 app.use(VueMitter)
-app.use(Antd)
 app.use(animejs)
 app.use(VueLottie)
 app.use(VueCookies)

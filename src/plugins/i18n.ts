@@ -1,17 +1,11 @@
+import { createI18n } from 'vue-i18n'
 // @ts-ignore
-import { createI18n } from 'vue-i18n/index'
-import en from '../langs/en.json'
-import vi from '../langs/vi.json'
-
-const messages = {
-  en,
-  vi
-}
+import messages from '@intlify/vite-plugin-vue-i18n/messages'
 
 const i18n = createI18n({
   legacy: false,
   locale: 'vi', // set locale
-  fallbackLocale: 'vi', // set fallback locale
+  fallbackLocale: 'vi', // set fallback locale,
   messages
 })
 

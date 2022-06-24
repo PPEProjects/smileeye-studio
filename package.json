@@ -42,7 +42,6 @@
     "readdir": "^1.0.2",
     "shelljs": "^0.8.5",
     "uuid": "^8.3.2",
-    "vite-tsconfig-paths": "^3.5.0",
     "vue": "^3.2.25",
     "vue-animejs": "^2.1.1",
     "vue-content-loader": "^2.0.1",
@@ -55,6 +54,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.2.0",
+    "@intlify/vite-plugin-vue-i18n": "^3.4.0",
     "@types/animejs": "^3.1.4",
     "@types/eslint": "^8.4.3",
     "@types/shelljs": "^0.8.11",
@@ -76,8 +76,10 @@
     "tailwindcss": "^3.0.24",
     "ts-essentials": "^9.1.2",
     "typescript": "^4.5.4",
+    "unplugin-vue-components": "^0.19.9",
     "vite": "^2.9.9",
     "vite-plugin-eslint": "^1.6.1",
+    "vite-tsconfig-paths": "^3.5.0",
     "vue-tsc": "^0.34.7"
   }
 }
