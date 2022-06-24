@@ -53,7 +53,7 @@
       </template>
 
       <template v-else-if="column.key === 'percent'">
-        {{ record.percent || '--' }}
+        {{ record.owner_percent || '--' }}
       </template>
 
       <template v-else-if="column.key === 'createdAt'">
