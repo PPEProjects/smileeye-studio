@@ -232,6 +232,7 @@ import { computed, defineAsyncComponent, reactive, ref } from 'vue'
 
 const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
 const ImageCropper = defineAsyncComponent(() => import('@components/includes/ImageCropper.vue'))
+const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
 
 import { District, Province, Ward } from '@components/users/types'
 import { useMutation } from '@vue/apollo-composable'
@@ -241,7 +242,6 @@ import {
   UpdateUserInfoVariables
 } from '#smileeye/mutations/__generated__/UpdateUserInfo'
 import { useFileSystemAccess } from '@vueuse/core'
-import UserRolesTag from '@components/user/UserRolesTag.vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
