@@ -78,6 +78,12 @@
     },
     "title": "Hệ Thống Thanh Toán"
   },
+  "settings": {
+    "language": {
+      "guide": "Nhấp để thay đổi ngôn ngữ"
+    },
+    "title": "Thiết Lập"
+  },
   "sidebar": {
     "config": "Thiết Lập",
     "coupon": "Mã Giảm Giá",
@@ -93,13 +99,8 @@
       "languages": "Ngôn Ngữ",
       "logout": "Đăng Xuất",
       "settings": "Cài Đặt"
-    }
-  },
-  "settings": {
-    "language": {
-      "guide": "Nhấp để thay đổi ngôn ngữ"
     },
-    "title": "Thiết Lập"
+    "workspace": ""
   },
   "table": {
     "action": {
