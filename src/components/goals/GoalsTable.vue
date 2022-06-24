@@ -67,6 +67,7 @@
           placement="topLeft"
           :ok-text="t('button.yes')"
           :cancel-text="t('button.no')"
+          @confirm="$emitter.emit('onUpdateGoalTemplate', quickApproved(record))"
         >
           <a-button type="primary" size="small">
             <template #icon>
@@ -87,7 +88,7 @@
         </a-button>
 
         <a-popconfirm
-          v-if='record.sellRequest?.status'
+          v-if="record.sellRequest?.status"
           :title="t('actions.delete.title', { name: t('sidebar.workspace') })"
           placement="topLeft"
           :ok-text="t('button.yes')"
@@ -120,12 +121,28 @@ import { useDayjs } from '@composables/useDayjs'
 import { useI18n } from 'vue-i18n'
 import { ListGoalRoot_list_goal_root } from '#smileeye/queries/__generated__/ListGoalRoot'
 import { useMutation } from '@vue/apollo-composable'
-import { DeleteGoalTemplate, DeleteGoalTemplateVariables } from '#smileeye/mutations/__generated__/DeleteGoalTemplate'
+import {
+  DeleteGoalTemplate,
+  DeleteGoalTemplateVariables
+} from '#smileeye/mutations/__generated__/DeleteGoalTemplate'
 import { DELETE_GOAL_TEMPLATE } from '#smileeye/mutations/goal.mutation'
 
 defineProps<{
   goals: ListGoalRoot_list_goal_root[]
 }>()
+
+const quickApproved = (goal: ListGoalRoot_list_goal_root) => ({
+  input: {
+    goal_id: goal.id,
+    status: 'approved'
+  },
+  form: {
+    id: goal.id,
+    price: goal.price,
+    owner_percent: goal.owner_percent,
+    is_admin: true
+  }
+})
 
 const { t } = useI18n()
 
@@ -176,17 +193,17 @@ const columns = reactive([
   }
 ])
 
-const { mutate, loading } = useMutation<DeleteGoalTemplate, DeleteGoalTemplateVariables>(
-  DELETE_GOAL_TEMPLATE,
-  {
-    update: (proxy, result, options) => {
-      proxy.evict({
-        id: proxy.identify({
-          __typename: 'GoalRoot',
-          id: options.variables?.input?.goal_id
-        })
+const { mutate, loading } = useMutation<
+  DeleteGoalTemplate,
+  DeleteGoalTemplateVariables
+>(DELETE_GOAL_TEMPLATE, {
+  update: (proxy, result, options) => {
+    proxy.evict({
+      id: proxy.identify({
+        __typename: 'GoalRoot',
+        id: options.variables?.input?.goal_id
       })
-    }
+    })
   }
-)
+})
 </script>
