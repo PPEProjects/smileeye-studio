@@ -55,7 +55,17 @@
     }
   },
   "goal": {
-    "name": ""
+    "name": "",
+    "owner": "",
+    "percent": "",
+    "price": "",
+    "status": ""
+  },
+  "goals": {
+    "tab": {
+      "all": "",
+      "sell_request": ""
+    }
   },
   "input": {
     "keyword": ""
@@ -133,5 +143,11 @@
       "all": "",
       "supporters": ""
     }
+  },
+  "description": {
+    "1234": "Description"
+  },
+  "auth": {
+    "welcome": "Tham gia cộng đồng giáo dục tại Việt Nam"
   }
 }

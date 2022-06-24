@@ -55,7 +55,17 @@
     }
   },
   "goal": {
-    "name": "Tên Khoá Học"
+    "name": "Tên",
+    "owner": "Chủ Sở Hữu",
+    "percent": "Chiết Khấu",
+    "price": "Giá Cả",
+    "status": "Trạng Thái"
+  },
+  "goals": {
+    "tab": {
+      "all": "Tất Cả",
+      "sell_request": "Yêu Cầu"
+    }
   },
   "input": {
     "keyword": "Từ khoá..."
@@ -118,7 +128,12 @@
     "email": "Email",
     "name": "Tên",
     "phone": "Số Điện Thoại",
-    "role": "Phân Quyền"
+    "role": "Phân Quyền",
+    "form": {
+      "status": {
+        "placeholder": "Please select status"
+      }
+    }
   },
   "users": {
     "goal": {

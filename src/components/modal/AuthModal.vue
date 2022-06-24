@@ -9,7 +9,7 @@
       </div>
 
       <div class="text-center">
-        <small class="text-xs italic opacity-90 text-gray-400">Tham gia cộng đồng giáo dục tại Việt Nam</small>
+        <small class="text-xs italic opacity-90 text-gray-400">{{ t('auth.welcome') }}</small>
       </div>
       <form id="authForm" class="max-w-xs mx-auto mt-4">
 
@@ -91,6 +91,7 @@ import {VueCookies} from "vue-cookies";
 import {useUserStore} from "@store/user";
 import {useRouter} from "vue-router"
 import { message } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
 
 const modal = ref<any>(null)
 
@@ -99,6 +100,8 @@ onMounted(() => {
     modal.value?.init()
   })
 })
+
+const { t } = useI18n()
 
 
 // Form data

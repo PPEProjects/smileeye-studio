@@ -50,10 +50,10 @@
         to="/dashboard"
       />
       <menu-item
-        :active="/^(workspace)/.test($route.name)"
+        :active="/^(goals)/.test($route.name)"
         icon="#i-workspace"
         :label="t('sidebar.workspace')"
-        to="/workspace"
+        to="/goals"
       />
 
       <menu-item

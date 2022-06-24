@@ -23,7 +23,7 @@
               {
                 required: true,
                 message: t('form.validate.required', {
-                  field: t('user.name'),
+                  field: t('user.name')
                 })
               }
             ]"
@@ -97,10 +97,7 @@
             <div class="w-5 flex-shrink-0"></div>
 
             <div class="w-full">
-              <a-form-item
-                :label="t('payment.referral')"
-                name="code"
-              >
+              <a-form-item :label="t('payment.referral')" name="code">
                 <a-input v-model:value="formState.referral" />
               </a-form-item>
             </div>
@@ -110,10 +107,7 @@
         <div class="w-3/5 flex-shrink-0 pl-8">
           <div class="flex">
             <div class="w-full">
-              <a-form-item
-                :label="t('coupon.label')"
-                name="code_sale"
-              >
+              <a-form-item :label="t('coupon.label')" name="code_sale">
                 <a-input v-model:value="formState.code_sale" />
               </a-form-item>
             </div>
@@ -152,7 +146,7 @@
           >
             <a-select
               v-model:value="formState.status"
-              placeholder="Please select status"
+              :placeholder="t('user.form.status.placeholder')"
             >
               <a-select-option :value="STATUS.TRIAL">
                 {{ t('payment.status.trial') }}
@@ -188,7 +182,10 @@
             :title="t('actions.delete.title', { name: t('payment.payment') })"
             :ok-text="t('button.yes')"
             :cancel-text="t('button.no')"
-            @confirm='$emitter.emit("deletePayment", formState.id); modal?.dispose()'
+            @confirm="
+              $emitter.emit('deletePayment', formState.id);
+              modal?.dispose()
+            "
           >
             <a-button type="danger" :disabled="loading">
               {{ t('button.delete') }}
@@ -216,7 +213,9 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, reactive, ref } from 'vue'
 
-const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
+const ModalBase = defineAsyncComponent(
+  () => import('@components/modal/ModalBase.vue')
+)
 
 import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
 import { STATUS } from '#schema/smileeyeTypes'

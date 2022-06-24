@@ -86,8 +86,8 @@ let routes: RouteRecordRaw[] = [
   },
   // Anh Tiến,
   {
-    path: '/workspace',
-    component: () => import('./pages/workspace/index.vue')
+    path: '/goals',
+    component: () => import('./pages/goals/index.vue')
   }
 ]
 

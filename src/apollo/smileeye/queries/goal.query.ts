@@ -46,31 +46,20 @@ export const LIST_GOAL_ROOT = gql`
     list_goal_root {
       id
       name
-      user_id
       user {
         id
         name
       }
       sellRequest {
         id
+        status
         created_at
       }
-      description
-      goal_score {
-        id
-      }
-      total_score
       price
       status
-      video
-      image
-      type
-      report_type
       owner_percent
       detailed_income
       trial_blocks
-      is_trial
-      start_day
       created_at
     }
   }

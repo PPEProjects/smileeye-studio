@@ -55,7 +55,17 @@
     }
   },
   "goal": {
-    "name": ""
+    "name": "",
+    "owner": "",
+    "percent": "",
+    "price": "",
+    "status": ""
+  },
+  "goals": {
+    "tab": {
+      "all": "",
+      "sell_request": ""
+    }
   },
   "input": {
     "keyword": ""

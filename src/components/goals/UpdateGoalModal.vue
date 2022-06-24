@@ -20,7 +20,7 @@
       >
         <a-input v-model:value="formState.name"/>
       </a-form-item>
-      <a-form-item label="Description">
+      <a-form-item :label="t('description.1234')">
         <a-textarea
             v-model:value="formState.description"
             placeholder="Description"
