@@ -27,3 +27,9 @@ export const UPDATE_GOAL_DEAL = gql`
     }
   }
 `
+
+export const DELETE_GOAL_TEMPLATE = gql`
+  mutation DeleteGoalTemplate($input: DeleteGoalTemplateInput!) {
+    delete_goal_template(input: $input)
+  }
+`

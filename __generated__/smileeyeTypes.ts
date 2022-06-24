@@ -42,6 +42,10 @@ export interface DeleteGoalRootInput {
   is_admin?: boolean | null;
 }
 
+export interface DeleteGoalTemplateInput {
+  goal_id: string;
+}
+
 export interface DeleteJapanesePostInput {
   id: string;
 }

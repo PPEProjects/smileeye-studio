@@ -287,6 +287,10 @@ input DeleteGoalScoreInput {
   id: ID!
 }
 
+input DeleteGoalTemplateInput {
+  goal_id: ID!
+}
+
 input DeleteJapaneseKanjiInput {
   id: ID!
 }
@@ -672,6 +676,7 @@ type Mutation {
   update_goal_score(input: UpdateGoalScoreInput!): GoalScore
   create_goal_template(input: CreateGoalTemplateInput!): GoalTemplate
   upsert_goal_template(input: UpsertGoalTemplateInput!): GoalTemplate
+  delete_goal_template(input: DeleteGoalTemplateInput!): JSON
   delete_japanese_goals(id: ID!): Boolean
   create_japanese_goals(input: CreateJapaneseGoalInput!): JapaneseGoal
   update_japanese_goals(input: UpdateJapaneseGoalInput!): JapaneseGoal

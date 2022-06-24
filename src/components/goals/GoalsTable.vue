@@ -2,7 +2,12 @@
   <a-table
     :columns="columns"
     :data-source="goals"
-    :pagination="{ total: goals.length, showLessItems: true, defaultPageSize: 7 }"
+    :pagination="{
+      total: goals.length,
+      showLessItems: true,
+      defaultPageSize: 7
+    }"
+    :loading="loading"
     row-key="id"
   >
     <template #bodyCell="{ column, record }">
@@ -15,8 +20,8 @@
       <template v-else-if="column.key === 'owner'">
         <router-link
           :to="{ name: 'users-id', params: { id: record.user?.id } }"
-          class='text-gray-700 hover:text-gray-700'
-          >
+          class="text-gray-700 hover:text-gray-700"
+        >
           {{ record.user?.name }}
         </router-link>
       </template>
@@ -30,7 +35,7 @@
       </template>
 
       <template v-else-if="column.key === 'status'">
-        <template v-if='record.sellRequest?.status'>
+        <template v-if="record.sellRequest?.status">
           <a-tag
             v-if="record.sellRequest?.status === 'approved'"
             color="#355cdd"
@@ -69,12 +74,11 @@
           </a-button>
         </a-popconfirm>
 
-
         <a-button
           type="primary"
           size="small"
-          class='ml-2'
-          @click='$emitter.emit("upsertGoalTemplate", record)'
+          class="ml-2"
+          @click="$emitter.emit('upsertGoalTemplate', record)"
         >
           <template #icon>
             <edit-outlined />
@@ -86,6 +90,13 @@
           placement="topLeft"
           :ok-text="t('button.yes')"
           :cancel-text="t('button.no')"
+          @confirm="
+            mutate({
+              input: {
+                goal_id: record.id
+              }
+            })
+          "
         >
           <a-button type="danger" size="small" class="ml-2">
             <svg class="fill-current text-white" width="1em" height="1em">
@@ -106,6 +117,9 @@ import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue'
 import { useDayjs } from '@composables/useDayjs'
 import { useI18n } from 'vue-i18n'
 import { ListGoalRoot_list_goal_root } from '#smileeye/queries/__generated__/ListGoalRoot'
+import { useMutation } from '@vue/apollo-composable'
+import { DeleteGoalTemplate, DeleteGoalTemplateVariables } from '#smileeye/mutations/__generated__/DeleteGoalTemplate'
+import { DELETE_GOAL_TEMPLATE } from '#smileeye/mutations/goal.mutation'
 
 defineProps<{
   goals: ListGoalRoot_list_goal_root[]
@@ -159,4 +173,18 @@ const columns = reactive([
     width: 130
   }
 ])
+
+const { mutate, loading } = useMutation<DeleteGoalTemplate, DeleteGoalTemplateVariables>(
+  DELETE_GOAL_TEMPLATE,
+  {
+    update: (proxy, result, options) => {
+      proxy.evict({
+        id: proxy.identify({
+          __typename: 'GoalRoot',
+          id: options.variables?.input?.goal_id
+        })
+      })
+    }
+  }
+)
 </script>
