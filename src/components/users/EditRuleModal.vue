@@ -13,14 +13,6 @@
     >
       <a-form-item
         name="roles"
-        :rules="[
-          {
-            required: true,
-            message: t('form.validate.required', {
-              field: t('user.role')
-            })
-          }
-        ]"
       >
         <a-checkbox-group
           v-model:value="formState.roles"
@@ -93,7 +85,7 @@ const modal = ref<any>(null)
 const { mutate, loading } = useMutation<UpdateRoles, UpdateRolesVariables>(
   UPDATE_ROLES,
   {
-    onQueryUpdated: () => {
+    update: () => {
       modal.value.dispose()
     }
   }
