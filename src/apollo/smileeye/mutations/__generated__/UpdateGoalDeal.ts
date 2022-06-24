@@ -17,6 +17,7 @@ export interface UpdateGoalDeal_upsert_goal_template_goal_sellRequest {
 
 export interface UpdateGoalDeal_upsert_goal_template_goal {
   __typename: "GoalRoot";
+  id: string | null;
   sellRequest: UpdateGoalDeal_upsert_goal_template_goal_sellRequest | null;
 }
 

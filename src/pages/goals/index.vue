@@ -11,7 +11,7 @@
         class="flex items-center h-full"
       >
         <router-link
-          to="/workspace"
+          to="/goals"
           class="ml-3 block goal-tab px-2"
           :class="{
             'user-tab-active _active': !$route.query.group
@@ -20,7 +20,7 @@
           {{ t('goals.tab.all') }}
         </router-link>
         <router-link
-          to="/workspace?group=sell-request"
+          to="/goals?group=sell-request"
           class="block ml-3 goal-tab px-2"
           :class="{
             _active: $route.query.group === 'sell-request'
@@ -33,7 +33,7 @@
   </teleport-view>
 
   <a-spin :spinning='loading || spinning'>
-    <goals-table :key="$route.fullPath" v-model:goals='goals' />
+    <goals-table v-model:goals='goals' />
   </a-spin>
 
   <upsert-goal-template />

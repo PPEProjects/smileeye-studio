@@ -14,6 +14,7 @@ export const UPDATE_GOAL_DEAL = gql`
     upsert_goal_template(input: $input) {
       id
       goal {
+        id
         sellRequest {
           id
           status

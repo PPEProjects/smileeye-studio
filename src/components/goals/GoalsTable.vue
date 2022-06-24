@@ -62,6 +62,7 @@
 
       <template v-else-if="column.key === 'action'">
         <a-popconfirm
+          v-if="record.sellRequest?.status === 'pending'"
           :title="t('actions.accept.title', { name: t('payment.payment') })"
           placement="topLeft"
           :ok-text="t('button.yes')"
@@ -86,14 +87,15 @@
         </a-button>
 
         <a-popconfirm
-          :title="t('actions.delete.title', { name: t('payment.payment') })"
+          v-if='record.sellRequest?.status'
+          :title="t('actions.delete.title', { name: t('sidebar.workspace') })"
           placement="topLeft"
           :ok-text="t('button.yes')"
           :cancel-text="t('button.no')"
           @confirm="
             mutate({
               input: {
-                goal_id: record.id
+                goal_id: record?.id
               }
             })
           "
