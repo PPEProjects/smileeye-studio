@@ -40,7 +40,7 @@
       </template>
 
       <template v-else-if="column.key === 'billImage'">
-        <div v-if="record.attachments?.[0]" class="rounded overflow-hidden">
+        <div v-if="record.attachments?.[0]" class="rounded overflow-hidden h-[80px]">
           <a-image
             :width="150"
             :height="80"
