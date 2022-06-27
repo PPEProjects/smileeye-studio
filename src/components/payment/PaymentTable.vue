@@ -227,11 +227,14 @@ const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
   queryVariables
 )
 
-const payments = computed(() =>
-  (result.value?.sort_payments || []).filter(
-    (payment) => payment?.status === queryVariables.status
-  )
-)
+const payments = computed(() => {
+  const _payments = result.value?.sort_payments || []
+
+  if(queryVariables.status) {
+    return _payments.filter((_payment) => _payment?.status === queryVariables.status)
+  }
+  return _payments
+})
 
 const { mutate: deletePayment } = useMutation<
   DeletePayment,
