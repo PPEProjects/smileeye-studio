@@ -25,7 +25,7 @@ export default defineComponent({
       await useUser.getMe()
     }
 
-    if(!useUser._token) {
+    if(!useUser.auth) {
       useUser.setToken('')
       cookies?.remove('_token')
     }
