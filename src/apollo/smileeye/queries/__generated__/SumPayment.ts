@@ -10,8 +10,13 @@
 export interface SumPayment_sum_payment {
   __typename: "SumPayment";
   sum: number | null;
+  number_status: number | null;
 }
 
 export interface SumPayment {
   sum_payment: SumPayment_sum_payment | null;
+}
+
+export interface SumPaymentVariables {
+  status?: string | null;
 }

@@ -120,6 +120,7 @@ const columns = [
     width: 200
   },
   {
+    title: t('table.action.title'),
     key: 'action',
     align: 'right',
     fixed: 'right'

@@ -116,7 +116,7 @@ import {
   DeletePayment,
   DeletePaymentVariables
 } from '#smileeye/mutations/__generated__/DeletePayment'
-import { SumPayment } from '#smileeye/queries/__generated__/SumPayment'
+import { SumPayment, SumPaymentVariables } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import {
   QuickDonePayment,
@@ -232,8 +232,10 @@ const { mutate: deletePayment } = useMutation<
 })
 
 // Counter
-const { result: paymentCounter } = useQuery<SumPayment>(SUM_PAYMENT)
-const counter = usePick(paymentCounter, 0, (data) => data.sum_payment.sum)
+const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(SUM_PAYMENT, {
+  status: ((route.query.status as string) || '').toUpperCase()
+})
+const counter = computed(() => paymentCounter?.value?.sum_payment?.number_status || 0)
 
 // Delete from modal
 // Global event

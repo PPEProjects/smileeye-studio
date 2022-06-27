@@ -928,7 +928,7 @@ type Query {
   detail_payment(id: ID!): Payment
   my_total_payment: JSON
   detail_my_payment(goal_id: ID!): [Payment]
-  sum_payment: SumPayment
+  sum_payment(status: String): SumPayment
   user_roles(user_id: ID!): [RoleAndPermission]
   role_permissions(role_id: ID!): PermissionOfRole
   my_story_share(goal_id: ID): [StoryShare]
@@ -1218,6 +1218,7 @@ type StoryShare {
 
 type SumPayment {
   sum: Int
+  number_status: Int
 }
 
 type Task {
