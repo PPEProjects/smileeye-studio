@@ -19,3 +19,5 @@ export default defineComponent({
   }
 })
 </script>
+
+<style src='node_modules/ant-design-vue/es/message/style/index.css'></style>

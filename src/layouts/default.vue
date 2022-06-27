@@ -1,4 +1,7 @@
 <template>
+
+  <div @click='test'>Click me</div>
+
   <div :id="String($route.name) || ''" class="bg-primary-50 text-slate-900">
     <div class="flex">
       <input
@@ -150,6 +153,12 @@ watch(
   },
   { deep: true }
 )
+
+const test = () => {
+  console.log(1234)
+  message.error('data.subToast.message')
+  console.log(45678)
+}
 
 // clernup khi logout
 // useSubscription sẽ tự cleanup khi unmound
