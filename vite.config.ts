@@ -14,6 +14,11 @@ import Components from 'unplugin-vue-components/vite'
 // @ts-ignore
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
+import {
+  createStyleImportPlugin,
+  AndDesignVueResolve
+} from 'vite-plugin-style-import'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
@@ -54,7 +59,10 @@ export default defineConfig({
     }),
     // https://github.com/antfu/unocss
     // see unocss.config.ts for config
-    tsconfigPaths()
+    tsconfigPaths(),
+    createStyleImportPlugin({
+      resolves: [AndDesignVueResolve()]
+    })
   ],
   css: {
     preprocessorOptions: {
