@@ -11,7 +11,7 @@
       <table-setting-header
         v-if="!column.key"
         v-model:value="selectColumns"
-        :auto='false'
+        :auto="false"
         :columns="rawColumns"
       />
     </template>
@@ -94,11 +94,24 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted, onUnmounted, reactive, ref } from 'vue'
+import {
+  computed,
+  defineAsyncComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref
+} from 'vue'
 
-const PaymentActions = defineAsyncComponent(() => import('@components/payment/PaymentActions.vue'))
-const PaymentExpanded = defineAsyncComponent(() => import('@components/payment/PaymentExpanded.vue'))
-const TableSettingHeader = defineAsyncComponent(() => import('@components/includes/TableSettingHeader.vue'))
+const PaymentActions = defineAsyncComponent(
+  () => import('@components/payment/PaymentActions.vue')
+)
+const PaymentExpanded = defineAsyncComponent(
+  () => import('@components/payment/PaymentExpanded.vue')
+)
+const TableSettingHeader = defineAsyncComponent(
+  () => import('@components/includes/TableSettingHeader.vue')
+)
 
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
@@ -106,7 +119,6 @@ import {
   SortPaymentsVariables
 } from '#smileeye/queries/__generated__/SortPayments'
 import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
-import usePick from '@composables/usePick'
 import { useDayjs } from '@composables/useDayjs'
 import {
   DELETE_PAYMENT,
@@ -116,7 +128,10 @@ import {
   DeletePayment,
   DeletePaymentVariables
 } from '#smileeye/mutations/__generated__/DeletePayment'
-import { SumPayment, SumPaymentVariables } from '#smileeye/queries/__generated__/SumPayment'
+import {
+  SumPayment,
+  SumPaymentVariables
+} from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import {
   QuickDonePayment,
@@ -207,12 +222,16 @@ const queryVariables = reactive({
   status: ((route.query.status as string) || '').toUpperCase()
 })
 // Query hook
-const { result, loading } = useQuery<
-  SortPayments,
-  SortPaymentsVariables
->(SORT_PAYMENTS, queryVariables)
+const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
+  SORT_PAYMENTS,
+  queryVariables
+)
 
-const payments = usePick(result, [], (data) => data.sort_payments)
+const payments = computed(() =>
+  (result.value?.sort_payments || []).filter(
+    (payment) => payment?.status === queryVariables.status
+  )
+)
 
 const { mutate: deletePayment } = useMutation<
   DeletePayment,
@@ -232,10 +251,15 @@ const { mutate: deletePayment } = useMutation<
 })
 
 // Counter
-const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(SUM_PAYMENT, {
-  status: ((route.query.status as string) || '').toUpperCase()
-})
-const counter = computed(() => paymentCounter?.value?.sum_payment?.number_status || 0)
+const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(
+  SUM_PAYMENT,
+  {
+    status: ((route.query.status as string) || '').toUpperCase()
+  }
+)
+const counter = computed(
+  () => paymentCounter?.value?.sum_payment?.number_status || 0
+)
 
 // Delete from modal
 // Global event
