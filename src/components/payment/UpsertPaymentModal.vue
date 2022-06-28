@@ -285,7 +285,7 @@ const { mutate: upsertPayment, loading } = useMutation<
       dbSet(
         dbRef(
           useFireRTDB(),
-          `payment/${_payment.add_user_id}-${_payment.goal_id}`
+          `payment/${_payment.add_user_id}/${_payment.goal_id}`
         ),
         _payment
       )
