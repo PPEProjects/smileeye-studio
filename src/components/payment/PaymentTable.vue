@@ -40,7 +40,10 @@
       </template>
 
       <template v-else-if="column.key === 'billImage'">
-        <div v-if="record.attachments?.[0]" class="rounded overflow-hidden h-[80px]">
+        <div
+          v-if="record.attachments?.[0]"
+          class="rounded overflow-hidden h-[80px]"
+        >
           <a-image
             :width="150"
             :height="80"
@@ -103,6 +106,8 @@ import {
   ref
 } from 'vue'
 
+import { ref as dbRef, set as dbSet } from 'firebase/database'
+
 const PaymentActions = defineAsyncComponent(
   () => import('@components/payment/PaymentActions.vue')
 )
@@ -118,7 +123,7 @@ import {
   SortPayments,
   SortPaymentsVariables
 } from '#smileeye/queries/__generated__/SortPayments'
-import { SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
+import { PAYMENT_BY_ID, SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
 import { useDayjs } from '@composables/useDayjs'
 import {
   DELETE_PAYMENT,
@@ -140,6 +145,8 @@ import {
 import { STATUS } from '#schema/smileeyeTypes'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useFireRTDB } from '@composables/useFirebase'
+import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
 
 const { t } = useI18n()
 
@@ -230,8 +237,10 @@ const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
 const payments = computed(() => {
   const _payments = result.value?.sort_payments || []
 
-  if(queryVariables.status) {
-    return _payments.filter((_payment) => _payment?.status === queryVariables.status)
+  if (queryVariables.status) {
+    return _payments.filter(
+      (_payment) => _payment?.status === queryVariables.status
+    )
   }
   return _payments
 })
@@ -280,5 +289,15 @@ onUnmounted(() => emitter.off('deletePayment'))
 const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
   QuickDonePayment,
   QuickDonePaymentVariables
->(QUICK_DONE_PAYMENT)
+>(QUICK_DONE_PAYMENT, {
+  update: (proxy, result) => {
+    const _payment = proxy.readFragment<PaymentByID>({
+      id: proxy.identify(result.data?.upsert_payment?.[0] as any),
+      fragment: PAYMENT_BY_ID
+    })
+    if(_payment) {
+      dbSet(dbRef(useFireRTDB(), `payment/${_payment.add_user_id}-${_payment.goal_id}`), _payment)
+    }
+  }
+})
 </script>

@@ -31,3 +31,12 @@ export const SUM_PAYMENT = gql`
     }
   }
 `
+
+export const PAYMENT_BY_ID = gql`
+  fragment PaymentByID on Payment {
+    id
+    status
+    goal_id
+    add_user_id
+  }
+`

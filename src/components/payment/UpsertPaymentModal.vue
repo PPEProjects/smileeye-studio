@@ -226,6 +226,10 @@ import {
 } from '#smileeye/mutations/__generated__/UpsertPayment'
 import { UPSERT_PAYMENT } from '#smileeye/mutations/payment.mutation'
 import { useI18n } from 'vue-i18n'
+import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
+import { PAYMENT_BY_ID } from '#smileeye/queries/payment.query'
+import { ref as dbRef, set as dbSet } from 'firebase/database'
+import { useFireRTDB } from '@composables/useFirebase'
 const { t } = useI18n()
 const modal = ref<any>(null)
 
@@ -271,6 +275,21 @@ const { mutate: upsertPayment, loading } = useMutation<
 >(UPSERT_PAYMENT, {
   onQueryUpdated: () => {
     modal.value?.dispose()
+  },
+  update: (proxy, result) => {
+    const _payment = proxy.readFragment<PaymentByID>({
+      id: proxy.identify(result.data?.upsert_payment?.[0] as any),
+      fragment: PAYMENT_BY_ID
+    })
+    if (_payment) {
+      dbSet(
+        dbRef(
+          useFireRTDB(),
+          `payment/${_payment.add_user_id}-${_payment.goal_id}`
+        ),
+        _payment
+      )
+    }
   }
 })
 
