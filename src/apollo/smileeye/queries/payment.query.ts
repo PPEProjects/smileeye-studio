@@ -40,3 +40,26 @@ export const PAYMENT_BY_ID = gql`
     add_user_id
   }
 `
+
+export const GET_PAYMENT_BY_DAY = gql`
+  query SortPaymentsByDate($dateFrom: String!, $dateTo: String!) {
+    sort_payments_by_date(date_from: $dateFrom, date_to: $dateTo) {
+      id
+      add_user_id
+      goal_id
+      goal {
+        id
+        name
+        price
+      }
+      status
+      type
+      user_info
+      code_sale
+      money
+      note
+      attachments
+      created_at
+    }
+  }
+`

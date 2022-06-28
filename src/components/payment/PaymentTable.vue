@@ -171,7 +171,7 @@ const rawColumns = reactive([
     key: 'phone'
   },
   {
-    title: t('goal.name'),
+    title: t('goal.name') + ' Goal',
     dataIndex: 'goal',
     key: 'goal'
   }

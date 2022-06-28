@@ -46,7 +46,8 @@
     "endDay": "Ngày kết thúc",
     "fields": "Các Cột",
     "range": "Phạm Vi",
-    "startDay": "Ngày bắt đầu"
+    "startDay": "Ngày bắt đầu",
+    "guide": "Đây chỉ là bản thử nghiệm"
   },
   "form": {
     "validate": {

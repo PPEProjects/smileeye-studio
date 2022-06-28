@@ -60,15 +60,17 @@
   </teleport-view>
 
   <teleport-view to='#actions'>
-    <export-excel-button :columns='columns' />
+    <export-excel-button :columns='columns' :query='query' />
   </teleport-view>
 
   <payment-table :key='$route.fullPath' />
+
   <upsert-payment-modal />
+
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, reactive } from 'vue'
+import { computed, defineAsyncComponent, reactive } from 'vue'
 
 const PaymentTable = defineAsyncComponent(() => import('@components/payment/PaymentTable.vue'))
 const UpsertPaymentModal = defineAsyncComponent(() => import('@components/payment/UpsertPaymentModal.vue'))
@@ -76,33 +78,54 @@ const TabsAnimation = defineAsyncComponent(() => import('@components/includes/Ta
 const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 const ExportExcelButton = defineAsyncComponent(() => import('@components/includes/ExportExcelButton.vue'))
 
+import { GET_PAYMENT_BY_DAY } from '#smileeye/queries/payment.query'
+
+const query = computed(() => GET_PAYMENT_BY_DAY)
+
 import { useI18n } from 'vue-i18n'
+import { IExcelColumn } from '@utils/excel'
 const { t } = useI18n()
 
-const columns = reactive([
+const columns = reactive<IExcelColumn[]>([
   {
     label: t('user.name'),
-    value: 'name'
+    value: ['user_info', 'name']
   },
   {
     label: t('user.email'),
-    value: 'email'
+    value: ['user_info', 'email']
   },
   {
     label: t('user.phone'),
-    value: 'user_phone'
+    value: ['user_info', 'user_phone']
   },
   {
-    label: t('goal.name'),
+    label: t('goal.name') + ' Goal',
     value: 'goal'
   },
   {
     label: t('payment.price'),
-    value: 'price'
+    value: ['goal', 'price']
+  },
+  {
+    label: t('payment.referral'),
+    value: 'referral'
+  },
+  {
+    label: t('coupon.label'),
+    value: 'code_sale'
+  },
+  {
+    label: t('payment.money'),
+    value: 'money'
+  },
+  {
+    label: t('payment.note'),
+    value: 'note'
   },
   {
     label: t('payment.billImage'),
-    value: 'billImage'
+    value: ['attachments', '0']
   },
   {
     label: t('payment.status.title'),
