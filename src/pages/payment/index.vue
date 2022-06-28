@@ -101,7 +101,7 @@ const columns = reactive<IExcelColumn[]>([
   },
   {
     label: t('goal.name') + ' Goal',
-    value: 'goal'
+    value: ['goal', 'name']
   },
   {
     label: t('payment.price'),
