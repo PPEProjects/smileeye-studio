@@ -102,7 +102,7 @@ const exportOptions = reactive<{
   fields: number[]
 }>({
   range: [],
-  fields: []
+  fields: props.columns.map((_, index) => index)
 })
 
 const enable = computed(() => {
