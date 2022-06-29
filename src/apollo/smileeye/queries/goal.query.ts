@@ -63,3 +63,27 @@ export const LIST_GOAL_ROOT = gql`
     }
   }
 `
+
+export const GOAL_INFO = gql`
+  query InfoGoalTemplate($id: ID!) {
+    info_goal_template(goal_root_id: $id) {
+      id
+      goal {
+        id
+        name
+      }
+      sum_member
+      status
+      detail_template {
+        trial
+        paid_confirmed
+        percent_trial
+        percent_paid_confirmed
+        on_buy
+        percent_on_buy
+        in_need
+        percent_in_need
+      }
+    }
+  }
+`

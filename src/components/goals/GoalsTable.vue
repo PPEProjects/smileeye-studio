@@ -12,9 +12,9 @@
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <span class="font-medium ml-2">
+        <router-link :to='"/goals/" + record.id' class="font-medium ml-2">
           {{ record.name }}
-        </span>
+        </router-link>
       </template>
 
       <template v-else-if="column.key === 'owner'">

@@ -327,6 +327,17 @@ input deleteTaskInput {
   is_all: Boolean
 }
 
+type DetailTemplate {
+  trial: Int!
+  percent_trial: Int!
+  paid_confirmed: Int!
+  percent_paid_confirmed: Int!
+  on_buy: Int!
+  percent_on_buy: Int!
+  in_need: Int!
+  percent_in_need: Int!
+}
+
 type Diary {
   id: ID!
   user: User!
@@ -526,6 +537,16 @@ type InfoCoupon {
   availability: Int
 }
 
+type InfoTemplate {
+  id: ID!
+  goal: GoalRoot!
+  status: String!
+  sum_member: Int!
+  detail_template: DetailTemplate
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type JapaneseGoal {
   id: ID
   user: User
@@ -614,6 +635,14 @@ type JapanesePostPaginator {
 
   """A list of JapanesePost items."""
   data: [JapanesePost!]!
+}
+
+type JPLearn {
+  id: ID!
+  user: User!
+  goal: Goal!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 """A JSON with format `{}, []`"""
@@ -869,6 +898,15 @@ type PermissionOfRole {
 
 union PostAndDiary = JapanesePost | StoryShare
 
+type Progress {
+  id: ID!
+  name: String!
+  user: User!
+  owner_user: User!
+  goal_score: GoalScore
+  total_score: String!
+}
+
 type Query {
   user(id: ID): User
   check_goals(user_id: ID!, goal_root_id: ID!): [CheckGoal]
@@ -896,11 +934,13 @@ type Query {
   goal_root_by_user(user_id: ID!): [GoalRoot]
   dollar_my_own_goal_root: [GoalRoot]
   detail_goal_root(id: ID): GoalRoot
-  my_progress: [GoalRoot]
+  my_progress: [Progress]
+  user_progress(user_id: ID!, goal_root_id: ID!): Progress
   my_goal_score: [GoalScore]
   detail_goal_score(id: ID, goal_id: ID): GoalScore
   list_goal_score(user_id: ID!, goal_root_id: ID!): Score
   list_goal_template(status: String, first: Int, page: Int): [GoalTemplate]
+  info_goal_template(goal_root_id: ID!): InfoTemplate
   detail_japanese_goal(id: ID, goal_id: ID): JapaneseGoal
   search_by_type_japanese_goal(type: String): [JapaneseGoal]
   auto_play_japanese_goal(root_id: ID): JapaneseGoal
@@ -914,6 +954,7 @@ type Query {
   list_userid_japanese_learn(goal_id: ID!): UserID
   progress_user_japanese_learn(name: String): JSON
   progress_user(goal_root_id: ID!): [User]
+  list_progress_by_user(goal_root_id: ID!, user_id: ID!): [JPLearn]
   detail_japanese_posts(id: ID, goal_id: ID): JapanesePost
   my_japanese_posts: [JapanesePost]
   other_japanese_posts(goal_id: ID): [JapanesePost]

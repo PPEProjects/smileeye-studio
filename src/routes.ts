@@ -88,6 +88,10 @@ let routes: RouteRecordRaw[] = [
   {
     path: '/goals',
     component: () => import('./pages/goals/index.vue')
+  },
+  {
+    path: '/goals/:id(\\d+)',
+    component: () => import('./pages/goals/id/index.vue')
   }
 ]
 
