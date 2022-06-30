@@ -120,7 +120,7 @@ const exportOptions = reactive<{
   fields: string[]
 }>({
   range: [],
-  fields: []
+  fields: columesValude.value.map(({ label }) => label),
 })
 
 const enable = computed(() => {
