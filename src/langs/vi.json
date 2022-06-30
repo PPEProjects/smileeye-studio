@@ -29,24 +29,24 @@
     "createdAt": "Ngày Tạo",
     "expiryDate": "Ngày Hết Hạn",
     "label": "Mã Giảm Giá",
-    "limit": "Số Lượng",
-    "percent": "Giá Trị",
+    "limit": "Số vé tối đa",
+    "percent": "% giảm giá",
     "placeholder": {
-      "expiry_date": "Nhập thời gian"
+      "expiry_date": "Ngày hết hạn"
     },
     "use": "Sử Dụng"
   },
   "cropper": {
     "guide": {
-      "tab": "Nhấp vào vị trị tương ứng để tải ảnh lên"
+      "tab": "Click để tải ảnh lên"
     },
     "title": "Di Chuyển Và Cắt Hình"
   },
   "export": {
-    "endDay": "Ngày kết thúc",
+    "endDay": "Đến ngày",
     "fields": "Các Cột",
     "range": "Phạm Vi",
-    "startDay": "Ngày bắt đầu",
+    "startDay": "Từ ngày",
     "guide": "Đây chỉ là bản thử nghiệm"
   },
   "form": {
@@ -58,11 +58,11 @@
   "goal": {
     "name": "Tên",
     "owner": "Chủ Sở Hữu",
-    "percent": "Chiết Khấu",
+    "percent": "% của Chủ goal",
     "price": "Giá Cả",
     "status": "Trạng Thái",
     "sellRequest": {
-      "createdAt": "Ngày Yêu Cầu"
+      "createdAt": "Ngày gửi yêu cầu bán goal"
     }
   },
   "goals": {
@@ -72,67 +72,67 @@
     }
   },
   "input": {
-    "keyword": "Từ khoá..."
+    "keyword": "Từ khoá"
   },
   "payment": {
-    "billImage": "Hoá Đơn",
+    "billImage": "Ảnh hoá Đơn",
     "createdAt": "Ngày Tạo",
-    "money": "Thực Nhân",
-    "note": "Gi Chú",
-    "payment": "hoá đơn",
-    "price": "Giá Cả",
-    "referral": "Giới Thiệu",
+    "money": "Đã nhận",
+    "note": "Ghi Chú",
+    "payment": "Hoá đơn",
+    "price": "Giá",
+    "referral": "Giới thiệu",
     "status": {
-      "all": "Tất Cả",
-      "confirmed": "Đã Mua",
-      "onBuy": "Đang Mua",
-      "title": "Trạng Thái",
-      "trial": "Xem Chùa",
-      "wanted": "Mong Muốn"
+      "all": "Tất cả",
+      "confirmed": "Đã xác nhận money",
+      "onBuy": "Đã chuyển tiền",
+      "title": "Trạng thái",
+      "trial": "Đang tìm hiểu",
+      "wanted": "Muốn mua"
     },
-    "title": "Hệ Thống Thanh Toán"
+    "title": "Quản lý Thanh Toán"
   },
   "settings": {
     "language": {
-      "guide": "Nhấp để thay đổi ngôn ngữ"
+      "guide": "Click để thay đổi ngôn ngữ"
     },
     "title": "Thiết Lập"
   },
   "sidebar": {
-    "config": "Thiết Lập",
-    "coupon": "Mã Giảm Giá",
-    "dashboard": "Tổng Quan",
+    "config": "Thiết lập",
+    "coupon": "Mã Giảm giá",
+    "dashboard": "Tổng quan",
     "members": {
-      "members": "Thành Viên",
-      "supporters": "Hỗ Trợ",
-      "users": "Thành Viên"
+      "members": "Thành viên",
+      "supporters": "Hỗ trợ",
+      "users": "Thành viên"
     },
-    "notify": "Thông Báo",
-    "payment": "Thanh Toán",
+    "notify": "Thông báo",
+    "payment": "Thanh toán",
     "settings": {
-      "languages": "Ngôn Ngữ",
-      "logout": "Đăng Xuất",
-      "settings": "Cài Đặt"
+      "languages": "Ngôn ngữ",
+      "logout": "Đăng xuất",
+      "settings": "Cài đặt"
     },
-    "workspace": "Khoá Học"
+    "workspace": "Chương trình"
   },
   "table": {
     "action": {
-      "title": "Hành Động"
+      "title": "Hành động"
     }
   },
   "user": {
     "address": {
       "detail": "Địa Chỉ Cụ Thể",
       "district": "Quận/Huyện",
-      "province": "Tỉnh/Thành Phố",
+      "province": "Tỉnh/Thành phố",
       "ward": "Phường/Xã"
     },
-    "createdAt": "Ngày Tham Gia",
+    "createdAt": "Ngày tham gia",
     "email": "Email",
     "name": "Tên",
-    "phone": "Số Điện Thoại",
-    "role": "Phân Quyền",
+    "phone": "Số điện thoại",
+    "role": "Phân quyền",
     "form": {
       "status": {
         "placeholder": "Please select status"
@@ -141,21 +141,21 @@
   },
   "users": {
     "goal": {
-      "activity": "Hoạt Động",
-      "info": "Thông Tin"
+      "activity": "Hoạt động",
+      "info": "Thông tin"
     },
-    "label": "Thành Viên",
+    "label": "Thành viên",
     "profile": {
-      "info": "Thông Tin"
+      "info": "Thông tin"
     },
     "tab": {
-      "all": "Tất Cả",
-      "supporters": "Người Hỗ Trợ"
+      "all": "Tất cả",
+      "supporters": "Người hỗ trợ"
     }
   },
   "sellRequest": {
-    "approved": "Đã Xác Nhận",
-    "pending": "Chờ Xác Nhận",
+    "approved": "Đã xác nhận",
+    "pending": "Chờ Xác nhận",
     "form": {
       "label": "Cập nhật thoả thuận"
     }
