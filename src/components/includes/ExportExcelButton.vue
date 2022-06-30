@@ -1,6 +1,11 @@
 <template>
   <div>
-    <a-button type="primary" size="large" :loading='loading' @click="openModal = true">
+    <a-button
+      type="primary"
+      size="large"
+      :loading="loading"
+      @click="openModal = true"
+    >
       <template #icon>
         <file-excel-outlined />
       </template>
@@ -42,24 +47,32 @@
             v-model:value="exportOptions.fields"
             style="width: 100%"
           >
-            <a-row>
-              <a-col
-                v-for="(item, index) in columns"
-                :key="item.value"
-                :span="8"
-                class="mb-1"
-              >
-                <a-checkbox :value="index">
-                  {{ item.label }}
-                </a-checkbox>
-              </a-col>
-            </a-row>
+            <draggable
+              v-model="columesValude"
+              group="people"
+              item-key="label"
+              class="excel-grag"
+              @start="drag = true"
+              @end="drag = false"
+            >
+              <template #item="{ element }">
+                <div class="excel-field">
+                  <a-checkbox :value="element.label">
+                    {{ element.label }}
+                  </a-checkbox>
+                </div>
+              </template>
+            </draggable>
           </a-checkbox-group>
 
           <template #extra>
-            <div class='text-sm mt-4 -mb-2'>{{ t('export.guide') }}</div>
+            <div class='-mb-2 mt-4'>
+              <div class="text-xs">{{ t('export.guide') }}</div>
+              <div class="text-xs mt-2">
+                {{ t('export.drag') }}
+              </div>
+            </div>
           </template>
-
         </a-form-item>
 
         <a-form-item class="-mt-3">
@@ -83,7 +96,10 @@
 import { FileExcelOutlined } from '@ant-design/icons-vue'
 import { computed, defineAsyncComponent, reactive, ref } from 'vue'
 import type { Dayjs } from 'dayjs'
-const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
+const ModalBase = defineAsyncComponent(
+  () => import('@components/modal/ModalBase.vue')
+)
+import draggable from 'vuedraggable'
 
 import { useI18n } from 'vue-i18n'
 import { DocumentNode } from 'graphql/language/ast'
@@ -93,16 +109,18 @@ const { t } = useI18n()
 const openModal = ref(false)
 
 const props = defineProps<{
-  columns: IExcelColumn[],
+  columns: IExcelColumn[]
   query: DocumentNode
 }>()
 
+const columesValude = ref<IExcelColumn[]>(props.columns)
+
 const exportOptions = reactive<{
   range: Dayjs[]
-  fields: number[]
+  fields: string[]
 }>({
   range: [],
-  fields: props.columns.map((_, index) => index)
+  fields: []
 })
 
 const enable = computed(() => {
@@ -136,11 +154,15 @@ const getDataTable = async (start: string, end: string) => {
       },
       fetchPolicy: 'no-cache'
     })
-    if(data[0]) {
+    if (data[0]) {
       // Build file...ánh xạ các cột vào cột của file excel
     }
 
-    const blob = await builDeepExcel(props.columns, exportOptions.fields, data[Object.keys(data)[0]])
+    const blob = await builDeepExcel(
+      columesValude.value,
+      columesValude.value.filter((item) => exportOptions.fields.includes(item.label)).map((item) => item.label),
+      data[Object.keys(data)[0]]
+    )
 
     const dlink = document.createElement('a')
     dlink.href = window.URL.createObjectURL(blob)
@@ -154,11 +176,20 @@ const getDataTable = async (start: string, end: string) => {
 
     dlink.click()
     dlink.remove()
-
   } catch (e) {
     console.log(e)
-      // Xuất file thất bại
+    // Xuất file thất bại
   }
   loading.value = false
 }
+
+const drag = ref(false)
 </script>
+
+<style>
+.excel-grag {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 5px;
+}
+</style>

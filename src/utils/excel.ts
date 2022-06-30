@@ -14,9 +14,9 @@ interface MappingColumes {
   props: string[]
 }
 
-const mappingColumns = (columns: IExcelColumn[], targer: number[]) => {
+const mappingColumns = (columns: IExcelColumn[], targer: string[]) => {
   return columns
-    .filter((_, index) => targer.includes(index))
+    .filter((col) => targer.includes(col.label))
     .map((column) => {
       const props =
         column.value instanceof Array ? column.value : [column.value]
@@ -50,7 +50,7 @@ const mappingRow = (columns: MappingColumes[], data: any) => {
 
 export const builDeepExcel = async (
   columns: IExcelColumn[],
-  targer: number[],
+  targer: string[],
   data: any[]
 ) => {
   const workbook = new ExcelJS.Workbook()
