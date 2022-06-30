@@ -7,10 +7,32 @@
 // GraphQL query operation: InfoGoalTemplate
 // ====================================================
 
+export interface InfoGoalTemplate_info_goal_template_goal_sellRequest {
+  __typename: "GoalTemplate";
+  id: string | null;
+  status: string | null;
+}
+
+export interface InfoGoalTemplate_info_goal_template_goal_user {
+  __typename: "User";
+  id: string | null;
+  name: string | null;
+  avatar: string | null;
+  roles: any | null;
+  email: string | null;
+  phone_number: string | null;
+  current_address: any | null;
+}
+
 export interface InfoGoalTemplate_info_goal_template_goal {
   __typename: "GoalRoot";
   id: string | null;
   name: string | null;
+  image: any | null;
+  description: string | null;
+  price: number | null;
+  sellRequest: InfoGoalTemplate_info_goal_template_goal_sellRequest | null;
+  user: InfoGoalTemplate_info_goal_template_goal_user | null;
 }
 
 export interface InfoGoalTemplate_info_goal_template_detail_template {

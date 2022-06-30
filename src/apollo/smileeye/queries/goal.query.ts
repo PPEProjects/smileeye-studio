@@ -71,6 +71,22 @@ export const GOAL_INFO = gql`
       goal {
         id
         name
+        image
+        description
+        price
+        sellRequest {
+          id
+          status
+        }
+        user {
+          id
+          name
+          avatar
+          roles
+          email
+          phone_number
+          current_address
+        }
       }
       sum_member
       status
@@ -84,6 +100,20 @@ export const GOAL_INFO = gql`
         in_need
         percent_in_need
       }
+    }
+  }
+`
+
+export const LIST_STUDENTS = gql`
+  query ListStudent($goalRootId: ID) {
+    list_student(goal_root_id: $goalRootId) {
+      id
+      name
+      avatar
+      email
+      phone_number
+      sum_day_learn
+      created_at
     }
   }
 `

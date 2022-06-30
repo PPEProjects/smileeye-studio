@@ -57,16 +57,16 @@
           {{ t('payment.status.trial') }}
         </a-tag>
         <a-tag v-else-if="record.status === STATUS.ON_BUY" color="#f50">
-          {{ t('payment.status.onBuy') }}
+          {{ t('payment.status.on_buy') }}
         </a-tag>
         <a-tag
           v-else-if="record.status === STATUS.PAID_CONFIRMED"
           color="#87d068"
         >
-          {{ t('payment.status.confirmed') }}
+          {{ t('payment.status.paid_confirmed') }}
         </a-tag>
         <a-tag v-else-if="record.status === STATUS.IN_NEED" color="#9c27b0">
-          {{ t('payment.status.wanted') }}
+          {{ t('payment.status.in_need') }}
         </a-tag>
       </template>
 

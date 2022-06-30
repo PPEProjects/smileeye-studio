@@ -69,7 +69,7 @@ const formState = reactive<typeof initState>(initState)
 // student, admin, supporter, coach
 const buildForm = (data: any) => {
   formState.id = data.id
-  formState.roles = data.roles.map((role: { id: any }) => role.id)
+  formState.roles = data.roles?.map((role: { id: any }) => role.id)
   formState.__typename = data.__typename
 }
 

@@ -37,6 +37,11 @@ export interface DeleteCouponInput {
   id: string;
 }
 
+export interface DeleteGoalMemberInput {
+  user_id?: string | null;
+  goal_root_id?: string | null;
+}
+
 export interface DeleteGoalRootInput {
   id?: string | null;
   is_admin?: boolean | null;

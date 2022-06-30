@@ -34,3 +34,9 @@ export const DELETE_GOAL_TEMPLATE = gql`
     delete_goal_template(input: $input)
   }
 `
+
+export const DELETE_STUDENT = gql`
+  mutation DeleteStudent($input: DeleteGoalMemberInput!) {
+    delete_member_from_goal(input: $input)
+  }
+`

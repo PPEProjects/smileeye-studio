@@ -31,7 +31,7 @@
             "_active": $route.query.status === "in_need"
           }'
         >
-          {{ t('payment.status.wanted') }}
+          {{ t('payment.status.in_need') }}
         </router-link>
 
         <router-link
@@ -41,7 +41,7 @@
             "_active": $route.query.status === "on_buy"
           }'
         >
-          {{ t('payment.status.onBuy') }}
+          {{ t('payment.status.on_buy') }}
         </router-link>
 
 
@@ -52,7 +52,7 @@
             "_active": $route.query.status === "paid_confirmed"
           }'
         >
-          {{ t('payment.status.confirmed') }}
+          {{ t('payment.status.paid_confirmed') }}
         </router-link>
 
       </tabs-animation>

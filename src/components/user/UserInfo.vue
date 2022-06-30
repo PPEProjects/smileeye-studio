@@ -8,7 +8,7 @@
 
     <button
       class="absolute z-20 top-3 right-3 text-white text-[20px]"
-      @click='goToProfile'
+      @click="goToProfile"
     >
       <share-alt-outlined />
     </button>
@@ -38,25 +38,7 @@
       <h3>{{ t('users.profile.info') }}</h3>
 
       <div class="text-gray-600">
-        <div class="py-2 border-b border-gray-200">
-          <phone-outlined :style="{ width: '20px', height: '20px' }" />
-          <span class="ml-1.5">{{ user.phone_number }}</span>
-        </div>
-
-        <div class="py-2 border-b border-gray-200">
-          <mail-outlined :style="{ width: '20px', height: '20px' }" />
-          <span class="ml-1.5">{{ user.email }}</span>
-        </div>
-
-        <div class="py-2 border-b border-gray-200">
-          <pushpin-outlined :style="{ width: '20px', height: '20px' }" />
-          <span class="ml-1.5">{{ user.current_address?.detail || '--' }}</span>
-        </div>
-
-        <div class="py-2">
-          <crown-outlined :style="{ width: '20px', height: '20px' }" />
-          <span class="ml-1.5">{{ dayjs(user.created_at).fromNow() }}</span>
-        </div>
+        <user-cell-info :user="user" />
       </div>
     </div>
   </div>
@@ -64,25 +46,19 @@
 
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue'
-const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
+const UserRolesTag = defineAsyncComponent(
+  () => import('@components/user/UserRolesTag.vue')
+)
 
 import { DetailUser_detail_user } from '#smileeye/queries/__generated__/DetailUser'
 
-import {
-  PhoneOutlined,
-  MailOutlined,
-  PushpinOutlined,
-  CrownOutlined,
-  ShareAltOutlined
-} from '@ant-design/icons-vue'
-import { useDayjs } from '@composables/useDayjs'
+import { ShareAltOutlined } from '@ant-design/icons-vue'
 import { useI18n } from 'vue-i18n'
+import UserCellInfo from '@components/user/UserCellInfo.vue'
 
 const props = defineProps<{
   user: DetailUser_detail_user
 }>()
-
-const dayjs = useDayjs()
 
 const { t } = useI18n()
 

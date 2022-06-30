@@ -127,7 +127,7 @@
                   }
                 ]"
               >
-                <a-input v-model:value="formState.money" />
+                <a-input v-model:value.number="formState.money" />
               </a-form-item>
             </div>
           </div>
@@ -153,11 +153,11 @@
               </a-select-option>
 
               <a-select-option :value="STATUS.PAID_CONFIRMED">
-                {{ t('payment.status.confirmed') }}
+                {{ t('payment.status.paid_confirmed') }}
               </a-select-option>
 
               <a-select-option :value="STATUS.ON_BUY">
-                {{ t('payment.status.onBuy') }}
+                {{ t('payment.status.on_buy') }}
               </a-select-option>
             </a-select>
           </a-form-item>

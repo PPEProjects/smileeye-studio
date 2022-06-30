@@ -25,12 +25,21 @@ const $cdn = (path: string, location = CDNLocation.CODE_BY) => {
   return _path
 }
 
+const $moneyFormat = (money: number) => {
+  const fotmatter = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+  })
+  return fotmatter.format(money)
+}
+
 // Link Builder
 
 // Cutsom type
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $cdn: typeof $cdn
+    $moneyFormat: typeof $moneyFormat
   }
 }
 
@@ -39,6 +48,8 @@ const plugin = {
   install(app: App) {
     app.config.globalProperties.$cdn = $cdn
     app.provide('$cdn', $cdn)
+    app.config.globalProperties.$moneyFormat = $moneyFormat
+    app.provide('$moneyFormat', $moneyFormat)
   }
 }
 

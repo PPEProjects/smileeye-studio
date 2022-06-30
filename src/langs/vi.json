@@ -63,6 +63,11 @@
     "status": "Trạng Thái",
     "sellRequest": {
       "createdAt": "Ngày Yêu Cầu"
+    },
+    "tab": {
+      "tree": "Lộ Trình Học",
+      "students": "Học Sinh",
+      "teachers": "Giáo Viên"
     }
   },
   "goals": {
@@ -84,11 +89,11 @@
     "referral": "Giới Thiệu",
     "status": {
       "all": "Tất Cả",
-      "confirmed": "Đã Mua",
-      "onBuy": "Đang Mua",
+      "paid_confirmed": "Đã Mua",
+      "on_buy": "Đang Mua",
       "title": "Trạng Thái",
       "trial": "Xem Chùa",
-      "wanted": "Mong Muốn"
+      "in_need": "Mong Muốn"
     },
     "title": "Hệ Thống Thanh Toán"
   },
@@ -129,6 +134,7 @@
       "ward": "Phường/Xã"
     },
     "createdAt": "Ngày Tham Gia",
+    "sum_day_learn": "Số Ngày Học",
     "email": "Email",
     "name": "Tên",
     "phone": "Số Điện Thoại",
