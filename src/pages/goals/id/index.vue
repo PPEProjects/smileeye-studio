@@ -5,6 +5,19 @@
 
   <teleport-view to="#actions">
     <a-button
+      v-if='$route.query.tab === "teachers"'
+      type="primary"
+      size="large"
+      ghost
+      class="uppercase mr-3"
+      @click='$emitter.emit("addCoachModal")'
+    >
+      <template #icon>
+        <plus-outlined />
+      </template>
+      {{ t('button.addCoach') }}
+    </a-button>
+    <a-button
       type="primary"
       size="large"
       class="uppercase"
@@ -12,7 +25,7 @@
       <template #icon>
         <eye-outlined />
       </template>
-      preview
+      {{ t('button.preview') }}
     </a-button>
   </teleport-view>
 
@@ -169,16 +182,23 @@
   </a-spin>
 
   <edit-rule-modal />
+  <add-coach-modal />
 
 </template>
 
 <script lang="ts" setup>
 
-import { EyeOutlined } from '@ant-design/icons-vue'
+import { EyeOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
-import TeleportView from '@components/layout/TeleportView.vue'
+const TeleportView = defineAsyncComponent(()=> import('@components/layout/TeleportView.vue'))
 const EditRuleModal = defineAsyncComponent(() => import('@components/users/EditRuleModal.vue'))
 const TabsAnimation = defineAsyncComponent(() => import('@components/includes/TabsAnimation.vue'))
+const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
+const UserCellInfo = defineAsyncComponent(() => import('@components/user/UserCellInfo.vue'))
+const GoalTree = defineAsyncComponent(() => import('@components/workspace/GoalTree.vue'))
+const StudentsTable = defineAsyncComponent(() => import('@components/goals/StudentsTable.vue'))
+const TeachersTable = defineAsyncComponent(() => import('@components/goals/TeachersTable.vue'))
+const AddCoachModal = defineAsyncComponent(() => import('@components/goals/AddCoachModal.vue'))
 
 import { GOAL_INFO } from '#smileeye/queries/goal.query'
 import { useQuery } from '@vue/apollo-composable'
@@ -191,11 +211,6 @@ import { computed, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import GoalChart from '@components/goal/GoalChart'
 import { useI18n } from 'vue-i18n'
-import UserRolesTag from '@components/user/UserRolesTag.vue'
-import UserCellInfo from '@components/user/UserCellInfo.vue'
-import GoalTree from '@components/workspace/GoalTree.vue'
-import StudentsTable from '@components/goals/StudentsTable.vue'
-import TeachersTable from '@components/goals/TeachersTable.vue'
 
 const route = useRoute()
 

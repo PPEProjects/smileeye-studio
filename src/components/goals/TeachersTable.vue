@@ -78,7 +78,7 @@ import { useI18n } from 'vue-i18n'
 import { computed, reactive, ref } from 'vue'
 import SearchHeaderTable from '@components/includes/SearchHeaderTable.vue'
 import { useDayjs } from '@composables/useDayjs'
-import { DELETE_STUDENT } from '#smileeye/mutations/goal.mutation'
+import { DELETE_TEACHER } from '#smileeye/mutations/goal.mutation'
 import { DeleteTeacher, DeleteTeacherVariables } from '#smileeye/mutations/__generated__/DeleteTeacher'
 
 const dayjs = useDayjs()
@@ -162,7 +162,7 @@ const students = computed(() => {
 const { mutate, loading: isDeleteting } = useMutation<
   DeleteTeacher,
   DeleteTeacherVariables
-  >(DELETE_STUDENT, {
+  >(DELETE_TEACHER, {
   update: (proxy, result1, options) => {
     proxy.writeQuery<ListCoachs, ListCoachsVariables>({
       query: LIST_COACHS,

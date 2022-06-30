@@ -46,3 +46,20 @@ export const DELETE_TEACHER = gql`
     delete_coach_from_goal(input: $input)
   }
 `
+
+export const UPSERT_COACH = gql`
+  mutation UpsertTeacher($input: UpsertCoachMemberInput!) {
+    upsert_coach_member(input: $input) {
+      id
+      user {
+        id
+        avatar
+        name
+        email
+        phone_number
+        created_at
+        gender
+      }
+    }
+  }
+`

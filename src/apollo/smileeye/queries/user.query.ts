@@ -96,3 +96,24 @@ export const LIST_POST_BY_UER = gql`
     }
   }
 `
+
+export const SEARCH_USERS_BY_GOAL = gql`
+  query SearchUsersByGoal(
+    $first: Int!
+    $page: Int!
+    $phoneNumber: String
+    $email: String
+  ) {
+    list_user(
+      first: $first
+      page: $page
+      phone_number: $phoneNumber
+      email: $email
+    ) {
+      data {
+        id
+        name
+      }
+    }
+  }
+`

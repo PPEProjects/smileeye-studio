@@ -115,6 +115,11 @@ export interface UpdateUserInput {
   banner?: string | null;
 }
 
+export interface UpsertCoachMemberInput {
+  user_id?: string | null;
+  goal_ids?: (string | null)[] | null;
+}
+
 export interface UpsertCouponInput {
   code: string;
   limit?: number | null;
