@@ -54,6 +54,7 @@
             type="danger"
             class="ml-2"
             size="small"
+            @click="$emitter.emit('updateUserModal', record)"
           >
             <template #icon>
               <delete-outlined />
@@ -67,25 +68,18 @@
   </a-table>
 </template>
 
-<script lang="ts" setup>
+<script lang='ts' setup>
 import { DeleteOutlined } from '@ant-design/icons-vue'
-
-import { useRoute } from 'vue-router'
 import { useMutation, useQuery } from '@vue/apollo-composable'
-import { LIST_STUDENTS } from '#smileeye/queries/goal.query'
-import {
-  ListStudent,
-  ListStudentVariables
-} from '#smileeye/queries/__generated__/ListStudent'
-import { computed, reactive, ref } from 'vue'
+import { ListCoachs, ListCoachsVariables } from '#smileeye/queries/__generated__/ListCoachs'
+import { LIST_COACHS } from '#smileeye/queries/goal.query'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { useDayjs } from '@composables/useDayjs'
+import { computed, reactive, ref } from 'vue'
 import SearchHeaderTable from '@components/includes/SearchHeaderTable.vue'
-import {
-  DeleteStudent,
-  DeleteStudentVariables
-} from '#smileeye/mutations/__generated__/DeleteStudent'
+import { useDayjs } from '@composables/useDayjs'
 import { DELETE_STUDENT } from '#smileeye/mutations/goal.mutation'
+import { DeleteTeacher, DeleteTeacherVariables } from '#smileeye/mutations/__generated__/DeleteTeacher'
 
 const dayjs = useDayjs()
 
@@ -110,13 +104,6 @@ const columns = reactive([
     align: 'center',
     width: 150,
     key: 'createdAt'
-  },
-  {
-    title: t('user.sum_day_learn'),
-    dataIndex: 'sum_day_learn',
-    align: 'center',
-    width: 150,
-    key: 'sum_day_learn'
   },
   {
     key: 'action',
@@ -155,15 +142,12 @@ const formSearch = reactive<{
 const page = ref<number>(1)
 
 const route = useRoute()
-const { result, loading } = useQuery<ListStudent, ListStudentVariables>(
-  LIST_STUDENTS,
-  {
-    goalRootId: String(route.params.id)
-  }
-)
+const { result, loading } = useQuery<ListCoachs, ListCoachsVariables>(LIST_COACHS, {
+  goalRootId: String(route.params.id)
+})
 
 const students = computed(() => {
-  const _students = result.value?.list_student || []
+  const _students = result.value?.list_coach_members || []
   if (!formSearch.keyword) {
     return _students
   }
@@ -176,21 +160,26 @@ const students = computed(() => {
 })
 
 const { mutate, loading: isDeleteting } = useMutation<
-  DeleteStudent,
-  DeleteStudentVariables
->(DELETE_STUDENT, {
+  DeleteTeacher,
+  DeleteTeacherVariables
+  >(DELETE_STUDENT, {
   update: (proxy, result1, options) => {
-    proxy.writeQuery<ListStudent, ListStudentVariables>({
-      query: LIST_STUDENTS,
+    proxy.writeQuery<ListCoachs, ListCoachsVariables>({
+      query: LIST_COACHS,
       variables: {
         goalRootId: String(route.params.id)
       },
       data: {
-        list_student: result.value?.list_student?.filter(
+        list_coach_members: result.value?.list_coach_members?.filter(
           (student) => student?.id !== options?.variables?.input.user_id
         ) || []
       }
     })
   }
 })
+
 </script>
+
+<style scoped>
+
+</style>

@@ -33,6 +33,11 @@ export interface AssignRoleInput {
   user_id: string;
 }
 
+export interface DeleteCoachFromGoal {
+  user_id?: string | null;
+  goal_root_id?: string | null;
+}
+
 export interface DeleteCouponInput {
   id: string;
 }

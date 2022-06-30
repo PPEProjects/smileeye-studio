@@ -117,3 +117,17 @@ export const LIST_STUDENTS = gql`
     }
   }
 `
+
+export const LIST_COACHS = gql`
+  query ListCoachs($goalRootId: ID) {
+    list_coach_members(goal_root_id: $goalRootId) {
+      id
+      avatar
+      name
+      email
+      phone_number
+      created_at
+      gender
+    }
+  }
+`

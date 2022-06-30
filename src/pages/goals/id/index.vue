@@ -159,6 +159,9 @@
         </div>
 
         <students-table v-if='$route.query.tab === "students" ' />
+
+        <teachers-table v-if='$route.query.tab === "teachers" ' />
+
       </div>
 
     </div>
@@ -192,6 +195,7 @@ import UserRolesTag from '@components/user/UserRolesTag.vue'
 import UserCellInfo from '@components/user/UserCellInfo.vue'
 import GoalTree from '@components/workspace/GoalTree.vue'
 import StudentsTable from '@components/goals/StudentsTable.vue'
+import TeachersTable from '@components/goals/TeachersTable.vue'
 
 const route = useRoute()
 

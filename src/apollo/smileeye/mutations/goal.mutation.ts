@@ -40,3 +40,9 @@ export const DELETE_STUDENT = gql`
     delete_member_from_goal(input: $input)
   }
 `
+
+export const DELETE_TEACHER = gql`
+  mutation DeleteTeacher($input: DeleteCoachFromGoal!) {
+    delete_coach_from_goal(input: $input)
+  }
+`
