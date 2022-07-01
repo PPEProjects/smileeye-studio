@@ -1,52 +1,52 @@
 {
   "actions": {
     "accept": {
-      "title": ""
+      "title": "Confirm { Tien }"
     },
     "delete": {
-      "title": ""
+      "title": "Are you sure you want to delete { Tien } ?"
     },
     "edit": {
-      "title": ""
+      "title": "Edit { Tien }"
     }
   },
   "button": {
-    "addNew": "",
-    "addRole": "",
-    "cancel": "",
-    "delete": "",
-    "detail": "",
-    "edit": "",
-    "export": "",
-    "no": "",
-    "search": "",
-    "update": "",
-    "upload": "",
-    "yes": ""
+    "addNew": "Add new",
+    "addRole": "Add role",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "detail": "Detail",
+    "edit": "Edit",
+    "export": "Export file",
+    "no": "No",
+    "search": "Search",
+    "update": "Update",
+    "upload": "Upload",
+    "yes": "Yes"
   },
   "coupon": {
-    "code": "",
-    "createdAt": "",
-    "expiryDate": "",
-    "label": "",
-    "limit": "",
-    "percent": "",
+    "code": "Discount code",
+    "createdAt": "Date created",
+    "expiryDate": "Expiration date",
+    "label": "Discount code",
+    "limit": "Coupon max number",
+    "percent": "Discount Percent",
     "placeholder": {
-      "expiry_date": ""
+      "expiry_date": "Expiration date"
     },
-    "use": ""
+    "use": "Use"
   },
   "cropper": {
     "guide": {
-      "tab": ""
+      "tab": "Click here to upload a photo"
     },
-    "title": ""
+    "title": "Cut and crop"
   },
   "export": {
-    "endDay": "",
-    "fields": "",
-    "range": "",
-    "startDay": ""
+    "endDay": "From",
+    "fields": "Fields",
+    "range": "Range",
+    "startDay": "To"
   },
   "form": {
     "validate": {
@@ -55,99 +55,111 @@
     }
   },
   "goal": {
-    "name": "",
-    "owner": "",
-    "percent": "",
-    "price": "",
-    "status": ""
+    "name": "Name",
+    "owner": "Owner",
+    "percent": "Owner Percent",
+    "price": "Price",
+    "status": "Status",
+    "tab": {
+      "tree": "Study route",
+      "students": "Student",
+      "teachers": "Teacher"
+    }
   },
   "goals": {
     "tab": {
-      "all": "",
-      "sell_request": ""
+      "all": "All",
+      "sell_request": "Sell request"
     }
   },
   "input": {
-    "keyword": ""
+    "keyword": "Keyword"
   },
   "payment": {
-    "billImage": "",
-    "createdAt": "",
-    "money": "",
-    "note": "",
-    "payment": "",
-    "price": "",
-    "referral": "",
+    "billImage": "Bill image",
+    "createdAt": "Date created",
+    "money": "Money received",
+    "note": "Note",
+    "payment": "Payment",
+    "price": "Price",
+    "referral": "Introduce",
     "status": {
       "all": "All",
-      "confirmed": "Purchased",
-      "onBuy": "On Buy",
-      "title": "",
+      "paid_confirmed": "Purchased",
+      "on_buy": "On Buy",
+      "title": "Status",
       "trial": "Trial",
-      "wanted": "Wish"
+      "in_need": "Wish"
     },
-    "title": "Hệ Thống Thanh Toán"
+    "title": "Payment systems"
   },
   "settings": {
     "language": {
-      "guide": "Nhấp để thay đổi ngôn ngữ"
+      "guide": "Click to change language"
     },
-    "title": "Thiết Lập"
+    "title": "Title"
   },
   "sidebar": {
-    "config": "Thiết Lập",
-    "coupon": "Mã Giảm Giá",
-    "dashboard": "Tổng Quan",
+    "config": "Config",
+    "coupon": "Discount code",
+    "dashboard": "Overview",
     "members": {
-      "members": "Thành Viên",
-      "supporters": "Hỗ Trợ",
-      "users": "Thành Viên"
+      "members": "Member",
+      "supporters": "Support",
+      "users": "Users"
     },
-    "notify": "Thông Báo",
-    "payment": "Thanh Toán",
+    "notify": "Notification",
+    "payment": "Payment",
     "settings": {
-      "languages": "Ngôn Ngữ",
-      "logout": "Đăng Xuất",
-      "settings": "Cài Đặt"
+      "languages": "Languages",
+      "logout": "Log out",
+      "settings": "Settings"
     },
-    "workspace": ""
+    "workspace": "Programs"
   },
   "table": {
     "action": {
-      "title": ""
+      "title": "Action"
     }
   },
   "user": {
     "address": {
-      "detail": "",
-      "district": "",
-      "province": "",
-      "ward": ""
+      "detail": "Address",
+      "district": "District",
+      "province": "Province",
+      "ward": "Ward"
     },
-    "createdAt": "",
-    "email": "",
-    "name": "",
-    "phone": "",
-    "role": ""
+    "createdAt": "Join date",
+    "email": "Email",
+    "name": "Name",
+    "phone": "Phone",
+    "role": "Role"
   },
   "users": {
     "goal": {
-      "activity": "",
-      "info": ""
+      "activity": "Activity",
+      "info": "Information"
     },
-    "label": "",
+    "label": "Member",
     "profile": {
-      "info": ""
+      "info": "Information"
     },
     "tab": {
-      "all": "",
-      "supporters": ""
+      "all": "All",
+      "supporters": "Supporter"
+    }
+  },
+  "sellRequest": {
+    "approved": "Confirmed",
+    "pending": "Processing",
+    "form": {
+      "label": "Update agreement"
     }
   },
   "description": {
     "1234": "Description"
   },
   "auth": {
-    "welcome": "Tham gia cộng đồng giáo dục tại Việt Nam"
+    "welcome": "Join the project action community in the world."
   }
 }
