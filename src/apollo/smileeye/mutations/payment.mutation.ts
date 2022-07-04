@@ -23,12 +23,6 @@ export const UPSERT_PAYMENT = gql`
   }
 `
 
-export const DELETE_PAYMENT = gql`
-  mutation DeletePayment($input: DeletePaymentInput!) {
-    delete_payment(input: $input)
-  }
-`
-
 export const QUICK_DONE_PAYMENT = gql`
   mutation QuickDonePayment($input: UpsertPaymentInput!) {
     upsert_payment(input: $input) {

@@ -80,7 +80,11 @@
         <payment-actions
           v-else
           :payment="record"
-          @delete="deletePayment({ input: { id: record.id } })"
+          @delete="
+            quickConfirm({
+              input: { id: record.id, status: STATUS.TRIAL }
+            })
+          "
           @confirm="
             quickConfirm({
               input: { id: record.id, status: STATUS.PAID_CONFIRMED }
@@ -123,16 +127,15 @@ import {
   SortPayments,
   SortPaymentsVariables
 } from '#smileeye/queries/__generated__/SortPayments'
-import { PAYMENT_BY_ID, SORT_PAYMENTS, SUM_PAYMENT } from '#smileeye/queries/payment.query'
+import {
+  PAYMENT_BY_ID,
+  SORT_PAYMENTS,
+  SUM_PAYMENT
+} from '#smileeye/queries/payment.query'
 import { useDayjs } from '@composables/useDayjs'
 import {
-  DELETE_PAYMENT,
   QUICK_DONE_PAYMENT
 } from '#smileeye/mutations/payment.mutation'
-import {
-  DeletePayment,
-  DeletePaymentVariables
-} from '#smileeye/mutations/__generated__/DeletePayment'
 import {
   SumPayment,
   SumPaymentVariables
@@ -245,23 +248,6 @@ const payments = computed(() => {
   return _payments
 })
 
-const { mutate: deletePayment } = useMutation<
-  DeletePayment,
-  DeletePaymentVariables
->(DELETE_PAYMENT, {
-  update: (proxy, _, options) => {
-    proxy.writeQuery<SortPayments, SortPaymentsVariables>({
-      query: SORT_PAYMENTS,
-      variables: queryVariables,
-      data: {
-        sort_payments: result.value!.sort_payments!.filter(
-          (e) => e?.id !== options.variables?.input.id
-        )
-      }
-    })
-  }
-})
-
 // Counter
 const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(
   SUM_PAYMENT,
@@ -271,17 +257,6 @@ const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(
 )
 const counter = computed(
   () => paymentCounter?.value?.sum_payment?.number_status || 0
-)
-
-// Delete from modal
-// Global event
-const emitter = useEmitter<{
-  deletePayment: string
-}>()
-onMounted(() =>
-  emitter.on('deletePayment', (id) => {
-    deletePayment({ input: { id } })
-  })
 )
 
 onUnmounted(() => emitter.off('deletePayment'))
@@ -295,9 +270,28 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
       id: proxy.identify(result.data?.upsert_payment?.[0] as any),
       fragment: PAYMENT_BY_ID
     })
-    if(_payment) {
-      dbSet(dbRef(useFireRTDB(), `payment/${_payment.add_user_id}/${_payment.goal_id}`), _payment)
+    if (_payment) {
+      dbSet(
+        dbRef(
+          useFireRTDB(),
+          `payment/${_payment.add_user_id}/${_payment.goal_id}`
+        ),
+        _payment
+      )
     }
   }
 })
+
+// Delete from modal
+// Global event
+const emitter = useEmitter<{
+  deletePayment: string
+}>()
+onMounted(() =>
+  emitter.on('deletePayment', (id) => {
+    quickConfirm({
+      input: { id, status: STATUS.TRIAL }
+    })
+  })
+)
 </script>

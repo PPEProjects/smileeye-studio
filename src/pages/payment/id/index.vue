@@ -10,6 +10,8 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
+import {defineAsyncComponent} from "vue";
+const TeleportView = defineAsyncComponent(() => import('@components/layout/TeleportView.vue'))
 
 const { t } = useI18n()
 </script>

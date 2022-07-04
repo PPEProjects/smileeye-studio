@@ -86,8 +86,14 @@ const posts = computed<PostUnion[]>(() =>
     _post.type = hasKey(post, 'content') ? 'diary' : 'post'
 
     if(_post.type === 'post') {
-      Object.assign(_post, post)
+      Object.assign(_post, JSON.parse(JSON.stringify(post)))
       _post.type = 'post'
+      // Fix data struct change
+      _post.more.media = [
+          ...(_post.more.video || [])
+      ]
+      console.log(_post)
+
     } else {
       // post diary
       const postDiary = post as ListPostsAndDiary_list_posts_and_diary_StoryShare

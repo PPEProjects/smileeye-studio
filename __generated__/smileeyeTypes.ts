@@ -60,10 +60,6 @@ export interface DeleteJapanesePostInput {
   id: string;
 }
 
-export interface DeletePaymentInput {
-  id: string;
-}
-
 export interface EditGoalRootInput {
   id?: string | null;
   name?: string | null;
