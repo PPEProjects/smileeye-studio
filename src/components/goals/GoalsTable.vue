@@ -13,13 +13,12 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
         <router-link
-          v-if="record.sellRequest?.status === 'approved'"
           :to="'/goals/' + record.id"
           class="font-medium ml-2"
         >
           {{ record.name }}
         </router-link>
-        <span v-else class="font-medium ml-2">{{ record.name }}</span>
+<!--        <span v-else class="font-medium ml-2">{{ record.name }}</span>-->
       </template>
 
       <template v-else-if="column.key === 'owner'">
