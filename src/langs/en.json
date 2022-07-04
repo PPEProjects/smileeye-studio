@@ -1,13 +1,13 @@
 {
   "actions": {
     "accept": {
-      "title": "Confirm { Tien }"
+      "title": "Confirm { name }"
     },
     "delete": {
-      "title": "Are you sure you want to delete { Tien } ?"
+      "title": "Are you sure you want to delete { name } ?"
     },
     "edit": {
-      "title": "Edit { Tien }"
+      "title": "Edit { name }"
     }
   },
   "button": {
@@ -55,16 +55,16 @@
     }
   },
   "goal": {
-    "name": "Name",
-    "owner": "Owner",
-    "percent": "Owner Percent",
-    "price": "Price",
-    "status": "Status",
     "tab": {
       "tree": "Study route",
       "students": "Student",
       "teachers": "Teacher"
-    }
+    },
+    "name": "Name",
+    "owner": "Owner",
+    "percent": "Owner Percent",
+    "price": "Price",
+    "status": "Status"
   },
   "goals": {
     "tab": {
