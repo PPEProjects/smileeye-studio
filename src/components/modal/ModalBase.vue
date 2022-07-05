@@ -103,6 +103,7 @@ const data = ref(null)
 const emit = defineEmits<{
   (e: 'update:visible', value: boolean): void,
   (e: 'init', data: any): void
+  (e: 'dispose', data: any): void
 }>()
 
 // Lắng nghe visible để binding 2 chiều và do animation
@@ -130,6 +131,7 @@ watch(_visible, (value) => {
 
 // Đóng modal
 const dispose = () => {
+  emit('dispose', data.value)
   _visible.value = false
 }
 

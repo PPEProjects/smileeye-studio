@@ -1,5 +1,5 @@
 <template>
-  <modal-base ref="modal" :title="t('payment.history.title')" event="updatePaymentNote" :max-width="450" @init="setupModal">
+  <modal-base ref="modal" :title="t('payment.history.title')" event="updatePaymentNote" :max-width="450" @init="setupModal" @dispose="onDispose">
     <p>Chúng tôi phát hiện bạn:
       <span class="font-medium">{{ useUser.user.name }}
         </span> vừa thay đổi đơn số: <span class="font-medium">{{ payment.id }}. Hãy nói về điều này.</span>
@@ -12,7 +12,7 @@
     <p class="mt-1 text-gray-400 text-sm">Bạn có quyền im lặng, nhưng những gì bạn nói sẽ là bằng chứng chống lại anh trước toà.</p>
 
     <div class="flex items-center">
-      <a-button type="danger" class="ml-auto mr-3" @click="addNote">
+      <a-button type="danger" class="ml-auto mr-3" @click="addNote('Nhấp huỷ')">
         {{ t('button.cancel') }}
       </a-button>
       <a-button type="primary" @click="addNote">
@@ -76,8 +76,8 @@ const setupModal = async (data: any) => {
   }
 }
 
-const addNote = () => {
-  message.success('Đã thêm ghi chú')
+const addNote = (forceNote = '') => {
+  inNote.value = false
   modal.value?.dispose()
   dbSet(
       dbRef(
@@ -87,17 +87,18 @@ const addNote = () => {
       {
         payment: payment.value,
         time: time.value,
-        note: note.value ? note.value : '--',
-        info: info.value
+        note: forceNote || note.value || '--',
+        info: info.value,
+        user: useUser.user,
       }
   )
-  inNote.value = false
+  message.success('Đã thêm ghi chú')
 }
 
 const beforeUnLoad = (e: any) => {
   e.preventDefault()
   e.returnValue = ''
-  addNote()
+  addNote('Chủ động load lại trang')
 };
 
 watch(inNote, (val) => {
@@ -110,6 +111,26 @@ watch(inNote, (val) => {
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', beforeUnLoad)
 })
+
+const onDispose = () => {
+  if (inNote.value) {
+    message.error('Bạn đã huỷ')
+    dbSet(
+        dbRef(
+            useFireRTDB(),
+            `payment-history/${payment.value?.id}/${uuidv4()}`
+        ),
+        {
+          payment: payment.value,
+          time: time.value,
+          note: 'Bấm huỷ bỏ',
+          info: info.value,
+          user: useUser.user,
+        }
+    )
+    inNote.value = false
+  }
+}
 
 </script>
 
