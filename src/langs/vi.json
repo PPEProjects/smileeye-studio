@@ -11,6 +11,7 @@
     }
   },
   "button": {
+    "addCoach": "Thêm Giáo Viên",
     "addNew": "Thêm Mới",
     "addRole": "Thêm Quyền",
     "cancel": "Huỷ Bỏ",
@@ -19,12 +20,11 @@
     "edit": "Sửa",
     "export": "Xuất File",
     "no": "Không",
+    "preview": "Xem Nhanh",
     "search": "Tìm Kiếm",
     "update": "Cập Nhật",
     "upload": "Tải Lên",
-    "yes": "Đồng Ý",
-    "preview": "Xem Nhanh",
-    "addCoach": "Thêm Giáo Viên"
+    "yes": "Đồng Ý"
   },
   "coupon": {
     "code": "Mã Giảm",
@@ -45,12 +45,12 @@
     "title": "Di Chuyển Và Cắt Hình"
   },
   "export": {
+    "drag": "Kéo thả để thay đổi thứ tự các cột",
     "endDay": "Đến ngày",
     "fields": "Các Cột",
-    "range": "Phạm Vi",
-    "startDay": "Ngày bắt đầu",
     "guide": "Đây chỉ là bản thử nghiệm",
-    "drag": "Kéo thả để thay đổi thứ tự các cột"
+    "range": "Phạm Vi",
+    "startDay": "Ngày bắt đầu"
   },
   "form": {
     "validate": {
@@ -63,14 +63,14 @@
     "owner": "Chủ Sở Hữu",
     "percent": "% của Chủ goal",
     "price": "Giá Cả",
-    "status": "Trạng Thái",
     "sellRequest": {
       "createdAt": "Ngày gửi yêu cầu bán goal"
     },
+    "status": "Trạng Thái",
     "tab": {
-      "tree": "Lộ Trình Học",
       "students": "Học Sinh",
-      "teachers": "Giáo Viên"
+      "teachers": "Giáo Viên",
+      "tree": "Lộ Trình Học"
     }
   },
   "goals": {
@@ -85,6 +85,9 @@
   "payment": {
     "billImage": "Hoá Đơn",
     "createdAt": "Ngày Tạo",
+    "history": {
+      "title": "Ghi Chú Hành Động"
+    },
     "money": "Thực Nhân",
     "note": "Gi Chú",
     "payment": "hoá đơn",
@@ -92,13 +95,20 @@
     "referral": "Giới Thiệu",
     "status": {
       "all": "Tất cả",
-      "paid_confirmed": "Đã xác nhận money",
+      "in_need": "Muốn mua",
       "on_buy": "Đã chuyển tiền",
+      "paid_confirmed": "Đã xác nhận money",
       "title": "Trạng thái",
-      "trial": "Đang tìm hiểu",
-      "in_need": "Muốn mua"
+      "trial": "Đang tìm hiểu"
     },
     "title": "Hệ Thống Thanh Toán"
+  },
+  "sellRequest": {
+    "approved": "Đã xác nhận",
+    "form": {
+      "label": "Cập nhật thoả thuận"
+    },
+    "pending": "Chờ Xác nhận"
   },
   "settings": {
     "language": {
@@ -129,6 +139,9 @@
       "title": "Hành động"
     }
   },
+  "template": {
+    "remove": "Hiện đang có { count } users đang sử dụng. Bạn có chắc gỡ khỏi Template không?"
+  },
   "user": {
     "address": {
       "detail": "Địa Chỉ Cụ Thể",
@@ -136,17 +149,17 @@
       "province": "Tỉnh/Thành phố",
       "ward": "Phường/Xã"
     },
-    "sum_day_learn": "Số Ngày Học",
     "createdAt": "Ngày tham gia",
     "email": "Email",
-    "name": "Tên",
-    "phone": "Số Điện Thoại",
-    "role": "Phân Quyền",
     "form": {
       "status": {
         "placeholder": "Please select status"
       }
-    }
+    },
+    "name": "Tên",
+    "phone": "Số Điện Thoại",
+    "role": "Phân Quyền",
+    "sum_day_learn": "Số Ngày Học"
   },
   "users": {
     "goal": {
@@ -160,13 +173,6 @@
     "tab": {
       "all": "Tất cả",
       "supporters": "Người hỗ trợ"
-    }
-  },
-  "sellRequest": {
-    "approved": "Đã xác nhận",
-    "pending": "Chờ Xác nhận",
-    "form": {
-      "label": "Cập nhật thoả thuận"
     }
   }
 }

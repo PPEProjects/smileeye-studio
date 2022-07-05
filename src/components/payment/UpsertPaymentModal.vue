@@ -192,7 +192,7 @@
             </a-button>
           </a-popconfirm>
 
-          <a-button type="primary" class="ml-auto" ghost :disabled="loading">
+          <a-button type="primary" class="ml-auto" ghost :disabled="loading" @click="$router.push('/payment/' + formState.id)">
             {{ t('button.detail') }}
           </a-button>
 
@@ -230,6 +230,7 @@ import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
 import { PAYMENT_BY_ID } from '#smileeye/queries/payment.query'
 import { ref as dbRef, set as dbSet } from 'firebase/database'
 import { useFireRTDB } from '@composables/useFirebase'
+import {useEmitter} from "@nguyenshort/vue3-mitt";
 const { t } = useI18n()
 const modal = ref<any>(null)
 
@@ -269,6 +270,11 @@ const buildForm = (_data: SortPayments_sort_payments | undefined) => {
   Object.assign(formState, JSON.parse(JSON.stringify(_data)))
 }
 
+// Global event
+const emitter = useEmitter<{
+  updatePaymentNote: object
+}>()
+
 const { mutate: upsertPayment, loading } = useMutation<
   UpsertPayment,
   UpsertPaymentVariables
@@ -282,6 +288,7 @@ const { mutate: upsertPayment, loading } = useMutation<
       fragment: PAYMENT_BY_ID
     })
     if (_payment) {
+      emitter.emit('updatePaymentNote', _payment)
       dbSet(
         dbRef(
           useFireRTDB(),

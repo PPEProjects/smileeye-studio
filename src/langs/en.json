@@ -10,6 +10,9 @@
       "title": "Edit { name }"
     }
   },
+  "auth": {
+    "welcome": "Join the project action community in the world."
+  },
   "button": {
     "addNew": "Add new",
     "addRole": "Add role",
@@ -42,6 +45,9 @@
     },
     "title": "Cut and crop"
   },
+  "description": {
+    "1234": "Description"
+  },
   "export": {
     "endDay": "From",
     "fields": "Fields",
@@ -55,16 +61,16 @@
     }
   },
   "goal": {
-    "tab": {
-      "tree": "Study route",
-      "students": "Student",
-      "teachers": "Teacher"
-    },
     "name": "Name",
     "owner": "Owner",
     "percent": "Owner Percent",
     "price": "Price",
-    "status": "Status"
+    "status": "Status",
+    "tab": {
+      "students": "Student",
+      "teachers": "Teacher",
+      "tree": "Study route"
+    }
   },
   "goals": {
     "tab": {
@@ -78,6 +84,9 @@
   "payment": {
     "billImage": "Bill image",
     "createdAt": "Date created",
+    "history": {
+      "title": ""
+    },
     "money": "Money received",
     "note": "Note",
     "payment": "Payment",
@@ -85,13 +94,20 @@
     "referral": "Introduce",
     "status": {
       "all": "All",
-      "paid_confirmed": "Purchased",
+      "in_need": "Wish",
       "on_buy": "On Buy",
+      "paid_confirmed": "Purchased",
       "title": "Status",
-      "trial": "Trial",
-      "in_need": "Wish"
+      "trial": "Trial"
     },
     "title": "Payment systems"
+  },
+  "sellRequest": {
+    "approved": "Confirmed",
+    "form": {
+      "label": "Update agreement"
+    },
+    "pending": "Processing"
   },
   "settings": {
     "language": {
@@ -122,6 +138,9 @@
       "title": "Action"
     }
   },
+  "template": {
+    "remove": ""
+  },
   "user": {
     "address": {
       "detail": "Address",
@@ -148,18 +167,5 @@
       "all": "All",
       "supporters": "Supporter"
     }
-  },
-  "sellRequest": {
-    "approved": "Confirmed",
-    "pending": "Processing",
-    "form": {
-      "label": "Update agreement"
-    }
-  },
-  "description": {
-    "1234": "Description"
-  },
-  "auth": {
-    "welcome": "Join the project action community in the world."
   }
 }

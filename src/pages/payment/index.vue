@@ -66,6 +66,7 @@
   <payment-table :key='$route.fullPath' />
 
   <upsert-payment-modal />
+  <payment-note-modal />
 
 </template>
 
@@ -84,6 +85,7 @@ const query = computed(() => GET_PAYMENT_BY_DAY)
 
 import { useI18n } from 'vue-i18n'
 import { IExcelColumn } from '@utils/excel'
+import PaymentNoteModal from "@components/payment/PaymentNoteModal.vue";
 const { t } = useI18n()
 
 const columns = reactive<IExcelColumn[]>([

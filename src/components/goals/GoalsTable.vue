@@ -95,7 +95,7 @@
 
         <a-popconfirm
           v-if="record.sellRequest?.status"
-          :title="t('actions.delete.title', { name: t('sidebar.workspace') })"
+          :title="t('template.remove', { count: record?.sellRequest?.sum_member || 0 })"
           placement="topLeft"
           :ok-text="t('button.yes')"
           :cancel-text="t('button.no')"

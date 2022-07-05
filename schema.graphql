@@ -329,13 +329,13 @@ input deleteTaskInput {
 
 type DetailTemplate {
   trial: Int!
-  percent_trial: Int!
+  percent_trial: Float!
   paid_confirmed: Int!
-  percent_paid_confirmed: Int!
+  percent_paid_confirmed: Float!
   on_buy: Int!
-  percent_on_buy: Int!
+  percent_on_buy: Float!
   in_need: Int!
-  percent_in_need: Int!
+  percent_in_need: Float!
 }
 
 type Diary {
@@ -526,6 +526,7 @@ type GoalTemplate {
   sell_goal: String
   message: String
   checked_time: Int
+  sum_member: Int
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -973,7 +974,9 @@ type Query {
   user_roles(user_id: ID!): [RoleAndPermission]
   role_permissions(role_id: ID!): PermissionOfRole
   my_story_share(goal_id: ID): [StoryShare]
+  my_story_share_by_goal_root(goal_root_id: ID!): [StoryShare]
   reviewer_story_share(goal_id: ID): [StoryShare]
+  reviewer_story_share_by_goal_root(goal_root_id: ID!): [StoryShare]
   list_story_share_by_goal_root(user_id: ID!, goal_root_id: ID!): [Diary]
   tasks_by_month(month: String): [Task]
   tasks_sort_by_day(month: String): [TaskByMonth]
@@ -1571,6 +1574,7 @@ type User {
   total_goal: Int
   total_friend: Int
   sum_day_learn: Int
+  percent_learn: Float
   role_label: String
   phone_number: String
   attachment: Attachment

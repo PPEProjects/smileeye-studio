@@ -218,6 +218,12 @@ const fixColumns = [
   }
 ]
 
+// Global event
+const emitter = useEmitter<{
+  deletePayment: string
+  updatePaymentNote: object
+}>()
+
 // Setup table
 const columns = computed(() => {
   const _dynamic = selectColumns.value.map((_index) => rawColumns[_index])
@@ -271,6 +277,7 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
       fragment: PAYMENT_BY_ID
     })
     if (_payment) {
+      emitter.emit('updatePaymentNote', _payment)
       dbSet(
         dbRef(
           useFireRTDB(),
@@ -283,10 +290,6 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
 })
 
 // Delete from modal
-// Global event
-const emitter = useEmitter<{
-  deletePayment: string
-}>()
 onMounted(() =>
   emitter.on('deletePayment', (id) => {
     quickConfirm({

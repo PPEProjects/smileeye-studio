@@ -54,6 +54,7 @@ export const LIST_GOAL_ROOT = gql`
         id
         status
         created_at
+        sum_member
       }
       price
       owner_percent

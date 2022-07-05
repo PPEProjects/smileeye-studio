@@ -18,6 +18,7 @@ export interface ListGoalRoot_list_goal_root_sellRequest {
   id: string | null;
   status: string | null;
   created_at: any;
+  sum_member: number | null;
 }
 
 export interface ListGoalRoot_list_goal_root {

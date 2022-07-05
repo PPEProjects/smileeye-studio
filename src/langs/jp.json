@@ -73,6 +73,9 @@
   "payment": {
     "billImage": "",
     "createdAt": "",
+    "history": {
+      "title": ""
+    },
     "money": "",
     "note": "",
     "payment": "",
@@ -116,6 +119,9 @@
     "action": {
       "title": ""
     }
+  },
+  "template": {
+    "remove": ""
   },
   "user": {
     "address": {

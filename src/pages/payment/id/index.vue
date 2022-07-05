@@ -3,7 +3,7 @@
     <teleport-view
       to="#title"
     >
-      {{ t('payment.detail.title', { id: $route.params.id }) }}
+      <span class="capitalize">{{ t('payment.payment') }}: {{ $route.params.id }}</span>
     </teleport-view>
   </div>
 </template>
