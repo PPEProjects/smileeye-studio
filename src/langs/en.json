@@ -85,7 +85,7 @@
     "billImage": "Bill image",
     "createdAt": "Date created",
     "history": {
-      "title": ""
+      "title": "Action notes"
     },
     "money": "Money received",
     "note": "Note",
@@ -94,7 +94,7 @@
     "referral": "Introduce",
     "status": {
       "all": "All",
-      "in_need": "Wish",
+      "in_need": "In need",
       "on_buy": "On Buy",
       "paid_confirmed": "Purchased",
       "title": "Status",
@@ -139,7 +139,7 @@
     }
   },
   "template": {
-    "remove": ""
+    "remove": "There are { count } members. Are you sure to delete this goal?"
   },
   "user": {
     "address": {
