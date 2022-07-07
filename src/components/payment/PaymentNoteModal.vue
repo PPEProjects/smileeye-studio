@@ -5,7 +5,7 @@
         </span> vừa thay đổi đơn số: <span class="font-medium">{{ payment.id }}. Hãy nói về điều này.</span>
     </p>
     <a-textarea
-        v-model:value.trim="note"
+        v-model:value="note"
         placeholder="Thông tin và thời gian sẽ được lưu tự động."
         :auto-size="{ minRows: 3, maxRows: 6 }"
     />
