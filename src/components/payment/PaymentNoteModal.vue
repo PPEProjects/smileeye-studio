@@ -76,25 +76,27 @@ const setupModal = async (data: any) => {
   }
 }
 
-const writeNote = async (note: string) => dbSet(
-    dbRef(
-        useFireRTDB(),
-        `payment-history/${payment.value?.id}/${uuidv4()}`
-    ),
-    {
-      payment: payment.value,
-      time: time.value,
-      note,
-      user: useUser.user,
-    }
-)
+const writeNote = async (note: string) => {
+  console.log('writeNote', note)
+  await dbSet(
+      dbRef(
+          useFireRTDB(),
+          `payment-history/${payment.value?.id}/${uuidv4()}`
+      ),
+      {
+        payment: payment.value,
+        time: time.value,
+        note,
+        user: useUser.user,
+      }
+  )
+}
 
 
 const addNote = async (forceNote = '') => {
   inNote.value = false
   modal.value?.dispose()
   await writeNote(forceNote || note.value)
-  console.log('addNote', forceNote || note.value)
   message.success('Đã thêm ghi chú')
 }
 
