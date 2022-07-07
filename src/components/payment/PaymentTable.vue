@@ -82,7 +82,7 @@
           :payment="record"
           @delete="
             quickConfirm({
-              input: { id: record.id, status: STATUS.TRIAL }
+              input: { id: record.id, status: STATUS.TRIAL, money: 0 }
             })
           "
           @confirm="
