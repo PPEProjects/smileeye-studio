@@ -240,7 +240,10 @@ const queryVariables = reactive({
 // Query hook
 const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
   SORT_PAYMENTS,
-  queryVariables
+  queryVariables,
+    {
+      fetchPolicy: 'network-only'
+    }
 )
 
 const payments = computed(() => {

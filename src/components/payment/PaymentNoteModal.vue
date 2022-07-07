@@ -94,6 +94,7 @@ const addNote = async (forceNote = '') => {
   inNote.value = false
   modal.value?.dispose()
   await writeNote(forceNote || note.value)
+  console.log('addNote', forceNote || note.value)
   message.success('Đã thêm ghi chú')
 }
 
