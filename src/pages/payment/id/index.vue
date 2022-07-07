@@ -5,8 +5,6 @@
     >
       <span class="capitalize">{{ t('payment.payment') }}: {{ $route.params.id }}</span>
     </teleport-view>
-
-
     <pre>
       {{ history }}
     </pre>
