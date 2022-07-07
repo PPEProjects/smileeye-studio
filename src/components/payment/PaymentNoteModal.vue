@@ -26,8 +26,8 @@
 import ModalBase from "../modal/ModalBase.vue"
 import {useI18n} from "vue-i18n";
 import {useUserStore} from "@store/user";
-import {inject, onBeforeUnmount, ref, watch} from "vue";
-import {AxiosInstance} from "axios"
+import {onBeforeUnmount, ref, watch} from "vue";
+// import {AxiosInstance} from "axios"
 
 import { ref as dbRef, set as dbSet } from 'firebase/database'
 import {useFireRTDB} from "@composables/useFirebase"
@@ -64,13 +64,13 @@ const info = ref<LocalData>({})
 const time = ref<number>(0)
 
 // http://ip-api.com/json/
-const $axios = inject<AxiosInstance>('$axios')!
+// const $axios = inject<AxiosInstance>('$axios')!
 const setupModal = async (data: any) => {
   inNote.value = true
   payment.value = data
   time.value = Date.now()
   try {
-    info.value = await $axios.get('http://ip-api.com/json/')
+    // info.value = await $axios.get('http://ip-api.com/json/')
   } catch (e) {
     //
   }
