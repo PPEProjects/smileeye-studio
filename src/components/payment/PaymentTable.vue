@@ -293,7 +293,7 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
 onMounted(() =>
   emitter.on('deletePayment', (id) => {
     quickConfirm({
-      input: { id, status: STATUS.TRIAL }
+      input: { id, status: STATUS.TRIAL, money: 0 }
     })
   })
 )
