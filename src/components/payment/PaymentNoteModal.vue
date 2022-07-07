@@ -15,7 +15,7 @@
       <a-button type="danger" class="ml-auto mr-3" @click="addNote('Nhấp huỷ')">
         {{ t('button.cancel') }}
       </a-button>
-      <a-button type="primary" @click="addNote">
+      <a-button type="primary" @click="addNote()">
         {{ t('button.yes') }}
       </a-button>
     </div>
