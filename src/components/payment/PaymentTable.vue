@@ -82,7 +82,7 @@
           :payment="record"
           @delete="
             quickConfirm({
-              input: { id: record.id, status: STATUS.TRIAL, money: 0 }
+              input: { id: record.id, status: STATUS.TRIAL, money: 0}
             })
           "
           @confirm="
@@ -264,9 +264,6 @@ const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(
 const counter = computed(
   () => paymentCounter?.value?.sum_payment?.number_status || 0
 )
-
-onUnmounted(() => emitter.off('deletePayment'))
-
 const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
   QuickDonePayment,
   QuickDonePaymentVariables
@@ -293,8 +290,9 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
 onMounted(() =>
   emitter.on('deletePayment', (id) => {
     quickConfirm({
-      input: { id, status: STATUS.TRIAL, money: 0 }
+      input: { id, status: STATUS.TRIAL }
     })
   })
 )
+onUnmounted(() => emitter.off('deletePayment'))
 </script>

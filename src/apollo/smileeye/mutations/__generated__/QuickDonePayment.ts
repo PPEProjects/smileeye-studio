@@ -13,6 +13,7 @@ export interface QuickDonePayment_upsert_payment {
   __typename: "Payment";
   id: string | null;
   status: string | null;
+  money: number | null;
 }
 
 export interface QuickDonePayment {

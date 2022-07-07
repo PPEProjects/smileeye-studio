@@ -211,26 +211,23 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import {defineAsyncComponent, reactive, ref} from 'vue'
+import {SortPayments_sort_payments} from '#smileeye/queries/__generated__/SortPayments'
+import {STATUS} from '#schema/smileeyeTypes'
+import {useMutation} from '@vue/apollo-composable'
+import {UpsertPayment, UpsertPaymentVariables} from '#smileeye/mutations/__generated__/UpsertPayment'
+import {UPSERT_PAYMENT} from '#smileeye/mutations/payment.mutation'
+import {useI18n} from 'vue-i18n'
+import {PaymentByID} from '#smileeye/queries/__generated__/PaymentByID'
+import {PAYMENT_BY_ID} from '#smileeye/queries/payment.query'
+import {ref as dbRef, set as dbSet} from 'firebase/database'
+import {useFireRTDB} from '@composables/useFirebase'
+import {useEmitter} from "@nguyenshort/vue3-mitt";
 
 const ModalBase = defineAsyncComponent(
   () => import('@components/modal/ModalBase.vue')
 )
 
-import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
-import { STATUS } from '#schema/smileeyeTypes'
-import { useMutation } from '@vue/apollo-composable'
-import {
-  UpsertPayment,
-  UpsertPaymentVariables
-} from '#smileeye/mutations/__generated__/UpsertPayment'
-import { UPSERT_PAYMENT } from '#smileeye/mutations/payment.mutation'
-import { useI18n } from 'vue-i18n'
-import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
-import { PAYMENT_BY_ID } from '#smileeye/queries/payment.query'
-import { ref as dbRef, set as dbSet } from 'firebase/database'
-import { useFireRTDB } from '@composables/useFirebase'
-import {useEmitter} from "@nguyenshort/vue3-mitt";
 const { t } = useI18n()
 const modal = ref<any>(null)
 
@@ -310,7 +307,7 @@ const buildInput = () => {
       user_info: formState.user_info,
       type: formState.type,
       code_sale: formState.code_sale,
-      money: formState.money,
+      money: formState.status === STATUS.TRIAL ? 0 : formState.money,
       note: formState.note,
       attachments: formState.attachments
     }

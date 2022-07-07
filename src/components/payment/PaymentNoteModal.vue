@@ -35,7 +35,7 @@ import {useFireRTDB} from "@composables/useFirebase"
 import { v4 as uuidv4 } from 'uuid'
 import {message} from "ant-design-vue";
 
-interface LocalData {
+/*interface LocalData {
   as?: string
   city?: string
   country?: string
@@ -50,7 +50,7 @@ interface LocalData {
   status?: string
   timezone?: string
   zip?: string
-}
+}*/
 
 const useUser = useUserStore()
 const { t } = useI18n()
@@ -60,7 +60,6 @@ const modal = ref<any>(null)
 const inNote = ref<boolean>(false)
 const note = ref<string>('')
 const payment = ref<any>({})
-const info = ref<LocalData>({})
 const time = ref<number>(0)
 
 // http://ip-api.com/json/
@@ -69,29 +68,32 @@ const setupModal = async (data: any) => {
   inNote.value = true
   payment.value = data
   time.value = Date.now()
+  note.value = ''
   try {
-    // info.value = await $axios.get('http://ip-api.com/json/')
+    //
   } catch (e) {
     //
   }
 }
 
-const addNote = (forceNote = '') => {
+const writeNote = async (note: string) => dbSet(
+    dbRef(
+        useFireRTDB(),
+        `payment-history/${payment.value?.id}/${uuidv4()}`
+    ),
+    {
+      payment: payment.value,
+      time: time.value,
+      note,
+      user: useUser.user,
+    }
+)
+
+
+const addNote = async (forceNote = '') => {
   inNote.value = false
   modal.value?.dispose()
-  dbSet(
-      dbRef(
-          useFireRTDB(),
-          `payment-history/${payment.value?.id}/${uuidv4()}`
-      ),
-      {
-        payment: payment.value,
-        time: time.value,
-        note: forceNote || note.value || '--',
-        info: info.value,
-        user: useUser.user,
-      }
-  )
+  await writeNote(forceNote || note.value)
   message.success('Đã thêm ghi chú')
 }
 
@@ -112,22 +114,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', beforeUnLoad)
 })
 
-const onDispose = () => {
+const onDispose = async () => {
   if (inNote.value) {
     message.error('Bạn đã huỷ')
-    dbSet(
-        dbRef(
-            useFireRTDB(),
-            `payment-history/${payment.value?.id}/${uuidv4()}`
-        ),
-        {
-          payment: payment.value,
-          time: time.value,
-          note: 'Bấm huỷ bỏ',
-          info: info.value,
-          user: useUser.user,
-        }
-    )
+    await writeNote('Bấm huỷ bỏ')
     inNote.value = false
   }
 }

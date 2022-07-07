@@ -28,6 +28,7 @@ export const QUICK_DONE_PAYMENT = gql`
     upsert_payment(input: $input) {
       id
       status
+      money
     }
   }
 `
