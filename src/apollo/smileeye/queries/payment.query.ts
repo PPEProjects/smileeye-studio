@@ -64,3 +64,53 @@ export const GET_PAYMENT_BY_DAY = gql`
     }
   }
 `
+
+export const HISTORY_PAYMENT = gql`
+  query HistoryPayment($first: Int!, $page: Int!) {
+    history_payment(first: $first, page: $page) {
+      id
+      note
+      created_at
+      user {
+        id
+        name
+        avatar
+      }
+      payment {
+        id
+        status
+        goal {
+          id
+          price
+          name
+        }
+      }
+    }
+  }
+`
+
+export const SUM_PAYMENT_HISTORY = gql`
+  query SumHistoryPayment($paymentId: ID) {
+    sum_history_payment(payment_id: $paymentId) {
+      sum
+    }
+  }
+`
+
+export const HISTORY_BY_DATE = gql`
+  query HistoryPaymentsByDate($dateFrom: String!, $dateTo: String!) {
+    history_payments_by_date(date_from: $dateFrom, date_to: $dateTo) {
+      id
+      created_at
+      note
+      payment {
+        id
+      }
+      user {
+        id
+        email
+        name
+      }
+    }
+  }
+`

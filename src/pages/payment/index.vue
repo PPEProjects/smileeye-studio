@@ -5,7 +5,7 @@
 
       <tabs-animation active='._active' tag='div' auto tab='.user-tab' direction='horizontal' class='flex items-center h-full'>
         <router-link
-          to="/payment"
+          to="/payment/activity"
           class="ml-3 block user-tab px-2"
           :class='{
             "user-tab-active _active": !$route.query.status
@@ -15,7 +15,7 @@
         </router-link>
 
         <router-link
-          to="/payment?status=trial"
+          to="/payment/activity?status=trial"
           class="block ml-3 user-tab px-2"
           :class='{
             "_active": $route.query.status === "trial"
@@ -25,7 +25,7 @@
         </router-link>
 
         <router-link
-          to="/payment?status=in_need"
+          to="/payment/activity?status=in_need"
           class="block ml-3 user-tab px-2"
           :class='{
             "_active": $route.query.status === "in_need"
@@ -35,7 +35,7 @@
         </router-link>
 
         <router-link
-          to="/payment?status=on_buy"
+          to="/payment/activity?status=on_buy"
           class="block ml-3 user-tab px-2"
           :class='{
             "_active": $route.query.status === "on_buy"
@@ -46,7 +46,7 @@
 
 
         <router-link
-          to="/payment?status=paid_confirmed"
+          to="/payment/activity?status=paid_confirmed"
           class="block ml-3 user-tab px-2"
           :class='{
             "_active": $route.query.status === "paid_confirmed"

@@ -85,9 +85,7 @@
   "payment": {
     "billImage": "Hoá Đơn",
     "createdAt": "Ngày Tạo",
-    "history": {
-      "title": "Ghi Chú Hành Động"
-    },
+    "history": "Lịch Sử Giao Dịch",
     "money": "Thực Nhân",
     "note": "Gi Chú",
     "payment": "hoá đơn",
@@ -101,7 +99,8 @@
       "title": "Trạng thái",
       "trial": "Đang tìm hiểu"
     },
-    "title": "Hệ Thống Thanh Toán"
+    "title": "Hệ Thống Thanh Toán",
+    "userChange": "Người Thực Hiện"
   },
   "sellRequest": {
     "approved": "Đã xác nhận",

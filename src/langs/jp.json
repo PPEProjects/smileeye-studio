@@ -73,9 +73,7 @@
   "payment": {
     "billImage": "",
     "createdAt": "",
-    "history": {
-      "title": ""
-    },
+    "history": "",
     "money": "",
     "note": "",
     "payment": "",
@@ -89,7 +87,8 @@
       "trial": "",
       "wanted": ""
     },
-    "title": "Hệ Thống Thanh Toán"
+    "title": "Hệ Thống Thanh Toán",
+    "userChange": ""
   },
   "settings": {
     "language": {

@@ -19,6 +19,13 @@ let routes: RouteRecordRaw[] = [
     component: () => import('./pages/payment/index.vue')
   },
   {
+    path: '/payment/history',
+    component: () => import('./pages/payment/history/index.vue'),
+    meta: {
+        title: 'payment.history'
+    }
+  },
+  {
     path: '/coupon',
     component: () => import('./pages/coupon/index.vue'),
     meta: {

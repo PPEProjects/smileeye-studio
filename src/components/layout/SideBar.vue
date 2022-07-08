@@ -74,8 +74,8 @@
 
             <menu-item
                 :active="/^(payment)\/history/.test($route.name)"
-                icon="#i-income"
-                :label="t('sidebar.payment')"
+                icon="#i-trash-bin"
+                label="Lịch Sử"
                 to="/payment/history"
             />
 

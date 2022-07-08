@@ -974,7 +974,9 @@ type Query {
   list_goal_score(user_id: ID!, goal_root_id: ID!): Score
   list_goal_template(status: String, first: Int, page: Int): [GoalTemplate]
   info_goal_template(goal_root_id: ID!): InfoTemplate
-  history_payment(first: Int!, page: Int!): [HistoryPayment]
+  history_payment(first: Int!, page: Int!, payment_id: ID): [HistoryPayment]
+  sum_history_payment(payment_id: ID): SumHistoryPayment
+  history_payments_by_date(date_from: String!, date_to: String!, payment_id: ID): [HistoryPayment]
   detail_japanese_goal(id: ID, goal_id: ID): JapaneseGoal
   search_by_type_japanese_goal(type: String): [JapaneseGoal]
   auto_play_japanese_goal(root_id: ID): JapaneseGoal
@@ -1292,6 +1294,10 @@ type StoryShare {
   reviews: [ReviewStoryShare]
   created_at: DateTime!
   updated_at: DateTime!
+}
+
+type SumHistoryPayment {
+  sum: Int!
 }
 
 type SumPayment {
