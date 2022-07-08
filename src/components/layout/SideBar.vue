@@ -60,8 +60,28 @@
         :active="/^(payment)/.test($route.name)"
         icon="#i-income"
         :label="t('sidebar.payment')"
-        to="/payment"
-      />
+      >
+        <template #default>
+          <ul
+              class="bg-white absolute w-[280px] right-0 left-full top-0 sub-nav py-3 -ml-3 -mt-3 rounded"
+          >
+            <menu-item
+                :active="/^(payment)\/activity/.test($route.name)"
+                icon="#i-income"
+                :label="t('sidebar.payment')"
+                to="/payment/activity"
+            />
+
+            <menu-item
+                :active="/^(payment)\/history/.test($route.name)"
+                icon="#i-income"
+                :label="t('sidebar.payment')"
+                to="/payment/history"
+            />
+
+          </ul>
+        </template>
+      </menu-item>
 
       <menu-item
         :active="/^(users)/.test($route.name)"

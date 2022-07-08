@@ -13,4 +13,5 @@ export interface PaymentByID {
   status: string | null;
   goal_id: string | null;
   add_user_id: string | null;
+  updated_at: any | null;
 }

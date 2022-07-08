@@ -15,12 +15,8 @@ let routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/payment',
+    path: '/payment/activity',
     component: () => import('./pages/payment/index.vue')
-  },
-  {
-    path: '/payment/:id',
-    component: () => import('./pages/payment/id/index.vue')
   },
   {
     path: '/coupon',

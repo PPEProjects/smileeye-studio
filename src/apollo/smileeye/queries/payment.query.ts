@@ -38,6 +38,7 @@ export const PAYMENT_BY_ID = gql`
     status
     goal_id
     add_user_id
+    updated_at
   }
 `
 
