@@ -1,21 +1,32 @@
 <template>
-  <modal-base ref="modal" :title="t('payment.history.title')" event="updatePaymentNote" :max-width="450" @init="setupModal" @dispose="onDispose">
-    <p>Chúng tôi phát hiện bạn:
-      <span class="font-medium">{{ useUser.user.name }}
-        </span> vừa thay đổi đơn số: <span class="font-medium">{{ payment.id }}. Hãy nói về điều này.</span>
+  <modal-base
+    ref="modal"
+    v-model:visible="showModal"
+    :title="t('payment.history.title')"
+    event="updatePaymentNote"
+    :max-width="450"
+  >
+    <p>
+      Chúng tôi phát hiện bạn:
+      <span class="font-medium">{{ useUser.user.name }} </span> vừa thay đổi đơn
+      số:
+      <span class="font-medium">{{ payment.id }}. Hãy nói về điều này.</span>
     </p>
     <a-textarea
-        v-model:value="note"
-        placeholder="Thông tin và thời gian sẽ được lưu tự động."
-        :auto-size="{ minRows: 3, maxRows: 6 }"
+      v-model:value="note"
+      placeholder="Thông tin và thời gian sẽ được lưu tự động."
+      :auto-size="{ minRows: 3, maxRows: 6 }"
     />
-    <p class="mt-1 text-gray-400 text-sm">Bạn có quyền im lặng, nhưng những gì bạn nói sẽ là bằng chứng chống lại anh trước toà.</p>
+    <p class="mt-1 text-gray-400 text-sm">
+      Bạn có quyền im lặng, nhưng những gì bạn nói sẽ là bằng chứng chống lại
+      anh trước toà.
+    </p>
 
     <div class="flex items-center">
-      <a-button type="danger" class="ml-auto mr-3" @click="addNote('Nhấp huỷ')">
+      <a-button type="danger" class="ml-auto mr-3" @click="showModal = false">
         {{ t('button.cancel') }}
       </a-button>
-      <a-button type="primary" @click="addNote()">
+      <a-button type="primary" :loading="loading" @click="changePayment">
         {{ t('button.yes') }}
       </a-button>
     </div>
@@ -23,17 +34,19 @@
 </template>
 
 <script lang="ts" setup>
-import ModalBase from "../modal/ModalBase.vue"
-import {useI18n} from "vue-i18n";
-import {useUserStore} from "@store/user";
-import {onBeforeUnmount, ref, watch} from "vue";
-// import {AxiosInstance} from "axios"
+import ModalBase from '../modal/ModalBase.vue'
+import { useI18n } from 'vue-i18n'
+import { useUserStore } from '@store/user'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
-import { ref as dbRef, set as dbSet } from 'firebase/database'
-import {useFireRTDB} from "@composables/useFirebase"
-
-import { v4 as uuidv4 } from 'uuid'
-import {message} from "ant-design-vue";
+import { useEmitter } from '@nguyenshort/vue3-mitt'
+import { UpsertPaymentInput } from '#schema/smileeyeTypes'
+import { useMutation } from '@vue/apollo-composable'
+import { CREATE_HISTORY_PAYMENT } from '#smileeye/mutations/payment.mutation'
+import {
+  CreateHistoryPayment,
+  CreateHistoryPaymentVariables
+} from '#smileeye/mutations/__generated__/CreateHistoryPayment'
 
 /*interface LocalData {
   as?: string
@@ -52,79 +65,52 @@ import {message} from "ant-design-vue";
   zip?: string
 }*/
 
+// Global event
+const emitter = useEmitter<{
+  beforeUpdatePayment: UpsertPaymentInput
+  afterAppNotePayment: UpsertPaymentInput
+}>()
+
+const showModal = ref(false)
+
 const useUser = useUserStore()
 const { t } = useI18n()
 
 const modal = ref<any>(null)
 
-const inNote = ref<boolean>(false)
 const note = ref<string>('')
 const payment = ref<any>({})
-const time = ref<number>(0)
 
-// http://ip-api.com/json/
-// const $axios = inject<AxiosInstance>('$axios')!
-const setupModal = async (data: any) => {
-  inNote.value = true
-  payment.value = data
-  time.value = Date.now()
-  note.value = ''
-  try {
-    //
-  } catch (e) {
-    //
-  }
+const { mutate, loading, onDone } = useMutation<
+  CreateHistoryPayment,
+  CreateHistoryPaymentVariables
+>(CREATE_HISTORY_PAYMENT)
+const changePayment = () => {
+  mutate({
+    input: {
+      user_id: String(useUser.user?.id),
+      payment_id: String(payment.value.id),
+      note: note.value
+    }
+  })
 }
 
-const writeNote = async (note: string) => {
-  console.log('writeNote', note)
-  await dbSet(
-      dbRef(
-          useFireRTDB(),
-          `payment-history/${payment.value?.id}/${uuidv4()}`
-      ),
-      {
-        payment: payment.value,
-        time: time.value,
-        note,
-        user: useUser.user,
-      }
-  )
-}
-
-
-const addNote = async (forceNote = '') => {
-  inNote.value = false
-  modal.value?.dispose()
-  await writeNote(forceNote || note.value)
-  message.success('Đã thêm ghi chú')
-}
-
-const beforeUnLoad = (e: any) => {
-  e.preventDefault()
-  e.returnValue = ''
-  addNote('Chủ động load lại trang')
-};
-
-watch(inNote, (val) => {
-  if(val) {
-    window.addEventListener('beforeunload', beforeUnLoad)
-  } else {
-    window.removeEventListener('beforeunload', beforeUnLoad)
-  }
+onDone(() => {
+  showModal.value = false
+  emitter.emit('afterAppNotePayment', payment.value)
 })
+
+onMounted(() => {
+  emitter.on('beforeUpdatePayment', (data: UpsertPaymentInput) => {
+    payment.value = JSON.parse(JSON.stringify(data))
+    note.value = ''
+    showModal.value = true
+  })
+})
+
 onBeforeUnmount(() => {
-  window.removeEventListener('beforeunload', beforeUnLoad)
+  emitter.off('beforeUpdatePayment')
 })
-
-const onDispose = async () => {
-  if (inNote.value) {
-    message.error('Bạn đã huỷ')
-    await writeNote('Bấm huỷ bỏ')
-    inNote.value = false
-  }
-}
-
 </script>
 
 <style scoped></style>

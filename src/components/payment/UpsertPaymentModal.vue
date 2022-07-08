@@ -12,7 +12,7 @@
       autocomplete="off"
       layout="vertical"
       class="-mb-4"
-      @finish="upsertPayment(buildInput())"
+      @finish="updatePayment(buildInput())"
     >
       <div class="flex">
         <div class="w-2/5 flex-shrink-0">
@@ -182,17 +182,14 @@
             :title="t('actions.delete.title', { name: t('payment.payment') })"
             :ok-text="t('button.yes')"
             :cancel-text="t('button.no')"
-            @confirm="
-              $emitter.emit('deletePayment', formState.id);
-              modal?.dispose()
-            "
+            @confirm="deletePayment"
           >
-            <a-button type="danger" :disabled="loading">
+            <a-button type="danger">
               {{ t('button.delete') }}
             </a-button>
           </a-popconfirm>
 
-          <a-button type="primary" class="ml-auto" ghost :disabled="loading" @click="$router.push('/payment/' + formState.id)">
+          <a-button type="primary" class="ml-auto" ghost @click="$router.push('/payment/' + formState.id)">
             {{ t('button.detail') }}
           </a-button>
 
@@ -200,7 +197,6 @@
             type="primary"
             html-type="submit"
             class="ml-4"
-            :loading="loading"
           >
             {{ t('button.update') }}
           </a-button>
@@ -213,15 +209,8 @@
 <script lang="ts" setup>
 import {defineAsyncComponent, reactive, ref} from 'vue'
 import {SortPayments_sort_payments} from '#smileeye/queries/__generated__/SortPayments'
-import {STATUS} from '#schema/smileeyeTypes'
-import {useMutation} from '@vue/apollo-composable'
-import {UpsertPayment, UpsertPaymentVariables} from '#smileeye/mutations/__generated__/UpsertPayment'
-import {UPSERT_PAYMENT} from '#smileeye/mutations/payment.mutation'
+import {STATUS, UpsertPaymentInput} from '#schema/smileeyeTypes'
 import {useI18n} from 'vue-i18n'
-import {PaymentByID} from '#smileeye/queries/__generated__/PaymentByID'
-import {PAYMENT_BY_ID} from '#smileeye/queries/payment.query'
-import {ref as dbRef, set as dbSet} from 'firebase/database'
-import {useFireRTDB} from '@composables/useFirebase'
 import {useEmitter} from "@nguyenshort/vue3-mitt";
 
 const ModalBase = defineAsyncComponent(
@@ -269,49 +258,36 @@ const buildForm = (_data: SortPayments_sort_payments | undefined) => {
 
 // Global event
 const emitter = useEmitter<{
-  updatePaymentNote: object
+  beforeUpdatePayment: UpsertPaymentInput
 }>()
-
-const { mutate: upsertPayment, loading } = useMutation<
-  UpsertPayment,
-  UpsertPaymentVariables
->(UPSERT_PAYMENT, {
-  onQueryUpdated: () => {
-    modal.value?.dispose()
-  },
-  update: (proxy, result) => {
-    const _payment = proxy.readFragment<PaymentByID>({
-      id: proxy.identify(result.data?.upsert_payment?.[0] as any),
-      fragment: PAYMENT_BY_ID
-    })
-    if (_payment) {
-      emitter.emit('updatePaymentNote', _payment)
-      dbSet(
-        dbRef(
-          useFireRTDB(),
-          `payment/${_payment.add_user_id}/${_payment.goal_id}`
-        ),
-        _payment
-      )
-    }
-  }
-})
 
 const buildInput = () => {
   return {
-    input: {
-      id: formState.id,
-      add_user_id: formState.add_user_id,
-      goal_id: formState.goal_id,
-      status: formState.status,
-      user_info: formState.user_info,
-      type: formState.type,
-      code_sale: formState.code_sale,
-      money: formState.status === STATUS.TRIAL ? 0 : formState.money,
-      note: formState.note,
-      attachments: formState.attachments
-    }
+    id: formState.id,
+    add_user_id: formState.add_user_id,
+    goal_id: formState.goal_id,
+    status: formState.status,
+    user_info: formState.user_info,
+    type: formState.type,
+    code_sale: formState.code_sale,
+    money: formState.status === STATUS.TRIAL ? 0 : formState.money,
+    note: formState.note,
+    attachments: formState.attachments
   }
+}
+
+const updatePayment = (doc: any) => {
+  modal.value?.dispose()
+  emitter.emit('beforeUpdatePayment', doc);
+}
+
+const deletePayment = () => {
+  modal.value?.dispose()
+  emitter.emit('beforeUpdatePayment', {
+    status: STATUS.TRIAL,
+    money: 0,
+    id: formState.id,
+  });
 }
 </script>
 

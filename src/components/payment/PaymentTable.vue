@@ -1,6 +1,6 @@
 <template>
   <a-table
-    :loading="loading || loadingQuickConfirm"
+    :loading="loading || isUpdating"
     :columns="columns"
     :data-source="payments"
     :pagination="{ total: counter, showLessItems: true, defaultPageSize: 6 }"
@@ -81,14 +81,10 @@
           v-else
           :payment="record"
           @delete="
-            quickConfirm({
-              input: { id: record.id, status: STATUS.TRIAL, money: 0}
-            })
+            emitter.emit('beforeUpdatePayment', { id: record.id, status: STATUS.TRIAL, money: 0})
           "
           @confirm="
-            quickConfirm({
-              input: { id: record.id, status: STATUS.PAID_CONFIRMED }
-            })
+            emitter.emit('beforeUpdatePayment', { id: record.id, status: STATUS.PAID_CONFIRMED })
           "
         />
       </template>
@@ -103,15 +99,11 @@
 <script lang="ts" setup>
 import {
   computed,
-  defineAsyncComponent,
-  onMounted,
-  onUnmounted,
+  defineAsyncComponent, onMounted, onUnmounted,
   reactive,
   ref
 } from 'vue'
-
 import { ref as dbRef, set as dbSet } from 'firebase/database'
-
 const PaymentActions = defineAsyncComponent(
   () => import('@components/payment/PaymentActions.vue')
 )
@@ -122,7 +114,7 @@ const TableSettingHeader = defineAsyncComponent(
   () => import('@components/includes/TableSettingHeader.vue')
 )
 
-import { useMutation, useQuery } from '@vue/apollo-composable'
+import {useMutation, useQuery} from '@vue/apollo-composable'
 import {
   SortPayments,
   SortPaymentsVariables
@@ -134,22 +126,17 @@ import {
 } from '#smileeye/queries/payment.query'
 import { useDayjs } from '@composables/useDayjs'
 import {
-  QUICK_DONE_PAYMENT
-} from '#smileeye/mutations/payment.mutation'
-import {
   SumPayment,
   SumPaymentVariables
 } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
-import {
-  QuickDonePayment,
-  QuickDonePaymentVariables
-} from '#smileeye/mutations/__generated__/QuickDonePayment'
-import { STATUS } from '#schema/smileeyeTypes'
+import {STATUS, UpsertPaymentInput} from '#schema/smileeyeTypes'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { useFireRTDB } from '@composables/useFirebase'
-import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
+import {UpsertPayment, UpsertPaymentVariables} from "#smileeye/mutations/__generated__/UpsertPayment";
+import {UPSERT_PAYMENT} from "#smileeye/mutations/payment.mutation";
+import {PaymentByID} from "#smileeye/queries/__generated__/PaymentByID";
+import {useFireRTDB} from "@composables/useFirebase";
 
 const { t } = useI18n()
 
@@ -220,8 +207,8 @@ const fixColumns = [
 
 // Global event
 const emitter = useEmitter<{
-  deletePayment: string
-  updatePaymentNote: object
+  beforeUpdatePayment: UpsertPaymentInput
+  afterAppNotePayment: UpsertPaymentInput
 }>()
 
 // Setup table
@@ -267,17 +254,16 @@ const { result: paymentCounter } = useQuery<SumPayment, SumPaymentVariables>(
 const counter = computed(
   () => paymentCounter?.value?.sum_payment?.number_status || 0
 )
-const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
-  QuickDonePayment,
-  QuickDonePaymentVariables
->(QUICK_DONE_PAYMENT, {
+const { mutate: upsertPayment, loading: isUpdating } = useMutation<
+  UpsertPayment,
+  UpsertPaymentVariables
+>(UPSERT_PAYMENT, {
   update: (proxy, result) => {
     const _payment = proxy.readFragment<PaymentByID>({
       id: proxy.identify(result.data?.upsert_payment?.[0] as any),
       fragment: PAYMENT_BY_ID
     })
     if (_payment) {
-      emitter.emit('updatePaymentNote', _payment)
       dbSet(
         dbRef(
           useFireRTDB(),
@@ -291,11 +277,11 @@ const { mutate: quickConfirm, loading: loadingQuickConfirm } = useMutation<
 
 // Delete from modal
 onMounted(() =>
-  emitter.on('deletePayment', (id) => {
-    quickConfirm({
-      input: { id, status: STATUS.TRIAL }
+  emitter.on('afterAppNotePayment', (data) => {
+    upsertPayment({
+      input: data
     })
   })
 )
-onUnmounted(() => emitter.off('deletePayment'))
+onUnmounted(() => emitter.off('afterAppNotePayment'))
 </script>

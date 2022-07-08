@@ -33,6 +33,12 @@ export interface AssignRoleInput {
   user_id: string;
 }
 
+export interface CreateHistoryPaymentInput {
+  user_id: string;
+  payment_id: string;
+  note: string;
+}
+
 export interface DeleteCoachFromGoal {
   user_id?: string | null;
   goal_root_id?: string | null;

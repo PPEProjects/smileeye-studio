@@ -32,3 +32,19 @@ export const QUICK_DONE_PAYMENT = gql`
     }
   }
 `
+
+
+export const CREATE_HISTORY_PAYMENT = gql`
+  mutation CreateHistoryPayment($input: CreateHistoryPaymentInput!) {
+    create_history_payment(input: $input) {
+      id
+      note
+      updated_at
+      user {
+        id
+        name
+        avatar
+      }
+    }
+  }
+`

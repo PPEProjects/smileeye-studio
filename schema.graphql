@@ -172,6 +172,12 @@ input CreateGoalTemplateInput {
   message: String
 }
 
+input CreateHistoryPaymentInput {
+  user_id: ID!
+  payment_id: ID!
+  note: String!
+}
+
 input CreateJapaneseGoalInput {
   name_goal: String
   goal_id: ID
@@ -240,6 +246,11 @@ input CreateTaskInput {
   created_at: String
 }
 
+input CreateUserEditGoalInput {
+  user_id: ID!
+  goal_root_id: ID!
+}
+
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
 scalar Date
 
@@ -291,6 +302,10 @@ input DeleteGoalTemplateInput {
   goal_id: ID!
 }
 
+input DeleteHistoryPaymentInput {
+  id: ID!
+}
+
 input DeleteJapaneseKanjiInput {
   id: ID!
 }
@@ -325,6 +340,10 @@ input deleteTaskInput {
   ids: [ID]
   date: String
   is_all: Boolean
+}
+
+input deleteUserEditGoalInput {
+  id: ID!
 }
 
 type DetailTemplate {
@@ -531,6 +550,15 @@ type GoalTemplate {
   updated_at: DateTime!
 }
 
+type HistoryPayment {
+  id: ID!
+  user: User!
+  payment: Payment!
+  note: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type InfoCoupon {
   total: Int
   last_page: Int
@@ -707,6 +735,8 @@ type Mutation {
   create_goal_template(input: CreateGoalTemplateInput!): GoalTemplate
   upsert_goal_template(input: UpsertGoalTemplateInput!): GoalTemplate
   delete_goal_template(input: DeleteGoalTemplateInput!): JSON
+  create_history_payment(input: CreateHistoryPaymentInput!): HistoryPayment
+  delete_history_payment(input: DeleteHistoryPaymentInput!): JSON
   delete_japanese_goals(id: ID!): Boolean
   create_japanese_goals(input: CreateJapaneseGoalInput!): JapaneseGoal
   update_japanese_goals(input: UpdateJapaneseGoalInput!): JapaneseGoal
@@ -743,6 +773,8 @@ type Mutation {
   delete_task(input: deleteTaskInput!): Boolean
   task_toggle(id: ID!, date: String!): Task
   update_user(input: UpdateUserInput!): User
+  create_user_edit_goal(input: CreateUserEditGoalInput!): UserEditGoal
+  delete_user_edit_goal(input: deleteUserEditGoalInput!): Boolean
 }
 
 input NewPasswordWithCodeInput {
@@ -942,6 +974,7 @@ type Query {
   list_goal_score(user_id: ID!, goal_root_id: ID!): Score
   list_goal_template(status: String, first: Int, page: Int): [GoalTemplate]
   info_goal_template(goal_root_id: ID!): InfoTemplate
+  history_payment(first: Int!, page: Int!): [HistoryPayment]
   detail_japanese_goal(id: ID, goal_id: ID): JapaneseGoal
   search_by_type_japanese_goal(type: String): [JapaneseGoal]
   auto_play_japanese_goal(root_id: ID): JapaneseGoal
@@ -986,6 +1019,7 @@ type Query {
   list_user(phone_number: String, role: String, email: String, name: String, first: Int!, page: Int!, orderBy: [OrderByClause!]): ListUser
   list_student(goal_root_id: ID): [User]
   detail_user(id: ID!): User
+  list_user_edit_goal(goal_root_id: ID): [UserEditGoal]
   users(
     """Limits number of fetched items."""
     first: Int = 10
@@ -1579,6 +1613,14 @@ type User {
   phone_number: String
   attachment: Attachment
   progress: [JapaneseLearn]
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type UserEditGoal {
+  id: ID!
+  user: User!
+  goal_root: GoalRoot!
   created_at: DateTime!
   updated_at: DateTime!
 }
