@@ -22,7 +22,7 @@ Apollo Client, VueJs, Typescript, Firebase
 
 ![Notify Workflow@2x](https://i.imgur.com/0SywboA.png)
 
-> Ứng dụng tuân thủ mọi life cycle của một Vue Application tiêu chuẩn.
+> Ứng dụng và 1 phần nhỏ của vue life cycle và tuân thủ mọi life cycle của một Vue Application tiêu chuẩn.
 
 ## Global State
 Ứng dụng chỉ có một Global State duy nhất `User Instance`. Là store được tạo từ [Pinia](https://pinia.vuejs.org/) </br>
