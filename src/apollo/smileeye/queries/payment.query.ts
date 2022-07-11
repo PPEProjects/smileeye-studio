@@ -105,6 +105,11 @@ export const HISTORY_BY_DATE = gql`
       note
       payment {
         id
+          user {
+            id
+              name
+              phone_number
+          }
       }
       user {
         id

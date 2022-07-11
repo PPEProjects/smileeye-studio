@@ -144,6 +144,10 @@ const columnsExport = reactive<IExcelColumn[]>([
   {
     label: t('user.email'),
     value: ['user', 'email']
+  },
+  {
+    label: t('user.phone'),
+    value: ['payment', 'user', 'phone_number']
   }
 ])
 const query = computed(() => HISTORY_BY_DATE)

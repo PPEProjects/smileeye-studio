@@ -7,9 +7,17 @@
 // GraphQL query operation: HistoryPaymentsByDate
 // ====================================================
 
+export interface HistoryPaymentsByDate_history_payments_by_date_payment_user {
+  __typename: "User";
+  id: string | null;
+  name: string | null;
+  phone_number: string | null;
+}
+
 export interface HistoryPaymentsByDate_history_payments_by_date_payment {
   __typename: "Payment";
   id: string | null;
+  user: HistoryPaymentsByDate_history_payments_by_date_payment_user | null;
 }
 
 export interface HistoryPaymentsByDate_history_payments_by_date_user {
