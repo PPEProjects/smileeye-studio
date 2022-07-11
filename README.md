@@ -35,7 +35,7 @@ Chúng tôi sử dụng graphql thay thế cho restful. Hiện ứng dụng sử
 - [Smileeye](https://v2-be.smileeye.edu.vn/graphql): Nguồn chính của dữ liệu
 - [Notify](https://notify.foodmix.xyz/graphql): Server phụ trợ. <br />
 ## Lưu Ý
-- Vì đây là ứng dụng Vue nên khi sử dụng apollo composable/apollo hooks, bạn cần `import { /* Any Hook */ } from '@vue/apollo-composable'`.
+- Vì đây là ứng dụng Vue nên khi sử dụng apollo hooks, bạn cần `import { /* Any Hook */ } from '@vue/apollo-composable'`.
 - [Vue Apollo V4](https://v4.apollo.vuejs.org/)
 - Mặc định hooks và option sẽ sử dụng smileeye là client mặc định.
 ### Smileeye
