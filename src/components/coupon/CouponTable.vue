@@ -79,7 +79,7 @@ import {
   DeleteCoupon,
   DeleteCouponVariables
 } from '#smileeye/mutations/__generated__/DeleteCoupon'
-import { computed, reactive } from 'vue'
+import {computed, onMounted, onUnmounted, reactive} from 'vue'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
 import { useSmileeye } from '#apollo/client/smileeye'
 import { useI18n } from 'vue-i18n'
@@ -171,24 +171,31 @@ const emitter = useEmitter<{
 }>()
 
 const smileeye = useSmileeye()
-emitter.on('afterUpsertCoupon', (coupon) => {
-  const _index = coupons.value.findIndex((item) => item.id === coupon.id)
-  if (_index > -1) {
-    // Đã tồn tại. Deep cache cập nhật
-    return
-  }
-  smileeye.cache.writeQuery<SortCoupons, SortCouponsVariables>({
-    query: SORT_COUPONS,
-    variables: queryVariable,
-    data: {
-      sort_coupons: {
-        __typename: 'SortCoupon',
-        info: Object.assign({}, result.value?.sort_coupons?.info, {
-          total: counter.value + 1
-        }),
-        data: [coupon, ...coupons.value]
-      }
+
+onMounted(() => {
+  emitter.on('afterUpsertCoupon', (coupon) => {
+    const _index = coupons.value.findIndex((item) => item.id === coupon.id)
+    if (_index > -1) {
+      // Đã tồn tại. Deep cache cập nhật
+      return
     }
+    smileeye.cache.writeQuery<SortCoupons, SortCouponsVariables>({
+      query: SORT_COUPONS,
+      variables: queryVariable,
+      data: {
+        sort_coupons: {
+          __typename: 'SortCoupon',
+          info: Object.assign({}, result.value?.sort_coupons?.info, {
+            total: counter.value + 1
+          }),
+          data: [coupon, ...coupons.value]
+        }
+      }
+    })
   })
+})
+
+onUnmounted(() => {
+  emitter.off('afterUpsertCoupon')
 })
 </script>
