@@ -79,9 +79,9 @@ JSON.parse(JSON.stringify(cache))
 ### Apollo Type Generator
 - Bạn có thể thấy chúng tôi sử dụng typescript cho ứng dụng. Để tăng hiệu suất, chúng tôi sử dụng generic type cho các hook. Ví dụ như: `useSubscription<SubToast, SubToastVariables>`. </br>
 - Điều này kiến cho code trở nên tường minh hơn. Và gặp ít bug hơn.
-> Để tạo kiểu tự động cho query, mutation, subscription. Bạn chỉ cần viết query của mình vào bất kì vị trí nào trong `src/apollo/smileeye/(mutations|queries|subscriptions)` và plugin sẽ tự động tạo kiểu cho nó. </br>
+> Để tạo kiểu tự động cho query, mutation, subscription. Bạn chỉ cần viết query của mình vào bất kì vị trí nào trong `src/apollo/smileeye/(mutations|queries|subscriptions)` và plugin nhỏ của tôi sẽ tự động tạo kiểu cho nó. </br>
 - Ví dụ: `src/apollo/smileeye/queries/user.ts`
-> Bạn cần cài đặt Apollo, Graphql dưới dạng global để sử dụng tính năng này. Hiện chỉ support cho smileeye. Bạn có thể dễ dang mở rộng nó tại: `src/plugins/vite.ts`
+> Bạn cần cài đặt Apollo, Graphql dưới dạng global để sử dụng tính năng này. Hiện chỉ support cho smileeye. Bạn có thể dễ dàng mở rộng nó tại: `src/plugins/vite.ts`
 ## Layout
 - Chúng tôi sử dụng dynamic layout cho mỗi router. Mới mỗi router bạn có thể setup layout riêng cho nó. Xem ví dụ tại: `src/routes.ts`. Nếu bỏ trống nó sẽ tự nhận layout mặc định là `default`. </br>
 - Để can thiệp vào layout, bạn cần sử dụng `<MasterView />` component. Xem ví dụ tại: `src/components/layout/MasterView.vue`.
