@@ -1,4 +1,4 @@
-# Smileeye Studio
+## Chức Năng
 Trang quản lý thông tin mã giảm giá:
 - Thêm mã giảm giá
 - Xóa mã giảm giá
@@ -15,7 +15,7 @@ Apollo Client, VueJs, Typescript, Ant design, Mitter
 
 > Trang là 1 phần nhỏ của vue router life cycle và tuân thủ mọi vue router life cycle cũng Vue component.
 
-## Các thành phần của Coupon Page
+## Component Tree
 📚 Các thành phần của page được phân tích theo các phần sau:
 - Component Table: `src/components/coupon/CouponTable.vue`
 - Component Upsert: `src/components/coupon/CouponUpsertModal.vue`
