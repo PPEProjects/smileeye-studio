@@ -84,7 +84,7 @@
   "payment": {
     "billImage": "Bill image",
     "createdAt": "Date created",
-    "history": "",
+    "history": "History",
     "money": "Money received",
     "note": "Note",
     "payment": "Payment",
@@ -99,7 +99,7 @@
       "trial": "Trial"
     },
     "title": "Payment systems",
-    "userChange": ""
+    "userChange": "User Change"
   },
   "sellRequest": {
     "approved": "Confirmed",
