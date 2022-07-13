@@ -103,13 +103,21 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-// Modal
+/**
+ * Ref modal...để access vào component con
+ * @type {Ref<ModalBase>}
+ * @link https://vuejs.org/guide/essentials/template-refs.html#ref-on-component
+ */
 const modal = ref<any>(null)
 
 // disbale form
 const dayjs = useDayjs()
+
+/**
+ * Can not select days before today and today
+ * @param current
+ */
 const disabledDate = (current: Dayjs) => {
-  // Can not select days before today and today
   return current && current < dayjs().endOf('day')
 }
 
@@ -122,6 +130,12 @@ const formState = reactive<Partial<SortCoupons_sort_coupons_data>>({
   expiry_date: ''
 })
 
+/**
+ * Build form data
+ * Kích hoạt khi bắt dược sự kiện: upsertCoupon
+ * Sử dụng để tạo formstate
+ * @param data
+ */
 const buildData = (data: SortCoupons_sort_coupons_data) => {
   formState.id = data.id
   formState.code = data?.code || ''
@@ -130,17 +144,27 @@ const buildData = (data: SortCoupons_sort_coupons_data) => {
   formState.expiry_date = data?.expiry_date || ''
 }
 
-// Event hook
+/**
+ * Sự kiện toàn cầu
+ * emit afterUpsertCoupon: phát sự kiện sau khi upsert một coupon
+ */
 const emitter = useEmitter<{
   afterUpsertCoupon: SortCoupons_sort_coupons_data
 }>()
 
-// Upsert
+/**
+ * Build form data
+ */
 const buildForm = (): UpsertCouponInput => {
   const _form = Object.assign({}, formState)
   delete _form.id
   return _form as UpsertCouponInput
 }
+
+/**
+ * Mutate coupon
+ * Phát ra afterUpsertCoupon sau khi hoàn tất và đóng modal
+ */
 const { loading, mutate } = useMutation<UpsertCoupon, UpsertCouponVariables>(
   UPSERT_COUPON,
   {
