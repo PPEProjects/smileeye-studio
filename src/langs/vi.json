@@ -64,7 +64,7 @@
     "percent": "% của Chủ goal",
     "price": "Giá Cả",
     "sellRequest": {
-      "createdAt": "Ngày gửi yêu cầu bán goal"
+      "createdAt": "Ngày yêu cầu bán"
     },
     "status": "Trạng Thái",
     "tab": {
@@ -87,7 +87,7 @@
     "createdAt": "Ngày Tạo",
     "history": "Lịch Sử Giao Dịch",
     "money": "Thực Nhân",
-    "note": "Gi Chú",
+    "note": "Ghi Chú",
     "payment": "hoá đơn",
     "price": "Giá Cả",
     "referral": "Giới Thiệu",
@@ -95,7 +95,7 @@
       "all": "Tất cả",
       "in_need": "Muốn mua",
       "on_buy": "Đã chuyển tiền",
-      "paid_confirmed": "Đã xác nhận money",
+      "paid_confirmed": "Đã xác nhận $",
       "title": "Trạng thái",
       "trial": "Đang tìm hiểu"
     },
