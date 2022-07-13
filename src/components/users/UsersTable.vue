@@ -83,7 +83,13 @@ const userColumns = userColumnsBuilder()
 
 const dayjs = useDayjs()
 const { t } = useI18n()
-// Search options
+
+/**
+ * Các fild sẽ dùng để tìm kiếm
+ * Mỗi số field đều phải có key và label
+ * @type {Array<{key: string, label: string}>}
+ * Sẽ search thoe value của field đó
+ */
 const searchOptions = [
   {
     label: t('user.name'),
@@ -99,7 +105,9 @@ const searchOptions = [
   }
 ]
 
-// SearchState
+/**
+ * @param {ListUserVariables} variables
+ */
 const formSearch = reactive<{
   field: 'name' | 'email' | 'phone_number'
   keyword: ''
@@ -110,6 +118,10 @@ const formSearch = reactive<{
 
 // data resource
 const page = ref<number>(1)
+
+/**
+ * Đặt query filter vào một reactive để đảm bảo nó sẽ được gọi đến khi cập nhật
+ */
 const queryVariables = computed(() => ({
   first: 10,
   [formSearch.field]: formSearch.keyword,
@@ -123,6 +135,7 @@ const queryVariables = computed(() => ({
   ]
 }))
 
+// Thực khi gọi query. Nó sẽ tự động gọi lại query khi có thay đổi
 const { result, loading } = useQuery<ListUser, ListUserVariables>(
   LIST_USERS,
   queryVariables,
@@ -130,6 +143,8 @@ const { result, loading } = useQuery<ListUser, ListUserVariables>(
     debounce: 300
   }
 )
+// Tạo getter users là mảng các user được trả về từ query
+
 const users = computed(() => result.value?.list_user?.data || [])
 const pageNavi = computed(
   () =>
