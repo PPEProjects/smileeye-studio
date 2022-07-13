@@ -172,7 +172,7 @@ const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
 
 /**
  * Thay đổi trang hiện tại.
- * Do thay đổi queryVariable => tự gọi lag query
+ * Do thay đổi queryVariable => tự gọi laị query
  * @param $event
  */
 const changePage = ($event: any) => {
