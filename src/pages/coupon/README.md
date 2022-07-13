@@ -6,8 +6,8 @@ Trang quản lý thông tin mã giảm giá:
 ## Technhical
 Apollo Client, VueJs, Typescript, Ant design, Mitter
 ## Access
-🛰 Truy cập page tại `https://studio.smileeye.edu.vn/coupon` </br>
-⛱ Main component: `src/pages/coupon/index.vue` </br>
+🛰 Truy cập page tại `https://studio.smileeye.edu.vn/coupon`
+</br>⛱ Main component: `src/pages/coupon/index.vue`
 ## Workflow
 🚀 Vòng đời của page được phân tích theo các phần sau:
 
