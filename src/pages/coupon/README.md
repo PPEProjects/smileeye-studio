@@ -1,14 +1,14 @@
-## Chức Năng
+## Feature
 Trang quản lý thông tin mã giảm giá:
 - Thêm mã giảm giá
 - Xóa mã giảm giá
 - Sửa mã giảm giá
-## Công nghệ sử dụng
+## Technhical
 Apollo Client, VueJs, Typescript, Ant design, Mitter
-## Truy cập Page
+## Access
 🛰 Truy cập page tại `https://studio.smileeye.edu.vn/coupon` </br>
 ⛱ Main component: `src/pages/coupon/index.vue` </br>
-## Vòng đời của Coupon Page
+## Workflow
 🚀 Vòng đời của page được phân tích theo các phần sau:
 
 ![Notify Workflow@2x](https://i.imgur.com/vQ3Mqk1.png)
