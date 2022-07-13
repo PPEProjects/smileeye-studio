@@ -87,7 +87,9 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const dayjs = useDayjs()
 
-// Table setup
+/**
+ * Các cột của bảng
+ */
 const columns = [
   {
     title: t('coupon.code'),
@@ -127,25 +129,33 @@ const columns = [
   }
 ]
 
+// Đặt query filter vào một reactive để đảm bảo nó sẽ được gọi đến khi cập nhật
 const queryVariable = reactive({
   first: 7,
   page: 0,
   expiry: FilterExpiry.all
 })
 
+// Thực khi gọi query. Nó sẽ tự động gọi lại query khi có thay đổi
 const { result, loading } = useQuery<SortCoupons, SortCouponsVariables>(
   SORT_COUPONS,
   queryVariable
 )
-
+// Tạo getter coupons là mảng các coupon được trả về từ query
 const coupons = computed<SortCoupons_sort_coupons_data[]>(
   () =>
     (result.value?.sort_coupons?.data || []) as SortCoupons_sort_coupons_data[]
 )
+// Tạo getter counter là số lượng coupon được trả về từ query
 const counter = computed<number>(
   () => result.value?.sort_coupons?.info?.total || 0
 )
 
+/**
+ * Khi xoá coupon chúng ta chỉ cần xoá coupon ra khỏi cache
+ * @link https://www.apollographql.com/docs/react/caching/garbage-collection/#cacheevict
+ * @link https://www.apollographql.com/docs/react/api/cache/InMemoryCache/#identify
+ */
 const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
   DeleteCoupon,
   DeleteCouponVariables
@@ -160,18 +170,34 @@ const { loading: isDeleting, mutate: deleteCouponAction } = useMutation<
   }
 })
 
+/**
+ * Thay đổi trang hiện tại.
+ * Do thay đổi queryVariable => tự gọi lag query
+ * @param $event
+ */
 const changePage = ($event: any) => {
   queryVariable.page = $event.current
 }
 
-// Global event
+/**
+ * Sự kiện toàn cầu
+ * emit upsertCoupon để sửa coupon => gọi tới upsert modal
+ * on afterUpsertCoupon: lắng nghe sau khi thêm/sửa coupon thành công
+ */
 const emitter = useEmitter<{
   upsertCoupon: SortCoupons_sort_coupons_data | object
   afterUpsertCoupon: SortCoupons_sort_coupons_data
 }>()
 
+/**
+ * Lấy smileeye client
+ */
 const smileeye = useSmileeye()
 
+/**
+ * Sự kiện khi thêm/sửa coupon thành công
+ * Thêm listener sau khi component hoàn tất update
+ */
 onMounted(() => {
   emitter.on('afterUpsertCoupon', (coupon) => {
     const _index = coupons.value.findIndex((item) => item.id === coupon.id)
@@ -195,6 +221,9 @@ onMounted(() => {
   })
 })
 
+/**
+ * Xoá sự kiện khi component được gỡ bỏ
+ */
 onUnmounted(() => {
   emitter.off('afterUpsertCoupon')
 })
