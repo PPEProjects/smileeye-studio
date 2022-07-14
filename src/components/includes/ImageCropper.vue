@@ -54,6 +54,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { message } from 'ant-design-vue'
 import { useI18n } from 'vue-i18n'
 
+// Crop options mặc định của image
 const _configDefault = {
   autoCropArea: 1,
   cropBoxResizable: false,
@@ -91,10 +92,12 @@ export default defineComponent({
       return this.$refs.cropperRef as VueCropperMethods
     },
 
+    // Merge config mặc định và config của image
     options() {
       return Object.assign({}, this.configData, _configDefault)
     }
   },
+
   methods: {
     buildCropper(file: File) {
       // avoid memory leaks
@@ -104,12 +107,22 @@ export default defineComponent({
       this.src = URL.createObjectURL(file)
     },
 
+    /**
+     * Cắt hình ảnh
+     * @param callback
+     * @link https://github.com/fengyuanchen/cropperjs
+     */
     cropImage(callback: (image: Blob|any) => Promise<void>) {
       this.cropperRef.getCroppedCanvas().toBlob( (data) => {
         callback(data)
       })
     },
 
+    /**
+     * Upload hình ành lên bunny
+     * Sử dụng server proxy để upload hình ảnh lên bunny
+     * @param image
+     */
     async uploadCrop(image: Blob) {
       const fileName = `/admin/cropper/${uuidv4()}.jpg`
       try {

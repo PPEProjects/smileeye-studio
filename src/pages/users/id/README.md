@@ -22,5 +22,8 @@ Apollo Client, VueJs, Typescript, Ant design, Mitter
 ## Dynamic Post Layout
 Danh sách post được tranform thành layout động và sẽ thay đổi khi kích thước thay đổi.
 <br/>🔥 Vấn đề hiện tại: Không thể keep state của iframe.
+## Post Tranform
+🔥 Vì list post nhận được là 1 list union. Nên cần phải tranform lại thành list post với cùng 1 formart.
+<br /> `Tranform Post` => `Auto Layout` => `Render`
 ## Goal tree
 📝 Goal tree là một cây của goal. Được render bằng `Vue Draggable`.

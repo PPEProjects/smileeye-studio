@@ -50,6 +50,10 @@ defineProps<{
 
 const el = ref(null)
 const { width } = useElementSize(el)
+
+/**
+ * Chuyển danh sách về các cột. Tương ứng theo chiều rộng
+ */
 const chuckSize = computed(() => {
   if (width.value <= 768) {
     return 2
@@ -72,11 +76,15 @@ type PostUnion = Partial<PostsByGoalRoot_list_japanese_posts_by_goal_root> & {
   type: string
 }
 
+// check có key hay ko
 function hasKey(post: any, key: string) {
   return Object.prototype.hasOwnProperty.call(post, key)
 }
 
 // <PostUnion[]>
+/**
+ * Tranrform các bài post khác nhau thành 1 kiểu duy nhất
+ */
 const posts = computed<PostUnion[]>(() =>
   (queryData.value?.list_posts_and_diary || []).map((post) => {
 
@@ -92,7 +100,6 @@ const posts = computed<PostUnion[]>(() =>
       _post.more.media = [
           ...(_post.more.video || [])
       ]
-      console.log(_post)
 
     } else {
       // post diary
@@ -113,6 +120,9 @@ const posts = computed<PostUnion[]>(() =>
 )
 
 
+/**
+ * Tạo grid data
+ */
 const gridData = computed<PostUnion[][]>(() => {
   // Build chuck of posts
   let chuck: any[] = []
