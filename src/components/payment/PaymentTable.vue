@@ -144,6 +144,9 @@ const dayjs = useDayjs()
 
 const selectColumns = ref<number[]>([0])
 
+/**
+ * Cột động. Có thể tuỳ chọn ẩn hoặc hiện
+ */
 const rawColumns = reactive([
   {
     title: t('user.name'),
@@ -167,6 +170,9 @@ const rawColumns = reactive([
   }
 ])
 
+/**
+ * Cột tĩnh. Sẽ không thay đổi khi cập nhật dữ liệu
+ */
 const fixColumns = [
   {
     title: t('payment.money'),
@@ -205,13 +211,16 @@ const fixColumns = [
   }
 ]
 
-// Global event
+/**
+ * Sự kiện toàn cầu cho cột động
+ */
 const emitter = useEmitter<{
   beforeUpdatePayment: UpsertPaymentInput
   afterAppNotePayment: UpsertPaymentInput
 }>()
 
 // Setup table
+// Merger cuột tĩnh và cột động
 const columns = computed(() => {
   const _dynamic = selectColumns.value.map((_index) => rawColumns[_index])
   return [..._dynamic, ...fixColumns]
@@ -263,6 +272,7 @@ const { mutate: upsertPayment, loading: isUpdating } = useMutation<
       id: proxy.identify(result.data?.upsert_payment?.[0] as any),
       fragment: PAYMENT_BY_ID
     })
+    // Thay đổi firebase
     if (_payment) {
       dbSet(
         dbRef(
