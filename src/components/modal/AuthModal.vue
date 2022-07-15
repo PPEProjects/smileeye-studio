@@ -119,6 +119,10 @@ const useUser = useUserStore()
 
 // Thông báo
 
+/**
+ * Lưu token vào cookie
+ * Gi token vào store vad redirect đến trang chủ
+ */
 const login = async () => {
   try {
     const { data } = await $axios.post('/smileeye/ppe-core/auth/login', { email: email.value, password: password.value })
