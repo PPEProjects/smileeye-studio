@@ -12,15 +12,19 @@ import { useUserStore } from '@store/user'
 export default defineComponent({
   name: 'MasterView',
   components: {
+    // Async load component
     default: defineAsyncComponent(() => import('@layouts/default.vue')),
     blank: defineAsyncComponent(() => import('@layouts/blank.vue'))
   },
   async setup() {
+    // đọc cookie
     const cookies = inject<VueCookies>('$cookies')
 
+    // Lấy user
     const useUser = useUserStore()
     useUser.setToken(cookies?.get('_token'))
 
+    // kiểm tra cookie, lấy user
     if (useUser._token) {
       await useUser.getMe()
     }
@@ -36,6 +40,7 @@ export default defineComponent({
   },
   computed: {
     layout() {
+      // lấy layout từ router
       return this.$route.meta.layout || 'default'
     }
   },
