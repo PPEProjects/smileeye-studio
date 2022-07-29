@@ -4,7 +4,7 @@
 
       <div style='width: 250px; height: 200px' class='mx-auto'>
 
-        <vue-lottie-player width='250px' height='200px' loop path="https://assets8.lottiefiles.com/packages/lf20_7jnffdxl.json" />
+        <vue-lottie-player width='250px' height='200px' loop path="https://assets5.lottiefiles.com/packages/lf20_bcjfw1k6.json" />
 
       </div>
 
