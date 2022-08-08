@@ -2,7 +2,7 @@
   <modal-base
     ref="modal"
     v-model:visible="showModal"
-    :title="t('payment.history.title')"
+    title="Xác nhận thay đổi"
     event="updatePaymentNote"
     :max-width="450"
   >

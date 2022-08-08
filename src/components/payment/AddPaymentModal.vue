@@ -1,5 +1,6 @@
 <template>
   <modal-base
+      ref="modal"
       event="addPaymentModal"
       title="Thêm mới hoá đơn"
       :max-width="1000"
@@ -10,6 +11,7 @@
         autocomplete="off"
         layout="vertical"
         class="-mb-4"
+        @finish="addPayment"
     >
       <div class="flex">
         <div class="w-2/5 flex-shrink-0">
@@ -52,6 +54,7 @@
                   {{ user.name }}
                 </a-select-option>
               </a-select>
+
             </a-form-item>
 
           </a-spin>
@@ -60,8 +63,8 @@
           <a-divider />
 
           <a-form-item
-              label="Trạng Thái"
-              name="status"
+              label="Khoá học"
+              name="goal_id"
               :rules="[
               {
                 required: true,
@@ -81,6 +84,14 @@
                 {{ goal.name }}
               </a-select-option>
             </a-select>
+
+            <template #extra>
+              <div class="text-[11px] mt-3">
+                <p>Thông tin bổ sung sẽ được thêm tự động</p>
+                <p>Bạn hoàn toàn có thể thay đổi sau khi lưu. Cứ yên tâm</p>
+              </div>
+            </template>
+
           </a-form-item>
 
 
@@ -88,9 +99,32 @@
 
         <div class="w-3/5 flex-shrink-0 pl-8">
 
-          <a-form-item label="Mã Giám Giá" name="code_sale">
-            <a-input v-model:value="form.code_sale" />
-          </a-form-item>
+          <div class="flex">
+            <div class="w-full">
+              <a-form-item :label="t('coupon.label')" name="code_sale">
+                <a-input v-model:value="form.code_sale" />
+              </a-form-item>
+            </div>
+
+            <div class="w-5 flex-shrink-0"></div>
+
+            <div class="w-full">
+              <a-form-item
+                  :label="t('payment.money')"
+                  name="money"
+                  :rules="[
+                  {
+                    required: true,
+                    message: t('form.validate.required', {
+                      field: t('payment.money')
+                    })
+                  }
+                ]"
+              >
+                <a-input v-model:value.number="form.money" />
+              </a-form-item>
+            </div>
+          </div>
 
 
           <a-form-item
@@ -122,6 +156,25 @@
           </a-form-item>
 
 
+          <a-form-item :label="t('payment.note')" name="note">
+            <a-input v-model:value="form.note" />
+          </a-form-item>
+
+
+          <a-form-item :label="t('payment.billImage')" name="attachments" class="_avatara-aa">
+            <a-image
+                :width="'100%'"
+                :height="120"
+                :src="$cdn(form.attachments[0])"
+                @click="openSelectImage"
+            />
+
+            <template #extra>
+              <p class="text-[11px]">Nhấp vào phía trên để tải ảnh lên</p>
+            </template>
+
+          </a-form-item>
+
         </div>
       </div>
 
@@ -142,8 +195,8 @@
 
 <script lang="ts" setup>
 import ModalBase from "../modal/ModalBase.vue"
-import {computed, reactive, ref, watch} from "vue";
-import {STATUS} from "#schema/smileeyeTypes";
+import {computed, inject, reactive, ref, watch} from "vue";
+import {STATUS, UpsertPaymentInput} from "#schema/smileeyeTypes";
 import {useQuery} from "@vue/apollo-composable";
 import {
   SearchUsersByGoal,
@@ -154,6 +207,11 @@ import {SEARCH_USERS_BY_GOAL} from "#smileeye/queries/user.query";
 import {LIST_GOAL_ROOT} from "#smileeye/queries/goal.query";
 import {ListGoalRoot} from "#smileeye/queries/__generated__/ListGoalRoot";
 import {useI18n} from "vue-i18n";
+import {useFileSystemAccess} from "@vueuse/core"
+
+import { v4 as uuidv4 } from 'uuid'
+import {AxiosInstance} from "axios";
+import {useEmitter} from "@nguyenshort/vue3-mitt";
 
 type State = {
   add_user_id?: string,
@@ -217,8 +275,69 @@ const { result: goalResult } = useQuery<ListGoalRoot>(LIST_GOAL_ROOT)
 
 const goals = computed(() => goalResult?.value?.list_goal_root || [])
 
+
+const useFile = useFileSystemAccess({
+  dataType: 'Blob',
+  types: [
+    {
+      description: 'Image File',
+      accept: {
+        'image/*': ['.png', '.gif', '.jpeg', '.jpg']
+      }
+    }
+  ]
+})
+
+const $axios = inject<AxiosInstance>('$axios')!
+const openSelectImage = async () => {
+  try {
+    await useFile.open()
+    if (!useFile.file?.value) {
+      return
+    }
+
+    const fileName = `admin/cropper/${uuidv4()}/${useFile.file?.value.name}`
+    await $axios.put( '/bunny' + fileName, useFile.data.value, {
+      headers: {
+        'Content-Type': useFile.data.value?.type || '',
+        AccessKey: import.meta.env.VITE_BUNNY_TOKEN
+      }
+    })
+
+    form.attachments = [fileName]
+
+  } catch (e) {
+    // Không chọn file
+  }
+}
+
+const emitter = useEmitter<{
+  beforeUpdatePayment: UpsertPaymentInput
+  addPaymentModal: void
+}>()
+
+const modal = ref<any>(null)
+const addPayment = () => {
+  modal.value?.dispose()
+
+  const _index = users.value.findIndex(goal => goal?.id === form.add_user_id)
+  if (_index !== -1) {
+    form.user_info.email = users.value[_index]?.email || ''
+    form.user_info.name = users.value[_index]?.name || ''
+    form.user_info.phone_number = users.value[_index]?.phone_number || ''
+  }
+
+  emitter.emit('beforeUpdatePayment', form as any)
+}
+
 </script>
 
-<style scoped>
+<style>
+
+._avatara-aa .ant-image {
+  background: #3333330a;
+  cursor: pointer;
+  overflow: hidden;
+}
 
 </style>
