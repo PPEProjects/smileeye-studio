@@ -340,4 +340,8 @@ const addPayment = () => {
   overflow: hidden;
 }
 
+#basic_money {
+  text-align: right;
+}
+
 </style>
