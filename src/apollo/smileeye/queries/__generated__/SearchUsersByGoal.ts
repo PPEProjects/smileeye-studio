@@ -11,6 +11,8 @@ export interface SearchUsersByGoal_list_user_data {
   __typename: "User";
   id: string | null;
   name: string | null;
+  email: string | null;
+  phone_number: string | null;
 }
 
 export interface SearchUsersByGoal_list_user {

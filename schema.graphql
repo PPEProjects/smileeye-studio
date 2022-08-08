@@ -213,6 +213,15 @@ input CreateNoteInput {
   checked_at: String
 }
 
+input CreateNotifiCommentInput {
+  user_sent: ID!
+  user_receiver: ID!
+  content: String!
+  goal_id: ID!
+  post_id: ID
+  is_reply: Boolean!
+}
+
 input CreatePaymentInput {
   add_user_id: ID
   goal_id: ID
@@ -478,6 +487,16 @@ type GoalMemberPaginator {
   data: [GoalMember!]!
 }
 
+type GoalParent {
+  id: String!
+  name: String!
+  children: [Goal]
+  user: User
+  goal_root: GoalRoot!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type GoalRank {
   id: ID
   user_id: ID
@@ -508,6 +527,7 @@ type GoalRoot {
   detailed_income: JSON
   trial_blocks: JSON
   is_trial: Boolean
+  enable_editor: Boolean
   start_day: DateTime
   end_day: DateTime
   created_at: DateTime!
@@ -756,6 +776,7 @@ type Mutation {
   create_note(input: CreateNoteInput!): Note
   update_note(input: UpdateNoteInput!): Note
   delete_note(input: DeleteNoteInput!): Boolean
+  create_notifi_comment(input: CreateNotifiCommentInput!): Boolean
   upsert_payment(input: UpsertPaymentInput!): [Payment]
   delete_payment(input: DeletePaymentInput!): Boolean
   upsert_review_story_share(input: UpsertReviewStoryShareInput!): ReviewStoryShare
@@ -775,6 +796,7 @@ type Mutation {
   update_user(input: UpdateUserInput!): User
   create_user_edit_goal(input: CreateUserEditGoalInput!): UserEditGoal
   delete_user_edit_goal(input: deleteUserEditGoalInput!): Boolean
+  remove_user_edit_goal(input: RemoveUserEditGoalInput!): Boolean
 }
 
 input NewPasswordWithCodeInput {
@@ -958,6 +980,7 @@ type Query {
   my_tree_goal(goal_id: ID): JSON
   my_tree_goal_v2(goal_id: ID): JSON
   my_goal(root_id: ID): [Goal]
+  list_goal_trials(root_id: ID!): [GoalParent]
   goal_members(name_add_user: String, name_goal: String): [GoalMember]
   my_goal_members: [GoalMember]
   detail_goal_member(id: ID!): GoalMember
@@ -969,6 +992,7 @@ type Query {
   detail_goal_root(id: ID): GoalRoot
   my_progress: [Progress]
   user_progress(user_id: ID!, goal_root_id: ID!): Progress
+  check_coach(tab: Tab!, goal_root_id: ID!): Boolean
   my_goal_score: [GoalScore]
   detail_goal_score(id: ID, goal_id: ID): GoalScore
   list_goal_score(user_id: ID!, goal_root_id: ID!): Score
@@ -999,6 +1023,7 @@ type Query {
   list_posts_and_diary(user_id: ID, goal_root_id: ID): [PostAndDiary]
   detail_notes(id: ID): Note
   my_notes(day: String, type: String): [Note]
+  note_by_month(month: String!, type: String!): [Note]
   sort_payments(first: Int, page: Int, status: String, search: SearchPayment): [Payment]
   sort_payments_by_date(status: String, date_from: String!, date_to: String!): [Payment]
   my_payments: [Payment]
@@ -1185,6 +1210,11 @@ enum RegisterStatuses {
   SUCCESS
 }
 
+input RemoveUserEditGoalInput {
+  user_id: ID!
+  goal_root_id: ID!
+}
+
 input resetUserPasswordInput {
   email: String!
   token: String
@@ -1303,6 +1333,11 @@ type SumHistoryPayment {
 type SumPayment {
   sum: Int
   number_status: Int
+}
+
+enum Tab {
+  student
+  coach
 }
 
 type Task {

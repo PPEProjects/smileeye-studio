@@ -60,6 +60,17 @@
   </teleport-view>
 
   <teleport-view to='#actions'>
+    <a-button
+        type="primary"
+        size="large"
+        class="mr-4"
+        @click="$emitter.emit('addPaymentModal')"
+    >
+      <template #icon>
+        <plus-outlined />
+      </template>
+      THÊM MỚI
+    </a-button>
     <export-excel-button :columns='columns' :query='query' />
   </teleport-view>
 
@@ -67,11 +78,13 @@
 
   <upsert-payment-modal />
   <payment-note-modal />
+  <add-payment-modal />
 
 </template>
 
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, reactive } from 'vue'
+import { PlusOutlined } from "@ant-design/icons-vue";
 
 const PaymentTable = defineAsyncComponent(() => import('@components/payment/PaymentTable.vue'))
 const UpsertPaymentModal = defineAsyncComponent(() => import('@components/payment/UpsertPaymentModal.vue'))
@@ -86,6 +99,7 @@ const query = computed(() => GET_PAYMENT_BY_DAY)
 import { useI18n } from 'vue-i18n'
 import { IExcelColumn } from '@utils/excel'
 import PaymentNoteModal from "@components/payment/PaymentNoteModal.vue";
+import AddPaymentModal from "@components/payment/AddPaymentModal.vue";
 const { t } = useI18n()
 
 const columns = reactive<IExcelColumn[]>([

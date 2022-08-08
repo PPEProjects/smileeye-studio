@@ -113,6 +113,8 @@ export const SEARCH_USERS_BY_GOAL = gql`
       data {
         id
         name
+        email
+        phone_number
       }
     }
   }
