@@ -26,7 +26,7 @@
           }
         ]"
       >
-        <a-input v-model:value.trim="formState.code" />
+        <a-input v-model:value.trim="formState.code" :disabled="formState.id" />
       </a-form-item>
 
       <a-form-item
