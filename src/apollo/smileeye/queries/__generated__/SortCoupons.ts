@@ -23,6 +23,8 @@ export interface SortCoupons_sort_coupons_data {
 export interface SortCoupons_sort_coupons_info {
   __typename: "InfoCoupon";
   total: number | null;
+  availability: number | null;
+  last_page: number | null;
 }
 
 export interface SortCoupons_sort_coupons {
