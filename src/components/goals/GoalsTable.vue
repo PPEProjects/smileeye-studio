@@ -35,7 +35,7 @@
       </template>
 
       <template v-else-if="column.key === 'price'">
-        <span>{{ record.price || '--' }}</span>
+        <span>{{ record.price || '0' }}</span>
       </template>
 
       <template v-else-if="column.key === 'status'">
