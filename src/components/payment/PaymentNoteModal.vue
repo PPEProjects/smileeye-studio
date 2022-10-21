@@ -6,21 +6,11 @@
     event="updatePaymentNote"
     :max-width="450"
   >
-    <p>
-      Chúng tôi phát hiện bạn:
-      <span class="font-medium">{{ useUser.user.name }} </span> vừa thay đổi đơn
-      số:
-      <span class="font-medium">{{ payment.id }}. Hãy nói về điều này.</span>
-    </p>
     <a-textarea
       v-model:value="note"
       placeholder="Thông tin và thời gian sẽ được lưu tự động."
       :auto-size="{ minRows: 3, maxRows: 6 }"
     />
-    <p class="mt-1 text-gray-400 text-sm">
-      Bạn có quyền im lặng, nhưng những gì bạn nói sẽ là bằng chứng chống lại
-      anh trước toà.
-    </p>
 
     <div class="flex items-center">
       <a-button type="danger" class="ml-auto mr-3" @click="showModal = false">

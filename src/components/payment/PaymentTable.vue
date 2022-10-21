@@ -52,6 +52,10 @@
         </div>
       </template>
 
+      <template v-else-if="column.key === 'money'">
+        <p>{{ $moneyFormat(record.money) }}</p>
+      </template>
+
       <template v-else-if="column.key === 'status'">
         <a-tag v-if="record.status === STATUS.TRIAL" color="#2db7f5">
           {{ t('payment.status.trial') }}
