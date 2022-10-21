@@ -14,6 +14,8 @@ export const SORT_COUPONS = gql`
       }
       info {
         total
+        availability
+        last_page
       }
     }
   }

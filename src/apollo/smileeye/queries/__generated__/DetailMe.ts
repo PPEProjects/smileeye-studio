@@ -14,6 +14,7 @@ export interface DetailMe_detail_me {
   email: string | null;
   avatar: string | null;
   roles: any | null;
+  address: string | null;
 }
 
 export interface DetailMe {
