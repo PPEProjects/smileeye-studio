@@ -14,6 +14,11 @@
         :auto="false"
         :columns="rawColumns"
       />
+
+      <template v-else-if="column.key === 'action'">
+        <search-header-table v-model:value='formSearch' :options="searchOptions" @change='onSearch' />
+      </template>
+
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -117,6 +122,8 @@ const PaymentExpanded = defineAsyncComponent(
 const TableSettingHeader = defineAsyncComponent(
   () => import('@components/includes/TableSettingHeader.vue')
 )
+
+const SearchHeaderTable = defineAsyncComponent(() => import('@components/includes/SearchHeaderTable.vue'))
 
 import {useMutation, useQuery} from '@vue/apollo-composable'
 import {
@@ -298,4 +305,40 @@ onMounted(() =>
   })
 )
 onUnmounted(() => emitter.off('afterAppNotePayment'))
+
+/**
+ * Các fild sẽ dùng để tìm kiếm
+ * Mỗi số field đều phải có key và label
+ * @type {Array<{key: string, label: string}>}
+ * Sẽ search thoe value của field đó
+ */
+const searchOptions = [
+  {
+    label: t('user.name'),
+    value: 'name'
+  },
+  {
+    label: t('user.phone'),
+    value: 'phone_number'
+  },
+  {
+    label: t('user.email'),
+    value: 'email'
+  }
+]
+
+/**
+ * @param {ListUserVariables} variables
+ */
+const formSearch = reactive<{
+  field: 'name' | 'email' | 'phone_number'
+  keyword: ''
+}>({
+  field: 'name',
+  keyword: ''
+})
+
+const onSearch = () => {
+  //
+}
 </script>

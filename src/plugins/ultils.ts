@@ -26,11 +26,10 @@ const $cdn = (path: string, location = CDNLocation.CODE_BY) => {
 }
 
 const $moneyFormat = (money: number) => {
-  const fotmatter = new Intl.NumberFormat('vi-VN', {
+  return new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND'
-  })
-  return fotmatter.format(money)
+  }).format(money)
 }
 
 // Link Builder
