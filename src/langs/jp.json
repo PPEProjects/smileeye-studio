@@ -73,6 +73,7 @@
   "payment": {
     "billImage": "",
     "createdAt": "",
+    "updatedAt": "Ngày cập nhật",
     "history": "",
     "money": "",
     "note": "",

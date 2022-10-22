@@ -84,6 +84,7 @@
   "payment": {
     "billImage": "Bill image",
     "createdAt": "Date created",
+    "updatedAt": "Ngày cập nhật",
     "history": "History",
     "money": "Money received",
     "note": "Note",

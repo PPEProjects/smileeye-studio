@@ -83,6 +83,10 @@
         {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
       </template>
 
+      <template v-else-if="column.key === 'updatedAt'">
+        {{ dayjs(record.updated_at).format('DD/MM/YYYY') }}
+      </template>
+
       <template v-else-if="column.key === 'action'">
         <div v-if="record.status === STATUS.IN_NEED">--</div>
 
@@ -210,6 +214,13 @@ const fixColumns = [
     title: t('payment.createdAt'),
     dataIndex: 'created_at',
     key: 'createdAt',
+    align: 'center',
+    width: 200
+  },
+  {
+    title: t('payment.updatedAt'),
+    dataIndex: 'updated_at',
+    key: 'updatedAt',
     align: 'center',
     width: 200
   },

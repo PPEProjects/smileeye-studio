@@ -84,7 +84,8 @@
   },
   "payment": {
     "billImage": "Hoá Đơn",
-    "createdAt": "Ngày chuyển khoản",
+    "createdAt": "Ngày tạo",
+    "updatedAt": "Ngày cập nhật",
     "history": "Lịch Sử Giao Dịch",
     "money": "Thực Nhân",
     "note": "Ghi Chú",
