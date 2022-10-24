@@ -62,6 +62,7 @@ export const GET_PAYMENT_BY_DAY = gql`
       attachments
       created_at
       updated_at
+      bill_upserted_at
     }
   }
 `

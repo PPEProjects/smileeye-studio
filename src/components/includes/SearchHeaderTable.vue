@@ -68,6 +68,7 @@ const emit = defineEmits<{
   (e: 'update:value', value: typeof props.value): void
   (e: 'change', value: typeof props.value): void
   (e: 'search', value: typeof props.value): void
+  (e: 'cancel'): void
 }>()
 
 const formSearch = reactive<typeof props.value>(props.value)
@@ -89,5 +90,6 @@ const cancelSearch = () => {
     field: props.options[0].value,
     keyword: ''
   })
+  emit('cancel')
 }
 </script>

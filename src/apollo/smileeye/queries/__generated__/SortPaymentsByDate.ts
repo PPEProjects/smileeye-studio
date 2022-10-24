@@ -28,6 +28,8 @@ export interface SortPaymentsByDate_sort_payments_by_date {
   note: string | null;
   attachments: any | null;
   created_at: any | null;
+  updated_at: any | null;
+  bill_upserted_at: any | null;
 }
 
 export interface SortPaymentsByDate {

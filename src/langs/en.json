@@ -84,7 +84,6 @@
   "payment": {
     "billImage": "Bill image",
     "createdAt": "Date created",
-    "updatedAt": "Ngày cập nhật",
     "history": "History",
     "money": "Money received",
     "note": "Note",
@@ -100,6 +99,8 @@
       "trial": "Trial"
     },
     "title": "Payment systems",
+    "updatedAt": "Ngày cập nhật",
+    "upsertAt": "",
     "userChange": "User Change"
   },
   "sellRequest": {

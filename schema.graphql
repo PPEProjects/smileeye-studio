@@ -448,6 +448,7 @@ type Goal {
   name: String
   parent: Goal
   user: User
+  japanese_goal: JapaneseGoal
   goal_root: GoalRoot
   parent_id: ID
   user_id: ID
@@ -510,6 +511,7 @@ type GoalRank {
 
 type GoalRoot {
   id: ID
+  key: ID
   name: String
   user_id: ID
   user: User
@@ -943,6 +945,7 @@ type Payment {
   attachments: JSON
   created_at: DateTime
   updated_at: DateTime
+  bill_upserted_at: DateTime
   number_member: Int
 }
 
@@ -1018,7 +1021,7 @@ type Query {
   detail_japanese_posts(id: ID, goal_id: ID): JapanesePost
   my_japanese_posts: [JapanesePost]
   other_japanese_posts(goal_id: ID): [JapanesePost]
-  list_japanese_post(goal_id: ID): [JapanesePost]
+  list_japanese_post(goal_id: ID, limit: Int, page: Int): [JapanesePost]
   list_japanese_posts_by_goal_root(user_id: ID, goal_root_id: ID): [JapanesePost]
   list_posts_and_diary(user_id: ID, goal_root_id: ID): [PostAndDiary]
   detail_notes(id: ID): Note

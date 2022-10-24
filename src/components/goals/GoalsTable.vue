@@ -10,15 +10,23 @@
     :loading="loading"
     row-key="id"
   >
+    <template #headerCell="{ column }">
+      <template v-if="column.key === 'action'">
+        <search-header-table
+          v-model:value="formSearch"
+          :options="searchOptions"
+          @change="onChange"
+          @cancel="onChange"
+        />
+      </template>
+    </template>
+
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'">
-        <router-link
-          :to="'/goals/' + record.id"
-          class="font-medium ml-2"
-        >
+        <router-link :to="'/goals/' + record.id" class="font-medium ml-2">
           {{ record.name }}
         </router-link>
-<!--        <span v-else class="font-medium ml-2">{{ record.name }}</span>-->
+        <!--        <span v-else class="font-medium ml-2">{{ record.name }}</span>-->
       </template>
 
       <template v-else-if="column.key === 'owner'">
@@ -95,7 +103,11 @@
 
         <a-popconfirm
           v-if="record.sellRequest?.status"
-          :title="t('template.remove', { count: record?.sellRequest?.sum_member || 0 })"
+          :title="
+            t('template.remove', {
+              count: record?.sellRequest?.sum_member || 0
+            })
+          "
           placement="topLeft"
           :ok-text="t('button.yes')"
           :cancel-text="t('button.no')"
@@ -119,9 +131,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { defineAsyncComponent, reactive } from 'vue'
+import { useDebounceFn } from '@vueuse/core'
 
 import { EditOutlined, CheckOutlined } from '@ant-design/icons-vue'
+const SearchHeaderTable = defineAsyncComponent(
+  () => import('@components/includes/SearchHeaderTable.vue')
+)
 
 import { useDayjs } from '@composables/useDayjs'
 import { useI18n } from 'vue-i18n'
@@ -212,4 +228,36 @@ const { mutate, loading } = useMutation<
     })
   }
 })
+
+/**
+ * Các fild sẽ dùng để tìm kiếm
+ * Mỗi số field đều phải có key và label
+ * @type {Array<{key: string, label: string}>}
+ * Sẽ search thoe value của field đó
+ */
+const searchOptions = [
+  {
+    label: t('user.name'),
+    value: 'name'
+  }
+]
+
+/**
+ * @param {ListUserVariables} variables
+ */
+const formSearch = reactive<{
+  field: 'name' | 'email' | 'phone_number'
+  keyword: ''
+}>({
+  field: 'name',
+  keyword: ''
+})
+
+const emit = defineEmits<{
+  (e: 'onSearch', value: string): void
+}>()
+
+const onChange = useDebounceFn(() => {
+  emit('onSearch', formSearch.keyword)
+}, 300)
 </script>

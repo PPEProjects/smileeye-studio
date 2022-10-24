@@ -79,12 +79,8 @@
         </a-tag>
       </template>
 
-      <template v-else-if="column.key === 'createdAt'">
-        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
-      </template>
-
-      <template v-else-if="column.key === 'updatedAt'">
-        {{ dayjs(record.updated_at).format('DD/MM/YYYY') }}
+      <template v-else-if="column.key === 'bill_upserted_at'">
+        {{ dayjs(record.bill_upserted_at).format('DD/MM/YYYY') }}
       </template>
 
       <template v-else-if="column.key === 'action'">
@@ -211,16 +207,9 @@ const fixColumns = [
     width: 180
   },
   {
-    title: t('payment.createdAt'),
-    dataIndex: 'created_at',
-    key: 'createdAt',
-    align: 'center',
-    width: 200
-  },
-  {
-    title: t('payment.updatedAt'),
-    dataIndex: 'updated_at',
-    key: 'updatedAt',
+    title: t('payment.upsertAt'),
+    dataIndex: 'bill_upserted_at',
+    key: 'bill_upserted_at',
     align: 'center',
     width: 200
   },

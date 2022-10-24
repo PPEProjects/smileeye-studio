@@ -73,7 +73,6 @@
   "payment": {
     "billImage": "",
     "createdAt": "",
-    "updatedAt": "Ngày cập nhật",
     "history": "",
     "money": "",
     "note": "",
@@ -89,6 +88,8 @@
       "wanted": ""
     },
     "title": "Hệ Thống Thanh Toán",
+    "updatedAt": "Ngày cập nhật",
+    "upsertAt": "",
     "userChange": ""
   },
   "settings": {
