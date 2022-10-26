@@ -33,3 +33,9 @@ export const UPDATE_ROLES = gql`
     }
   }
 `
+
+export const DELETE_USER = gql`
+  mutation Delete_user($deleteUserId: ID!) {
+    delete_user(id: $deleteUserId)
+  }
+`

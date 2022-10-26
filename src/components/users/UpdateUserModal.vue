@@ -155,16 +155,23 @@
 
       <a-form-item>
         <div class="flex justify-end">
-          <a-popconfirm
-            :title="t('actions.delete.title', { name: formState.name })"
-            :ok-text="t('button.yes')"
-            :cancel-text="t('button.no')"
-            :disabled="loading"
+          <!--          <a-popconfirm-->
+          <!--            :title="t('actions.delete.title', { name: formState.name })"-->
+          <!--            :ok-text="t('button.yes')"-->
+          <!--            :cancel-text="t('button.no')"-->
+          <!--            :disabled="loading"-->
+          <!--          >-->
+          <!--            <a-button type="danger">-->
+          <!--              {{ t('button.delete') }}-->
+          <!--            </a-button>-->
+          <!--          </a-popconfirm>-->
+          <a-button
+            type="danger"
+            :loading="isCheckingUser"
+            @click="askDeleteUser({ id: formState.id })"
           >
-            <a-button type="danger">
-              {{ t('button.delete') }}
-            </a-button>
-          </a-popconfirm>
+            {{ t('button.delete') }}
+          </a-button>
 
           <a-button
             type="primary"
@@ -217,6 +224,20 @@
       </div>
     </template>
   </modal-base>
+
+  <a-modal
+    v-model:visible="visible"
+    title="Xác Nhận Xoá Thành Viên"
+    :confirm-loading="isDeletingUser"
+    @ok="deleteUser({ deleteUserId: String(formState.id) })"
+  >
+    <p>Bạn đang yêu cầu xoá thành viên: {{ formState.name }}</p>
+    <p v-if="deletedUser.goals">
+      Hiện {{ formState.name }} đang sở hữu
+      {{ deletedUser.goals?.length }} Goals.
+    </p>
+    <p>Bạn không thể hoàn tác việc này...</p>
+  </a-modal>
 </template>
 
 <script lang="ts" setup>
@@ -230,19 +251,39 @@ import {
 
 import { computed, defineAsyncComponent, reactive, ref } from 'vue'
 
-const ModalBase = defineAsyncComponent(() => import('@components/modal/ModalBase.vue'))
-const ImageCropper = defineAsyncComponent(() => import('@components/includes/ImageCropper.vue'))
-const UserRolesTag = defineAsyncComponent(() => import('@components/user/UserRolesTag.vue'))
+const ModalBase = defineAsyncComponent(
+  () => import('@components/modal/ModalBase.vue')
+)
+const ImageCropper = defineAsyncComponent(
+  () => import('@components/includes/ImageCropper.vue')
+)
+const UserRolesTag = defineAsyncComponent(
+  () => import('@components/user/UserRolesTag.vue')
+)
 
 import { District, Province, Ward } from '@components/users/types'
 import { useMutation } from '@vue/apollo-composable'
-import { UPDATE_USER_INFO } from '#smileeye/mutations/user.mutation'
+import {
+  DELETE_USER,
+  UPDATE_USER_INFO
+} from '#smileeye/mutations/user.mutation'
 import {
   UpdateUserInfo,
   UpdateUserInfoVariables
 } from '#smileeye/mutations/__generated__/UpdateUserInfo'
 import { useFileSystemAccess } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
+import { ASK_DELETE_USER } from '#smileeye/queries/user.query'
+import {
+  Ask_delete_user,
+  Ask_delete_user_ask_delete_user,
+  Ask_delete_userVariables
+} from '#smileeye/queries/__generated__/Ask_delete_user'
+import {
+  Delete_user,
+  Delete_userVariables
+} from '#smileeye/mutations/__generated__/Delete_user'
+import { useSmileeye } from '#apollo/client/smileeye'
 
 const { t } = useI18n()
 // modal
@@ -406,4 +447,35 @@ const uploadImageHandle = async () => {
     uploadingImage.value = false
   })
 }
+
+// delete user
+const {
+  mutate: askDeleteUser,
+  loading: isCheckingUser,
+  onDone: afterCheckUser
+} = useMutation<Ask_delete_user, Ask_delete_userVariables>(ASK_DELETE_USER)
+
+const deletedUser = ref<Ask_delete_user_ask_delete_user>()
+const visible = ref<boolean>(false)
+afterCheckUser((data) => {
+  if (data.data?.ask_delete_user) {
+    deletedUser.value = data.data.ask_delete_user
+    visible.value = true
+  }
+})
+
+const {
+  mutate: deleteUser,
+  loading: isDeletingUser,
+  onDone: afterDeleteUser
+} = useMutation<Delete_user, Delete_userVariables>(DELETE_USER)
+
+const smileeye = useSmileeye()
+afterDeleteUser(() => {
+  modal.value?.dispose()
+  visible.value = false
+  smileeye.cache.evict({
+    id: smileeye.cache.identify(formState)
+  })
+})
 </script>

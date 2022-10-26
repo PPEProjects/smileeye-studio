@@ -120,3 +120,14 @@ export const SEARCH_USERS_BY_GOAL = gql`
     }
   }
 `
+
+export const ASK_DELETE_USER = gql`
+  query Ask_delete_user($id: ID!) {
+    ask_delete_user(id: $id) {
+      goals {
+        id
+        name
+      }
+    }
+  }
+`

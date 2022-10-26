@@ -41,6 +41,10 @@ input AddMemberFriendGroupInput {
   member_ids: [ID!]!
 }
 
+type AskDeleteUser {
+  goals: [GoalRoot]
+}
+
 input AssignPermissionInput {
   permission_ids: [ID!]!
   role_id: ID!
@@ -795,6 +799,7 @@ type Mutation {
   update_task(input: EditTaskInput!): Task
   delete_task(input: deleteTaskInput!): Boolean
   task_toggle(id: ID!, date: String!): Task
+  delete_user(id: ID!): Boolean
   update_user(input: UpdateUserInput!): User
   create_user_edit_goal(input: CreateUserEditGoalInput!): UserEditGoal
   delete_user_edit_goal(input: deleteUserEditGoalInput!): Boolean
@@ -1045,6 +1050,7 @@ type Query {
   tasks_sort_by_day(month: String): [TaskByMonth]
   detail_task(id: ID): Task
   my_tasks(date: String!): [Task]
+  ask_delete_user(id: ID!): AskDeleteUser
   detail_me: User
   list_user(phone_number: String, role: String, email: String, name: String, first: Int!, page: Int!, orderBy: [OrderByClause!]): ListUser
   list_student(goal_root_id: ID): [User]
