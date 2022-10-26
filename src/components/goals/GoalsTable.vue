@@ -43,7 +43,7 @@
       </template>
 
       <template v-else-if="column.key === 'price'">
-        <span>{{ record.price || '0' }}</span>
+        <span>{{ $moneyFormat(record.price) }}</span>
       </template>
 
       <template v-else-if="column.key === 'status'">
