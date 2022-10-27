@@ -148,6 +148,10 @@ const columns = reactive<IExcelColumn[]>([
     value: 'status'
   },
   {
+    label: t('payment.upsertAt'),
+    value: 'bill_upserted_at'
+  },
+  {
     label: t('payment.createdAt'),
     value: 'created_at'
   },
