@@ -148,6 +148,7 @@ import {UpsertPayment, UpsertPaymentVariables} from "#smileeye/mutations/__gener
 import {UPSERT_PAYMENT} from "#smileeye/mutations/payment.mutation";
 import {PaymentByID} from "#smileeye/queries/__generated__/PaymentByID";
 import {useFireRTDB} from "@composables/useFirebase";
+import {useDebounceFn} from "@vueuse/core";
 
 const { t } = useI18n()
 
@@ -239,7 +240,7 @@ const columns = computed(() => {
 
 const route = useRoute()
 
-const queryVariables = reactive({
+const queryVariables = ref<SortPaymentsVariables>({
   first: 6,
   page: 1,
   status: ((route.query.status as string) || '').toUpperCase()
@@ -256,9 +257,9 @@ const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
 const payments = computed(() => {
   const _payments = result.value?.sort_payments || []
 
-  if (queryVariables.status) {
+  if (queryVariables.value.status) {
     return _payments.filter(
-      (_payment) => _payment?.status === queryVariables.status
+      (_payment) => _payment?.status === queryVariables.value.status
     )
   }
   return _payments
@@ -315,7 +316,7 @@ onUnmounted(() => emitter.off('afterAppNotePayment'))
 const searchOptions = [
   {
     label: t('user.name'),
-    value: 'name'
+    value: 'goal_name'
   },
   {
     label: t('user.phone'),
@@ -331,14 +332,20 @@ const searchOptions = [
  * @param {ListUserVariables} variables
  */
 const formSearch = reactive<{
-  field: 'name' | 'email' | 'phone_number'
+  field: 'goal_name' | 'email' | 'phone_number'
   keyword: ''
 }>({
-  field: 'name',
+  field: 'goal_name',
   keyword: ''
 })
 
+const searchDebounceFn = useDebounceFn(() => {
+  queryVariables.value.search = {
+    [formSearch.field]: formSearch.keyword
+  }
+}, 300)
+
 const onSearch = () => {
-  //
+  searchDebounceFn()
 }
 </script>

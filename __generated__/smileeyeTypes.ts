@@ -90,6 +90,13 @@ export interface OrderByClause {
   order: SortOrder;
 }
 
+export interface SearchPayment {
+  user_name?: string | null;
+  email?: string | null;
+  phone_number?: string | null;
+  goal_name?: string | null;
+}
+
 export interface UpdatePassword {
   old_password: string;
   password: string;

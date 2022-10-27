@@ -236,7 +236,7 @@
       Hiện {{ formState.name }} đang sở hữu
       {{ deletedUser.goals?.length }} Goals.
     </p>
-    <p>Bạn không thể hoàn tác việc này...</p>
+    <p>Bạn thực sự muốn xoá?</p>
   </a-modal>
 </template>
 

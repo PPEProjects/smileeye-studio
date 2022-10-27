@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { SearchPayment } from "./../../../../../__generated__/smileeyeTypes";
+
 // ====================================================
 // GraphQL query operation: SortPayments
 // ====================================================
@@ -38,4 +40,5 @@ export interface SortPaymentsVariables {
   first?: number | null;
   page?: number | null;
   status?: string | null;
+  search?: SearchPayment | null;
 }
