@@ -16,9 +16,12 @@
       />
 
       <template v-else-if="column.key === 'action'">
-        <search-header-table v-model:value='formSearch' :options="searchOptions" @change='onSearch' />
+        <search-header-table
+          v-model:value="formSearch"
+          :options="searchOptions"
+          @change="onSearch"
+        />
       </template>
-
     </template>
 
     <template #bodyCell="{ column, record }">
@@ -83,6 +86,10 @@
         {{ dayjs(record.bill_upserted_at).format('DD/MM/YYYY') }}
       </template>
 
+      <template v-else-if="column.key === 'createdAt'">
+        {{ dayjs(record.created_at).format('DD/MM/YYYY') }}
+      </template>
+
       <template v-else-if="column.key === 'action'">
         <div v-if="record.status === STATUS.IN_NEED">--</div>
 
@@ -90,10 +97,17 @@
           v-else
           :payment="record"
           @delete="
-            emitter.emit('beforeUpdatePayment', { id: record.id, status: STATUS.TRIAL, money: 0})
+            emitter.emit('beforeUpdatePayment', {
+              id: record.id,
+              status: STATUS.TRIAL,
+              money: 0
+            })
           "
           @confirm="
-            emitter.emit('beforeUpdatePayment', { id: record.id, status: STATUS.PAID_CONFIRMED })
+            emitter.emit('beforeUpdatePayment', {
+              id: record.id,
+              status: STATUS.PAID_CONFIRMED
+            })
           "
         />
       </template>
@@ -108,7 +122,9 @@
 <script lang="ts" setup>
 import {
   computed,
-  defineAsyncComponent, onMounted, onUnmounted,
+  defineAsyncComponent,
+  onMounted,
+  onUnmounted,
   reactive,
   ref
 } from 'vue'
@@ -123,9 +139,11 @@ const TableSettingHeader = defineAsyncComponent(
   () => import('@components/includes/TableSettingHeader.vue')
 )
 
-const SearchHeaderTable = defineAsyncComponent(() => import('@components/includes/SearchHeaderTable.vue'))
+const SearchHeaderTable = defineAsyncComponent(
+  () => import('@components/includes/SearchHeaderTable.vue')
+)
 
-import {useMutation, useQuery} from '@vue/apollo-composable'
+import { useMutation, useQuery } from '@vue/apollo-composable'
 import {
   SortPayments,
   SortPaymentsVariables
@@ -141,14 +159,17 @@ import {
   SumPaymentVariables
 } from '#smileeye/queries/__generated__/SumPayment'
 import { useEmitter } from '@nguyenshort/vue3-mitt'
-import {STATUS, UpsertPaymentInput} from '#schema/smileeyeTypes'
+import { STATUS, UpsertPaymentInput } from '#schema/smileeyeTypes'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import {UpsertPayment, UpsertPaymentVariables} from "#smileeye/mutations/__generated__/UpsertPayment";
-import {UPSERT_PAYMENT} from "#smileeye/mutations/payment.mutation";
-import {PaymentByID} from "#smileeye/queries/__generated__/PaymentByID";
-import {useFireRTDB} from "@composables/useFirebase";
-import {useDebounceFn} from "@vueuse/core";
+import {
+  UpsertPayment,
+  UpsertPaymentVariables
+} from '#smileeye/mutations/__generated__/UpsertPayment'
+import { UPSERT_PAYMENT } from '#smileeye/mutations/payment.mutation'
+import { PaymentByID } from '#smileeye/queries/__generated__/PaymentByID'
+import { useFireRTDB } from '@composables/useFirebase'
+import { useDebounceFn } from '@vueuse/core'
 
 const { t } = useI18n()
 
@@ -185,7 +206,8 @@ const rawColumns = reactive([
 /**
  * Cột tĩnh. Sẽ không thay đổi khi cập nhật dữ liệu
  */
-const fixColumns = [
+const route = useRoute()
+const fixColumns = computed(() => [
   {
     title: t('payment.money'),
     dataIndex: 'money',
@@ -207,13 +229,21 @@ const fixColumns = [
     align: 'center',
     width: 180
   },
-  {
-    title: t('payment.upsertAt'),
-    dataIndex: 'bill_upserted_at',
-    key: 'bill_upserted_at',
-    align: 'center',
-    width: 200
-  },
+  ['paid_confirmed', 'on_buy'].includes(String(route.query.status))
+    ? {
+        title: t('payment.upsertAt'),
+        dataIndex: 'bill_upserted_at',
+        key: 'bill_upserted_at',
+        align: 'center',
+        width: 200
+      }
+    : {
+        title: t('payment.createdAt'),
+        dataIndex: 'created_at',
+        key: 'createdAt',
+        align: 'center',
+        width: 200
+      },
   {
     title: t('table.action.title'),
     key: 'action',
@@ -221,7 +251,7 @@ const fixColumns = [
     fixed: 'right',
     width: 130
   }
-]
+])
 
 /**
  * Sự kiện toàn cầu cho cột động
@@ -235,10 +265,8 @@ const emitter = useEmitter<{
 // Merger cuột tĩnh và cột động
 const columns = computed(() => {
   const _dynamic = selectColumns.value.map((_index) => rawColumns[_index])
-  return [..._dynamic, ...fixColumns]
+  return [..._dynamic, ...fixColumns.value]
 })
-
-const route = useRoute()
 
 const queryVariables = ref<SortPaymentsVariables>({
   first: 6,
@@ -249,9 +277,9 @@ const queryVariables = ref<SortPaymentsVariables>({
 const { result, loading } = useQuery<SortPayments, SortPaymentsVariables>(
   SORT_PAYMENTS,
   queryVariables,
-    {
-      fetchPolicy: 'network-only'
-    }
+  {
+    fetchPolicy: 'network-only'
+  }
 )
 
 const payments = computed(() => {
@@ -315,8 +343,12 @@ onUnmounted(() => emitter.off('afterAppNotePayment'))
  */
 const searchOptions = [
   {
-    label: t('user.name'),
+    label: t('user.name') + ' Goal',
     value: 'goal_name'
+  },
+  {
+    label: t('user.name') + ' Thành Viên',
+    value: 'user_name'
   },
   {
     label: t('user.phone'),
