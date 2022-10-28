@@ -238,7 +238,7 @@ const fixColumns = computed(() => [
         width: 200
       }
     : {
-        title: t('payment.createdAt'),
+        title: 'Ngày Tải Goal',
         dataIndex: 'created_at',
         key: 'createdAt',
         align: 'center',
