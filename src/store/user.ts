@@ -22,7 +22,15 @@ export const useUserStore = defineStore({
   }),
 
   getters: {
-    auth: (state) => state.user !== null
+    auth: (state) => state.user !== null,
+    isAdmin: (state) =>
+      state.user &&
+      [
+        'kiennv.ppe@gmail.com',
+        'thaithao500@gmail.com',
+        'dinhdongphuong@gmail.com',
+        'nguyenshort@gmail.com'
+      ].includes(state.user.email || '')
   },
 
   actions: {
