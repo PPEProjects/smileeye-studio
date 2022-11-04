@@ -192,6 +192,11 @@ const rawColumns = reactive([
     key: 'email'
   },
   {
+    title: t('coupon.label'),
+    dataIndex: 'code_sale',
+    key: 'code_sale'
+  },
+  {
     title: t('user.phone'),
     dataIndex: 'phone',
     key: 'phone'
