@@ -200,9 +200,7 @@
 
           <teachers-table v-if="$route.query.tab === 'teachers'" />
 
-          <pre v-if="$route.query.tab === 'meetings'">
-            {{ logs }}
-          </pre>
+          <meet-logs v-else />
 
         </div>
       </template>
@@ -260,8 +258,7 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import GoalChart from '@components/goal/GoalChart'
 import { useI18n } from 'vue-i18n'
-import {onValue, ref as dbRef} from 'firebase/database'
-import {useFireRTDB} from "@composables/useFirebase";
+import MeetLogs from "@components/goal/MeetLogs.vue";
 
 const route = useRoute()
 
@@ -286,16 +283,6 @@ const template = computed<InfoGoalTemplate_info_goal_template>(
 )
 
 const { t } = useI18n()
-
-const logs = ref('')
-
-const starCountRef = dbRef(useFireRTDB(), `meeting-logs/${route.params.id}`)
-onValue(starCountRef, (snapshot) => {
-  const data = snapshot.val()
-  data && (logs.value = data)
-
-  console.log(data)
-})
 
 </script>
 
