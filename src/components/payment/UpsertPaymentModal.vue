@@ -127,7 +127,18 @@
                   }
                 ]"
               >
-                <a-input v-model:value.number="formState.money" />
+                <a-tooltip
+                  :trigger="['focus']"
+                  placement="topLeft"
+                  overlay-class-name="numeric-input"
+                >
+                  <template v-if="formState.money" #title>
+                    <span class="numeric-input-title">
+                      {{ $moneyFormat(formState.money) }}
+                    </span>
+                  </template>
+                  <a-input v-model:value.number="formState.money" />
+                </a-tooltip>
               </a-form-item>
             </div>
           </div>
@@ -189,15 +200,16 @@
             </a-button>
           </a-popconfirm>
 
-          <a-button type="primary" class="ml-auto" ghost @click="$router.push('/payment/' + formState.id)">
+          <a-button
+            type="primary"
+            class="ml-auto"
+            ghost
+            @click="$router.push('/payment/' + formState.id)"
+          >
             {{ t('button.detail') }}
           </a-button>
 
-          <a-button
-            type="primary"
-            html-type="submit"
-            class="ml-4"
-          >
+          <a-button type="primary" html-type="submit" class="ml-4">
             {{ t('button.update') }}
           </a-button>
         </div>
@@ -207,11 +219,11 @@
 </template>
 
 <script lang="ts" setup>
-import {defineAsyncComponent, reactive, ref} from 'vue'
-import {SortPayments_sort_payments} from '#smileeye/queries/__generated__/SortPayments'
-import {STATUS, UpsertPaymentInput} from '#schema/smileeyeTypes'
-import {useI18n} from 'vue-i18n'
-import {useEmitter} from "@nguyenshort/vue3-mitt";
+import { defineAsyncComponent, reactive, ref } from 'vue'
+import { SortPayments_sort_payments } from '#smileeye/queries/__generated__/SortPayments'
+import { STATUS, UpsertPaymentInput } from '#schema/smileeyeTypes'
+import { useI18n } from 'vue-i18n'
+import { useEmitter } from '@nguyenshort/vue3-mitt'
 
 const ModalBase = defineAsyncComponent(
   () => import('@components/modal/ModalBase.vue')
@@ -278,10 +290,9 @@ const buildInput = () => {
 
 // payment.history.title
 
-
 const updatePayment = (doc: any) => {
   modal.value?.dispose()
-  emitter.emit('beforeUpdatePayment', doc);
+  emitter.emit('beforeUpdatePayment', doc)
 }
 
 const deletePayment = () => {
@@ -289,8 +300,8 @@ const deletePayment = () => {
   emitter.emit('beforeUpdatePayment', {
     status: STATUS.TRIAL,
     money: 0,
-    id: formState.id,
-  });
+    id: formState.id
+  })
 }
 </script>
 
