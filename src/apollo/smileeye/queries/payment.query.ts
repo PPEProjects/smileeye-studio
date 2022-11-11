@@ -18,6 +18,7 @@ export const SORT_PAYMENTS = gql`
       money
       note
       attachments
+      bill_upserted_at
       created_at
     }
   }
