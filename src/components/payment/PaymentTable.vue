@@ -369,10 +369,10 @@ const searchOptions = [
  * @param {ListUserVariables} variables
  */
 const formSearch = reactive<{
-  field: 'goal_name' | 'email' | 'phone_number'
+  field: 'goal_name' | 'user_name' | 'email' | 'phone_number'
   keyword: ''
 }>({
-  field: 'goal_name',
+  field: 'user_name',
   keyword: ''
 })
 
